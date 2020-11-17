@@ -1,0 +1,37 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@luma.gl/core": "^8.2.0",
+    "antd": "^4.7.0",
+    "d3-scale": "^3.2.2",
+    "d3-scale-chromatic": "^2.0.0",
+    "deck.gl": "^8.2.7",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-map-gl": "^5.2.10",
+    "react-scripts": "^4.0.0",
+    "recharts": "^1.8.5",
+    "source-map-explorer": "^2.5.0"
+  },
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "simplify-geojson": "^1.0.3"
+  }
+}
