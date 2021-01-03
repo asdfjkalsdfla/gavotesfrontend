@@ -4,7 +4,7 @@ import { CloseOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 
-export default function VoteMapOptions({ updateElevationApproach, updateShowOptions, elevationApproach, updateColorApproach, colorApproach, updateShow2016Data, show2016Data }) {
+export default function VoteMapOptions({ updateElevationApproach, updateShowOptions, elevationApproach, updateColorApproach, colorApproach, updateShow2016Data, show2016Data, updateShow2018Data, show2018Data }) {
     return <React.Fragment><h1>Options
         {updateShowOptions && <span style={{ float: "right" }}><Button shape="circle" icon={<CloseOutlined />} onClick={() => {
             updateShowOptions(false);
@@ -16,8 +16,10 @@ export default function VoteMapOptions({ updateElevationApproach, updateShowOpti
             placeholder="Elevation Based On"
             value={elevationApproach}
         >
-            <Option value="vs2018">Current Votes vs. 2018</Option>
+            <Option value="turnoutAbsSameDayVs2020">Current Votes vs. 2020 @ Same Day</Option>
             <Option value="vs2018Abs">Current Votes vs. 2018 Abs @ Same Day</Option>
+            <Option value="turnoutVs2020">Current Votes vs. 2020</Option>
+            <Option value="turnoutVs2018">Current Votes vs. 2018</Option>
             <Option value="turnoutVs2016">Current Votes vs. 2016</Option>
             <Option value="votes">Current Votes</Option>
             <Option value="votesYest">Votes Yesterday</Option>
@@ -33,6 +35,7 @@ export default function VoteMapOptions({ updateElevationApproach, updateShowOpti
             value={colorApproach}
             virtual={false}
         >
+            <Option value="turnoutAbsSameDayVs2020">Current Votes vs. 2020 @ Same Day</Option>
             <Option value="turnoutAbsSameDayVs2018">Current Votes vs. 2018 @ Same Day</Option>
             <Option value="perRepublican2020">2020 Results</Option>
             <Option value="perRepublican2018">2018 Results</Option>
@@ -51,6 +54,7 @@ export default function VoteMapOptions({ updateElevationApproach, updateShowOpti
             <Option value="republicanTurnoutVs2016">Republican Votes % Change from 2018</Option>
         </Select>
         <br /><br />
+        <Checkbox checked={show2018Data} onChange={(e) => { updateShow2018Data(e.target.checked) }}>Show 2018 Data</Checkbox><br />
         <Checkbox checked={show2016Data} onChange={(e) => { updateShow2016Data(e.target.checked) }}>Show 2016 Data</Checkbox>
         <br /><br /></React.Fragment>
 } 

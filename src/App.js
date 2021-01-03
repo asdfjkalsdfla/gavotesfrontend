@@ -1,11 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import VotesRoot from "./VotesRoot";
+import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch"
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return <VotesRoot />;
-  }
+export default function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/precincts/match">
+          <PrecinctsResultToShapeMatch />
+        </Route>
+        <Route path="/">
+          <VotesRoot />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
-
-export default App;

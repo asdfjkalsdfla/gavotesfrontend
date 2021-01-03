@@ -5,17 +5,17 @@ import {
 
 
 export default function VotesByDateChart({ resultSummary }) {
-    const electionDate = new Date('11/3/2020');
+    const electionDate = new Date('1/5/2021');
     const todayDate = new Date();
     const diffTime = todayDate - electionDate;
     const diffDays = Math.min(-1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1);
     // Filter out bad data points from SOS data
-    let chartPoints = resultSummary["2020votes"] ? resultSummary["2020votes"].filter(date => date.DaysFromElection <= diffDays && date.DaysFromElection > -42) : [];
+    let chartPoints = resultSummary["votes2021"] ? resultSummary["votes2021"].filter(date => date.DaysFromElection <= diffDays && date.DaysFromElection > -42) : [];
 
     // match up the 2018 data
     const lastElectionResults = new Map();
-    if (resultSummary["2018votes"])
-        resultSummary["2018votes"].map(point => lastElectionResults.set(point.DaysFromElection, point.votesOnDate))
+    if (resultSummary["votes2020"])
+        resultSummary["votes2020"].map(point => lastElectionResults.set(point.DaysFromElection, point.votesOnDate))
     chartPoints.forEach((point) => {
         if (lastElectionResults.has(point.DaysFromElection)) {
             point.lastElectionVotesOnDate = lastElectionResults.get(point.DaysFromElection)
@@ -35,7 +35,7 @@ export default function VotesByDateChart({ resultSummary }) {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line name="2018 Votes" type="linear" dataKey="lastElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line name="2020 Votes" type="linear" dataKey="votesOnDate" stroke="#82ca9d" activeDot={{ r: 8 }} />
+        <Line name="2020 Votes" type="linear" dataKey="lastElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line name="2021 Votes" type="linear" dataKey="votesOnDate" stroke="#82ca9d" activeDot={{ r: 8 }} />
     </LineChart>
 }
