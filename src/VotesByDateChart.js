@@ -4,23 +4,22 @@ import {
 } from 'recharts';
 
 
-export default function VotesByDateChart({ resultSummary }) {
-    const electionDate = new Date('1/5/2021');
-    const todayDate = new Date();
-    const diffTime = todayDate - electionDate;
-    const diffDays = Math.min(-1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1);
-    // Filter out bad data points from SOS data
-    let chartPoints = resultSummary["votes2021"] ? resultSummary["votes2021"].filter(date => date.DaysFromElection <= diffDays && date.DaysFromElection > -42) : [];
+export default function VotesByDateChart({ resultSummary, absenteeElectionBaseLabel }) {
 
-    // match up the 2018 data
-    const lastElectionResults = new Map();
-    if (resultSummary["votes2020"])
-        resultSummary["votes2020"].map(point => lastElectionResults.set(point.DaysFromElection, point.votesOnDate))
+    // console.log(resultSummary);
+    // Filter out bad data points from SOS data
+    let chartPoints = resultSummary["absenteeBase"] && resultSummary["absenteeBase"].votesByDay ? resultSummary["absenteeBase"].votesByDay.filter(date => date.DaysFromElection <= 0 && date.DaysFromElection > -42) : [];
+
+    // match up the dates
+    const currentElectionMap = new Map();
+    if (resultSummary["absenteeCurrent"] && resultSummary["absenteeCurrent"].votesByDay)
+        resultSummary["absenteeCurrent"].votesByDay.map(point => currentElectionMap.set(point.DaysFromElection, point.votesOnDate))
     chartPoints.forEach((point) => {
-        if (lastElectionResults.has(point.DaysFromElection)) {
-            point.lastElectionVotesOnDate = lastElectionResults.get(point.DaysFromElection)
+        if (currentElectionMap.has(point.DaysFromElection)) {
+            point.currentElectionVotesOnDate = currentElectionMap.get(point.DaysFromElection)
         }
     })
+
     const width = Math.max(window.innerWidth * 0.25, 300) - 25;
     return <LineChart
         width={width}
@@ -35,7 +34,7 @@ export default function VotesByDateChart({ resultSummary }) {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line name="2020 Votes" type="linear" dataKey="lastElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line name="2021 Votes" type="linear" dataKey="votesOnDate" stroke="#82ca9d" activeDot={{ r: 8 }} />
+        <Line name="2022 Votes" type="linear" dataKey="currentElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line name={`${absenteeElectionBaseLabel} Votes`} type="linear" dataKey="votesOnDate" stroke="#82ca9d" activeDot={{ r: 8 }} />
     </LineChart>
 }

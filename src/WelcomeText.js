@@ -10,7 +10,7 @@ export default function WelcomeText({ updateShowWelcome }) {
         }} /></span></h1>
                 <br />
                 <h2>What you see</h2>
-                <div>The height of each county is the % of 2018 voters that have voted in 2020, and the color is the split between Abrams and Kemp in 2018.</div>
+                <div>The height of each county is the % of voters that have early voted this year vs. in 2020 at the same, and the color is the split between Biden and Trump in 2020.</div>
                 <br />
                 <h2>How to get around</h2>
                 <div>

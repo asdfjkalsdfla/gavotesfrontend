@@ -3,18 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@luma.gl/core": "^8.2.0",
+    "@deck.gl/core": "^8.8.15",
+    "@deck.gl/layers": "^8.8.15",
+    "@deck.gl/mapbox": "^8.8.15",
+    "@deck.gl/react": "^8.8.15",
     "antd": "^4.7.0",
     "d3-scale": "^3.2.2",
     "d3-scale-chromatic": "^2.0.0",
-    "deck.gl": "^8.2.7",
+    "mapbox-gl": "^2.10.0",
     "protobufjs": "^7.1.2",
     "react": "^18.2.0",
-    "react-dom": "^16.6.0",
-    "react-map-gl": "^5.2.10",
-    "react-router-dom": "^6.4.2",
+    "react-dom": "^17.0.0",
+    "react-map-gl": "^7.0.19",
     "react-scripts": "^5.0.1",
-    "recharts": "^1.8.5",
+    "recharts": "^2.1.15",
     "source-map-explorer": "^2.5.0"
   },
   "scripts": {
@@ -28,10 +30,7 @@
     "extends": "react-app"
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+    ">0.2%", "not dead", "not ie 11", "not chrome < 51", "not safari < 10", "not android < 51"
   ],
   "devDependencies": {
     "simplify-geojson": "^1.0.3"

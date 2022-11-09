@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { _MapContext as MapContext, NavigationControl } from "react-map-gl";
-import { StaticMap } from "react-map-gl";
-import DeckGL from "@deck.gl/react";
+import 'mapbox-gl/dist/mapbox-gl.css';
+import React, { useState, useEffect, useMemo } from "react";
+import Map, { NavigationControl, useControl } from 'react-map-gl';
 import {
   LightingEffect,
   AmbientLight,
+  DirectionalLight,
   _SunLight as SunLight,
 } from "@deck.gl/core";
+import { MapboxOverlay } from '@deck.gl/mapbox';
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
@@ -61,20 +62,117 @@ const convertD3ColorToArray = (color) => {
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoicmljaGFyZG93cmlnaHQiLCJhIjoiY2podXhvNGUxMHRlaTNycnNteTFyM3UyZCJ9.AvD-USUs_rTwesgEJCmECA";
 
+function DeckGLOverlay(props) {
+  const overlay = useControl(() => new MapboxOverlay(props));
+  overlay.setProps(props);
+  return null;
+}
+
 export default function VotesMap({
   mapStyle = "mapbox://styles/mapbox/light-v10",
   elevationApproach,
   colorApproach,
-  data,
-  dataSimple,
+  allElectionData,
   updateActiveSelection,
   updateActiveHover,
-  INITIAL_VIEW_STATE,
   isCountyLevel = false,
   updateIsCountyLevel,
+  county,
   initialZoom,
-  userHasSetLevel,
+  userHasSetLevel
 }) {
+  // ************************************************
+  // Manage the map data
+  // ************************************************
+  // If the user sets a specific county, we show only that counties data @ precinct level
+  // Otherwise, we determine if we show counties or precinct state wide data
+  const geoJSONFile = county
+    ? `/static/GA_precincts_2020_${county}_simple.json`
+    : isCountyLevel
+      ? "/static/GA_counties_simple.json"
+      : "/static/GA_precincts_simple_2020.json";
+
+  const [dataGeoJSONBase, updateDataGeoJSONBase] = useState();
+  useEffect(() => {
+    const load = async () => {
+      const responseGeo = await fetch(geoJSONFile);
+      if (!responseGeo.ok) {
+        console.log("ERROR loading GEO JSON file");
+        return;
+      }
+      const geoJSONBase = await responseGeo.json();
+      updateDataGeoJSONBase(geoJSONBase);
+    }
+    load();
+  }, [geoJSONFile]);
+
+  const [dataGeoJSON, updateDataGeoJSON] = useState();
+  const [dataPropsOnly, updateDataPropsOnly] = useState();
+
+  useEffect(() => {
+    if (!dataGeoJSONBase) return;
+    if (!allElectionData) return;
+
+    // Merge the values together into a single file
+    dataGeoJSONBase.features.forEach((feature) => {
+      const votingResultRaw = feature.properties;
+      const properties = allElectionData.has(votingResultRaw.id)
+        ? allElectionData.get(votingResultRaw.id)
+        : {};
+
+      feature.properties = { ...feature.properties, ...properties };
+    });
+    if (allElectionData.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
+
+    // For the scatter plot, we just need the center coordinates and not the full geoJSON
+    // The simplest way to get that is to just pull it out of the geoJSON
+    // It's worth considering splitting these from the geoJSON in the future (i.e. load the data and then merge w/ the geoJSON)
+    // That would enable caching of the big geoJSON shape definition since the properties won't change
+    const simpleData = dataGeoJSONBase.features.map((feature) => feature.properties);
+    updateDataPropsOnly(simpleData);
+  }, [dataGeoJSONBase, allElectionData]);
+
+  // ************************************************
+  // Calc the initial map state
+  // ************************************************
+  const INITIAL_VIEW_STATE = useMemo(() => {
+    // chance the bearing and pitch based upon the elevation approach (i.e. make it straight up vs. 3D)
+    const initialPitch = elevationApproach === "none" ? 0 : 45;
+    const initialBearing = elevationApproach === "none" ? 0 : 350;
+
+    // Change the zoom level based upon the size of the viewport
+    const sizeParam = "none";
+    const initialZoom = county
+      ? 10
+      : sizeParam === "small" || sizeParam === "small…"
+        ? 6
+        : 7;
+    const initialLatLong = county
+      ? {
+        latitude: 33.9999,
+        longitude: -84.5641,
+      }
+      : {
+        latitude: 32.249,
+        longitude: -83.388,
+      }; // TODO - fix this to use the county's centroid when county is passed in
+
+    const INITIAL_VIEW_STATE = {
+      ...initialLatLong,
+      zoom: initialZoom,
+      minZoom: 5,
+      maxZoom: 20,
+      pitch: initialPitch,
+      bearing: initialBearing,
+      width: window.innerWidth - 200,
+      height: window.innerHeight - 200,
+    };
+    return INITIAL_VIEW_STATE;
+  }, []);
+
+
+
+
   // ************************************************
   // Manage the zoom level
   // ************************************************
@@ -114,85 +212,19 @@ export default function VotesMap({
       break;
     case "votes":
       elevationFunction = (f) => {
-        return f.properties["TotalVoters2020"] * (isCountyLevel ? 0.2 : 2) || 0;
+        return f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
       };
       break;
-    case "votesYest":
-      elevationFunction = (f) => {
-        return f.properties["absVotesYesterday"] * (isCountyLevel ? 5 : 50);
-      };
-      break;
-    case "votesYestPer2018":
-      elevationFunction = (f) => {
-        return (
-          (f.properties["absVotesYesterday"] /
-            f.properties["TotalVoters2018"]) *
-          (isCountyLevel ? 50000 : 10000)
-        );
-      };
-      break;
-    case "turnoutAbsSameDayVs2020":
+    case "turnoutAbsSameDay":
       elevationFunction = (f) => {
         const value =
           (normalizeZeroOne(
-            f.properties.turnoutAbsSameDayVs2020,
-            stats.turnoutAbsSameDayVs2020Min,
-            stats.turnoutAbsSameDayVs2020Max
+            f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay,
+            0.4,
+            1.0
           ) *
-            30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0;
-        return value;
-      };
-      break;
-    case "turnoutAbsSameDayVs2018":
-      elevationFunction = (f) => {
-        const value =
-          (normalizeZeroOne(
-            f.properties.turnoutAbsSameDayVs2018,
-            stats.turnoutAbsSameDayVs2018Min,
-            stats.turnoutAbsSameDayVs2018Max
-          ) *
-            30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0;
-        return value;
-      };
-      break;
-    case "absRemaining2020": // hidden for now
-      elevationFunction = (f) => {
-        const value =
-          (normalizeZeroOne(f.properties.absVotesRemaining, 0, 7000) * 30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0;
-        return value;
-      };
-      break;
-    case "turnoutVs2016":
-      elevationFunction = (f) => {
-        const value =
-          (normalizeZeroOne(
-            f.properties.turnoutVs2016,
-            stats.turnoutVs2016Min,
-            stats.turnoutVs2016Max
-          ) *
-            30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0; // Magic parameters to make the perceived height constant regardless of zoom level
-        return value;
-      };
-      break;
-    case "turnoutVs2018":
-      elevationFunction = (f) => {
-        const value =
-          (normalizeZeroOne(
-            f.properties.turnoutVs2018,
-            stats.turnoutVs2018Min,
-            stats.turnoutVs2018Max
-          ) *
-            30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0; // Magic parameters to make the perceived height constant regardless of zoom level
+            (isCountyLevel ? 30000 : 10000)) +
+          0 || 0;
         return value;
       };
       break;
@@ -205,8 +237,8 @@ export default function VotesMap({
             stats.turnoutVs2020Max
           ) *
             30000) /
-            1.66 ** (currentZoomLevel - 7) +
-            0 || 0;
+          1.66 ** (currentZoomLevel - 7) +
+          0 || 0;
         return value;
       };
   }
@@ -219,7 +251,7 @@ export default function VotesMap({
   let scaleToColorFunction = null;
   let colorFunction = null;
   switch (colorApproach) {
-    case "turnoutVs2016":
+    case "turnoutAbs":
       scaleMin = stats.turnoutVs2016Min;
       scaleMax = stats.turnoutVs2016Max;
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
@@ -233,74 +265,7 @@ export default function VotesMap({
         return convertD3ColorToArray(color);
       };
       break;
-    case "turnoutVs2018":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.turnoutVs2018,
-          stats.turnoutVs2018Min,
-          stats.turnoutVs2018Max
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-    case "republicanTurnoutVs2018":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.republicanTurnoutVs2018,
-          0,
-          stats.partyTurnoutMax
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-    case "republicanTurnoutVs2016":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.republicanTurnoutVs2016,
-          0,
-          stats.partyTurnoutMax
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-    case "democratTurnoutVs2016":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.democratTurnoutVs2016,
-          0,
-          stats.partyTurnoutMax
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-    case "democratTurnoutVs2018":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.democratTurnoutVs2018,
-          0,
-          stats.partyTurnoutMax
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-    case "turnoutAbsSameDayVs2020":
-      colorFunction = (f) => {
-        const value = normalizeZeroOne(
-          f.properties.turnoutAbsSameDayVs2020,
-          stats.turnoutAbsSameDayVs2020Min,
-          stats.turnoutAbsSameDayVs2020Max
-        );
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
-      };
-      break;
-
-    case "turnoutAbsSameDayVs2018":
+    case "turnoutAbsSameDay":
       colorFunction = (f) => {
         const value = normalizeZeroOne(
           f.properties.turnoutAbsSameDayVs2018,
@@ -311,63 +276,35 @@ export default function VotesMap({
         return convertD3ColorToArray(color);
       };
       break;
-    case "turnout2018Vs2016":
+    case "electionResultPerRepublicanPerShift":
       colorFunction = (f) => {
-        const value = normalizeZeroCenterToZeroOne(
-          f.properties.turnout2018Vs2016 - 1,
-          stats.turnout2018Vs2016Min - 1,
-          stats.turnout2018Vs2016Max - 1
+        const perAdjusted = normalizeZeroCenterToZeroOne(
+          f.properties?.electionResultsComparison?.perShiftDemocratic,
+          (isCountyLevel ? -0.1 : -0.2),
+          (isCountyLevel ? 0.1 : 0.2)
         );
-        const color = d3ScaleChromatic.interpolateRdYlGn(value);
+        // console.log(`County - ${f.properties?.CNTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
+        return perAdjusted ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
+      };
+      break;
+    case "hispanic":
+      scaleMin = 0;
+      scaleMax = 0.1;
+      scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
+      colorFunction = (f) => {
+        const value = normalizeZeroOne(
+          (f.properties?.HISPMREG20 + f.properties?.HISPFMREG2 + f.properties?.HSPUKNREG2) / f.properties?.REG20,
+          scaleMin,
+          scaleMax
+        );
+        const color = scaleToColorFunction(value);
         return convertD3ColorToArray(color);
-      };
-      break;
-    case "shift2018To2016":
-      colorFunction = (f) => {
-        const perAdjusted = normalizeZeroCenterToZeroOne(
-          f.properties["shift2018To2016"],
-          stats.shift2018To2016Min,
-          stats.shift2018To2016Max
-        );
-        return COLOR_SCALE(perAdjusted);
-      };
-      break;
-    case "shift2020To2016":
-      colorFunction = (f) => {
-        const perAdjusted = normalizeZeroCenterToZeroOne(
-          f.properties["shift2020To2016"],
-          stats.shift2020To2016Min,
-          stats.shift2020To2016Max
-        );
-        return COLOR_SCALE(perAdjusted);
-      };
-      break;
-    case "shift2020To2018":
-      colorFunction = (f) => {
-        const perAdjusted = normalizeZeroCenterToZeroOne(
-          f.properties["shift2020To2018"],
-          stats.shift2020To2018Min,
-          stats.shift2020To2018Max
-        );
-        return COLOR_SCALE(perAdjusted);
-      };
-      break;
-    case "perRepublican2016":
-      colorFunction = (f) => {
-        const value = 1 - f.properties.perRepublican2016;
-        return COLOR_SCALE(value);
-      };
-      break;
-    case "perRepublican2018":
-      colorFunction = (f) => {
-        const value = 1 - f.properties.perRepublican2018;
-        return COLOR_SCALE(value);
       };
       break;
     default:
       colorFunction = (f) => {
-        const value = 1 - f.properties.perRepublican2020;
-        return COLOR_SCALE(value);
+        const value = f.properties?.electionResultsCurrent?.perDemocratic;
+        return value ? COLOR_SCALE(value) : [255, 255, 255, 0];
       };
   }
 
@@ -381,13 +318,19 @@ export default function VotesMap({
     });
 
     const dirLight = new SunLight({
-      timestamp: Date.UTC(2020, 11, 3, 18),
+      timestamp: Date.UTC(2022, 11, 8, 18),
       color: [255, 255, 255],
       intensity: 1.75,
-      _shadow: false,
+      _shadow: true,
     });
-    const lightingEffect = new LightingEffect({ ambientLight, dirLight });
-    lightingEffect.shadowColor = [0, 0, 0, 0.5];
+
+    const directionalLight = new DirectionalLight({
+      color: [255, 255, 255],
+      intensity: 1.0,
+      direction: [-3, -9, -1]
+    });
+    const lightingEffect = new LightingEffect({ ambientLight, directionalLight });
+    lightingEffect.shadowColor = [0, 0, 0, 0.1];
     return [lightingEffect];
   });
 
@@ -395,13 +338,10 @@ export default function VotesMap({
   // Layers on the Map
   // ************************************************
   const layers = [];
-  if (
-    colorApproach === "marginShift2020To2016" ||
-    colorApproach === "marginShift2020To2018"
-  ) {
+  if (colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteMargin") {
     const layerDot = new ScatterplotLayer({
       id: `scatter_${colorApproach}`,
-      data: dataSimple,
+      data: dataPropsOnly,
       pickable: false,
       opacity: 0.6,
       stroked: true,
@@ -409,25 +349,23 @@ export default function VotesMap({
       radiusScale: 6,
       radiusMinPixels: 1,
       radiusMaxPixels: 10000,
-      lineWidthMinPixels: 1,
+      lineWidthMinPixels: (isCountyLevel ? 2 : 1),
       getPosition: (f) => f.centroid,
       getRadius: (f) =>
         Math.sqrt(
           Math.abs(
-            (colorApproach === "marginShift2020To2016"
-              ? f.marginShift2020To2016
-              : f.marginShift2020To2018) * (isCountyLevel ? 250 : 20)
+            (colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic)
           )
-        ),
+        ) * (isCountyLevel ? 5 : 3) * (colorApproach === "electionResultVoteShift" ? 1.5 : 1),
       getFillColor: (f) => {
-        return (colorApproach === "marginShift2020To2016"
-          ? f.marginShift2020To2016
-          : f.marginShift2020To2018) > 0
-          ? [170, 57, 57]
-          : [17, 62, 103];
+        return ((colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic) < 0
+          ? [170, 57, 57, 100]
+          : [17, 62, 103, 100]);
       },
-      getLineColor: (d) => [255, 255, 255],
-      lineWidthPixels: (d) => (isCountyLevel ? 2 : 1),
+      getLineColor: (f) => ((colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic) < 0
+        ? [170, 57, 57, 255]
+        : [17, 62, 103, 255]),
+      lineWidthPixels: (isCountyLevel ? 5 : 1),
     });
 
     const layerGEO = new GeoJsonLayer({
@@ -435,17 +373,17 @@ export default function VotesMap({
       pickable: true,
       autoHighlight: true,
       highlightColor: [227, 197, 102],
-      data,
-      opacity: 0.01,
+      data: dataGeoJSON,
+      opacity: 1,
       stroked: true,
       filled: true,
       onClick: (info) => {
         updateActiveSelection(info.object);
       },
-      getFillColor: [255, 255, 255],
+      getFillColor: [255, 255, 255, 0],
       getLineColor: [40, 40, 40],
-      getLineWidth: 2,
-      lineWidthMinPixels: 3,
+      getLineWidth: 1,
+      lineWidthMinPixels: (isCountyLevel ? 2 : 1),
     });
     layers.push(layerGEO);
     layers.push(layerDot);
@@ -456,7 +394,7 @@ export default function VotesMap({
       pickable: true,
       autoHighlight: true,
       highlightColor: [227, 197, 102],
-      data,
+      data: dataGeoJSON,
       opacity: 0.6,
       stroked: true,
       filled: true,
@@ -467,9 +405,16 @@ export default function VotesMap({
       wireframe: true,
       getElevation: elevationFunction,
       getFillColor: colorFunction,
-      getLineColor: [40, 40, 40],
-      getLineWidth: 10,
-      lineWidthMinPixels: 3,
+      getLineColor: [0, 0, 0, 255],
+      lineWidthUnits: "pixels",
+      getLineWidth: 5,
+      lineWidthMinPixels: 5,
+      // material : {
+      //   ambient: 0.35,
+      //   diffuse: 0.6,
+      //   shininess: 32,
+      //   specularColor: [30, 30, 30]
+      // }
     });
     layers.push(layer);
   }
@@ -478,52 +423,51 @@ export default function VotesMap({
   // i.e. you can't just wrap it in a div and have it take the space available for that div.
   const sidebarWidth = Math.max(window.innerWidth * 0.25, 300);
   const mapWidth = window.innerWidth - sidebarWidth - 20;
+  const mapHeight = window.innerHeight - 50;
+
+  // console.log( `geojson_${colorApproach}_${absenteeElectionBaseID}_${absenteeElectionCurrentID}_${resultsElectionRaceCurrentID}_${resultsElectionRacePerviousID}`);
 
   return (
-    <DeckGL
-      ContextProvider={MapContext.Provider}
-      layers={layers}
-      effects={effects}
+    <Map
       initialViewState={INITIAL_VIEW_STATE}
-      controller={true}
-      getTooltip={({ object }) => {
-        if (!object) {
-          updateActiveHover(object);
-          return;
-        }
-        if (object.properties) updateActiveHover(object);
-        const lookup = object.properties ? object.properties : object;
-        if (lookup[colorApproach] || lookup[elevationApproach])
-          return {
-            html: `\
-            <div>Color: ${
-              colorApproach === "marginShift2020To2016" ||
-              colorApproach === "marginShift2020To2018"
-                ? numberFormat.format(lookup[colorApproach])
-                : numberFormatPercent.format(lookup[colorApproach])
-            }</div>
-            ${
-              elevationApproach !== "none" && lookup[elevationApproach]
-                ? `<div>Height: 
+      mapStyle={mapStyle}
+      mapboxAccessToken={MAPBOX_TOKEN}
+      onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
+      style={{ top: 50, width: mapWidth, height: mapHeight, position: "absolute" }}
+    >
+      <DeckGLOverlay
+        // ContextProvider={MapContext.Provider}
+        layers={layers}
+        // effects={effects}
+        controller={true}
+        getTooltip={({ object }) => {
+          if (!object) {
+            updateActiveHover(object);
+            return;
+          }
+          if (object.properties) updateActiveHover(object);
+          const lookup = object.properties ? object.properties : object;
+          if (lookup[colorApproach] || lookup[elevationApproach])
+            return {
+              html: `\
+            <div>Color: ${colorApproach === "electionResultVoteShift"
+                  ? numberFormat.format(lookup[colorApproach])
+                  : numberFormatPercent.format(lookup[colorApproach])
+                }</div>
+            ${elevationApproach !== "none" && lookup[elevationApproach]
+                  ? `<div>Height: 
               ${numberFormat.format(lookup[elevationApproach])}
             </div>`
-                : `<span></span>`
-            }
+                  : `<span></span>`
+                }
         `,
-          };
-      }}
-      onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
-      width={mapWidth}
-    >
+            };
+        }}
+
+      />
       <div style={NAVIGATION_CONTROL_STYLES}>
         <NavigationControl />
       </div>
-      <StaticMap
-        y={50}
-        reuseMaps
-        mapStyle={mapStyle}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-      />
       {/* BEGINNINGS OF A LEGEND  
         <div style={{
           position: 'absolute',
@@ -539,6 +483,6 @@ export default function VotesMap({
           const color = d3ScaleChromatic.interpolateGreens(point * 2 / 100);
           return (<span style={{ backgroundColor: color, width: "1px" }}>&nbsp;</span>)
         })}</div> */}
-    </DeckGL>
+    </Map >
   );
 }

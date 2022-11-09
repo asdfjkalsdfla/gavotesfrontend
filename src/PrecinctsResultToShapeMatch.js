@@ -22,8 +22,8 @@ export default function PrecinctsResultToShapeMatch() {
     const loadData = async () => {
       const fetchPromises = [
         fetch("/static/GA_precincts18_simple.json"),
-        fetch("/static/GA_Election_Results_2016_General_Precincts.json"),
-        fetch("/static/GA_Election_Results_2016_General_Map_To_Shape.json"),
+        fetch("/static/GA_Election_Results_2020_General_Precincts.json"),
+        fetch("/static/GA_Election_Results_2020_General_Map_To_Shape.json"),
       ];
       const [
         responseShape,
