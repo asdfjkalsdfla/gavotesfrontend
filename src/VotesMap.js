@@ -13,8 +13,7 @@ import { ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
 
-import statsCounty from "./stats_county.json";
-import statsPrecinct from "./stats_precinct.json";
+import Demographics from './Models/Demographics';
 
 const numberFormat = new Intl.NumberFormat("en-us");
 
@@ -48,7 +47,7 @@ const normalizeZeroOne = (value, min, max) => {
 
 const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
   const absMax = Math.max(Math.abs(min), Math.abs(max));
-  return Math.max(0, Math.min(1, (value / absMax) * 0.5 * scale + 0.5));
+  return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
 };
 
 const convertD3ColorToArray = (color) => {
@@ -57,6 +56,22 @@ const convertD3ColorToArray = (color) => {
     .replace(")", "")
     .split(",")
     .map((val) => parseInt(val));
+};
+
+const quantile = (arr, q) => {
+  const sorted = arr
+    .filter((a) => typeof a === "number" && isFinite(a))
+    .sort((a, b) => {
+      return a - b;
+    });
+  const pos = (sorted.length - 1) * q;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  if (sorted[base + 1] !== undefined) {
+    return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+  } else {
+    return sorted[base];
+  }
 };
 
 const MAPBOX_TOKEN =
@@ -101,6 +116,21 @@ export default function VotesMap({
         return;
       }
       const geoJSONBase = await responseGeo.json();
+      geoJSONBase.features.forEach(location => {
+        const propertiesPrior = location.properties;
+        const demographics = new Demographics(propertiesPrior);
+        const properties = {
+          id: propertiesPrior.id,
+          ID: propertiesPrior.ID,
+          CNTY: propertiesPrior.CNTY,
+          CTYNAME: propertiesPrior.CTYNAME,
+          PRECINCT_I: propertiesPrior.PRECINCT_I,
+          PRECINCT_N: propertiesPrior.PRECINCT_N,
+          centroid: propertiesPrior.centroid,
+          demographics
+        };
+        location.properties = properties;
+      });
       updateDataGeoJSONBase(geoJSONBase);
     }
     load();
@@ -186,20 +216,6 @@ export default function VotesMap({
     if (!userHasSetLevel) updateIsCountyLevel(viewState.zoom <= transitionZoom);
   };
 
-  // ************************************************
-  // Stats use to normalize the colors or height
-  // ************************************************
-  // choose between county or precinct variants
-  const stats = isCountyLevel ? statsCounty : statsPrecinct;
-
-  // Create cross party results max; this is used to have the same scale for all party turnout values
-  stats.partyTurnoutMax = Math.max(
-    stats.republicanTurnoutVs2018Max,
-    stats.republicanTurnoutVs2016Max,
-    stats.democratTurnoutVs2016Max,
-    stats.democratTurnoutVs2018Max
-  );
-
   // TODO - think through scale strategy; don't want to be deceptive when you switch between county and precinct level but you also do have more variation between those
 
   // ************************************************
@@ -233,8 +249,8 @@ export default function VotesMap({
         const value =
           (normalizeZeroOne(
             f.properties.turnoutVs2020,
-            stats.turnoutVs2020Min,
-            stats.turnoutVs2020Max
+            0,
+            1
           ) *
             30000) /
           1.66 ** (currentZoomLevel - 7) +
@@ -251,9 +267,23 @@ export default function VotesMap({
   let scaleToColorFunction = null;
   let colorFunction = null;
   switch (colorApproach) {
+    case "totalVotesPercent":
+      scaleMin = quantile([...allElectionData.values()].map(datapoint => datapoint?.electionResultsComparison?.totalVotesPercent), isCountyLevel ? 0.01 : 0.05);
+      scaleMax = quantile([...allElectionData.values()].map(datapoint => datapoint?.electionResultsComparison?.totalVotesPercent), isCountyLevel ? 0.99 : 0.95);
+      // console.log(`Min: ${scaleMin}, Max: ${scaleMax}`);
+      scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
+      colorFunction = (f) => {
+        const value = normalizeZeroOne(
+          f.properties?.electionResultsComparison?.totalVotesPercent,
+          scaleMin,
+          scaleMax
+        );
+        // console.log(value);
+        const color = scaleToColorFunction(value);
+        return convertD3ColorToArray(color);
+      };
+      break;
     case "turnoutAbs":
-      scaleMin = stats.turnoutVs2016Min;
-      scaleMax = stats.turnoutVs2016Max;
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
         const value = normalizeZeroOne(
@@ -269,8 +299,8 @@ export default function VotesMap({
       colorFunction = (f) => {
         const value = normalizeZeroOne(
           f.properties.turnoutAbsSameDayVs2018,
-          stats.turnoutAbsSameDayVs2018Min,
-          stats.turnoutAbsSameDayVs2018Max
+          0,
+          1
         );
         const color = d3ScaleChromatic.interpolateGreens(value);
         return convertD3ColorToArray(color);
@@ -283,17 +313,17 @@ export default function VotesMap({
           (isCountyLevel ? -0.1 : -0.2),
           (isCountyLevel ? 0.1 : 0.2)
         );
-        // console.log(`County - ${f.properties?.CNTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
-        return perAdjusted ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
+        // console.log(`County - ${f.properties?.CTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
+        return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
       };
       break;
     case "hispanic":
-      scaleMin = 0;
-      scaleMax = 0.1;
+      scaleMin = quantile(dataGeoJSON.map(f => (f.properties?.demographics?.hispanicPer)), 0.05);
+      scaleMax = quantile(dataGeoJSON.map(f => (f.properties?.demographics?.hispanicPer)), 0.95);
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
         const value = normalizeZeroOne(
-          (f.properties?.HISPMREG20 + f.properties?.HISPFMREG2 + f.properties?.HSPUKNREG2) / f.properties?.REG20,
+          f.properties?.demographics?.hispanicPer,
           scaleMin,
           scaleMax
         );
@@ -338,12 +368,28 @@ export default function VotesMap({
   // Layers on the Map
   // ************************************************
   const layers = [];
-  if (colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteMargin") {
+  if (colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteMargin" || colorApproach === "electionResultVoteShiftNormalized") {
+    let attributeForComparison = null;
+    switch (colorApproach) {
+      case "electionResultVoteShift":
+        attributeForComparison = "voteShiftDemocratic"
+        break;
+      case "electionResultVoteShiftNormalized":
+        attributeForComparison = "voteShiftDemocraticNormalized"
+        break;
+      default:
+        attributeForComparison = "marginDemocratic"
+        break;
+    }
+
+    const showSecondaryColor = false;
+    const circleOpacity = showSecondaryColor ? 255 : 128;
+
     const layerDot = new ScatterplotLayer({
       id: `scatter_${colorApproach}`,
       data: dataPropsOnly,
       pickable: false,
-      opacity: 0.6,
+      opacity: 1,
       stroked: true,
       filled: true,
       radiusScale: 6,
@@ -354,19 +400,44 @@ export default function VotesMap({
       getRadius: (f) =>
         Math.sqrt(
           Math.abs(
-            (colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic)
+            (colorApproach === "electionResultVoteMargin" ?
+              f?.electionResultsCurrent ? f?.electionResultsCurrent[attributeForComparison] : 0
+              : f?.electionResultsComparison ? f?.electionResultsComparison[attributeForComparison] : 0
+            )
           )
-        ) * (isCountyLevel ? 5 : 3) * (colorApproach === "electionResultVoteShift" ? 1.5 : 1),
+        ) * (isCountyLevel ? 4 : 1.5) * (colorApproach === "electionResultVoteMargin" ? 1 : 2),
       getFillColor: (f) => {
-        return ((colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic) < 0
-          ? [170, 57, 57, 100]
-          : [17, 62, 103, 100]);
+        return (colorApproach === "electionResultVoteMargin" ?
+          f?.electionResultsCurrent ? f?.electionResultsCurrent[attributeForComparison] : 0
+          : f?.electionResultsComparison ? f?.electionResultsComparison[attributeForComparison] : 0
+        ) < 0
+          ? [170, 57, 57, circleOpacity]
+          : [17, 62, 103, circleOpacity];
       },
-      getLineColor: (f) => ((colorApproach === "electionResultVoteShift" ? f?.electionResultsComparison?.voteShiftDemocratic : f?.electionResultsCurrent?.marginDemocratic) < 0
-        ? [170, 57, 57, 255]
-        : [17, 62, 103, 255]),
+      getLineColor: (f) => (colorApproach === "electionResultVoteMargin" ?
+        f?.electionResultsCurrent ? f?.electionResultsCurrent[attributeForComparison] : 0
+        : f?.electionResultsComparison ? f?.electionResultsComparison[attributeForComparison] : 0
+      ) < 0
+        ? [170, 57, 57, circleOpacity + 120]
+        : [17, 62, 103, circleOpacity + 120],
       lineWidthPixels: (isCountyLevel ? 5 : 1),
     });
+
+
+    if (dataGeoJSON && showSecondaryColor) {
+      scaleMin = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.asianPer), 0.05);
+      scaleMax = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.asianPer), 0.95);
+      scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
+      colorFunction = (f) => {
+        const value = normalizeZeroOne(
+          f.properties?.demographics?.asianPer,
+          scaleMin,
+          scaleMax
+        );
+        const color = scaleToColorFunction(value);
+        return convertD3ColorToArray(color);
+      };
+    }
 
     const layerGEO = new GeoJsonLayer({
       id: `geojson_${colorApproach}`,
@@ -374,16 +445,16 @@ export default function VotesMap({
       autoHighlight: true,
       highlightColor: [227, 197, 102],
       data: dataGeoJSON,
-      opacity: 1,
+      opacity: showSecondaryColor ? 0.2 : 1,
       stroked: true,
       filled: true,
       onClick: (info) => {
         updateActiveSelection(info.object);
       },
-      getFillColor: [255, 255, 255, 0],
+      getFillColor: showSecondaryColor ? colorFunction : [158, 158, 158, 0],
       getLineColor: [40, 40, 40],
       getLineWidth: 1,
-      lineWidthMinPixels: (isCountyLevel ? 2 : 1),
+      lineWidthMinPixels: (isCountyLevel ? 1 : 1),
     });
     layers.push(layerGEO);
     layers.push(layerDot);

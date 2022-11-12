@@ -67,7 +67,7 @@ export default function VotesRoot() {
       "label": "2022 General",
       "date": "2022-11-08",
       "isCurrentElection": false,
-      "races": [{ "name": "Governor", "republican": "Kemp", "democratic": "Abrams" },{ "name": "US Senate", "republican": "Walker", "democratic": "Warnock" }],
+      "races": [{ "name": "Governor", "republican": "Kemp", "democratic": "Abrams" }, { "name": "US Senate", "republican": "Walker", "democratic": "Warnock" }],
 
     },
     {
@@ -80,7 +80,7 @@ export default function VotesRoot() {
       "name": "2020_general",
       "label": "2020 General",
       "date": "2020-11-03",
-      "races": [{ "name": "President of the United States", "republican": "Trump", "democratic": "Biden" }, { "name": "US Senate (Loeffler) - Special", "republican": "Loeffler/Collins/etc.", "democratic": "Warnock" }, { "name": "US Senate (Perdue)", "republican": "Perdue", "democratic": "Ossoff" }],
+      "races": [{ "name": "President of the United States", "republican": "Trump", "democratic": "Biden" }, { "name": "US Senate (Loeffler) - Special", "republican": "Loeffler/Collins/etc.", "democratic": "Warnock/Jackson/etc." }, { "name": "US Senate (Perdue)", "republican": "Perdue", "democratic": "Ossoff" }],
     },
     {
       "name": "2018_general",
@@ -165,6 +165,10 @@ export default function VotesRoot() {
   );
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
 
+  const [showVoteMode, updateShowVoteMode] = useState(false);
+  const [showAbsentee, updateShowAbsentee] = useState(false);
+  const [showDemographics, updateShowDemographics] = useState(true);
+
   // ************************************************
   // Basic UI Events / Controls
   // ************************************************
@@ -202,12 +206,12 @@ export default function VotesRoot() {
         </span>
       </div>
       {showScatterPlot ? (<VotesScatterPlot
-          elevationApproach={elevationApproach}
-          colorApproach={colorApproach}
-          allElectionData={allElectionData}
-          updateActiveSelection={updateActiveSelection}
-          updateActiveHover={updateActiveHover}
-        />) :
+        elevationApproach={elevationApproach}
+        colorApproach={colorApproach}
+        allElectionData={allElectionData}
+        updateActiveSelection={updateActiveSelection}
+        updateActiveHover={updateActiveHover}
+      />) :
         (<VotesMap
           isCountyLevel={isCountyLevel}
           county={county}
@@ -253,6 +257,12 @@ export default function VotesRoot() {
             updateElectionResultCurrent={updateResultsElectionRaceCurrentID}
             electionResultBase={resultsElectionRacePerviousID}
             updateElectionResultBase={updateResultsElectionRacePerviousID}
+            showVoteMode={showVoteMode}
+            updateShowVoteMode={updateShowVoteMode}
+            showDemographics={showDemographics}
+            updateShowDemographics={updateShowDemographics}
+            showAbsentee={showAbsentee}
+            updateShowAbsentee={updateShowAbsentee}
           />
           <Divider /></>
         )}
@@ -270,6 +280,9 @@ export default function VotesRoot() {
           electionResultBaseElection={resultsElectionPrevious}
           electionResultBaseRace={resultsRacePrevious}
           absenteeElectionBaseID={absenteeElectionBaseID}
+          showVoteMode={showVoteMode}
+          showDemographics={showDemographics}
+          showAbsentee={showAbsentee}
         />
       </div>
     </div >
@@ -328,14 +341,21 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
     properties.absenteeBase = new AbsenteeBallots(row);
     updatedElectionData.set(id, properties)
   });
+
+  let rdStateVotesTotalCurrent = 0;
   electionResultsCurrentJSON.forEach(row => {
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`
     const properties = updatedElectionData.has(id)
       ? updatedElectionData.get(id)
       : {};
     properties.electionResultsAllCurrent = row.races.map(race => new ElectionResult(race));
+    // Find the current race
+    properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter(election => election.race === resultsRaceCurrentID)[0];
     updatedElectionData.set(id, properties)
+    rdStateVotesTotalCurrent += (properties.electionResultsCurrent.totalVotesRD || 0);
+
   })
+  let rdStateVotesTotalBase = 0;
   if (electionResultBaseFileLocation) {
     electionResultBaseJSON.forEach(row => {
       const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`
@@ -343,21 +363,17 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
         ? updatedElectionData.get(id)
         : {};
       properties.electionResultsAllBase = row.races.map(race => new ElectionResult(race));
-      updatedElectionData.set(id, properties)
+      properties.electionResultsBase = properties.electionResultsAllBase.filter(election => election.race === resultsRacePreviousID)[0];
+      updatedElectionData.set(id, properties);
+      rdStateVotesTotalBase += (properties.electionResultsBase.totalVotesRD || 0);
     })
   }
 
+  const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
+
   // Set the comparisons between the results
   [...updatedElectionData.values()].forEach(result => {
-    // Find the current race
-    result.electionResultsCurrent = result?.electionResultsAllCurrent?.filter(election => election.race === resultsRaceCurrentID)[0];
-    if (resultsRacePreviousID && result.electionResultsAllBase) {
-      result.electionResultsBase = result.electionResultsAllBase.filter(election => election.race === resultsRacePreviousID)[0];
-      result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase)
-    } else {
-      result.electionResultsBase = null;
-      result.electionResultsComparison = null;
-    }
+    result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor)
 
     if (result.absenteeCurrent && result.absenteeBase) {
       result.absenteeBallotComparison = new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase)

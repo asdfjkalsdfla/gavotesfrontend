@@ -1,6 +1,7 @@
 export default class ElectionResult {
     // These are used to store pre-computed values of the property; basically, a minor efficiency item
     #totalVotes;
+    #totalVotesRD;
     #perRepublican;
     #perDemocratic;
     #perOther;
@@ -19,6 +20,14 @@ export default class ElectionResult {
         if (this.#totalVotes) return this.#totalVotes;
         const value = (this.democratic || 0) + (this.republican || 0) + (this.other || 0);
         this.#totalVotes = value;
+        return value
+    }
+
+    // total # of R and D votes cast in the contest
+    get totalVotesRD() {
+        if (this.#totalVotesRD) return this.#totalVotesRD;
+        const value = (this.democratic || 0) + (this.republican || 0);
+        this.#totalVotesRD = value;
         return value
     }
 

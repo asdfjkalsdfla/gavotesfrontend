@@ -10,8 +10,9 @@ export default function VotesScatterPlot({ allElectionData }) {
     if (allElectionData) {
         allElectionData.forEach((point, key) => {
             // const x = point?.electionResultsComparison?.perShiftDemocratic * 100;
+            // const x = point?.electionResultsCurrent?.perDemocratic * 100;
             const x = point?.electionResultsCurrent?.perDemocratic * 100;
-            const y = point?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
+            const y = point?.electionResultsComparison?.totalVotesPercent * 100;
             const z = point?.electionResultsCurrent?.totalVotes;
             const id = key;
             if (x && y)
@@ -24,7 +25,7 @@ export default function VotesScatterPlot({ allElectionData }) {
         margin={{ top: 100, right: 20, bottom: 10, left: 10 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" type="number" domain={[0,100]} allowDataOverflow={true} name="shift" unit="%" />
-        <YAxis dataKey="y" type="number" domain={[0, 200]} allowDataOverflow={true} name="2022 turnout" />
+        <YAxis dataKey="y" type="number" domain={[0, 100]} allowDataOverflow={true} name="2022 turnout" unit="%" />
         <ZAxis dataKey="z" type="number" range={[0, 100]} name="votes" scale="sqrt" />
         <Tooltip content={<CustomTooltip />} dataKey="id" cursor={{ strokeDasharray: '3 3' }} />
         <Scatter name="2022 Absentee" data={dataForChart} fill="#8884d8" />

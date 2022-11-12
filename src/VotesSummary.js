@@ -5,7 +5,10 @@ import VotesByDateChart from "./VotesByDateChart"
 
 const { Column } = Table;
 
-const numberFormat = new Intl.NumberFormat("en-us");
+const numberFormat = new Intl.NumberFormat("en-us", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+});
 const numberFormatRatio = new Intl.NumberFormat("en-us", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -17,11 +20,7 @@ const numberFormatPercent = new Intl.NumberFormat("en-us", {
 });
 // const numberFormatInteger = new Intl.NumberFormat('en-us', options1);
 
-export default function VoteSummary({ geoJSONVote, activeSelection, updateCountySelected, updateActiveSelection, isCountyLevel, updateIsCountyLevel, updateUserHasSetLevel, electionResultCurrentElection, electionResultCurrentRace, electionResultBaseElection, electionResultBaseRace, absenteeElectionBaseID }) {
-    const [showVoteMode, updateShowVoteMode] = useState(true);
-    const [showAbsentee, updateShowAbsentee] = useState(false);
-    const [showDemographics, updateShowDemographics] = useState(true);
-
+export default function VoteSummary({ geoJSONVote, activeSelection, updateCountySelected, updateActiveSelection, isCountyLevel, updateIsCountyLevel, updateUserHasSetLevel, electionResultCurrentElection, electionResultCurrentRace, electionResultBaseElection, electionResultBaseRace, absenteeElectionBaseID, showVoteMode, showDemographics, showAbsentee }) {
 
     if (!geoJSONVote || !geoJSONVote.properties) return <span>Loading...</span>
     const resultSummary = geoJSONVote.properties;
@@ -47,12 +46,17 @@ export default function VoteSummary({ geoJSONVote, activeSelection, updateCounty
                     updateUserHasSetLevel(true);
                     updateCountySelected(null);
                 }}>County Level</Button>}</React.Fragment>}
-        
+
         <Descriptions title={`${electionResultCurrentElection?.label} - ${electionResultCurrentRace?.name}`} column={1} bordered size="small" style={{ width: "100%" }}>
             <Descriptions.Item label={`${electionResultCurrentRace?.republican} (R)`}>{numberFormat.format(resultSummary?.electionResultsCurrent?.republican)} ({numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perRepublican)})</Descriptions.Item>
             <Descriptions.Item label={`${electionResultCurrentRace?.democratic} (D)`}>{numberFormat.format(resultSummary?.electionResultsCurrent?.democratic)} ({numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perDemocratic)})</Descriptions.Item>
-            <Descriptions.Item label={`R Margin`}>{numberFormat.format(resultSummary?.electionResultsCurrent?.marginRepublican)} ({numberFormatPercent.format(resultSummary?.electionResultsCurrent?.marginPerRepublican)})</Descriptions.Item>
-            {resultSummary.electionResultsComparison && (<Descriptions.Item label="Shift to D">{numberFormat.format(resultSummary.electionResultsComparison.voteShiftDemocratic)} ({numberFormatPercent.format(resultSummary.electionResultsComparison?.perShiftDemocratic)})</Descriptions.Item>)}
+            <Descriptions.Item label="Vote Margin">{resultSummary?.electionResultsCurrent?.marginRepublican > 0 ? "R+" : "D+"} {numberFormat.format(Math.abs(resultSummary?.electionResultsCurrent?.marginRepublican))} ({numberFormatPercent.format(Math.abs(resultSummary?.electionResultsCurrent?.marginPerRepublican))})</Descriptions.Item>
+            {resultSummary.electionResultsComparison && (<>
+                <Descriptions.Item label="Shift in R/D %">{resultSummary.electionResultsComparison.perShiftDemocratic > 0 ? "D+" : "R+"}  {numberFormatPercent.format(Math.abs(resultSummary.electionResultsComparison?.perShiftDemocratic))}</Descriptions.Item>
+                <Descriptions.Item label="% of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesPercent)}</Descriptions.Item>
+                <Descriptions.Item label="Shift in Vote Margin">{resultSummary.electionResultsComparison.voteShiftDemocratic > 0 ? "D+" : "R+"}  {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocratic))}</Descriptions.Item>
+                <Descriptions.Item label="Normalized Shift in Vote Margin">{resultSummary.electionResultsComparison.voteShiftDemocraticNormalized > 0 ? "D+" : "R+"}  {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocraticNormalized))}</Descriptions.Item>
+            </>)}
         </Descriptions>
         {showVoteMode && (<React.Fragment><br /><br /><b>Result by Vote Method</b><br /><Table dataSource={resultSummary?.electionResultsCurrent?.resultsByMode} pagination={false}>
             <Column title="Method" dataIndex="mode" key="mode" />
@@ -62,18 +66,19 @@ export default function VoteSummary({ geoJSONVote, activeSelection, updateCounty
         {resultSummary.electionResultsComparison && (<React.Fragment><br /><Descriptions title={`${electionResultBaseElection.label} - ${electionResultBaseRace.name}`} column={1} bordered size="small" style={{ width: "100%" }}>
             <Descriptions.Item label={`${electionResultBaseRace?.republican} (R)`}>{numberFormat.format(resultSummary?.electionResultsBase?.republican)} ({numberFormatPercent.format(resultSummary?.electionResultsBase?.perRepublican)})</Descriptions.Item>
             <Descriptions.Item label={`${electionResultBaseRace?.democratic} (D)`}>{numberFormat.format(resultSummary?.electionResultsBase?.democratic)} ({numberFormatPercent.format(resultSummary?.electionResultsBase?.perDemocratic)})</Descriptions.Item>
+            <Descriptions.Item label="Vote Margin">{resultSummary?.electionResultsCurrent?.marginRepublican > 0 ? "R+" : "D+"} {numberFormat.format(Math.abs(resultSummary?.electionResultsBase?.marginRepublican))} ({numberFormatPercent.format(Math.abs(resultSummary?.electionResultsBase?.marginPerRepublican))})</Descriptions.Item>
         </Descriptions><br /></React.Fragment>)}
         {resultSummary.electionResultsComparison && showVoteMode && (<React.Fragment><br /><br /><b>Result by Vote Method</b><br /><Table dataSource={resultSummary?.electionResultsBase?.resultsByMode} pagination={false}>
             <Column title="Method" dataIndex="mode" key="mode" />
             <Column title={`${electionResultBaseRace?.republican} (R)`} dataIndex="republican" key="republican" render={value => (numberFormat.format(value))} />
             <Column title={`${electionResultBaseRace?.democratic} (D)`} dataIndex="democratic" key="democratic" render={value => (numberFormat.format(value))} />
         </Table></React.Fragment>)}
-        {showDemographics && resultSummary?.WMREG20 && (<Descriptions title="Demographics of 2020 Registered Voters " column={1} bordered size="small" style={{ width: "100%" }}>
-            <Descriptions.Item label="White (not hispanic)">{numberFormatPercent.format((resultSummary?.WMREG20+resultSummary?.WFMREG20+resultSummary?.WUKNREG20)/resultSummary?.REG20)}</Descriptions.Item>
-            <Descriptions.Item label="Black">{numberFormatPercent.format((resultSummary?.BLMREG20+resultSummary?.BLFREG20+resultSummary?.BLUKNREG20)/resultSummary?.REG20)}</Descriptions.Item>
-            <Descriptions.Item label="Asian">{numberFormatPercent.format((resultSummary?.ASIANMREG2+resultSummary?.ASIANFMREG+resultSummary?.ASIANUKNRE)/resultSummary?.REG20)}</Descriptions.Item>
-            <Descriptions.Item label="Hispanic">{numberFormatPercent.format((resultSummary?.HISPMREG20+resultSummary?.HISPFMREG2+resultSummary?.HSPUKNREG2)/resultSummary?.REG20)}</Descriptions.Item>
-            <Descriptions.Item label="Unknown">{numberFormatPercent.format((resultSummary?.OTHERMREG2+resultSummary?.OTHERFMREG+resultSummary?.OTHERUKNRE+resultSummary?.UKNMALEREG+resultSummary?.UKNFMREG20+resultSummary?.UKNOWNREG2)/resultSummary?.REG20)}</Descriptions.Item>
+        {showDemographics && resultSummary?.demographics?.whitePer>0 && (<Descriptions title="Demographics of 2020 Registered Voters " column={1} bordered size="small" style={{ width: "100%" }}>
+            <Descriptions.Item label="White (not hispanic)">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</Descriptions.Item>
+            <Descriptions.Item label="Black">{numberFormatPercent.format(resultSummary.demographics.blackPer)}</Descriptions.Item>
+            <Descriptions.Item label="Asian">{numberFormatPercent.format(resultSummary.demographics.asianPer)}</Descriptions.Item>
+            <Descriptions.Item label="Hispanic">{numberFormatPercent.format(resultSummary.demographics.hispanicPer)}</Descriptions.Item>
+            <Descriptions.Item label="Unknown">{numberFormatPercent.format(resultSummary.demographics.unknownPer+resultSummary.demographics.otherPer)}</Descriptions.Item>
         </Descriptions>)}
         {showAbsentee && (<Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }}>
             <Descriptions.Item label="Accepted 2021">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</Descriptions.Item>
