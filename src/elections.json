@@ -1,0 +1,71 @@
+[
+  {
+    "name": "2022_general",
+    "label": "2022 General",
+    "date": "2022-11-08",
+    "isCurrentElection": false,
+    "races": [
+      { "name": "Governor", "republican": "Kemp", "democratic": "Abrams" },
+      { "name": "US Senate", "republican": "Walker", "democratic": "Warnock" }
+    ]
+  },
+  {
+    "name": "2021_senate_runoff",
+    "label": "2021 Runoff",
+    "date": "2021-01-05",
+    "races": [
+      {
+        "name": "US Senate (Loeffler) - Special",
+        "republican": "Loeffler",
+        "democratic": "Warnock"
+      },
+      {
+        "name": "US Senate (Perdue)",
+        "republican": "Perdue",
+        "democratic": "Ossoff"
+      }
+    ]
+  },
+  {
+    "name": "2020_general",
+    "label": "2020 General",
+    "date": "2020-11-03",
+    "races": [
+      {
+        "name": "President of the United States",
+        "republican": "Trump",
+        "democratic": "Biden"
+      },
+      {
+        "name": "US Senate (Loeffler) - Special",
+        "republican": "Loeffler/Collins/etc.",
+        "democratic": "Warnock/Jackson/etc."
+      },
+      {
+        "name": "US Senate (Perdue)",
+        "republican": "Perdue",
+        "democratic": "Ossoff"
+      }
+    ]
+  },
+  {
+    "name": "2018_general",
+    "label": "2018 General",
+    "date": "2018-11-06",
+    "races": [
+      { "name": "Governor", "republican": "Kemp", "democratic": "Abrams" }
+    ]
+  },
+  {
+    "name": "2016_general",
+    "label": "2016 General",
+    "date": "2016-11-08",
+    "races": [
+      {
+        "name": "President of the United States",
+        "republican": "Trump",
+        "democratic": "Clinton"
+      }
+    ]
+  }
+]

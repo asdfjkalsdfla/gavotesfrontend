@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(11, [col-start] 1fr) 200px;
+  grid-template-rows: 40px 1fr;
+}
+
+.header {
+  grid-column: col-start / span 12;
+  background-color: black;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  color: #ffffff;
+  z-index: 999;
+}
+
+.one {
+  grid-column: 1 / span 9;
+}
+.two {
+  grid-column: 10 / span 3;
+  padding: 5px 15px;
+  overflow: scroll;
+}
