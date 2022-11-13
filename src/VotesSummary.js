@@ -29,7 +29,7 @@ export default function VoteSummary({ geoJSONVote, activeSelection, updateCounty
     return (<div>
         <h1>{resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary["PRECINCT_N"] ||
             ""}{" "}
-            {activeSelection && activeSelection === geoJSONVote && <span style={{ float: "right" }}><Button shape="circle" icon={<CloseOutlined />} onClick={() => {
+            {activeSelection && activeSelection.id === geoJSONVote.id && <span style={{ float: "right" }}><Button shape="circle" icon={<CloseOutlined />} onClick={() => {
                 updateCountySelected(null);
                 updateActiveSelection(null);
             }} /></span>}

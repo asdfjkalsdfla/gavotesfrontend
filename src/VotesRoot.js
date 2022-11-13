@@ -88,7 +88,7 @@ export default function VotesRoot() {
   const [county, updateCountySelected] = useState(countyParam);
   const [isCountyLevel, updateIsCountyLevel] = useState(isCountyLevelInitial);
 
-  const [allElectionData, updateAllElectionData] = useState();
+  const [allElectionData, updateAllElectionData] = useState(new Map());
 
   // Load county or precinct level election data
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function VotesRoot() {
     };
 
     load();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID, isCountyLevel]);
 
   // Load statewide election data
@@ -122,7 +122,7 @@ export default function VotesRoot() {
     };
 
     load();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID]);
 
 
@@ -172,6 +172,7 @@ export default function VotesRoot() {
           elevationApproach={elevationApproach}
           colorApproach={colorApproach}
           allElectionData={allElectionData}
+          isCountyLevel={isCountyLevel}
           updateActiveSelection={updateActiveSelection}
           updateActiveHover={updateActiveHover}
         />) :
@@ -219,7 +220,7 @@ export default function VotesRoot() {
           <Divider /></>
         )}
         <VotesSummary
-          geoJSONVote={activeVoteGeoJSON ? activeVoteGeoJSON : { properties: voteTotals }}
+          geoJSONVote={(activeVoteGeoJSON && activeVoteGeoJSON.properties) ? activeVoteGeoJSON : { properties: allElectionData.has(activeVoteGeoJSON) ? allElectionData.get(activeVoteGeoJSON) : voteTotals }}
           activeSelection={activeSelection}
           updateUserHasSetLevel={updateUserHasSetLevel}
           updateCountySelected={updateCountySelected}
@@ -281,7 +282,7 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
 
     const properties = updatedElectionData.has(id)
       ? updatedElectionData.get(id)
-      : {};
+      : { CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.absenteeCurrent = new AbsenteeBallots(row);
     updatedElectionData.set(id, properties)
   })
@@ -289,7 +290,7 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`
     const properties = updatedElectionData.has(id)
       ? updatedElectionData.get(id)
-      : {};
+      : { CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.absenteeBase = new AbsenteeBallots(row);
     updatedElectionData.set(id, properties)
   });
@@ -299,7 +300,7 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`
     const properties = updatedElectionData.has(id)
       ? updatedElectionData.get(id)
-      : {};
+      : { CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.electionResultsAllCurrent = row.races.map(race => new ElectionResult(race));
     // Find the current race
     properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter(election => election.race === resultsRaceCurrentID)[0];

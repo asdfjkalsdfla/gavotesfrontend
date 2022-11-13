@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
     Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ZAxis, Line, ComposedChart, ResponsiveContainer
 } from 'recharts';
@@ -6,18 +6,30 @@ import "./VotesScatter.css";
 import SimpleLinearRegression from 'ml-regression-simple-linear';
 
 
-export default function VotesScatterPlot({ allElectionData }) {
-    const dataForChart = [];
-    let regressionLineData = [];
-    let regIntercept = 0;
-    let regSlope = 0;
+export default function VotesScatterPlot({ allElectionData, isCountyLevel, updateActiveHover, updateActiveSelection }) {
+    const hoverScatterDot = useMemo(() => {
+        return ({ id }) => {
+            updateActiveHover(id);
+        }
+    }, [updateActiveHover]);
 
-    // const intercept = 8.5;
-    // const unitLineData = Array.from(Array(200).keys()).map(i => ({ x: i, y: i + intercept }));
-    // const constantValueForLine = 78.0; 
-    // const constantValuesLineData = Array.from(Array(200).keys()).map(i => ({ x: i, y: constantValueForLine }));
+    const hoverScatterDotOut = useMemo(() => {
+        console.log(`in update hover function`);
+        return ({ id }) => {
+            updateActiveHover(null);
+        }
+    }, [updateActiveHover]);
 
-    if (allElectionData) {
+    const clickScatterDot = useMemo(() => {
+        return ({ id }) => {
+            updateActiveSelection(id);
+        }
+    }, [updateActiveSelection]);
+
+    const data = useMemo(() => {
+        console.log(`in update data function`);
+        const pointsOnChart = [];
+
         allElectionData.forEach((point, key) => {
             // const x = point?.electionResultsComparison?.perShiftDemocratic * 100;
             // const x = point?.electionResultsCurrent?.perDemocratic * 100;
@@ -26,32 +38,40 @@ export default function VotesScatterPlot({ allElectionData }) {
             const z = point?.electionResultsCurrent?.totalVotes;
             const id = key;
             if (x && y)
-                dataForChart.push({ id, x, y, z })
+                pointsOnChart.push({ id, x, y, z })
         })
 
-        const regression = new SimpleLinearRegression(dataForChart.map(point => point.x), dataForChart.map(point => point.y));
-        regressionLineData = Array.from(Array(200).keys()).map(i => ({ x: i, y: regression.predict(i) }));
-        regIntercept = regression.intercept;
-        regSlope = regression.slope;
+        const regression = new SimpleLinearRegression(pointsOnChart.map(point => point.x), pointsOnChart.map(point => point.y));
+        const regressionLineData = Array.from(Array(200).keys()).map(i => ({ x: i, y: regression.predict(i) }));
+        const regIntercept = regression.intercept;
+        const regSlope = regression.slope;
+        return { pointsOnChart, regressionLineData, regIntercept, regSlope}
+    }, [allElectionData]);
+ 
+    const range= useMemo(() => {
+        return [0, isCountyLevel ? 500 : 150]
+    },[isCountyLevel]);
 
-    }
-    console.log(dataForChart);
-    console.log(`${regSlope} * x + ${regIntercept}`);
-    
+    const domain= useMemo(() => {
+        return [0, 100]
+    },[]);
+
     return <ResponsiveContainer width="100%" height="100%">
         <ComposedChart>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" type="number" domain={[0, 100]} allowDataOverflow={true} name="shift" unit="%" />
-            <YAxis dataKey="y" type="number" domain={[0, 100]} allowDataOverflow={true} name="2022 turnout" unit="%" />
-            <Line name="unitLine" type="linear" dataKey="y" stroke="#8884d8" dot={false} data={regressionLineData}  strokeWidth={2} />
-            <ZAxis dataKey="z" type="number" range={[0, 250]} name="votes" />
-            <Tooltip content={<CustomTooltip />} dataKey="id" cursor={{ strokeDasharray: '3 3' }} />
-            <Scatter name="2022 Absentee" fill="#000000" data={dataForChart} label={false} />
+            <XAxis dataKey="x" type="number" domain={domain} allowDataOverflow={true} name="shift" unit="%" />
+            <YAxis dataKey="y" type="number" domain={domain} allowDataOverflow={true} name="2022 turnout" unit="%" />
+            <Line name="unitLine" type="linear" dataKey="y" stroke="#8884d8" dot={false} data={data?.regressionLineData} strokeWidth={2} />
+            <ZAxis dataKey="z" type="number" range={range} name="votes" />
+            {/* <Tooltip content={<CustomTooltip />} dataKey="id" cursor={{ strokeDasharray: '3 3' }} /> */}
+            <Scatter name="2022 Absentee" fill="#000000" fillOpacity={0.5} data={data?.pointsOnChart} onMouseEnter={hoverScatterDot} onMouseLeave={hoverScatterDotOut} onClick={clickScatterDot} />
         </ComposedChart>
     </ResponsiveContainer>
 }
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload }) => {
+    if (!payload || payload.size === 0)
+        return (<></>);
     if (active) {
         return (
             <div className="custom-tooltip">
