@@ -12,6 +12,8 @@ import ElectionResult from "./Models/ElectionResult";
 import ElectionResultComparison from "./Models/ElectionResultComparison";
 import AbsenteeBallots from "./Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "./Models/AbsenteeBallotsComparison";
+import ElectionsJSON from "./elections.json"
+import './VoteRoot.css';
 
 // ************************************************
 // Pull the initial values from the URL params
@@ -61,40 +63,7 @@ export default function VotesRoot() {
   // ************************************************
   // Determine the Data To Show
   // ************************************************
-  const elections = [
-    {
-      "name": "2022_general",
-      "label": "2022 General",
-      "date": "2022-11-08",
-      "isCurrentElection": false,
-      "races": [{ "name": "Governor", "republican": "Kemp", "democratic": "Abrams" }, { "name": "US Senate", "republican": "Walker", "democratic": "Warnock" }],
-
-    },
-    {
-      "name": "2021_senate_runoff",
-      "label": "2021 Runoff",
-      "date": "2021-01-05",
-      "races": [{ "name": "US Senate (Loeffler) - Special", "republican": "Loeffler", "democratic": "Warnock" }, { "name": "US Senate (Perdue)", "republican": "Perdue", "democratic": "Ossoff" }],
-    },
-    {
-      "name": "2020_general",
-      "label": "2020 General",
-      "date": "2020-11-03",
-      "races": [{ "name": "President of the United States", "republican": "Trump", "democratic": "Biden" }, { "name": "US Senate (Loeffler) - Special", "republican": "Loeffler/Collins/etc.", "democratic": "Warnock/Jackson/etc." }, { "name": "US Senate (Perdue)", "republican": "Perdue", "democratic": "Ossoff" }],
-    },
-    {
-      "name": "2018_general",
-      "label": "2018 General",
-      "date": "2018-11-06",
-      "races": [{ "name": "Governor", "republican": "Kemp", "democratic": "Abrams" }]
-    },
-    {
-      "name": "2016_general",
-      "label": "2016 General",
-      "date": "2016-11-08",
-      "races": [{ "name": "President of the United States", "republican": "Trump", "democratic": "Clinton" }]
-    }
-  ]
+  const elections = ElectionsJSON;
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState(elections[0].name);
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState(elections[2].name);
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
@@ -135,6 +104,7 @@ export default function VotesRoot() {
     };
 
     load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID, isCountyLevel]);
 
   // Load statewide election data
@@ -152,17 +122,16 @@ export default function VotesRoot() {
     };
 
     load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID]);
 
 
 
 
   // ************************************************
-  // Map Controls
+  // Data Controls
   // ************************************************
-  const [elevationApproach, updateElevationApproach] = useState(
-    elevationApproachInitial
-  );
+  const [elevationApproach, updateElevationApproach] = useState(elevationApproachInitial);
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
 
   const [showVoteMode, updateShowVoteMode] = useState(false);
@@ -178,23 +147,15 @@ export default function VotesRoot() {
   const [showOptions, updateShowOptions] = useState(showOptionsOnLoad);
   const [showWelcome, updateShowWelcome] = useState(showWelcomeOnLoad);
 
-  const [showScatterPlot, updateShowScatterPlot] = useState(false);
+  const [showScatterPlot] = useState(false);
 
   const activeVoteGeoJSON = activeHover ? activeHover : activeSelection;
-  const sidebarWidth = Math.max(window.innerWidth * 0.25, 300);
+
+
 
   return (
-    <div>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: "99",
-          width: "100%",
-          padding: "10px",
-          color: "#ffffff",
-          backgroundColor: "#000000",
-        }}
-      >
+    <div className="container">
+      <div className="header">
         Georgia Votes Visual
         <span style={{ float: "right" }}>
           <SettingOutlined
@@ -205,37 +166,28 @@ export default function VotesRoot() {
           />
         </span>
       </div>
-      {showScatterPlot ? (<VotesScatterPlot
-        elevationApproach={elevationApproach}
-        colorApproach={colorApproach}
-        allElectionData={allElectionData}
-        updateActiveSelection={updateActiveSelection}
-        updateActiveHover={updateActiveHover}
-      />) :
-        (<VotesMap
-          isCountyLevel={isCountyLevel}
-          county={county}
+
+      <div className="one">
+        {showScatterPlot ? (<VotesScatterPlot
           elevationApproach={elevationApproach}
           colorApproach={colorApproach}
           allElectionData={allElectionData}
           updateActiveSelection={updateActiveSelection}
           updateActiveHover={updateActiveHover}
-          userHasSetLevel={userHasSetLevel}
-          updateIsCountyLevel={updateIsCountyLevel}
-        />)}
-      <div
-        style={{
-          marginTop: "40px",
-          zIndex: "900",
-          padding: "15px",
-          height: "90%",
-          float: "right",
-          width: sidebarWidth,
-          backgroundColor: "#ffffff",
-          overflowY: "scroll",
-          overflow: "scroll"
-        }}
-      >
+        />) :
+          (<VotesMap
+            isCountyLevel={isCountyLevel}
+            county={county}
+            elevationApproach={elevationApproach}
+            colorApproach={colorApproach}
+            allElectionData={allElectionData}
+            updateActiveSelection={updateActiveSelection}
+            updateActiveHover={updateActiveHover}
+            userHasSetLevel={userHasSetLevel}
+            updateIsCountyLevel={updateIsCountyLevel}
+          />)}
+      </div>
+      <div className="two">
         {showWelcome && (
           <>
             <WelcomeText updateShowWelcome={updateShowWelcome} />
@@ -285,7 +237,7 @@ export default function VotesRoot() {
           showAbsentee={showAbsentee}
         />
       </div>
-    </div >
+    </div>
   );
 }
 

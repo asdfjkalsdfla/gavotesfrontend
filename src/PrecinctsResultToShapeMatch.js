@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select, Input, Table, Checkbox } from "antd";
 import Papa from "papaparse";
-const { Column, ColumnGroup } = Table;
 const { Option } = Select;
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
@@ -115,6 +110,7 @@ export default function PrecinctsResultToShapeMatch() {
       .sort((a, b) => (a.PRECINCT_N > b.PRECINCT_N ? 1 : -1));
     updatePrecinctsMapInSelectedCounty(tmpPrecinctsMapInSelectedCounty);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [manualElectionResultsPrecinctsToShapeMap, selectedCounty]);
 
   const [mapPrecinctsNotSelectedInCounty, updateMapPrecinctsNotSelectedInCounty] = useState([]);
@@ -133,7 +129,7 @@ export default function PrecinctsResultToShapeMatch() {
     updateMapPrecinctsSelectedMultipleTimesInCounty(tmpPrecinctsMapUsedMulti);
   }, [electionPrecinctsInSelectedCounty, mapPrecinctsInSelectedCounty,]);
 
-  const [showCSVOutputs, updateShowCSVOutputs] = useState(true);
+  const [showCSVOutputs] = useState(true);
 
   if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap)
     return <div>Loading</div>;

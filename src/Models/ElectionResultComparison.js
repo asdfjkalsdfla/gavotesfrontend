@@ -7,6 +7,9 @@ export default class ElectionResultComparison {
     #perShiftRepublican;
     #perShiftDemocratic;
     #totalVotesPercent;
+    #totalVotesRDPercent;
+    #totalVotesRepublicanPercent;
+    #totalVotesDemocraticPercent;
 
     constructor(baseElection, previousElection, statewideTurnoutFactor) {
         this.baseElection = baseElection;
@@ -69,6 +72,30 @@ export default class ElectionResultComparison {
         if (this.#totalVotesPercent) return this.#totalVotesPercent;
         const value = this.baseElection?.totalVotes / this.previousElection?.totalVotes;
         this.#totalVotesPercent = value;
+        return value
+    }
+
+    // % change in total R/D votes
+    get totalVotesRDPercent() {
+        if (this.#totalVotesRDPercent) return this.#totalVotesRDPercent;
+        const value = this.baseElection?.totalVotesRD / this.previousElection?.totalVotesRD;
+        this.#totalVotesRDPercent = value;
+        return value
+    }
+
+    // % change in republican votes
+    get totalVotesRepublicanPercent() {
+        if (this.#totalVotesRepublicanPercent) return this.#totalVotesRepublicanPercent;
+        const value = this.baseElection?.republican / this.previousElection?.republican;
+        this.#totalVotesRepublicanPercent = value;
+        return value
+    }
+
+    // % change in democratic votes
+    get totalVotesDemocraticPercent() {
+        if (this.#totalVotesDemocraticPercent) return this.#totalVotesDemocraticPercent;
+        const value = this.baseElection?.democratic / this.previousElection?.democratic;
+        this.#totalVotesDemocraticPercent = value;
         return value
     }
 }

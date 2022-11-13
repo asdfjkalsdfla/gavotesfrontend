@@ -1,12 +1,12 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useState, useEffect, useMemo } from "react";
 import Map, { NavigationControl, useControl } from 'react-map-gl';
-import {
-  LightingEffect,
-  AmbientLight,
-  DirectionalLight,
-  _SunLight as SunLight,
-} from "@deck.gl/core";
+// import {
+//   LightingEffect,
+//   AmbientLight,
+//   DirectionalLight,
+//   _SunLight as SunLight,
+// } from "@deck.gl/core";
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { ScatterplotLayer } from "@deck.gl/layers";
@@ -175,15 +175,15 @@ export default function VotesMap({
     const initialZoom = county
       ? 10
       : sizeParam === "small" || sizeParam === "small…"
-        ? 6
-        : 7;
+        ? 5
+        : 6.7;
     const initialLatLong = county
       ? {
         latitude: 33.9999,
         longitude: -84.5641,
       }
       : {
-        latitude: 32.249,
+        latitude: 32.75,
         longitude: -83.388,
       }; // TODO - fix this to use the county's centroid when county is passed in
 
@@ -198,6 +198,7 @@ export default function VotesMap({
       height: window.innerHeight - 200,
     };
     return INITIAL_VIEW_STATE;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -341,28 +342,28 @@ export default function VotesMap({
   // ************************************************
   // Lighting Effects for 3d World
   // ************************************************
-  const [effects] = useState(() => {
-    const ambientLight = new AmbientLight({
-      color: [255, 255, 255],
-      intensity: 1.0,
-    });
+  // const [effects] = useState(() => {
+  //   const ambientLight = new AmbientLight({
+  //     color: [255, 255, 255],
+  //     intensity: 1.0,
+  //   });
 
-    const dirLight = new SunLight({
-      timestamp: Date.UTC(2022, 11, 8, 18),
-      color: [255, 255, 255],
-      intensity: 1.75,
-      _shadow: true,
-    });
+  //   const dirLight = new SunLight({
+  //     timestamp: Date.UTC(2022, 11, 8, 18),
+  //     color: [255, 255, 255],
+  //     intensity: 1.75,
+  //     _shadow: true,
+  //   });
 
-    const directionalLight = new DirectionalLight({
-      color: [255, 255, 255],
-      intensity: 1.0,
-      direction: [-3, -9, -1]
-    });
-    const lightingEffect = new LightingEffect({ ambientLight, directionalLight });
-    lightingEffect.shadowColor = [0, 0, 0, 0.1];
-    return [lightingEffect];
-  });
+  //   const directionalLight = new DirectionalLight({
+  //     color: [255, 255, 255],
+  //     intensity: 1.0,
+  //     direction: [-3, -9, -1]
+  //   });
+  //   const lightingEffect = new LightingEffect({ ambientLight, directionalLight });
+  //   lightingEffect.shadowColor = [0, 0, 0, 0.1];
+  //   return [lightingEffect];
+  // });
 
   // ************************************************
   // Layers on the Map
@@ -425,12 +426,12 @@ export default function VotesMap({
 
 
     if (dataGeoJSON && showSecondaryColor) {
-      scaleMin = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.asianPer), 0.05);
-      scaleMax = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.asianPer), 0.95);
+      scaleMin = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.hispanicPer + f.properties?.demographics?.blackPer), 0.05);
+      scaleMax = quantile(dataGeoJSON.features.map(f => f.properties?.demographics?.hispanicPer + f.properties?.demographics?.blackPer), 0.95);
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
         const value = normalizeZeroOne(
-          f.properties?.demographics?.asianPer,
+          f.properties?.demographics?.hispanicPer + f.properties?.demographics?.hispanicPer,
           scaleMin,
           scaleMax
         );
@@ -490,12 +491,6 @@ export default function VotesMap({
     layers.push(layer);
   }
 
-  // BAD Practice but deck.gl doesn't seem to play nice with other components
-  // i.e. you can't just wrap it in a div and have it take the space available for that div.
-  const sidebarWidth = Math.max(window.innerWidth * 0.25, 300);
-  const mapWidth = window.innerWidth - sidebarWidth - 20;
-  const mapHeight = window.innerHeight - 50;
-
   // console.log( `geojson_${colorApproach}_${absenteeElectionBaseID}_${absenteeElectionCurrentID}_${resultsElectionRaceCurrentID}_${resultsElectionRacePerviousID}`);
 
   return (
@@ -504,7 +499,7 @@ export default function VotesMap({
       mapStyle={mapStyle}
       mapboxAccessToken={MAPBOX_TOKEN}
       onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
-      style={{ top: 50, width: mapWidth, height: mapHeight, position: "absolute" }}
+      style={{ width: "100%", height: "100%" }}
     >
       <DeckGLOverlay
         // ContextProvider={MapContext.Provider}
