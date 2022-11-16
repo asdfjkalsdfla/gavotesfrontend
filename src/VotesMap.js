@@ -198,7 +198,7 @@ export default function VotesMap({
       height: window.innerHeight - 200,
     };
     return INITIAL_VIEW_STATE;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -311,10 +311,16 @@ export default function VotesMap({
       colorFunction = (f) => {
         const perAdjusted = normalizeZeroCenterToZeroOne(
           f.properties?.electionResultsComparison?.perShiftDemocratic,
-          (isCountyLevel ? -0.1 : -0.2),
-          (isCountyLevel ? 0.1 : 0.2)
+          (isCountyLevel ? -0.15 : -0.15),
+          (isCountyLevel ? 0.15 : 0.15)
         );
         // console.log(`County - ${f.properties?.CTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
+        const color = !(perAdjusted === undefined) ?
+          perAdjusted < 0.5 ?
+            d3ScaleChromatic.interpolateReds(1 - 2 * perAdjusted) :
+            d3ScaleChromatic.interpolateBlues(2 * (perAdjusted - 0.5))
+          : [255, 255, 255, 0];
+        return convertD3ColorToArray(color);
         return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
       };
       break;

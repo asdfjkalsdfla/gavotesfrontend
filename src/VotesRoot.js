@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Divider } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 // import Protobuf from "protobufjs";
@@ -57,6 +57,10 @@ const resultsElectionRaceCurrentIDParam = params.get("resultsElectionRaceCurrent
 const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam ? resultsElectionRaceCurrentIDParam : "2022_general##US Senate";
 const resultsElectionRacePerviousIDParam = params.get("resultsElectionRacePerviousID");
 const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam ? resultsElectionRacePerviousIDParam : "2020_general##President of the United States";
+
+// scatter plot
+const scatterParam = params.get("scatter");
+const scatterShowInitial = scatterParam ? true : false;
 
 // TODO - move the parameter keeping to the context API
 export default function VotesRoot() {
@@ -125,11 +129,28 @@ export default function VotesRoot() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID]);
 
+  // **************************************************
+  // Active Data Point
+  // **************************************************
+  // TODO - fully refactor this so we don't pass the geoJSON into the selection
+  // short-term challenge is the demographic data is only on the geo json
+  const [activeHover, updateActiveHover] = useState(null);
+  const [activeSelection, updateActiveSelection] = useState(null);
 
+  const activeDataPoint = useMemo(() => {
+    const source = activeHover ? activeHover : activeSelection;
+    if (source && source.properties)
+      return source;
+    if (source && allElectionData.has(source))
+      return { properties: allElectionData.get(source) };
+    if (county && allElectionData.has(county)) // won't work yet because we get precinct level data
+      return { properties: allElectionData.get(county) };
 
+    return { properties: voteTotals };
+  }, [activeHover, activeSelection, allElectionData, county, voteTotals]);
 
   // ************************************************
-  // Data Controls
+  // Data Display Controls
   // ************************************************
   const [elevationApproach, updateElevationApproach] = useState(elevationApproachInitial);
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
@@ -141,17 +162,9 @@ export default function VotesRoot() {
   // ************************************************
   // Basic UI Events / Controls
   // ************************************************
-
-  const [activeHover, updateActiveHover] = useState(null);
-  const [activeSelection, updateActiveSelection] = useState(null);
   const [showOptions, updateShowOptions] = useState(showOptionsOnLoad);
   const [showWelcome, updateShowWelcome] = useState(showWelcomeOnLoad);
-
-  const [showScatterPlot] = useState(false);
-
-  const activeVoteGeoJSON = activeHover ? activeHover : activeSelection;
-
-
+  const [showScatterPlot] = useState(scatterShowInitial);
 
   return (
     <div className="container">
@@ -220,7 +233,7 @@ export default function VotesRoot() {
           <Divider /></>
         )}
         <VotesSummary
-          geoJSONVote={(activeVoteGeoJSON && activeVoteGeoJSON.properties) ? activeVoteGeoJSON : { properties: allElectionData.has(activeVoteGeoJSON) ? allElectionData.get(activeVoteGeoJSON) : voteTotals }}
+          geoJSONVote={activeDataPoint}
           activeSelection={activeSelection}
           updateUserHasSetLevel={updateUserHasSetLevel}
           updateCountySelected={updateCountySelected}
@@ -337,3 +350,42 @@ const loadAndCombineElectionDataFiles = async (absenteeCurrentFileLocation, abse
   });
   return updatedElectionData;
 }
+
+// const getAxisYDomain = (from, to, ref, offset) => {
+//   const refData = initialData.slice(from - 1, to);
+//   let [bottom, top] = [refData[0][ref], refData[0][ref]];
+//   refData.forEach((d) => {
+//     if (d[ref] > top) top = d[ref];
+//     if (d[ref] < bottom) bottom = d[ref];
+//   });
+
+//   return [(bottom | 0) - offset, (top | 0) + offset];
+// };
+
+// const initialState = {
+//   data: initialData,
+//   left: 'dataMin',
+//   right: 'dataMax',
+//   refAreaLeft: '',
+//   refAreaRight: '',
+//   top: 'dataMax+1',
+//   bottom: 'dataMin-1',
+//   top2: 'dataMax+20',
+//   bottom2: 'dataMin-20',
+//   animation: true,
+// };
+
+// if (refAreaLeft === refAreaRight || refAreaRight === '') {
+//   this.setState(() => ({
+//     refAreaLeft: '',
+//     refAreaRight: '',
+//   }));
+//   return;
+// }
+
+// // xAxis domain
+// if (refAreaLeft > refAreaRight) [refAreaLeft, refAreaRight] = [refAreaRight, refAreaLeft];
+
+// // yAxis domain
+// const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 'cost', 1);
+// const [bottom2, top2] = getAxisYDomain(refAreaLeft, refAreaRight, 'impression', 50);
