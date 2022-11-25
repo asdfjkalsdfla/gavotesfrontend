@@ -34,6 +34,7 @@ export default function VoteSummary({
   electionResultBaseElection,
   electionResultBaseRace,
   absenteeElectionBaseID,
+  absenteeElectionCurrentID,
   showVoteMode,
   showDemographics,
   showAbsentee,
@@ -41,6 +42,7 @@ export default function VoteSummary({
   if (!geoJSONVote || !geoJSONVote.properties) return <span>Loading...</span>;
   const resultSummary = geoJSONVote.properties;
   const absenteeElectionBaseLabel = absenteeElectionBaseID;
+  const absenteeElectionCurrentLabel = absenteeElectionCurrentID;
   return (
     <div>
       <h1>
@@ -229,7 +231,7 @@ export default function VoteSummary({
       )}
       {showAbsentee && (
         <Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }} contentStyle={{ textAlign: "right", width: "40%" }}>
-          <Descriptions.Item label="Accepted 2021">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</Descriptions.Item>
+          <Descriptions.Item label={`Accepted  ${absenteeElectionCurrentLabel}`}>{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</Descriptions.Item>
           <Descriptions.Item label={`Accepted at Same Date in ${absenteeElectionBaseLabel}`}>
             {numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}
           </Descriptions.Item>
@@ -243,12 +245,12 @@ export default function VoteSummary({
         <React.Fragment>
           <br />
           <b>Votes by Day</b>
-          <VotesByDateChart resultSummary={resultSummary} absenteeElectionBaseLabel={absenteeElectionBaseLabel} />
+          <VotesByDateChart resultSummary={resultSummary} absenteeElectionCurrentLabel={absenteeElectionCurrentLabel} absenteeElectionBaseLabel={absenteeElectionBaseLabel} />
         </React.Fragment>
       )}
       <div style={{ width: "100%", textAlign: "right" }}>
         <small>
-          <i>Last Updated:</i> {process.env.REACT_APP_UPDATE_DATE}
+          {/* <i>Last Updated:</i> {process.env.REACT_APP_UPDATE_DATE} */}
         </small>
       </div>
     </div>

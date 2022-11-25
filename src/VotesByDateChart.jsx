@@ -1,7 +1,7 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
-export default function VotesByDateChart({ resultSummary, absenteeElectionBaseLabel }) {
+export default function VotesByDateChart({ resultSummary, absenteeElectionCurrentLabel, absenteeElectionBaseLabel }) {
   // console.log(resultSummary);
   // Filter out bad data points from SOS data
   let chartPoints =
@@ -37,7 +37,7 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionBaseLa
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line name="2022 Votes" type="linear" dataKey="currentElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line name={`${absenteeElectionCurrentLabel} Votes`} type="linear" dataKey="currentElectionVotesOnDate" stroke="#8884d8" activeDot={{ r: 8 }} />
       <Line name={`${absenteeElectionBaseLabel} Votes`} type="linear" dataKey="votesOnDate" stroke="#82ca9d" activeDot={{ r: 8 }} />
     </LineChart>
   );

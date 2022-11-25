@@ -13,8 +13,6 @@ import { ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
 
-import Demographics from "./Models/Demographics";
-
 const numberFormat = new Intl.NumberFormat("en-us");
 
 const numberFormatPercent = new Intl.NumberFormat("en-us", {
@@ -115,21 +113,6 @@ export default function VotesMap({
         return;
       }
       const geoJSONBase = await responseGeo.json();
-      geoJSONBase.features.forEach((location) => {
-        const propertiesPrior = location.properties;
-        const demographics = new Demographics(propertiesPrior);
-        const properties = {
-          id: propertiesPrior.id,
-          ID: propertiesPrior.ID,
-          CNTY: propertiesPrior.CNTY,
-          CTYNAME: propertiesPrior.CTYNAME,
-          PRECINCT_I: propertiesPrior.PRECINCT_I,
-          PRECINCT_N: propertiesPrior.PRECINCT_N,
-          centroid: propertiesPrior.centroid,
-          demographics,
-        };
-        location.properties = properties;
-      });
       updateDataGeoJSONBase(geoJSONBase);
     };
     load();
@@ -278,20 +261,16 @@ export default function VotesMap({
       };
       break;
     case "electionResultPerRepublicanPerShift":
+      scaleMin = isCountyLevel ? -0.15 : -0.15;
+      scaleMax = isCountyLevel ? -0.15 : -0.15;
+      scaleToColorFunction = (value) => (value < 0.5 ? d3ScaleChromatic.interpolateReds(1 - 2 * value) : d3ScaleChromatic.interpolateBlues(2 * (value - 0.5)));
+
       colorFunction = (f) => {
-        const perAdjusted = normalizeZeroCenterToZeroOne(
-          f.properties?.electionResultsComparison?.perShiftDemocratic,
-          isCountyLevel ? -0.15 : -0.15,
-          isCountyLevel ? 0.15 : 0.15
-        );
+        const perAdjusted = normalizeZeroCenterToZeroOne(f.properties?.electionResultsComparison?.perShiftDemocratic, scaleMin, scaleMax);
         // console.log(`County - ${f.properties?.CTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
-        const color = !(perAdjusted === undefined)
-          ? perAdjusted < 0.5
-            ? d3ScaleChromatic.interpolateReds(1 - 2 * perAdjusted)
-            : d3ScaleChromatic.interpolateBlues(2 * (perAdjusted - 0.5))
-          : [255, 255, 255, 0];
+        const color = !(perAdjusted === undefined) ? scaleToColorFunction(perAdjusted) : [255, 255, 255, 0];
         return convertD3ColorToArray(color);
-        return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
+        // return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
       };
       break;
     case "hispanic":
@@ -524,21 +503,29 @@ export default function VotesMap({
       <div style={NAVIGATION_CONTROL_STYLES}>
         <NavigationControl />
       </div>
-      {/* BEGINNINGS OF A LEGEND  
-        <div style={{
-          position: 'absolute',
-          top: '90%',
-          right: 0,
-          width: 250,
-          boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-          margin: 24,
-          padding: "10px 24px",
-          backgroundColor: "white",
-          zIndex: 1,
-        }}>{[...Array(50).keys()].map(point => {
-          const color = d3ScaleChromatic.interpolateGreens(point * 2 / 100);
-          return (<span style={{ backgroundColor: color, width: "1px" }}>&nbsp;</span>)
-        })}</div> */}
+      {scaleToColorFunction && (
+        <div
+          style={{
+            position: "absolute",
+            top: "88%",
+            right: 0,
+            width: 200,
+            boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+            margin: 24,
+            padding: "5px 24px",
+            backgroundColor: "white",
+            zIndex: 999,
+          }}
+        >
+          {[...Array(50).keys()].map((point) => {
+            const color = scaleToColorFunction((point * 2) / 100);
+            return <span style={{ backgroundColor: color, width: "1px" }}>&nbsp;</span>;
+          })}
+          <br />
+          <span>{numberFormatPercent.format(scaleMin)}</span>
+          <span style={{ float: "right" }}>{numberFormatPercent.format(scaleMax)}</span>
+        </div>
+      )}
     </Map>
   );
 }

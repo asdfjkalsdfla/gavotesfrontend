@@ -1,16 +1,19 @@
-import React, { useState, useMemo } from "react";
-import { Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ZAxis, Line, ComposedChart, ScatterChart, ResponsiveContainer, ReferenceArea } from "recharts";
+import React, { useState, useMemo, startTransition } from "react";
+import { Scatter, XAxis, YAxis, CartesianGrid,  ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import "./VotesScatter.css";
 import SimpleLinearRegression from "ml-regression-simple-linear";
 
 const MIN_ZOOM = 5; // adjust based on your data
-const DEFAULT_DOMAIN = ["dataMin", "dataMax"];
+const DEFAULT_DOMAIN_X = ["dataMin", "dataMax"];
+const DEFAULT_DOMAIN_Y = [0, 150];
 const DEFAULT_ZOOM = { x1: null, x2: null };
 
-export default function VotesScatterPlot({ allElectionData, isCountyLevel, updateActiveHover, updateActiveSelection }) {
+const tickFormatter = (value) => value.toFixed(2);
+
+export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatterYAxis, isCountyLevel, updateActiveHover, updateActiveSelection }) {
   // x axis domain
-  const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN);
-  const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN);
+  const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
+  const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
 
   const data = useMemo(() => {
     console.log(`in update data function`);
@@ -18,9 +21,45 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
     let maxX = -500;
     let minX = 500;
 
+    let xProp;
+    switch (scatterXAxis) {
+      case "perRBase":
+        xProp = (dataPoint) => dataPoint.electionResultsBase?.perRepublican * 100;
+        break;
+      case "whitePer":
+        xProp = (dataPoint) => dataPoint?.demographics?.whitePer * 100;
+        break;
+      case "blackPer":
+        xProp = (dataPoint) => dataPoint?.demographics?.blackPer * 100;
+        break;
+      case "hispanicPer":
+        xProp = (dataPoint) => dataPoint?.demographics?.hispanicPer * 100;
+        break;
+      default:
+        xProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
+    }
+
+    let yProp;
+    switch (scatterYAxis) {
+      case "turnoutChange":
+        yProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
+        break;
+      case "perRCurrent":
+        yProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
+        break;
+      case "electionResultPerRepublicanPerShift":
+        yProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublican * 100;
+        break;
+      case "totalVotesPercent":
+        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRDPercent * 100;
+        break;
+      default:
+        yProp = (dataPoint) => dataPoint?.electionResultsBase?.perRepublican * 100;
+    }
+
     allElectionData.forEach((point, key) => {
-      const x = point?.electionResultsCurrent?.perRepublican * 100;
-      const y = point?.electionResultsBase?.perRepublican * 100;
+      const x = xProp(point);
+      const y = yProp(point);
       const z = point?.electionResultsCurrent?.totalVotes;
       const id = key;
       if (x && y) {
@@ -29,6 +68,8 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
         pointsOnChart.push({ id, x, y, z });
       }
     });
+
+    
 
     const regression = new SimpleLinearRegression(
       pointsOnChart.map((point) => point.x),
@@ -42,10 +83,13 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
     const regIntercept = regression.intercept;
     const regSlope = regression.slope;
     // setFilteredData(pointsOnChart);
-    updateDomainX(DEFAULT_DOMAIN);
-    updateDomainY(DEFAULT_DOMAIN);
+    updateDomainX(DEFAULT_DOMAIN_X);
+
+    const yMin = quantile(pointsOnChart.map(point => point.y), isCountyLevel ? 0 : 0.01)
+    const yMax = quantile(pointsOnChart.map(point => point.y), isCountyLevel ? 1 : 0.99)
+    updateDomainY([yMin,yMax]);
     return { pointsOnChart, regressionLineData, regIntercept, regSlope };
-  }, [allElectionData]);
+  }, [allElectionData, isCountyLevel, scatterXAxis, scatterYAxis]);
 
   // zoom coordinates
   const [zoomArea, setZoomArea] = useState(DEFAULT_ZOOM);
@@ -57,11 +101,12 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
   // flag to show the zooming area (ReferenceArea)
   const showZoomBox = isZooming && !(Math.abs(zoomArea.x1 - zoomArea.x2) < MIN_ZOOM) && !(Math.abs(zoomArea.y1 - zoomArea.y2) < MIN_ZOOM);
 
-  // reset the states on zoom out
-  function handleZoomOut() {
-    updateDomainX(DEFAULT_DOMAIN);
-    setZoomArea(DEFAULT_ZOOM);
-  }
+  // // reset the states on zoom out
+  // function handleZoomOut() {
+  //   updateDomainX(DEFAULT_DOMAIN_X);
+  //   updateDomainY(DEFAULT_DOMAIN_Y);
+  //   setZoomArea(DEFAULT_ZOOM);
+  // }
 
   /**
    * Two possible events:
@@ -79,7 +124,9 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
       return;
     } else {
       // console.log("zoom start");
-      setZoomArea({ x1: xValue, x2: xValue, y1: yValue, y2: yValue });
+      startTransition(() => {
+        setZoomArea({ x1: xValue, x2: xValue, y1: yValue, y2: yValue });
+      });
     }
   }
 
@@ -91,7 +138,9 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
     const yValue = e?.activePayload[0].payload.y;
     if (isZooming) {
       // console.log("zoom selecting");
-      setZoomArea((prev) => ({ ...prev, x2: xValue, y2: yValue }));
+      startTransition(() => {
+        setZoomArea((prev) => ({ ...prev, x2: xValue, y2: yValue }));
+      });
     }
   }
 
@@ -153,8 +202,8 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
             <CartesianGrid strokeDasharray="2 2" />
-            <XAxis dataKey="x" type="number" domain={domainX} allowDataOverflow={true} name="shift" unit="%" />
-            <YAxis dataKey="y" type="number" domain={domainY} allowDataOverflow={true} name="2022 turnout" unit="%" />
+            <XAxis dataKey="x" type="number" domain={domainX} allowDataOverflow={true} name="shift" unit="%" tickFormatter={tickFormatter} />
+            <YAxis dataKey="y" type="number" domain={domainY} allowDataOverflow={true} name="2022 turnout" unit="%" tickFormatter={tickFormatter} />
             <ZAxis dataKey="z" type="number" range={range} name="votes" />
             {/* <Tooltip content={<CustomTooltip />} dataKey="id" cursor={{ strokeDasharray: '3 3' }} /> */}
             <Scatter
@@ -179,22 +228,6 @@ export default function VotesScatterPlot({ allElectionData, isCountyLevel, updat
   );
 }
 
-const CustomTooltip = ({ active, payload }) => {
-  if (!payload || payload.size === 0) return <></>;
-  if (active) {
-    return (
-      <div className="custom-tooltip">
-        <p className="intro">{payload[0].payload.id}</p>
-        <p className="desc">D %: {payload[0].payload.x}</p>
-        <p className="desc">Turnout Change: {payload[0].payload.y}</p>
-        <p className="desc">Votes 2022: {payload[0].payload.z}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
-
 function getClickedPoint(x, y, dataOnPlot) {
   const allPoints = Array.from(document.querySelectorAll(".custom-dot"));
 
@@ -217,3 +250,19 @@ function getClickedPoint(x, y, dataOnPlot) {
     }
   }
 }
+
+const quantile = (arr, q) => {
+  const sorted = arr
+    .filter((a) => typeof a === "number" && isFinite(a))
+    .sort((a, b) => {
+      return a - b;
+    });
+  const pos = (sorted.length - 1) * q;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  if (sorted[base + 1] !== undefined) {
+    return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+  } else {
+    return sorted[base];
+  }
+};

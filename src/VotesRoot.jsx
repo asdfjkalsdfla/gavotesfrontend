@@ -12,6 +12,7 @@ import ElectionResult from "./Models/ElectionResult";
 import ElectionResultComparison from "./Models/ElectionResultComparison";
 import AbsenteeBallots from "./Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "./Models/AbsenteeBallotsComparison";
+import Demographics from "./Models/Demographics";
 import ElectionsJSON from "./elections.json";
 import "./VoteRoot.css";
 
@@ -62,7 +63,7 @@ export default function VotesRoot() {
   // ************************************************
   const elections = ElectionsJSON;
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState(elections[0].name);
-  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState(elections[2].name);
+  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState(elections[1].name);
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState(resultsElectionRacePerviousIDInitial);
 
@@ -95,6 +96,7 @@ export default function VotesRoot() {
     const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
     const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${resultsElectionCurrentID}-${level}.json`;
     const electionResultBaseFileLocation = resultsElectionPreviousID ? `/static/electionResultsSummary-${resultsElectionPreviousID}-${level}.json` : null;
+    const demographicsFileLocation = resultsElectionPreviousID ? `/static/demographics-${level}-2020.json` : null;
 
     const load = async () => {
       const updatedElectionData = await loadAndCombineElectionDataFiles(
@@ -102,6 +104,7 @@ export default function VotesRoot() {
         absenteeBaseFileLocation,
         electionResultsCurrentFileLocation,
         electionResultBaseFileLocation,
+        demographicsFileLocation,
         isCountyLevel,
         resultsRaceCurrentID,
         resultsRacePreviousID
@@ -121,6 +124,7 @@ export default function VotesRoot() {
     const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-state.json`;
     const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${resultsElectionCurrentID}-state.json`;
     const electionResultBaseFileLocation = resultsElectionPreviousID ? `/static/electionResultsSummary-${resultsElectionPreviousID}-state.json` : null;
+    const demographicsFileLocation = `/static/demographics-state.json`;
 
     const load = async () => {
       const votingResultTotalMap = await loadAndCombineElectionDataFiles(
@@ -128,6 +132,7 @@ export default function VotesRoot() {
         absenteeBaseFileLocation,
         electionResultsCurrentFileLocation,
         electionResultBaseFileLocation,
+        demographicsFileLocation,
         isCountyLevel,
         resultsRaceCurrentID,
         resultsRacePreviousID
@@ -164,8 +169,11 @@ export default function VotesRoot() {
   const [elevationApproach, updateElevationApproach] = useState(elevationApproachInitial);
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
 
+  const [scatterXAxis, updateScatterXAxis] = useState("blackPer");
+  const [scatterYAxis, updateScatterYAxis] = useState("totalVotesPercent");
+
   const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(false);
+  const [showAbsentee, updateShowAbsentee] = useState(true);
   const [showDemographics, updateShowDemographics] = useState(true);
 
   // ************************************************
@@ -173,7 +181,7 @@ export default function VotesRoot() {
   // ************************************************
   const [showOptions, updateShowOptions] = useState(showOptionsOnLoad);
   const [showWelcome, updateShowWelcome] = useState(showWelcomeOnLoad);
-  const [showScatterPlot] = useState(scatterShowInitial);
+  const [showScatterPlot, updateShowScatterPlot] = useState(scatterShowInitial);
 
   return (
     <div className="container">
@@ -198,6 +206,8 @@ export default function VotesRoot() {
             isCountyLevel={isCountyLevel}
             updateActiveSelection={updateActiveSelection}
             updateActiveHover={updateActiveHover}
+            scatterXAxis={scatterXAxis}
+            scatterYAxis={scatterYAxis}
           />
         ) : (
           <VotesMap
@@ -243,6 +253,12 @@ export default function VotesRoot() {
               updateShowDemographics={updateShowDemographics}
               showAbsentee={showAbsentee}
               updateShowAbsentee={updateShowAbsentee}
+              showScatterPlot={showScatterPlot}
+              updateShowScatterPlot={updateShowScatterPlot}
+              scatterXAxis={scatterXAxis}
+              updateScatterXAxis={updateScatterXAxis}
+              scatterYAxis={scatterYAxis}
+              updateScatterYAxis={updateScatterYAxis}
             />
             <Divider />
           </>
@@ -261,6 +277,7 @@ export default function VotesRoot() {
           electionResultBaseElection={resultsElectionPrevious}
           electionResultBaseRace={resultsRacePrevious}
           absenteeElectionBaseID={absenteeElectionBaseID}
+          absenteeElectionCurrentID={absenteeElectionCurrentID}
           showVoteMode={showVoteMode}
           showDemographics={showDemographics}
           showAbsentee={showAbsentee}
@@ -275,6 +292,7 @@ const loadAndCombineElectionDataFiles = async (
   absenteeBaseFileLocation,
   electionResultsCurrentFileLocation,
   electionResultBaseFileLocation,
+  demographicsFileLocation,
   isCountyLevel,
   resultsRaceCurrentID,
   resultsRacePreviousID
@@ -284,9 +302,12 @@ const loadAndCombineElectionDataFiles = async (
   fetchPromises.push(fetch(absenteeCurrentFileLocation));
   fetchPromises.push(fetch(absenteeBaseFileLocation));
   fetchPromises.push(fetch(electionResultsCurrentFileLocation));
+  fetchPromises.push(fetch(demographicsFileLocation));
   if (electionResultBaseFileLocation) fetchPromises.push(fetch(electionResultBaseFileLocation));
 
-  const [responseAbsenteeCurrent, responseAbsenteeBase, responseElectionResultsCurrent, electionResultBase] = await Promise.all(fetchPromises);
+  const [responseAbsenteeCurrent, responseAbsenteeBase, responseElectionResultsCurrent, responseDemographics, electionResultBase] = await Promise.all(
+    fetchPromises
+  );
 
   if (!responseAbsenteeCurrent.ok) {
     console.log("ERROR loading absentee current");
@@ -300,16 +321,21 @@ const loadAndCombineElectionDataFiles = async (
     console.log("ERROR loading election result current");
     return;
   }
+  if (!responseDemographics.ok) {
+    console.log("ERROR loading demographics");
+    return;
+  }
+
   if (electionResultBaseFileLocation && !electionResultBase.ok) {
     console.log("ERROR loading election result base");
     return;
   }
 
-  const jsonPromises = [responseAbsenteeCurrent.json(), responseAbsenteeBase.json(), responseElectionResultsCurrent.json()];
+  const jsonPromises = [responseAbsenteeCurrent.json(), responseAbsenteeBase.json(), responseElectionResultsCurrent.json(), responseDemographics.json()];
   if (electionResultBaseFileLocation) {
     jsonPromises.push(electionResultBase.json());
   }
-  const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, electionResultBaseJSON] = await Promise.all(jsonPromises);
+  const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = await Promise.all(jsonPromises);
 
   const updatedElectionData = new Map();
 
@@ -324,6 +350,13 @@ const loadAndCombineElectionDataFiles = async (
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
     const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.absenteeBase = new AbsenteeBallots(row);
+    updatedElectionData.set(id, properties);
+  });
+
+  demographicsJSON.forEach((row) => {
+    const id = row.id;
+    const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { CTYNAME: row.county, PRECINCT_N: row.precinct };
+    properties.demographics = new Demographics(row);
     updatedElectionData.set(id, properties);
   });
 
