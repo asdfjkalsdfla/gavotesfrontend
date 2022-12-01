@@ -1,53 +1,42 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Descriptions, Button, Table } from "antd";
 import { ZoomInOutlined, ZoomOutOutlined, CloseOutlined } from "@ant-design/icons";
+import { useElectionData } from "./ElectionDataProvider";
 import VotesByDateChart from "./VotesByDateChart";
-
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils";
 const { Column } = Table;
 
-const numberFormat = new Intl.NumberFormat("en-us", {
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
-});
-const numberFormatRatio = new Intl.NumberFormat("en-us", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-const numberFormatPercent = new Intl.NumberFormat("en-us", {
-  style: "percent",
-  minimumIntegerDigits: 2,
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
 // const numberFormatInteger = new Intl.NumberFormat('en-us', options1);
 
 export default function VoteSummary({
-  geoJSONVote,
   activeSelection,
+  activeHover,
   updateCountySelected,
   updateActiveSelection,
   isCountyLevel,
   updateIsCountyLevel,
   updateUserHasSetLevel,
-  electionResultCurrentElection,
-  electionResultCurrentRace,
-  electionResultBaseElection,
-  electionResultBaseRace,
-  absenteeElectionBaseID,
-  absenteeElectionCurrentID,
   showVoteMode,
   showDemographics,
   showAbsentee,
 }) {
-  if (!geoJSONVote || !geoJSONVote.properties) return <span>Loading...</span>;
-  const resultSummary = geoJSONVote.properties;
-  const absenteeElectionBaseLabel = absenteeElectionBaseID;
-  const absenteeElectionCurrentLabel = absenteeElectionCurrentID;
+  const { locationResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
+  const resultSummary = useMemo(() => {
+    const source = activeHover ? activeHover : activeSelection;
+    if (source && source.properties) return source.properties;
+    if (source && locationResults.has(source)) return locationResults.get(source);
+    return statewideResults;
+  }, [activeHover, activeSelection, locationResults, statewideResults]);
+
+  if (!resultSummary) return <span>Loading...</span>;
+
+  const absenteeElectionBaseLabel = baseAbsenteeElection.label;
+  const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
     <div>
       <h1>
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary["PRECINCT_N"] || ""}{" "}
-        {activeSelection && (activeSelection?.properties?.id === geoJSONVote.properties.id || activeSelection === geoJSONVote.properties.id) && (
+        {activeSelection && activeSelection === resultSummary.id && (
           <span style={{ float: "right" }}>
             <Button
               shape="circle"
@@ -93,19 +82,32 @@ export default function VoteSummary({
         </React.Fragment>
       )}
 
+      {showAbsentee && (
+        <Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }} contentStyle={{ textAlign: "right", width: "40%" }}>
+          <Descriptions.Item label={`Accepted  ${absenteeElectionCurrentLabel}`}>
+            {numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}
+          </Descriptions.Item>
+          <Descriptions.Item label={`Accepted at Same Date in ${absenteeElectionBaseLabel}`}>
+            {numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}
+          </Descriptions.Item>
+          <Descriptions.Item label="vs. Same Day">
+            {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}
+          </Descriptions.Item>
+        </Descriptions>
+      )}
       <Descriptions
-        title={`${electionResultCurrentElection?.label} - ${electionResultCurrentRace?.name}`}
+        title={`${currentElectionRace.election?.label} - ${currentElectionRace?.name}`}
         column={1}
         bordered
         size="small"
         style={{ width: "100%" }}
         contentStyle={{ textAlign: "right", width: "40%" }}
       >
-        <Descriptions.Item label={`${electionResultCurrentRace?.republican} (R)`}>
+        <Descriptions.Item label={`${currentElectionRace?.republican} (R)`}>
           {numberFormat.format(resultSummary?.electionResultsCurrent?.republican)} (
           {numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perRepublican)})
         </Descriptions.Item>
-        <Descriptions.Item label={`${electionResultCurrentRace?.democratic} (D)`}>
+        <Descriptions.Item label={`${currentElectionRace?.democratic} (D)`}>
           {numberFormat.format(resultSummary?.electionResultsCurrent?.democratic)} (
           {numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perDemocratic)})
         </Descriptions.Item>
@@ -145,18 +147,8 @@ export default function VoteSummary({
           <br />
           <Table dataSource={resultSummary?.electionResultsCurrent?.resultsByMode} pagination={false}>
             <Column title="Method" dataIndex="mode" key="mode" />
-            <Column
-              title={`${electionResultCurrentRace?.republican} (R)`}
-              dataIndex="republican"
-              key="republican"
-              render={(value) => numberFormat.format(value)}
-            />
-            <Column
-              title={`${electionResultCurrentRace?.democratic} (D)`}
-              dataIndex="democratic"
-              key="democratic"
-              render={(value) => numberFormat.format(value)}
-            />
+            <Column title={`${currentElectionRace?.republican} (R)`} dataIndex="republican" key="republican" render={(value) => numberFormat.format(value)} />
+            <Column title={`${currentElectionRace?.democratic} (D)`} dataIndex="democratic" key="democratic" render={(value) => numberFormat.format(value)} />
           </Table>
         </React.Fragment>
       )}
@@ -164,18 +156,18 @@ export default function VoteSummary({
         <React.Fragment>
           <br />
           <Descriptions
-            title={`${electionResultBaseElection.label} - ${electionResultBaseRace.name}`}
+            title={`${previousElectionRace.election.label} - ${previousElectionRace.name}`}
             column={1}
             bordered
             size="small"
             style={{ width: "100%" }}
             contentStyle={{ textAlign: "right", width: "40%" }}
           >
-            <Descriptions.Item label={`${electionResultBaseRace?.republican} (R)`}>
+            <Descriptions.Item label={`${previousElectionRace?.republican} (R)`}>
               {numberFormat.format(resultSummary?.electionResultsBase?.republican)} (
               {numberFormatPercent.format(resultSummary?.electionResultsBase?.perRepublican)})
             </Descriptions.Item>
-            <Descriptions.Item label={`${electionResultBaseRace?.democratic} (D)`}>
+            <Descriptions.Item label={`${previousElectionRace?.democratic} (D)`}>
               {numberFormat.format(resultSummary?.electionResultsBase?.democratic)} (
               {numberFormatPercent.format(resultSummary?.electionResultsBase?.perDemocratic)})
             </Descriptions.Item>
@@ -196,18 +188,8 @@ export default function VoteSummary({
           <br />
           <Table dataSource={resultSummary?.electionResultsBase?.resultsByMode} pagination={false}>
             <Column title="Method" dataIndex="mode" key="mode" />
-            <Column
-              title={`${electionResultBaseRace?.republican} (R)`}
-              dataIndex="republican"
-              key="republican"
-              render={(value) => numberFormat.format(value)}
-            />
-            <Column
-              title={`${electionResultBaseRace?.democratic} (D)`}
-              dataIndex="democratic"
-              key="democratic"
-              render={(value) => numberFormat.format(value)}
-            />
+            <Column title={`${previousElectionRace?.republican} (R)`} dataIndex="republican" key="republican" render={(value) => numberFormat.format(value)} />
+            <Column title={`${previousElectionRace?.democratic} (D)`} dataIndex="democratic" key="democratic" render={(value) => numberFormat.format(value)} />
           </Table>
         </React.Fragment>
       )}
@@ -229,34 +211,22 @@ export default function VoteSummary({
           </Descriptions.Item>
         </Descriptions>
       )}
-      {showAbsentee && (
-        <Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }} contentStyle={{ textAlign: "right", width: "40%" }}>
-          <Descriptions.Item label={`Accepted  ${absenteeElectionCurrentLabel}`}>{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</Descriptions.Item>
-          <Descriptions.Item label={`Accepted at Same Date in ${absenteeElectionBaseLabel}`}>
-            {numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}
-          </Descriptions.Item>
-          <Descriptions.Item label="vs. Same Day">
-            {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}
-          </Descriptions.Item>
-        </Descriptions>
-      )}
+
       <br />
       {showAbsentee && (
         <React.Fragment>
           <br />
           <b>Votes by Day</b>
-          <VotesByDateChart resultSummary={resultSummary} absenteeElectionCurrentLabel={absenteeElectionCurrentLabel} absenteeElectionBaseLabel={absenteeElectionBaseLabel} />
+          <VotesByDateChart
+            resultSummary={resultSummary}
+            absenteeElectionCurrentLabel={absenteeElectionCurrentLabel}
+            absenteeElectionBaseLabel={absenteeElectionBaseLabel}
+          />
         </React.Fragment>
       )}
       <div style={{ width: "100%", textAlign: "right" }}>
-        <small>
-          {/* <i>Last Updated:</i> {process.env.REACT_APP_UPDATE_DATE} */}
-        </small>
+        <small>{/* <i>Last Updated:</i> {process.env.REACT_APP_UPDATE_DATE} */}</small>
       </div>
     </div>
   );
 }
-
-const RDIndicator = (value) => {
-  return value > 0 ? <span style={{ color: "rgb(102, 134, 181)" }}>D+</span> : <span style={{ color: "#d09897" }}>R+</span>;
-};

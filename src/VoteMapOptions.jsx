@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, Button, Checkbox, Radio } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
+import { useElectionData } from "./ElectionDataProvider";
 const { Option } = Select;
 
 export default function VoteMapOptions({
@@ -9,7 +10,6 @@ export default function VoteMapOptions({
   elevationApproach,
   updateColorApproach,
   colorApproach,
-  elections,
   absenteeBase,
   updateAbsenteeBase,
   electionResultBase,
@@ -22,13 +22,15 @@ export default function VoteMapOptions({
   updateShowDemographics,
   showAbsentee,
   updateShowAbsentee,
-  showScatterPlot,
-  updateShowScatterPlot,
+  displayType,
+  updateDisplayType,
   scatterXAxis,
   updateScatterXAxis,
   scatterYAxis,
   updateScatterYAxis,
 }) {
+  const { elections } = useElectionData();
+
   return (
     <React.Fragment>
       <h1>
@@ -52,16 +54,17 @@ export default function VoteMapOptions({
         Type
         <br />
         <Radio.Group
-          value={showScatterPlot ? "scatter" : "map"}
+          value={displayType}
           onChange={({ target: { value } }) => {
-            updateShowScatterPlot(value === "scatter");
+            updateDisplayType(value);
           }}
         >
           <Radio.Button value="map">Map</Radio.Button>
           <Radio.Button value="scatter">Scatter Plot</Radio.Button>
+          <Radio.Button value="table">Table</Radio.Button>
         </Radio.Group>
       </div>
-      {showScatterPlot ? (
+      {displayType === "scatter" && (
         <>
           <div>X Axis</div>
           <Select
@@ -72,7 +75,7 @@ export default function VoteMapOptions({
             value={scatterXAxis}
             virtual={false}
           >
-            <Option value="perRCurrent">Current Election Results</Option>
+            <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
             <Option value="perRBase">Previous Election Results</Option>
             <Option value="whitePer">White %</Option>
             <Option value="blackPer">Black %</Option>
@@ -88,14 +91,16 @@ export default function VoteMapOptions({
             value={scatterYAxis}
             virtual={false}
           >
-            <Option value="perRCurrent">Current Election Results</Option>
+            <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
             <Option value="perRBase">Previous Election Results</Option>
             <Option value="electionResultPerRepublicanPerShift">Shift in R/D %</Option>
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
+            <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
           </Select>
           <br />
         </>
-      ) : (
+      )}
+      {displayType === "map" && (
         <>
           <div>Color Approach</div>
           <Select
@@ -113,6 +118,8 @@ export default function VoteMapOptions({
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
             <Option value="electionResultVoteShift">Shift in Vote Margin</Option>
             <Option value="electionResultVoteShiftNormalized">Normalized Shift in Vote Margin</Option>
+            <Option value="blackPer">Black %</Option>
+            <Option value="hispanicPer">Hispanic %</Option>
             {/* <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
             <Option value="turnoutAbs">% of Total Votes</Option> */}
           </Select>
@@ -152,7 +159,7 @@ export default function VoteMapOptions({
           .filter((election) => !election.isCurrentElection)
           .map((election) =>
             election.races.map((race) => (
-              <Option key={`${election.name}##${race.name}`} value={`${election.name}##${race.name}`}>{`${election.label} - ${race.name}`}</Option>
+              <Option key={`${election.name}||${race.name}`} value={`${election.name}||${race.name}`}>{`${election.label} - ${race.name}`}</Option>
             ))
           )}
       </Select>
@@ -171,11 +178,11 @@ export default function VoteMapOptions({
           .filter((election) => !election.isCurrentElection)
           .map((election) =>
             election.races.map((race) => (
-              <Option key={`${election.name}##${race.name}`} value={`${election.name}##${race.name}`}>{`${election.label} - ${race.name}`}</Option>
+              <Option key={`${election.name}||${race.name}`} value={`${election.name}||${race.name}`}>{`${election.label} - ${race.name}`}</Option>
             ))
           )}
       </Select>
-      {elevationApproach !== "none" && (
+      {(elevationApproach !== "none" || displayType === "table") && (
         <>
           <br />
           <br />

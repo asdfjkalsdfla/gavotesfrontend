@@ -1,7 +1,9 @@
 import React, { useState, useMemo, startTransition } from "react";
-import { Scatter, XAxis, YAxis, CartesianGrid,  ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
-import "./VotesScatter.css";
+import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import SimpleLinearRegression from "ml-regression-simple-linear";
+import { useElectionData } from "./ElectionDataProvider";
+import { quantile } from "./Utils";
+import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data
 const DEFAULT_DOMAIN_X = ["dataMin", "dataMax"];
@@ -10,7 +12,8 @@ const DEFAULT_ZOOM = { x1: null, x2: null };
 
 const tickFormatter = (value) => value.toFixed(2);
 
-export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatterYAxis, isCountyLevel, updateActiveHover, updateActiveSelection }) {
+export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyLevel, updateActiveHover, updateActiveSelection }) {
+  const { locationResults } = useElectionData();
   // x axis domain
   const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
   const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
@@ -41,6 +44,9 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
 
     let yProp;
     switch (scatterYAxis) {
+      case "turnoutAbsSameDay":
+        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
+        break;
       case "turnoutChange":
         yProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
         break;
@@ -57,7 +63,7 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
         yProp = (dataPoint) => dataPoint?.electionResultsBase?.perRepublican * 100;
     }
 
-    allElectionData.forEach((point, key) => {
+    locationResults.forEach((point, key) => {
       const x = xProp(point);
       const y = yProp(point);
       const z = point?.electionResultsCurrent?.totalVotes;
@@ -68,8 +74,6 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
         pointsOnChart.push({ id, x, y, z });
       }
     });
-
-    
 
     const regression = new SimpleLinearRegression(
       pointsOnChart.map((point) => point.x),
@@ -85,11 +89,13 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
     // setFilteredData(pointsOnChart);
     updateDomainX(DEFAULT_DOMAIN_X);
 
-    const yMin = quantile(pointsOnChart.map(point => point.y), isCountyLevel ? 0 : 0.01)
-    const yMax = quantile(pointsOnChart.map(point => point.y), isCountyLevel ? 1 : 0.99)
-    updateDomainY([yMin,yMax]);
+    const [yMin, yMax] = quantile(
+      pointsOnChart.map((point) => point.y),
+      isCountyLevel ? [0, 1] : [0.01, 0.99]
+    );
+    updateDomainY([yMin - 1, yMax + 1]);
     return { pointsOnChart, regressionLineData, regIntercept, regSlope };
-  }, [allElectionData, isCountyLevel, scatterXAxis, scatterYAxis]);
+  }, [locationResults, isCountyLevel, scatterXAxis, scatterYAxis]);
 
   // zoom coordinates
   const [zoomArea, setZoomArea] = useState(DEFAULT_ZOOM);
@@ -189,7 +195,7 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
   }, [updateActiveSelection]);
 
   const range = useMemo(() => {
-    return [0, isCountyLevel ? 500 : 250];
+    return [0, isCountyLevel ? 500 : 100];
   }, [isCountyLevel]);
 
   // let seg = [data?.regressionLineData[0], data?.regressionLineData[99]];
@@ -210,7 +216,7 @@ export default function VotesScatterPlot({ allElectionData, scatterXAxis, scatte
               isAnimationActive={false}
               name="2022 Absentee"
               fill="#000000"
-              fillOpacity={0.5}
+              fillOpacity={0.6}
               data={data.pointsOnChart}
               onMouseEnter={hoverScatterDot}
               onMouseLeave={hoverScatterDotOut}
@@ -250,19 +256,3 @@ function getClickedPoint(x, y, dataOnPlot) {
     }
   }
 }
-
-const quantile = (arr, q) => {
-  const sorted = arr
-    .filter((a) => typeof a === "number" && isFinite(a))
-    .sort((a, b) => {
-      return a - b;
-    });
-  const pos = (sorted.length - 1) * q;
-  const base = Math.floor(pos);
-  const rest = pos - base;
-  if (sorted[base + 1] !== undefined) {
-    return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
-  } else {
-    return sorted[base];
-  }
-};

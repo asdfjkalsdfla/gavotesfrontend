@@ -12,6 +12,9 @@ import { GeoJsonLayer } from "@deck.gl/layers";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
+import { quantile } from "./Utils";
+
+import { useElectionData } from "./ElectionDataProvider";
 
 const numberFormat = new Intl.NumberFormat("en-us");
 
@@ -56,22 +59,6 @@ const convertD3ColorToArray = (color) => {
     .map((val) => parseInt(val));
 };
 
-const quantile = (arr, q) => {
-  const sorted = arr
-    .filter((a) => typeof a === "number" && isFinite(a))
-    .sort((a, b) => {
-      return a - b;
-    });
-  const pos = (sorted.length - 1) * q;
-  const base = Math.floor(pos);
-  const rest = pos - base;
-  if (sorted[base + 1] !== undefined) {
-    return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
-  } else {
-    return sorted[base];
-  }
-};
-
 const MAPBOX_TOKEN = "pk.eyJ1IjoicmljaGFyZG93cmlnaHQiLCJhIjoiY2podXhvNGUxMHRlaTNycnNteTFyM3UyZCJ9.AvD-USUs_rTwesgEJCmECA";
 
 function DeckGLOverlay(props) {
@@ -84,7 +71,6 @@ export default function VotesMap({
   mapStyle = "mapbox://styles/mapbox/light-v10",
   elevationApproach,
   colorApproach,
-  allElectionData,
   updateActiveSelection,
   updateActiveHover,
   isCountyLevel = false,
@@ -93,6 +79,8 @@ export default function VotesMap({
   initialZoom,
   userHasSetLevel,
 }) {
+  const { locationResults } = useElectionData();
+
   // ************************************************
   // Manage the map data
   // ************************************************
@@ -123,16 +111,16 @@ export default function VotesMap({
 
   useEffect(() => {
     if (!dataGeoJSONBase) return;
-    if (!allElectionData) return;
+    if (!locationResults) return;
 
     // Merge the values together into a single file
     dataGeoJSONBase.features.forEach((feature) => {
       const votingResultRaw = feature.properties;
-      const properties = allElectionData.has(votingResultRaw.id) ? allElectionData.get(votingResultRaw.id) : {};
+      const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
 
       feature.properties = { ...feature.properties, ...properties };
     });
-    if (allElectionData.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
+    if (locationResults.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
 
     // For the scatter plot, we just need the center coordinates and not the full geoJSON
     // The simplest way to get that is to just pull it out of the geoJSON
@@ -140,7 +128,7 @@ export default function VotesMap({
     // That would enable caching of the big geoJSON shape definition since the properties won't change
     const simpleData = dataGeoJSONBase.features.map((feature) => feature.properties);
     updateDataPropsOnly(simpleData);
-  }, [dataGeoJSONBase, allElectionData]);
+  }, [dataGeoJSONBase, locationResults]);
 
   // ************************************************
   // Calc the initial map state
@@ -206,9 +194,15 @@ export default function VotesMap({
       };
       break;
     case "turnoutAbsSameDay":
+      const [elevationMin, elevationMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
+        isCountyLevel ? [0.0, 1] : [0.05, 0.95]
+      );
       elevationFunction = (f) => {
         const value =
-          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, 0.4, 1.0) * (isCountyLevel ? 30000 : 10000) + 0 || 0;
+          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) *
+            (isCountyLevel ? 20000 : 5000) +
+            0 || 0;
         return value;
       };
       break;
@@ -228,13 +222,9 @@ export default function VotesMap({
   let colorFunction = null;
   switch (colorApproach) {
     case "totalVotesPercent":
-      scaleMin = quantile(
-        [...allElectionData.values()].map((datapoint) => datapoint?.electionResultsComparison?.totalVotesPercent),
-        isCountyLevel ? 0.01 : 0.05
-      );
-      scaleMax = quantile(
-        [...allElectionData.values()].map((datapoint) => datapoint?.electionResultsComparison?.totalVotesPercent),
-        isCountyLevel ? 0.99 : 0.95
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.totalVotesPercent),
+        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
       );
       // console.log(`Min: ${scaleMin}, Max: ${scaleMax}`);
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
@@ -246,16 +236,24 @@ export default function VotesMap({
       };
       break;
     case "turnoutAbs":
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
+        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+      );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties.turnoutVs2016, scaleMin, scaleMax);
+        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
         return convertD3ColorToArray(color);
       };
       break;
     case "turnoutAbsSameDay":
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties.turnoutAbsSameDayVs2018, 0, 1);
+        [scaleMin, scaleMax] = quantile(
+          [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
+          isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        );
+        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, 0, 1);
         const color = d3ScaleChromatic.interpolateGreens(value);
         return convertD3ColorToArray(color);
       };
@@ -273,18 +271,26 @@ export default function VotesMap({
         // return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
       };
       break;
-    case "hispanic":
-      scaleMin = quantile(
-        dataGeoJSON.map((f) => f.properties?.demographics?.hispanicPer),
-        0.05
-      );
-      scaleMax = quantile(
-        dataGeoJSON.map((f) => f.properties?.demographics?.hispanicPer),
-        0.95
+    case "hispanicPer":
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.demographics?.hispanicPer),
+        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
         const value = normalizeZeroOne(f.properties?.demographics?.hispanicPer, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value);
+        return convertD3ColorToArray(color);
+      };
+      break;
+    case "blackPer":
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
+        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+      );
+      scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
+      colorFunction = (f) => {
+        const value = normalizeZeroOne(f.properties?.demographics?.blackPer, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
         return convertD3ColorToArray(color);
       };
@@ -420,7 +426,7 @@ export default function VotesMap({
       stroked: true,
       filled: true,
       onClick: (info) => {
-        updateActiveSelection(info.object);
+        updateActiveSelection(info.object.properties.id);
       },
       getFillColor: showSecondaryColor ? colorFunction : [158, 158, 158, 0],
       getLineColor: [40, 40, 40],
@@ -441,7 +447,7 @@ export default function VotesMap({
       stroked: true,
       filled: true,
       onClick: (info) => {
-        updateActiveSelection(info.object);
+        updateActiveSelection(info.object.properties.id);
       },
       extruded: true,
       wireframe: true,
@@ -481,7 +487,7 @@ export default function VotesMap({
             updateActiveHover(object);
             return;
           }
-          if (object.properties) updateActiveHover(object);
+          if (object.properties) updateActiveHover(object.properties.id);
           const lookup = object.properties ? object.properties : object;
           if (lookup[colorApproach] || lookup[elevationApproach])
             return {

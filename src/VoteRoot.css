@@ -17,7 +17,14 @@
 
 .one {
   grid-column: 1 / span 9;
+  overflow: scroll;
 }
+
+.full {
+  grid-column: 1 / span 12;
+  overflow: scroll;
+}
+
 .two {
   grid-column: 10 / span 3;
   padding: 5px 15px;
