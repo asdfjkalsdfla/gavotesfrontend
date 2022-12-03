@@ -77,6 +77,9 @@ export default function VoteMapOptions({
           >
             <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
             <Option value="perRBase">Previous Election Results</Option>
+            <Option value="perShiftRepublican">Shift in R/D %</Option>
+            {/* <Option value="perShiftRepublicanEarly">Shift in Early Vote R/D %</Option> */}
+            {/* <Option value="totalVotesRepublicanPercent">Change in R Votes</Option> */}
             <Option value="whitePer">White %</Option>
             <Option value="blackPer">Black %</Option>
             <Option value="hispanicPer">Hispanic %</Option>
@@ -93,9 +96,10 @@ export default function VoteMapOptions({
           >
             <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
             <Option value="perRBase">Previous Election Results</Option>
-            <Option value="electionResultPerRepublicanPerShift">Shift in R/D %</Option>
+            <Option value="perShiftRepublican">Shift in R/D %</Option>
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
             <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
+            <Option value="turnoutAbsenteeBallots">% of Absentee Votes</Option>
           </Select>
           <br />
         </>

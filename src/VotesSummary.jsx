@@ -11,6 +11,7 @@ const { Column } = Table;
 export default function VoteSummary({
   activeSelection,
   activeHover,
+  county,
   updateCountySelected,
   updateActiveSelection,
   isCountyLevel,
@@ -20,13 +21,15 @@ export default function VoteSummary({
   showDemographics,
   showAbsentee,
 }) {
-  const { locationResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
+  const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
+    useElectionData();
   const resultSummary = useMemo(() => {
     const source = activeHover ? activeHover : activeSelection;
     if (source && source.properties) return source.properties;
     if (source && locationResults.has(source)) return locationResults.get(source);
+    if (source && countyResults.has(source)) return countyResults.get(source);
     return statewideResults;
-  }, [activeHover, activeSelection, locationResults, statewideResults]);
+  }, [activeHover, activeSelection, locationResults, countyResults, statewideResults]);
 
   if (!resultSummary) return <span>Loading...</span>;
 
@@ -42,8 +45,8 @@ export default function VoteSummary({
               shape="circle"
               icon={<CloseOutlined />}
               onClick={() => {
-                updateCountySelected(null);
-                updateActiveSelection(null);
+                updateCountySelected(resultSummary.PRECINCT_N && county ? resultSummary.CTYNAME : null);
+                updateActiveSelection(resultSummary.PRECINCT_N && county ? resultSummary.CTYNAME : null);
               }}
             />
           </span>
@@ -93,6 +96,10 @@ export default function VoteSummary({
           <Descriptions.Item label="vs. Same Day">
             {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}
           </Descriptions.Item>
+          <Descriptions.Item label={`Total Accepted in ${absenteeElectionBaseLabel}`}>
+            {numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}
+          </Descriptions.Item>
+          <Descriptions.Item label={`% of Total`}>{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}</Descriptions.Item>
         </Descriptions>
       )}
       <Descriptions

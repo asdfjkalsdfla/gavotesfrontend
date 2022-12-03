@@ -128,7 +128,7 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
         dataSource={rows}
         columns={columnsDisplayed}
         scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
-        pagination={false}
+        pagination={{pageSize: 100}}
         sticky={true}
         size="small"
       />

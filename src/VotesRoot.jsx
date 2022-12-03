@@ -9,7 +9,7 @@ import VotesSummary from "./VotesSummary";
 import VotesTable from "./VotesTable";
 import WelcomeText from "./WelcomeText";
 import VoteMapOptions from "./VoteMapOptions";
-import "./VoteRoot.css";
+import "./VotesRoot.css";
 
 // ************************************************
 // Pull the initial values from the URL params
@@ -70,7 +70,7 @@ export default function VotesRoot() {
   // Active Data Point
   // **************************************************
   const [activeHover, updateActiveHover] = useState(null);
-  const [activeSelection, updateActiveSelection] = useState(null);
+  const [activeSelection, updateActiveSelection] = useState(countyParam);
 
   // ************************************************
   // Data Display Controls
@@ -119,6 +119,7 @@ export default function VotesRoot() {
           {displayType === "scatter" && (
             <VotesScatterPlot
               isCountyLevel={isCountyLevel}
+              county={county}
               updateActiveSelection={updateActiveSelection}
               updateActiveHover={updateActiveHover}
               scatterXAxis={scatterXAxis}
@@ -185,6 +186,7 @@ export default function VotesRoot() {
               activeSelection={activeSelection}
               activeHover={activeHover}
               updateUserHasSetLevel={updateUserHasSetLevel}
+              county={county}
               updateCountySelected={updateCountySelected}
               updateActiveSelection={updateActiveSelection}
               isCountyLevel={isCountyLevel}

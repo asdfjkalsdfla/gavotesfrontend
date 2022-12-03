@@ -1,3 +1,15 @@
+import { Temporal } from 'temporal-polyfill'
+
+const electionDate = Temporal.PlainDateTime.from({
+  year: 2022,
+  month: 12,
+  day: 6,
+  hour: 19
+});
+
+const currentDate = Temporal.Now.plainDateISO()
+const daysToElection = electionDate.until(currentDate).days;
+
 export default class AbsenteeBallots {
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
   #totalAbsenteeVotes;
@@ -20,7 +32,7 @@ export default class AbsenteeBallots {
   get absenteeVotesAsOfCurrentDate() {
     if (this.#absenteeVotesAsOfCurrentDate) return this.#absenteeVotesAsOfCurrentDate;
 
-    const value = this.absenteeVotesAsOfDaysOut(-4);
+    const value = this.absenteeVotesAsOfDaysOut(daysToElection);
     this.#absenteeVotesAsOfCurrentDate = value;
     return value;
   }

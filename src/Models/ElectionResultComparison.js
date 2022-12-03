@@ -10,6 +10,7 @@ export default class ElectionResultComparison {
   #totalVotesRDPercent;
   #totalVotesRepublicanPercent;
   #totalVotesDemocraticPercent;
+  #perShiftRepublicanEarly;
 
   constructor(baseElection, previousElection, statewideTurnoutFactor) {
     this.baseElection = baseElection;
@@ -96,6 +97,14 @@ export default class ElectionResultComparison {
     if (this.#totalVotesDemocraticPercent) return this.#totalVotesDemocraticPercent;
     const value = this.baseElection?.democratic / this.previousElection?.democratic;
     this.#totalVotesDemocraticPercent = value;
+    return value;
+  }
+
+   // % shift to republicans
+   get perShiftRepublicanEarly() {
+    if (this.#perShiftRepublicanEarly) return this.#perShiftRepublicanEarly;
+    const value = this.baseElection?.marginEarlyPerRepublican - this.previousElection?.marginEarlyPerRepublican;
+    this.#perShiftRepublicanEarly = value;
     return value;
   }
 }

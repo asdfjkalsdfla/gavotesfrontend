@@ -24,35 +24,42 @@ export function ElectionDataProvider({
   const currentAbsenteeElection = convertElectionIDToObject(absenteeElectionCurrentID);
   const currentElectionRace = convertElectionRaceIDToObject(resultsElectionRaceCurrentID);
   const previousElectionRace = convertElectionRaceIDToObject(resultsElectionRacePerviousID);
-  // const [countyElectionData, updateCountyElectionData] = useState(new Map());
+  const [countyElectionData, updateCountyElectionData] = useState(new Map());
   const [locationElectionData, updateLocationElectionData] = useState(new Map());
 
   // Load county or precinct level election data
   useEffect(() => {
-    const level = isCountyLevel ? "county" : "precinct";
-    const absenteeCurrentFileLocation = `/static/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
-    const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
-    const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${currentElectionRace.election.name}-${level}.json`;
-    const electionResultBaseFileLocation = previousElectionRace ? `/static/electionResultsSummary-${previousElectionRace.election.name}-${level}.json` : null;
-    const demographicsFileLocation = `/static/demographics-${level}-2020.json`;
+    const load = async (level, updateFunctions) => {
+      const absenteeCurrentFileLocation = `/static/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
+      const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
+      const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${currentElectionRace.election.name}-${level}.json`;
+      const electionResultBaseFileLocation = previousElectionRace ? `/static/electionResultsSummary-${previousElectionRace.election.name}-${level}.json` : null;
+      const demographicsFileLocation = `/static/demographics-${level}-2020.json`;
 
-    const load = async () => {
       const updatedElectionData = await loadAndCombineElectionDataFiles(
         absenteeCurrentFileLocation,
         absenteeBaseFileLocation,
         electionResultsCurrentFileLocation,
         electionResultBaseFileLocation,
         demographicsFileLocation,
-        isCountyLevel,
+        level === "county",
         currentElectionRace,
         previousElectionRace
       );
-      updateLocationElectionData(updatedElectionData);
-      // if (isCountyLevel) updateCountyElectionData(updatedElectionData);
+      updateFunctions.forEach((updateFunction) => {
+        updateFunction(updatedElectionData);
+      });
     };
 
     if (!absenteeElectionBaseID || !absenteeElectionCurrentID || !currentElectionRace) return; // fail if we don't have the required info
-    load();
+    const levels = [{ name: "county", updateFunctions: isCountyLevel ? [updateCountyElectionData, updateLocationElectionData] : [updateCountyElectionData] }];
+    if (!isCountyLevel) {
+      levels.push({ name: "precinct", updateFunctions: [updateLocationElectionData] });
+    }
+    levels.forEach((level) => {
+      load(level.name, level.updateFunctions);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace, isCountyLevel]);
 
@@ -104,8 +111,9 @@ export function ElectionDataProvider({
       elections,
       statewideResults: statewideElectionData,
       locationResults: activeLocationResults,
+      countyResults: countyElectionData,
     };
-  }, [statewideElectionData, locationElectionData]);
+  }, [statewideElectionData, activeLocationResults, countyElectionData]);
 
   return (
     <ElectionDataContext.Provider value={electionData}>
@@ -173,47 +181,40 @@ const loadAndCombineElectionDataFiles = async (
   }
   const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = await Promise.all(jsonPromises);
 
-  const updatedElectionData = new Map();
+  const combinedElectionData = new Map();
 
   absenteeCurrentJSON.forEach((row) => {
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-
-    const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.absenteeCurrent = new AbsenteeBallots(row);
-    updatedElectionData.set(id, properties);
+    combinedElectionData.set(id, properties);
   });
   absenteeBaseJSON.forEach((row) => {
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-    const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.absenteeBase = new AbsenteeBallots(row);
-    updatedElectionData.set(id, properties);
-  });
-
-  demographicsJSON.forEach((row) => {
-    const id = row.id;
-    const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-    properties.demographics = new Demographics(row);
-    updatedElectionData.set(id, properties);
+    combinedElectionData.set(id, properties);
   });
 
   let rdStateVotesTotalCurrent = 0;
   electionResultsCurrentJSON.forEach((row) => {
     const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-    const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
     // Find the current race
     properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter((election) => election.race === currentElectionRace.name)[0];
-    updatedElectionData.set(id, properties);
+    combinedElectionData.set(id, properties);
     rdStateVotesTotalCurrent += properties.electionResultsCurrent.totalVotesRD || 0;
   });
   let rdStateVotesTotalBase = 0;
   if (electionResultBaseFileLocation) {
     electionResultBaseJSON.forEach((row) => {
       const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-      const properties = updatedElectionData.has(id) ? updatedElectionData.get(id) : {};
+
+      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
       properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
       properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
-      updatedElectionData.set(id, properties);
+      combinedElectionData.set(id, properties);
       rdStateVotesTotalBase += properties.electionResultsBase.totalVotesRD || 0;
     });
   }
@@ -221,17 +222,20 @@ const loadAndCombineElectionDataFiles = async (
   const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
 
   // Set the comparisons between the results
-  [...updatedElectionData.values()].forEach((result) => {
+  [...combinedElectionData.values()].forEach((result) => {
     result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
-
-    if (result.absenteeCurrent && result.absenteeBase) {
-      result.absenteeBallotComparison = new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase);
-    } else {
-      result.absenteeBallotComparison = null;
-    }
+    result.absenteeBallotComparison =
+      result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
   });
 
-  return updatedElectionData;
+  demographicsJSON.forEach((row) => {
+    const id = row.id;
+    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+    properties.demographics = new Demographics(row);
+    combinedElectionData.set(id, properties);
+  });
+
+  return combinedElectionData;
 };
 
 const convertElectionRaceIDToObject = (electionRaceID) => {

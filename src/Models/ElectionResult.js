@@ -9,6 +9,7 @@ export default class ElectionResult {
   #marginDemocratic;
   #marginPerRepublican;
   #marginPerPerDemocratic;
+  #marginEarlyPerRepublican;
 
   // Dumb assignment constructor, but it works for this very simple app
   constructor(template) {
@@ -84,6 +85,24 @@ export default class ElectionResult {
     if (this.#marginPerPerDemocratic) return this.#marginPerPerDemocratic;
     const value = this.perRepublican && this.perDemocratic ? -1 * this.marginPerRepublican : undefined;
     this.#marginPerPerDemocratic = value;
+    return value;
+  }
+
+  // % of votes in the dems favor
+  get marginEarlyPerRepublican() {
+    if (this.#marginEarlyPerRepublican) return this.#marginEarlyPerRepublican;
+    const earlyVoteRecords = this.resultsByMode.filter((mode) => ["Advance Voting Votes", "Absentee by Mail Votes"].includes(mode.mode));
+    const republicanVotes = earlyVoteRecords.reduce((accumulator, mode) => {
+      return accumulator + mode.republican;
+    }, 0);
+    const democraticVotes = earlyVoteRecords.reduce((accumulator, mode) => {
+      return accumulator + mode.democratic;
+    }, 0);
+    const totalRDVotes = (republicanVotes || 0) + (democraticVotes || 0);
+    const perRepublican = (republicanVotes || 0) / totalRDVotes;
+    const perDemocratic = (democraticVotes || 0) / totalRDVotes;
+    const value = perRepublican && perDemocratic ? perRepublican - perDemocratic : undefined;
+    this.#marginEarlyPerRepublican = value;
     return value;
   }
 }
