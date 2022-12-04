@@ -30,6 +30,7 @@ export default function VoteSummary({
     if (source && countyResults.has(source)) return countyResults.get(source);
     return statewideResults;
   }, [activeHover, activeSelection, locationResults, countyResults, statewideResults]);
+  
 
   if (!resultSummary) return <span>Loading...</span>;
 

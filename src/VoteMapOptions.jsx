@@ -124,8 +124,8 @@ export default function VoteMapOptions({
             <Option value="electionResultVoteShiftNormalized">Normalized Shift in Vote Margin</Option>
             <Option value="blackPer">Black %</Option>
             <Option value="hispanicPer">Hispanic %</Option>
-            {/* <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
-            <Option value="turnoutAbs">% of Total Votes</Option> */}
+            <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
+            {/* <Option value="turnoutAbs">% of Total Votes</Option> */}
           </Select>
           <br />
           <div>Elevation Approach</div>

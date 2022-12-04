@@ -43,6 +43,7 @@ export const COLOR_SCALE = scaleLinear()
   ]);
 
 const normalizeZeroOne = (value, min, max) => {
+  if(!value && value!==0) return undefined;
   return Math.max(0, Math.min(1, (value - min) / (max - min) || 0));
 };
 
@@ -200,8 +201,7 @@ export default function VotesMap({
       );
       elevationFunction = (f) => {
         const value =
-          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) *
-            (isCountyLevel ? 20000 : 5000) +
+          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) * (isCountyLevel ? 20000 : 5000) +
             0 || 0;
         return value;
       };
@@ -232,7 +232,7 @@ export default function VotesMap({
         const value = normalizeZeroOne(f.properties?.electionResultsComparison?.totalVotesPercent, scaleMin, scaleMax);
         // console.log(value);
         const color = scaleToColorFunction(value);
-        return convertD3ColorToArray(color);
+        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
       break;
     case "turnoutAbs":
@@ -244,18 +244,19 @@ export default function VotesMap({
       colorFunction = (f) => {
         const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
-        return convertD3ColorToArray(color);
+        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
       break;
     case "turnoutAbsSameDay":
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
+        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+      );
+      scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        [scaleMin, scaleMax] = quantile(
-          [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-          isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
-        );
-        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, 0, 1);
-        const color = d3ScaleChromatic.interpolateGreens(value);
-        return convertD3ColorToArray(color);
+        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value);
+        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
       break;
     case "electionResultPerRepublicanPerShift":
@@ -265,10 +266,8 @@ export default function VotesMap({
 
       colorFunction = (f) => {
         const perAdjusted = normalizeZeroCenterToZeroOne(f.properties?.electionResultsComparison?.perShiftDemocratic, scaleMin, scaleMax);
-        // console.log(`County - ${f.properties?.CTYNAME};Shift - ${f.properties?.electionResultsComparison?.perShiftDemocratic}; Shift Adjusted - ${perAdjusted}`);
         const color = !(perAdjusted === undefined) ? scaleToColorFunction(perAdjusted) : [255, 255, 255, 0];
         return convertD3ColorToArray(color);
-        // return !(perAdjusted === undefined) ? COLOR_SCALE(perAdjusted) : [255, 255, 255, 0];
       };
       break;
     case "hispanicPer":
@@ -280,7 +279,7 @@ export default function VotesMap({
       colorFunction = (f) => {
         const value = normalizeZeroOne(f.properties?.demographics?.hispanicPer, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
-        return convertD3ColorToArray(color);
+        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
       break;
     case "blackPer":
@@ -292,13 +291,15 @@ export default function VotesMap({
       colorFunction = (f) => {
         const value = normalizeZeroOne(f.properties?.demographics?.blackPer, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
-        return convertD3ColorToArray(color);
+        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
       break;
     default:
       colorFunction = (f) => {
+        scaleToColorFunction = COLOR_SCALE;
         const value = f.properties?.electionResultsCurrent?.perDemocratic;
-        return value ? COLOR_SCALE(value) : [255, 255, 255, 0];
+        const color = scaleToColorFunction(value);
+        return !value && value !== 0 ? [0, 0, 0, 255] : color;
       };
   }
 

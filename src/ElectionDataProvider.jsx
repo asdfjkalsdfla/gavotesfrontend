@@ -24,10 +24,13 @@ export function ElectionDataProvider({
   const currentAbsenteeElection = convertElectionIDToObject(absenteeElectionCurrentID);
   const currentElectionRace = convertElectionRaceIDToObject(resultsElectionRaceCurrentID);
   const previousElectionRace = convertElectionRaceIDToObject(resultsElectionRacePerviousID);
+
+  // Data
+  const [statewideElectionData, updateStatewideTotals] = useState({});
   const [countyElectionData, updateCountyElectionData] = useState(new Map());
   const [locationElectionData, updateLocationElectionData] = useState(new Map());
 
-  // Load county or precinct level election data
+  // Load all levels of election data
   useEffect(() => {
     const load = async (level, updateFunctions) => {
       const absenteeCurrentFileLocation = `/static/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
@@ -47,12 +50,19 @@ export function ElectionDataProvider({
         previousElectionRace
       );
       updateFunctions.forEach((updateFunction) => {
+        if (level === "state") {
+          updateFunction([...updatedElectionData.values()][0]);
+          return;
+        }
         updateFunction(updatedElectionData);
       });
     };
 
     if (!absenteeElectionBaseID || !absenteeElectionCurrentID || !currentElectionRace) return; // fail if we don't have the required info
-    const levels = [{ name: "county", updateFunctions: isCountyLevel ? [updateCountyElectionData, updateLocationElectionData] : [updateCountyElectionData] }];
+    const levels = [
+      { name: "state", updateFunctions: [updateStatewideTotals] },
+      { name: "county", updateFunctions: isCountyLevel ? [updateCountyElectionData, updateLocationElectionData] : [updateCountyElectionData] },
+    ];
     if (!isCountyLevel) {
       levels.push({ name: "precinct", updateFunctions: [updateLocationElectionData] });
     }
@@ -62,35 +72,6 @@ export function ElectionDataProvider({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace, isCountyLevel]);
-
-  // Load statewide election data
-  const [statewideElectionData, updateStatewideTotals] = useState({});
-
-  useEffect(() => {
-    const absenteeCurrentFileLocation = `/static/absenteeSummary-${absenteeElectionCurrentID}-state.json`;
-    const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-state.json`;
-    const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${currentElectionRace.election.name}-state.json`;
-    const electionResultBaseFileLocation = previousElectionRace ? `/static/electionResultsSummary-${previousElectionRace.election.name}-state.json` : null;
-    const demographicsFileLocation = `/static/demographics-state.json`;
-
-    const load = async () => {
-      const votingResultTotalMap = await loadAndCombineElectionDataFiles(
-        absenteeCurrentFileLocation,
-        absenteeBaseFileLocation,
-        electionResultsCurrentFileLocation,
-        electionResultBaseFileLocation,
-        demographicsFileLocation,
-        isCountyLevel,
-        currentElectionRace,
-        previousElectionRace
-      );
-      updateStatewideTotals([...votingResultTotalMap.values()][0]);
-    };
-
-    if (!absenteeElectionBaseID || !absenteeElectionCurrentID || !currentElectionRace) return; // fail if we don't have the required info
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace]);
 
   const activeLocationResults = useMemo(() => {
     if (isCountyLevel || !county) return locationElectionData; // at county level, we don't filter or when using all precincts
