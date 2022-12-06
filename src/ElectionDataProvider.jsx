@@ -13,7 +13,7 @@ export const ElectionDispatchContext = createContext(null);
 
 export function ElectionDataProvider({
   isCountyLevel,
-  county,
+  countyFilter,
   absenteeElectionBaseID,
   absenteeElectionCurrentID,
   resultsElectionRaceCurrentID,
@@ -74,14 +74,14 @@ export function ElectionDataProvider({
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace, isCountyLevel]);
 
   const activeLocationResults = useMemo(() => {
-    if (isCountyLevel || !county) return locationElectionData; // at county level, we don't filter or when using all precincts
+    if (isCountyLevel || !countyFilter) return locationElectionData; // at county level, we don't filter or when using all precincts
     // filter the precincts
     const activeResults = new Map();
     locationElectionData.forEach((value, key) => {
-      if (value.CTYNAME === county) activeResults.set(key, value);
+      if (value.CTYNAME === countyFilter) activeResults.set(key, value);
     });
     return activeResults;
-  }, [isCountyLevel, county, locationElectionData]);
+  }, [isCountyLevel, countyFilter, locationElectionData]);
 
   const electionData = useMemo(() => {
     return {

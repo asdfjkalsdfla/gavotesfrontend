@@ -12,7 +12,7 @@ const DEFAULT_ZOOM = { x1: null, x2: null };
 
 const tickFormatter = (value) => value.toFixed(2);
 
-export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyLevel, county, updateActiveHover, updateActiveSelection }) {
+export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyLevel, updateActiveHover, updateActiveSelection }) {
   const { locationResults } = useElectionData();
   // x axis domain
   const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
@@ -54,12 +54,13 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
     let yProp;
     switch (scatterYAxis) {
       case "turnoutAbsSameDay":
-        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
+        // yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 -  dataPoint.electionResultsComparison?.perShiftRepublican * 100 * 0.85;  
+        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 ;
         break;
       case "turnoutAbsenteeBallots":
         yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallots * 100;
         break;
-      case "perRCurrent":
+      case "perRBase":
         yProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
         break;
       case "perShiftRepublican":
@@ -69,7 +70,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
         yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRDPercent * 100;
         break;
       default:
-        yProp = (dataPoint) => dataPoint?.electionResultsBase?.perRepublican * 100;
+        yProp = (dataPoint) => dataPoint?.electionResultsCurrent?.perRepublican * 100;
     }
 
     locationResults.forEach((point, key) => {

@@ -1,5 +1,5 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Map, { NavigationControl, useControl } from "react-map-gl";
 // import {
 //   LightingEffect,
@@ -13,8 +13,9 @@ import { ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
 import { quantile } from "./Utils";
-
 import { useElectionData } from "./ElectionDataProvider";
+
+import boundingBoxesForCounties from "./VotesMapCountiesBB.json";
 
 const numberFormat = new Intl.NumberFormat("en-us");
 
@@ -43,7 +44,7 @@ export const COLOR_SCALE = scaleLinear()
   ]);
 
 const normalizeZeroOne = (value, min, max) => {
-  if(!value && value!==0) return undefined;
+  if (!value && value !== 0) return undefined;
   return Math.max(0, Math.min(1, (value - min) / (max - min) || 0));
 };
 
@@ -76,10 +77,11 @@ export default function VotesMap({
   updateActiveHover,
   isCountyLevel = false,
   updateIsCountyLevel,
-  county,
+  countyFilter,
   initialZoom,
   userHasSetLevel,
 }) {
+  const mapRef = useRef();
   const { locationResults } = useElectionData();
 
   // ************************************************
@@ -87,8 +89,8 @@ export default function VotesMap({
   // ************************************************
   // If the user sets a specific county, we show only that counties data @ precinct level
   // Otherwise, we determine if we show counties or precinct state wide data
-  const geoJSONFile = county
-    ? `/static/GA_precincts_2020_${county}_simple.json`
+  const geoJSONFile = countyFilter
+    ? `/static/GA_precincts_2020_${countyFilter}_simple.json`
     : isCountyLevel
     ? "/static/GA_counties_simple.json"
     : "/static/GA_precincts_simple_2020.json";
@@ -141,20 +143,15 @@ export default function VotesMap({
 
     // Change the zoom level based upon the size of the viewport
     const sizeParam = "none";
-    const initialZoom = county ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
-    const initialLatLong = county
-      ? {
-          latitude: 33.9999,
-          longitude: -84.5641,
-        }
-      : {
-          latitude: 32.75,
-          longitude: -83.388,
-        }; // TODO - fix this to use the county's centroid when county is passed in
+    const boundingBox = boundingBoxesForCounties[countyFilter ? countyFilter : "STATE"];
+    const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
+    const backupLatLong = { latitude: 33.9999, longitude: -84.5641 };
 
     const INITIAL_VIEW_STATE = {
-      ...initialLatLong,
-      zoom: initialZoom,
+      bounds: boundingBox,
+      fitBoundsOptions: { maxZoom: 12, padding: { left: 10, right: 10, bottom: 100, top: 10 } },
+      ...backupLatLong,
+      zoom: backupZoom,
       minZoom: 5,
       maxZoom: 20,
       pitch: initialPitch,
@@ -164,7 +161,25 @@ export default function VotesMap({
     };
     return INITIAL_VIEW_STATE;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [countyFilter]);
+
+  // ************************************************
+  // Adjust map on setting changes
+  // ************************************************
+  // Adjust pitch and bearing when changing the elevation approach to none
+  // TODO - think through how to best adjust back on change
+  useEffect(() => {
+    if (mapRef && mapRef.current && elevationApproach === "none") {
+      mapRef.current.flyTo({ pitch: 0, bearing: 0 });
+    }
+  }, [elevationApproach]);
+
+  useEffect(() => {
+    if (mapRef && mapRef.current && countyFilter) {
+      const map = mapRef.current;
+      map.fitBounds(boundingBoxesForCounties[countyFilter ? countyFilter : "STATE"], { bearing: map.getBearing() });
+    }
+  }, [countyFilter]);
 
   // ************************************************
   // Manage the zoom level
@@ -184,34 +199,40 @@ export default function VotesMap({
   // ************************************************
   // Define How The Elevation Will Be Calculated
   // ************************************************
-  let elevationFunction = null;
-  switch (elevationApproach) {
-    case "none":
-      elevationFunction = null;
-      break;
-    case "votes":
-      elevationFunction = (f) => {
-        return f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
-      };
-      break;
-    case "turnoutAbsSameDay":
-      const [elevationMin, elevationMax] = quantile(
-        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-        isCountyLevel ? [0.0, 1] : [0.05, 0.95]
-      );
-      elevationFunction = (f) => {
-        const value =
-          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) * (isCountyLevel ? 20000 : 5000) +
-            0 || 0;
-        return value;
-      };
-      break;
-    default:
-      elevationFunction = (f) => {
-        const value = (normalizeZeroOne(f.properties.turnoutVs2020, 0, 1) * 30000) / 1.66 ** (currentZoomLevel - 7) + 0 || 0;
-        return value;
-      };
-  }
+  let elevationFunction = useMemo(() => {
+    let [elevationMin, elevationMax] = [0, 0];
+    switch (elevationApproach) {
+      case "none":
+        return null;
+      case "votes":
+        return (f) => {
+          return f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
+        };
+      case "turnoutAbsSameDay":
+        [elevationMin, elevationMax] = quantile(
+          [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
+          isCountyLevel ? [0.0, 1] : [0.05, 0.95]
+        );
+        return (f) => {
+          const value =
+            normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) *
+              (isCountyLevel ? 20000 : 5000) +
+              0 || 0;
+          return value;
+        };
+      default:
+        [elevationMin, elevationMax] = quantile(
+          [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
+          isCountyLevel ? [0.0, 1] : [0.05, 0.95]
+        );
+        return (f) => {
+          const value =
+            normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots, elevationMin, elevationMax) * (isCountyLevel ? 20000 : 5000) + 0 ||
+            0;
+          return value;
+        };
+    }
+  }, [elevationApproach, isCountyLevel, locationResults]);
 
   // ************************************************
   // Define How The Color Will Be Calculated
@@ -224,13 +245,12 @@ export default function VotesMap({
     case "totalVotesPercent":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.totalVotesPercent),
-        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       // console.log(`Min: ${scaleMin}, Max: ${scaleMax}`);
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
         const value = normalizeZeroOne(f.properties?.electionResultsComparison?.totalVotesPercent, scaleMin, scaleMax);
-        // console.log(value);
         const color = scaleToColorFunction(value);
         return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
       };
@@ -238,7 +258,7 @@ export default function VotesMap({
     case "turnoutAbs":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
-        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -250,7 +270,7 @@ export default function VotesMap({
     case "turnoutAbsSameDay":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -273,7 +293,7 @@ export default function VotesMap({
     case "hispanicPer":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.demographics?.hispanicPer),
-        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -285,7 +305,7 @@ export default function VotesMap({
     case "blackPer":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
-        isCountyLevel ? [0.01, 0.99] : [0.05, 0.95]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -475,6 +495,7 @@ export default function VotesMap({
       initialViewState={INITIAL_VIEW_STATE}
       mapStyle={mapStyle}
       mapboxAccessToken={MAPBOX_TOKEN}
+      ref={mapRef}
       onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
       style={{ width: "100%", height: "100%" }}
     >

@@ -63,7 +63,7 @@ export default function VotesRoot() {
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState(resultsElectionRacePerviousIDInitial);
-  const [county, updateCountySelected] = useState(countyParam);
+  const [countyFilter, updateCountyFilter] = useState(countyParam);
   const [isCountyLevel, updateIsCountyLevel] = useState(isCountyLevelInitial);
 
   // **************************************************
@@ -109,7 +109,7 @@ export default function VotesRoot() {
       </div>
       <ElectionDataProvider
         isCountyLevel={isCountyLevel}
-        county={county}
+        countyFilter={countyFilter}
         absenteeElectionBaseID={absenteeElectionBaseID}
         absenteeElectionCurrentID={absenteeElectionCurrentID}
         resultsElectionRaceCurrentID={resultsElectionRaceCurrentID}
@@ -119,7 +119,6 @@ export default function VotesRoot() {
           {displayType === "scatter" && (
             <VotesScatterPlot
               isCountyLevel={isCountyLevel}
-              county={county}
               updateActiveSelection={updateActiveSelection}
               updateActiveHover={updateActiveHover}
               scatterXAxis={scatterXAxis}
@@ -129,7 +128,7 @@ export default function VotesRoot() {
           {displayType === "map" && (
             <VotesMap
               isCountyLevel={isCountyLevel}
-              county={county}
+              countyFilter={countyFilter}
               elevationApproach={elevationApproach}
               colorApproach={colorApproach}
               updateActiveSelection={updateActiveSelection}
@@ -139,7 +138,13 @@ export default function VotesRoot() {
             />
           )}
           {displayType === "table" && (
-            <VotesTable isCountyLevel={isCountyLevel} county={county} updateCountySelected={updateCountySelected} updateIsCountyLevel={updateIsCountyLevel} />
+            <VotesTable
+              isCountyLevel={isCountyLevel}
+              countyFilter={countyFilter}
+              updateCountyFilter={updateCountyFilter}
+              updateIsCountyLevel={updateIsCountyLevel}
+              updateActiveSelection={updateActiveSelection}
+            />
           )}
         </div>
         {(displayType !== "table" || showOptions) && (
@@ -184,12 +189,12 @@ export default function VotesRoot() {
             )}
             <VotesSummary
               activeSelection={activeSelection}
-              activeHover={activeHover}
-              updateUserHasSetLevel={updateUserHasSetLevel}
-              county={county}
-              updateCountySelected={updateCountySelected}
               updateActiveSelection={updateActiveSelection}
+              activeHover={activeHover}
+              countyFilter={countyFilter}
+              updateCountyFilter={updateCountyFilter}
               isCountyLevel={isCountyLevel}
+              updateUserHasSetLevel={updateUserHasSetLevel}
               updateIsCountyLevel={updateIsCountyLevel}
               showVoteMode={showVoteMode}
               showDemographics={showDemographics}

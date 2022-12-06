@@ -11,8 +11,8 @@ const { Column } = Table;
 export default function VoteSummary({
   activeSelection,
   activeHover,
-  county,
-  updateCountySelected,
+  countyFilter,
+  updateCountyFilter,
   updateActiveSelection,
   isCountyLevel,
   updateIsCountyLevel,
@@ -24,13 +24,13 @@ export default function VoteSummary({
   const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
     useElectionData();
   const resultSummary = useMemo(() => {
-    const source = activeHover ? activeHover : activeSelection;
-    if (source && source.properties) return source.properties;
-    if (source && locationResults.has(source)) return locationResults.get(source);
+    const source = activeHover ? activeHover : activeSelection; // use the hover value o/w use the selection 
+    if (source && source.properties) return source.properties; // if we have the actual object use it
+    if (source && locationResults.has(source)) return locationResults.get(source); // pull the data from the current level displayed
     if (source && countyResults.has(source)) return countyResults.get(source);
-    return statewideResults;
-  }, [activeHover, activeSelection, locationResults, countyResults, statewideResults]);
-  
+    if (countyFilter && countyResults.has(countyFilter)) return countyResults.get(countyFilter); // if filtered to a county use that total
+    return statewideResults; // if no selection and no filter, use the statewide total
+  }, [activeHover, activeSelection, countyFilter, locationResults, countyResults, statewideResults]);
 
   if (!resultSummary) return <span>Loading...</span>;
 
@@ -46,8 +46,8 @@ export default function VoteSummary({
               shape="circle"
               icon={<CloseOutlined />}
               onClick={() => {
-                updateCountySelected(resultSummary.PRECINCT_N && county ? resultSummary.CTYNAME : null);
-                updateActiveSelection(resultSummary.PRECINCT_N && county ? resultSummary.CTYNAME : null);
+                updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
+                updateActiveSelection(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
               }}
             />
           </span>
@@ -64,7 +64,7 @@ export default function VoteSummary({
                 onClick={() => {
                   updateIsCountyLevel(false);
                   updateUserHasSetLevel(true);
-                  if (resultSummary.CTYNAME) updateCountySelected(resultSummary.CTYNAME);
+                  if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
                 }}
               >
                 Precinct Level
@@ -77,7 +77,7 @@ export default function VoteSummary({
               onClick={() => {
                 updateIsCountyLevel(true);
                 updateUserHasSetLevel(true);
-                updateCountySelected(null);
+                updateCountyFilter(null);
               }}
             >
               County Level

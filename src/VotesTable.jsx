@@ -5,8 +5,8 @@ import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sort
 
 const { Panel } = Collapse;
 
-export default function VoteSummary({ isCountyLevel, county, updateCountySelected, updateIsCountyLevel }) {
-  const { locationResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
+export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyFilter, updateIsCountyLevel, updateActiveSelection }) {
+  const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
 
   const columns = useMemo(() => {
@@ -19,7 +19,7 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
       electionResultComparisonColumnsBuilder(),
       demographicColumnBuilder(),
     ];
-  }, [isCountyLevel, updateIsCountyLevel, updateCountySelected, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace]);
+  }, [isCountyLevel, updateIsCountyLevel, updateCountyFilter, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace]);
 
   const [columnsDisplayedIDs, updateColumnsDisplayedIDs] = useState([
     "absenteeCurrent##absenteeVotesAsOfCurrentDate",
@@ -51,8 +51,8 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
       const childrenIncluded = columnGroup.children.filter((column) => columnsDisplayedIDs.includes(column.key));
       if (childrenIncluded.length > 0) dataColumns.push({ ...columnGroup, children: childrenIncluded });
     });
-    return [...idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountySelected), ...dataColumns];
-  }, [columns, columnsDisplayedIDs, isCountyLevel, updateCountySelected, updateIsCountyLevel]);
+    return [...idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection), ...dataColumns];
+  }, [columns, columnsDisplayedIDs, isCountyLevel, updateCountyFilter, updateIsCountyLevel]);
 
   const [isPending, startTransition] = useTransition();
 
@@ -80,9 +80,8 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
 
   return (
     <div style={{ width: "10fr", height: "1fr" }}>
-      
-      <Collapse defaultActiveKey={["1"]}>
-        <Panel header="Data to Display" key="1">
+      <Collapse>
+        <Panel header="Select Data to Display" key="1">
           <Row gutter={30}>
             {columns
               .filter((column) => column.children)
@@ -110,25 +109,26 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
           </Row>
         </Panel>
       </Collapse>
-      <Menu mode="horizontal" selectedKeys={county ? ["county"] : ["state"]}>
+      <Menu mode="horizontal" selectedKeys={countyFilter ? ["county"] : ["state"]}>
         <Menu.Item key="state">
           <a
             onClick={() => {
-              updateCountySelected(null);
+              updateCountyFilter(null);
+              updateActiveSelection(null);
               updateIsCountyLevel(true);
             }}
           >
             State of Georgia
           </a>
         </Menu.Item>
-        {county && <Menu.Item key="county">{county}</Menu.Item>}
+        {countyFilter && <Menu.Item key="county">{countyFilter}</Menu.Item>}
       </Menu>
       <Table
         loading={isPending}
         dataSource={rows}
         columns={columnsDisplayed}
         scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
-        pagination={{pageSize: 100}}
+        pagination={{ pageSize: 100 }}
         sticky={true}
         size="small"
       />
@@ -136,7 +136,7 @@ export default function VoteSummary({ isCountyLevel, county, updateCountySelecte
   );
 }
 
-const idColumnBuilder = (isCountyLevel, updateIsCountyLevel, updateCountySelected) => {
+const idColumnBuilder = (isCountyLevel, updateIsCountyLevel, updateCountySelected, updateActiveSelection) => {
   const idColumnsParent = [
     {
       title: "County",
@@ -150,6 +150,7 @@ const idColumnBuilder = (isCountyLevel, updateIsCountyLevel, updateCountySelecte
           <a
             onClick={() => {
               updateIsCountyLevel(false);
+              updateActiveSelection(null);
               updateCountySelected(record.CTYNAME);
             }}
           >
@@ -239,7 +240,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormat.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.republican,b?.[raceColumn]?.republican),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.republican, b?.[raceColumn]?.republican),
     },
     {
       key: `${raceColumn}##perRepublican`,
@@ -248,7 +249,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormatPercent.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perRepublican,b?.[raceColumn]?.perRepublican),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perRepublican, b?.[raceColumn]?.perRepublican),
     },
     {
       key: `${raceColumn}##democratic`,
@@ -257,7 +258,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormat.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.democratic,b?.[raceColumn]?.democratic),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.democratic, b?.[raceColumn]?.democratic),
     },
     {
       key: `${raceColumn}##perDemocratic`,
@@ -266,7 +267,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormatPercent.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perDemocratic,b?.[raceColumn]?.perDemocratic)
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perDemocratic, b?.[raceColumn]?.perDemocratic),
     },
     {
       key: `${raceColumn}##other`,
@@ -275,7 +276,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormat.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.other,b?.[raceColumn]?.other),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.other, b?.[raceColumn]?.other),
     },
     {
       key: `${raceColumn}##perOther`,
@@ -284,7 +285,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormatPercent.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perOther,b?.[raceColumn]?.perOther),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.perOther, b?.[raceColumn]?.perOther),
     },
     {
       key: `${raceColumn}##totalVotes`,
@@ -293,7 +294,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       width: 100,
       align: "right",
       render: (text) => numberFormat.format(text),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.totalVotes,b?.[raceColumn]?.totalVotes),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.totalVotes, b?.[raceColumn]?.totalVotes),
     },
     {
       key: `${raceColumn}##marginDemocratic`,
@@ -306,7 +307,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
           {RDIndicator(text)} {numberFormat.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.marginDemocratic,b?.[raceColumn]?.marginDemocratic),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.marginDemocratic, b?.[raceColumn]?.marginDemocratic),
     },
     {
       key: `${raceColumn}##marginPerPerDemocratic`,
@@ -319,7 +320,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
           {RDIndicator(text)} {numberFormatPercent.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.marginPerPerDemocratic,b?.[raceColumn]?.marginPerPerDemocratic),
+      sorter: (a, b) => sortNumeric(a?.[raceColumn]?.marginPerPerDemocratic, b?.[raceColumn]?.marginPerPerDemocratic),
     },
   ];
   return {
@@ -342,7 +343,7 @@ const electionResultComparisonColumnsBuilder = () => {
           {RDIndicator(text)} {numberFormatPercent.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.perShiftDemocratic,b?.electionResultsComparison?.perShiftDemocratic),
+      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.perShiftDemocratic, b?.electionResultsComparison?.perShiftDemocratic),
     },
     {
       key: "totalVotesPercent",
@@ -351,7 +352,7 @@ const electionResultComparisonColumnsBuilder = () => {
       width: 100,
       align: "right",
       render: (text) => numberFormatPercent.format(text),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.totalVotesPercent,b?.electionResultsComparison?.totalVotesPercent),
+      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.totalVotesPercent, b?.electionResultsComparison?.totalVotesPercent),
     },
     {
       key: "voteShiftDemocraticNormalized",
@@ -364,7 +365,7 @@ const electionResultComparisonColumnsBuilder = () => {
           {RDIndicator(text)} {numberFormat.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.voteShiftDemocraticNormalized,b?.electionResultsComparison?.voteShiftDemocraticNormalized),
+      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.voteShiftDemocraticNormalized, b?.electionResultsComparison?.voteShiftDemocraticNormalized),
     },
   ];
   return {
