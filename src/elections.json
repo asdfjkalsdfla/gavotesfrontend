@@ -3,7 +3,7 @@
     "name": "2022_runoff",
     "label": "2022 Senate Runoff",
     "date": "2022-12-06",
-    "isCurrentElection": true,
+    "isCurrentElection": false,
     "races": [
       { "name": "US Senate", "republican": "Walker", "democratic": "Warnock" }
     ]

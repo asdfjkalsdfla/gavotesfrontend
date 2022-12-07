@@ -14,6 +14,9 @@ export default class ElectionResult {
   // Dumb assignment constructor, but it works for this very simple app
   constructor(template) {
     if (template) Object.assign(this, template);
+    if (template.resultsByMode) {
+      this.resultsByMode = template.resultsByMode.map((modeResult) => new ElectionResult(modeResult));
+    }
   }
 
   // total # of votes cast in the contest

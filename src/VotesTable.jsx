@@ -1,5 +1,6 @@
 import { useMemo, useState, useTransition } from "react";
 import { Table, Menu, Collapse, Checkbox, Row, Col } from "antd";
+import { CSVLink } from "react-csv";
 import { useElectionData } from "./ElectionDataProvider";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "./Utils";
 
@@ -54,6 +55,16 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
     return [...idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection), ...dataColumns];
   }, [columns, columnsDisplayedIDs, isCountyLevel, updateCountyFilter, updateIsCountyLevel]);
 
+  const csvFileHeaders = [];
+  columnsDisplayed.forEach((column) => {
+    if (column.children) {
+      column.children.forEach((childColumn) => {
+        csvFileHeaders.push({ label: childColumn.title, key: childColumn.dataIndex.join(".") });
+      });
+    } else {
+      csvFileHeaders.push({ label: column.title, key: column.dataIndex.join(".") });
+    }
+  });
   const [isPending, startTransition] = useTransition();
 
   useMemo(() => {
@@ -132,6 +143,9 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
         sticky={true}
         size="small"
       />
+      <CSVLink data={rows} headers={csvFileHeaders}  filename="voting-data.csv">
+        Download
+      </CSVLink>
     </div>
   );
 }
@@ -322,6 +336,19 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
       ),
       sorter: (a, b) => sortNumeric(a?.[raceColumn]?.marginPerPerDemocratic, b?.[raceColumn]?.marginPerPerDemocratic),
     },
+    {
+      key: `${raceColumn}##marginEarlyPerRepublican`,
+      title: "Early Vote Margin %",
+      dataIndex: [raceColumn, "marginEarlyPerRepublican"],
+      width: 100,
+      align: "right",
+      render: (text) => (
+        <>
+          {RDIndicator(-1 * text)} {numberFormatPercent.format(Math.abs(text))}
+        </>
+      ),
+      sorter: (a, b) => sortNumeric(-1*a?.[raceColumn]?.marginEarlyPerRepublican, -1*b?.[raceColumn]?.marginEarlyPerRepublican),
+    },
   ];
   return {
     title: `${raceInfo.election.label} - ${raceInfo.name}`,
@@ -366,6 +393,19 @@ const electionResultComparisonColumnsBuilder = () => {
         </>
       ),
       sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.voteShiftDemocraticNormalized, b?.electionResultsComparison?.voteShiftDemocraticNormalized),
+    },
+    {
+      key: "perShiftRepublicanEarly",
+      title: `EV Shift in R/D %`,
+      dataIndex: ["electionResultsComparison", "perShiftRepublicanEarly"],
+      width: 100,
+      align: "right",
+      render: (text) => (
+        <>
+          {RDIndicator(-1*text)} {numberFormatPercent.format(Math.abs(text))}
+        </>
+      ),
+      sorter: (a, b) => sortNumeric(-1*a?.electionResultsComparison?.perShiftRepublicanEarly, -1*b?.electionResultsComparison?.perShiftRepublicanEarly),
     },
   ];
   return {

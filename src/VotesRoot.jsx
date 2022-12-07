@@ -33,7 +33,7 @@ const showOptionsOnLoad = hideOptionsParam !== "true";
 
 // elevation approach
 const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam ? elevationApproachParam : "turnoutAbsSameDay";
+const elevationApproachInitial = elevationApproachParam ? elevationApproachParam : "none";
 
 // color approach
 const colorApproachParam = params.get("colorApproach");
@@ -41,11 +41,11 @@ const colorApproachInitial = colorApproachParam ? colorApproachParam : "election
 
 // races
 const resultsElectionRaceCurrentIDParam = params.get("resultsElectionRaceCurrentID");
-const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam ? resultsElectionRaceCurrentIDParam : "2022_general||US Senate";
+const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam ? resultsElectionRaceCurrentIDParam : "2022_runoff||US Senate";
 const resultsElectionRacePerviousIDParam = params.get("resultsElectionRacePerviousID");
 const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam
   ? resultsElectionRacePerviousIDParam
-  : "2020_general||President of the United States";
+  : "2022_general||US Senate";
 
 // scatter plot
 const scatterParam = params.get("scatter");
@@ -81,8 +81,8 @@ export default function VotesRoot() {
   const [scatterXAxis, updateScatterXAxis] = useState("electionResultPerRepublicanPer");
   const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
 
-  const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(true);
+  const [showVoteMode, updateShowVoteMode] = useState(true);
+  const [showAbsentee, updateShowAbsentee] = useState(false);
   const [showDemographics, updateShowDemographics] = useState(true);
 
   // ************************************************

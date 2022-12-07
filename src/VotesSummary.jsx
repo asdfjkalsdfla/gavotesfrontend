@@ -24,7 +24,7 @@ export default function VoteSummary({
   const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
     useElectionData();
   const resultSummary = useMemo(() => {
-    const source = activeHover ? activeHover : activeSelection; // use the hover value o/w use the selection 
+    const source = activeHover ? activeHover : activeSelection; // use the hover value o/w use the selection
     if (source && source.properties) return source.properties; // if we have the actual object use it
     if (source && locationResults.has(source)) return locationResults.get(source); // pull the data from the current level displayed
     if (source && countyResults.has(source)) return countyResults.get(source);
@@ -100,7 +100,9 @@ export default function VoteSummary({
           <Descriptions.Item label={`Total Accepted in ${absenteeElectionBaseLabel}`}>
             {numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}
           </Descriptions.Item>
-          <Descriptions.Item label={`% of Total`}>{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}</Descriptions.Item>
+          <Descriptions.Item label={`% of Total`}>
+            {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}
+          </Descriptions.Item>
         </Descriptions>
       )}
       <Descriptions
@@ -153,10 +155,28 @@ export default function VoteSummary({
           <br />
           <b>Result by Vote Method</b>
           <br />
-          <Table dataSource={resultSummary?.electionResultsCurrent?.resultsByMode} pagination={false}>
-            <Column title="Method" dataIndex="mode" key="mode" />
-            <Column title={`${currentElectionRace?.republican} (R)`} dataIndex="republican" key="republican" render={(value) => numberFormat.format(value)} />
-            <Column title={`${currentElectionRace?.democratic} (D)`} dataIndex="democratic" key="democratic" render={(value) => numberFormat.format(value)} />
+          <Table dataSource={resultSummary?.electionResultsCurrent?.resultsByMode} pagination={false} sortDirections="">
+            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
+            <Column
+              title={`${currentElectionRace?.republican} (R)`}
+              dataIndex="republican"
+              key="republican"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
+                </>
+              )}
+            />
+            <Column
+              title={`${currentElectionRace?.democratic} (D)`}
+              dataIndex="democratic"
+              key="democratic"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
+                </>
+              )}
+            />
           </Table>
         </React.Fragment>
       )}
@@ -195,9 +215,27 @@ export default function VoteSummary({
           <b>Result by Vote Method</b>
           <br />
           <Table dataSource={resultSummary?.electionResultsBase?.resultsByMode} pagination={false}>
-            <Column title="Method" dataIndex="mode" key="mode" />
-            <Column title={`${previousElectionRace?.republican} (R)`} dataIndex="republican" key="republican" render={(value) => numberFormat.format(value)} />
-            <Column title={`${previousElectionRace?.democratic} (D)`} dataIndex="democratic" key="democratic" render={(value) => numberFormat.format(value)} />
+            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
+            <Column
+              title={`${currentElectionRace?.republican} (R)`}
+              dataIndex="republican"
+              key="republican"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
+                </>
+              )}
+            />
+            <Column
+              title={`${currentElectionRace?.democratic} (D)`}
+              dataIndex="democratic"
+              key="democratic"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
+                </>
+              )}
+            />
           </Table>
         </React.Fragment>
       )}

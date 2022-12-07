@@ -79,6 +79,7 @@ export function ElectionDataProvider({
     const activeResults = new Map();
     locationElectionData.forEach((value, key) => {
       if (value.CTYNAME === countyFilter) activeResults.set(key, value);
+      // if (value?.electionResultsComparison?.totalVotesPercent > 0.80) activeResults.set(key, value);
     });
     return activeResults;
   }, [isCountyLevel, countyFilter, locationElectionData]);
@@ -136,19 +137,19 @@ const loadAndCombineElectionDataFiles = async (
 
   if (!responseAbsenteeCurrent.ok) {
     console.log("ERROR loading absentee current");
-    return;
+    return new Map();
   }
   if (!responseAbsenteeBase.ok) {
     console.log("ERROR loading absentee base");
-    return;
+    return new Map();;
   }
   if (!responseElectionResultsCurrent.ok) {
     console.log("ERROR loading election result current");
-    return;
+    return new Map();
   }
   if (!responseDemographics.ok) {
     console.log("ERROR loading demographics");
-    return;
+    return new Map();
   }
 
   if (electionResultBaseFileLocation && !electionResultBase.ok) {
