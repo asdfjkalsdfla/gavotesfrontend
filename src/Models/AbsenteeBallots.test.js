@@ -47,7 +47,7 @@ describe.concurrent("Absentee Ballot Test", () => {
 
   it("check the current value to use", async () => {
     // set hour within business hours
-    const date = new Date(2022, 12, 5, 13);
+    const date = new Date(2022, 11, 5, 13);
     vi.setSystemTime(date);
     // expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1871252);
     // Commented out because temporal isn't working for mock
