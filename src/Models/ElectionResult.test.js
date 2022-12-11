@@ -162,13 +162,13 @@ describe.concurrent("Election Result Test Early Only", () => {
           mode: "Absentee by Mail Votes",
           democratic: 1946117,
           republican: 1908442,
-          other: 81365,
+          other: 0,
         },
         {
           mode: "Election Day Votes",
-          democratic: 1946117,
-          republican: 1908442,
-          other: 81365,
+          democratic: 500000000,
+          republican: 500000000,
+          other: 500000000,
         },
       ],
     });
