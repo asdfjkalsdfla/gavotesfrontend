@@ -8,6 +8,10 @@
 
 # production
 /build
+/dist
+
+# data files
+/public/static/*
 
 # misc
 .DS_Store
