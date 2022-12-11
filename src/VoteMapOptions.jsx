@@ -1,4 +1,4 @@
-import React from "react";
+import React, { startTransition } from "react";
 import { Select, Button, Checkbox, Radio } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useElectionData } from "./ElectionDataProvider";
@@ -56,7 +56,9 @@ export default function VoteMapOptions({
         <Radio.Group
           value={displayType}
           onChange={({ target: { value } }) => {
-            updateDisplayType(value);
+            startTransition(() => {
+              updateDisplayType(value);
+            });
           }}
         >
           <Radio.Button value="map">Map</Radio.Button>
