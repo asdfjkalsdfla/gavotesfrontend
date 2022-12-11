@@ -1,3 +1,5 @@
+import React from "react";
+
 export const numberFormat = new Intl.NumberFormat("en-us", {
   minimumFractionDigits: 0,
   maximumFractionDigits: 0,

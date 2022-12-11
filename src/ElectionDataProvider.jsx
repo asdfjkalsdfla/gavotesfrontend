@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 
 import ElectionResult from "./Models/ElectionResult";
 import ElectionResultComparison from "./Models/ElectionResultComparison";
