@@ -3,7 +3,7 @@
     "browser": true,
     "es2022": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb-base", "prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "airbnb-base", "prettier"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2022,
@@ -24,8 +24,7 @@
     "react/prop-types": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "lines-between-class-members": ["off"],
-    "max-len": "off",
-    "no-nested-ternary" : "off"
+    "no-nested-ternary": "off"
   },
   "settings": {
     "react": {

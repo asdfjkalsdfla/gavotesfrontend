@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unsafe-optional-chaining */
 import React, { useState, useMemo, startTransition } from "react";
 import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
@@ -140,12 +141,11 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 
     if (clickedPoint) {
       return;
-    } else {
-      // console.log("zoom start");
-      startTransition(() => {
-        setZoomArea({ x1: xValue, x2: xValue, y1: yValue, y2: yValue });
-      });
     }
+    // console.log("zoom start");
+    startTransition(() => {
+      setZoomArea({ x1: xValue, x2: xValue, y1: yValue, y2: yValue });
+    });
   }
 
   // Update zoom end coordinates
@@ -188,27 +188,31 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
     }
   }
 
-  const hoverScatterDot = useMemo(() => {
-    return ({ id }) => {
-      updateActiveHover(id);
-    };
-  }, [updateActiveHover]);
+  const hoverScatterDot = useMemo(
+    () =>
+      ({ id }) => {
+        updateActiveHover(id);
+      },
+    [updateActiveHover]
+  );
 
-  const hoverScatterDotOut = useMemo(() => {
-    return ({ id }) => {
-      updateActiveHover(null);
-    };
-  }, [updateActiveHover]);
+  const hoverScatterDotOut = useMemo(
+    () =>
+      ({ id }) => {
+        updateActiveHover(null);
+      },
+    [updateActiveHover]
+  );
 
-  const clickScatterDot = useMemo(() => {
-    return ({ id }) => {
-      updateActiveSelection(id);
-    };
-  }, [updateActiveSelection]);
+  const clickScatterDot = useMemo(
+    () =>
+      ({ id }) => {
+        updateActiveSelection(id);
+      },
+    [updateActiveSelection]
+  );
 
-  const range = useMemo(() => {
-    return [0, isCountyLevel ? 500 : 200];
-  }, [isCountyLevel]);
+  const range = useMemo(() => [0, isCountyLevel ? 500 : 200], [isCountyLevel]);
 
   // let seg = [data?.regressionLineData[0], data?.regressionLineData[99]];
   // seg = [{ x: 0, y: 0 }, { x: 1000, y: 1000 }];
@@ -249,8 +253,8 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 function getClickedPoint(x, y, dataOnPlot) {
   const allPoints = Array.from(document.querySelectorAll(".custom-dot"));
 
-  for (let i = 0; i < allPoints.length; i++) {
-    const { chartX, chartY, xValue, yValue, radius } = allPoints[i].dataset;
+  allPoints.forEach((point) => {
+    const { chartX, chartY, xValue, yValue, radius } = point.dataset;
 
     // calculate distance between 2 points
     const pointX = Number(chartX);
@@ -266,5 +270,5 @@ function getClickedPoint(x, y, dataOnPlot) {
         return dataPoint;
       }
     }
-  }
+  });
 }
