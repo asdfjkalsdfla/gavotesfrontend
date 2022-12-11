@@ -55,15 +55,15 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 
     let yProp;
     switch (scatterYAxis) {
+      case "perRBase":
+        yProp = (dataPoint) => dataPoint.electionResultsBase?.perRepublican * 100;
+        break;
       case "turnoutAbsSameDay":
         // yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 -  dataPoint.electionResultsComparison?.perShiftRepublican * 100 * 0.85;
         yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
         break;
       case "turnoutAbsenteeBallots":
         yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallots * 100;
-        break;
-      case "perRBase":
-        yProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
         break;
       case "perShiftRepublican":
         yProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublican * 100;
@@ -232,7 +232,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
               isAnimationActive={false}
               name="2022 Absentee"
               fill="#000000"
-              fillOpacity={0.6}
+              fillOpacity={isCountyLevel ? 0.6 : 0.15}
               data={data.pointsOnChart}
               onMouseEnter={hoverScatterDot}
               onMouseLeave={hoverScatterDotOut}
