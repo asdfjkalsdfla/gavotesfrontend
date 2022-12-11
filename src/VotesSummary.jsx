@@ -128,7 +128,7 @@ export default function VoteSummary({
         </Descriptions.Item>
         {resultSummary.electionResultsComparison && (
           <>
-            <Descriptions.Item label="Shift in R/D %">
+            <Descriptions.Item label="Swing (Shift in R/D %)">
               {RDIndicator(resultSummary.electionResultsComparison.perShiftDemocratic)}{" "}
               {numberFormatPercent.format(Math.abs(resultSummary.electionResultsComparison?.perShiftDemocratic))}
             </Descriptions.Item>
@@ -138,11 +138,11 @@ export default function VoteSummary({
             {/* <Descriptions.Item label="R/D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRDPercent)}</Descriptions.Item>
                 <Descriptions.Item label="D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesDemocraticPercent)}</Descriptions.Item>
                 <Descriptions.Item label="R % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRepublicanPercent)}</Descriptions.Item> */}
-            <Descriptions.Item label="Shift in Vote Margin">
+            {/* <Descriptions.Item label="Shift in Vote Margin">
               {RDIndicator(resultSummary.electionResultsComparison.voteShiftDemocratic)}{" "}
               {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocratic))}
-            </Descriptions.Item>
-            <Descriptions.Item label="Normalized Shift in Vote Margin">
+            </Descriptions.Item> */}
+            <Descriptions.Item label="Shift in Vote Margin (normalized)">
               {RDIndicator(resultSummary.electionResultsComparison.voteShiftDemocraticNormalized)}{" "}
               {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocraticNormalized))}
             </Descriptions.Item>
@@ -159,6 +159,7 @@ export default function VoteSummary({
             <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
             <Column
               title={`${currentElectionRace?.republican} (R)`}
+              align="right"
               dataIndex="republican"
               key="republican"
               render={(value, row) => (
@@ -171,6 +172,7 @@ export default function VoteSummary({
               title={`${currentElectionRace?.democratic} (D)`}
               dataIndex="democratic"
               key="democratic"
+              align="right"
               render={(value, row) => (
                 <>
                   {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
@@ -220,6 +222,7 @@ export default function VoteSummary({
               title={`${currentElectionRace?.republican} (R)`}
               dataIndex="republican"
               key="republican"
+              align="right"
               render={(value, row) => (
                 <>
                   {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
@@ -230,6 +233,7 @@ export default function VoteSummary({
               title={`${currentElectionRace?.democratic} (D)`}
               dataIndex="democratic"
               key="democratic"
+              align="right"
               render={(value, row) => (
                 <>
                   {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})

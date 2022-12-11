@@ -81,7 +81,7 @@ export default function VotesRoot() {
   const [scatterXAxis, updateScatterXAxis] = useState("electionResultPerRepublicanPer");
   const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
 
-  const [showVoteMode, updateShowVoteMode] = useState(true);
+  const [showVoteMode, updateShowVoteMode] = useState(false);
   const [showAbsentee, updateShowAbsentee] = useState(false);
   const [showDemographics, updateShowDemographics] = useState(true);
 

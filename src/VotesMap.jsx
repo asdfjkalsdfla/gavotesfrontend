@@ -280,8 +280,14 @@ export default function VotesMap({
       };
       break;
     case "electionResultPerRepublicanPerShift":
-      scaleMin = isCountyLevel ? -0.15 : -0.15;
-      scaleMax = isCountyLevel ? -0.15 : -0.15;
+      // scaleMin = isCountyLevel ? -0.15 : -0.15;
+      // scaleMax = isCountyLevel ? -0.15 : -0.15;
+      const [firstMin, firstMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.perShiftDemocratic),
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+      );
+      scaleMin = Math.abs(firstMin) > Math.abs(firstMax) ? -1 * Math.abs(firstMin) : -1 * Math.abs(firstMax) ;
+      scaleMax = -1 * scaleMin;
       scaleToColorFunction = (value) => (value < 0.5 ? d3ScaleChromatic.interpolateReds(1 - 2 * value) : d3ScaleChromatic.interpolateBlues(2 * (value - 0.5)));
 
       colorFunction = (f) => {
@@ -421,17 +427,13 @@ export default function VotesMap({
     });
 
     if (dataGeoJSON && showSecondaryColor) {
-      scaleMin = quantile(
-        dataGeoJSON.features.map((f) => f.properties?.demographics?.hispanicPer + f.properties?.demographics?.blackPer),
-        0.05
-      );
-      scaleMax = quantile(
-        dataGeoJSON.features.map((f) => f.properties?.demographics?.hispanicPer + f.properties?.demographics?.blackPer),
-        0.95
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.demographics?.hispanicPer + f.properties?.demographics?.hispanicPer, scaleMin, scaleMax);
+        const value = normalizeZeroOne(f.properties?.demographics?.blackPer, scaleMin, scaleMax);
         const color = scaleToColorFunction(value);
         return convertD3ColorToArray(color);
       };

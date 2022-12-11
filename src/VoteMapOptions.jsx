@@ -75,9 +75,9 @@ export default function VoteMapOptions({
             value={scatterXAxis}
             virtual={false}
           >
-            <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
-            <Option value="perRBase">Previous Election Results</Option>
-            <Option value="perShiftRepublican">Shift in R/D %</Option>
+            <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
+            <Option value="perRBase">Previous Election Vote Share</Option>
+            <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
             {/* <Option value="perShiftRepublicanEarly">Shift in Early Vote R/D %</Option> */}
             {/* <Option value="totalVotesRepublicanPercent">Change in R Votes</Option> */}
             <Option value="whitePer">White %</Option>
@@ -94,9 +94,9 @@ export default function VoteMapOptions({
             value={scatterYAxis}
             virtual={false}
           >
-            <Option value="electionResultPerRepublicanPer">Current Election Results</Option>
-            <Option value="perRBase">Previous Election Results</Option>
-            <Option value="perShiftRepublican">Shift in R/D %</Option>
+            <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
+            <Option value="perRBase">Previous Election Vote Share</Option>
+            <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
             <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
             <Option value="turnoutAbsenteeBallots">% of Absentee Votes</Option>
@@ -116,12 +116,12 @@ export default function VoteMapOptions({
             value={colorApproach}
             virtual={false}
           >
-            <Option value="electionResultPerRepublicanPer">Election Results</Option>
+            <Option value="electionResultPerRepublicanPer">Vote Share</Option>
             <Option value="electionResultVoteMargin">Vote Margin</Option>
-            <Option value="electionResultPerRepublicanPerShift">Shift in R/D %</Option>
+            <Option value="electionResultPerRepublicanPerShift">Vote Swing (Shift in R/D %)</Option>
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
-            <Option value="electionResultVoteShift">Shift in Vote Margin</Option>
-            <Option value="electionResultVoteShiftNormalized">Normalized Shift in Vote Margin</Option>
+            {/* <Option value="electionResultVoteShift">Shift in Vote Margin</Option> */}
+            <Option value="electionResultVoteShiftNormalized">Shift in Vote Margin (normalized)</Option>
             <Option value="blackPer">Black %</Option>
             <Option value="hispanicPer">Hispanic %</Option>
             <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>

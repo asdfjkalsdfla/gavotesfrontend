@@ -361,7 +361,7 @@ const electionResultComparisonColumnsBuilder = () => {
   const children = [
     {
       key: "perShiftDemocratic",
-      title: `Shift in R/D %`,
+      title: `Swing (Shift in R/D %)`,
       dataIndex: ["electionResultsComparison", "perShiftDemocratic"],
       width: 100,
       align: "right",
