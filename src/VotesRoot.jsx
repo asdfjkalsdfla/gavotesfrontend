@@ -3,10 +3,13 @@ import { Divider } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 
 import { ElectionDataProvider } from "./ElectionDataProvider";
-import VotesMap from "./VotesMap";
-import VotesScatterPlot from "./VotesScatterPlot";
+// import VotesMap from "./VotesMap";
+const VotesMap = React.lazy(() => import('./VotesMap'));
 import VotesSummary from "./VotesSummary";
-import VotesTable from "./VotesTable";
+const VotesScatterPlot = React.lazy(() => import('./VotesScatterPlot'));
+// import VotesScatterPlot from "./VotesScatterPlot";
+const VotesTable = React.lazy(() => import('./VotesTable'));
+// import VotesTable from "./VotesTable";
 import WelcomeText from "./WelcomeText";
 import VoteMapOptions from "./VoteMapOptions";
 import "./VotesRoot.css";

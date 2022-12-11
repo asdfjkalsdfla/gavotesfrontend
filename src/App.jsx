@@ -1,17 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VotesRoot from "./VotesRoot";
-import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
-import 'antd/dist/reset.css';
+const PrecinctsResultToShapeMatch = React.lazy(() => import('./PrecinctsResultToShapeMatch'));
+// import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
+import "antd/dist/reset.css";
 import "./App.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/precincts/match",
+    element: <PrecinctsResultToShapeMatch />,
+  },
+  {
+    path: "/",
+    element: <VotesRoot />,
+  },
+]);
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/precincts/match"  element={<PrecinctsResultToShapeMatch />} />
-        <Route path="/"   element={<VotesRoot />} />
-      </Routes>
-    </Router>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   );
 }
