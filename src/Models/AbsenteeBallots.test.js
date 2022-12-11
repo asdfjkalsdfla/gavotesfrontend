@@ -51,5 +51,10 @@ describe.concurrent("Absentee Ballot Test", () => {
     vi.setSystemTime(date);
     // expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1871252);
     // Commented out because temporal isn't working for mock
+    expect(absTest.absenteeVotesAsOfCurrentDate).toBeTypeOf("number");
+  });
+
+  it("check total absentee ballots", async () => {
+    expect(absTest.totalAbsenteeVotes).toBe(1889763);
   });
 });

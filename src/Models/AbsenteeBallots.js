@@ -31,7 +31,6 @@ export default class AbsenteeBallots {
   // total # of absentee votes cast as of same date
   get absenteeVotesAsOfCurrentDate() {
     if (this.#absenteeVotesAsOfCurrentDate) return this.#absenteeVotesAsOfCurrentDate;
-
     const value = this.absenteeVotesAsOfDaysOut(daysToElection);
     this.#absenteeVotesAsOfCurrentDate = value;
     return value;
