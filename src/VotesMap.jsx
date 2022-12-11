@@ -8,12 +8,11 @@ import Map, { NavigationControl, useControl } from "react-map-gl";
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
 import { MapboxOverlay } from "@deck.gl/mapbox";
-import { GeoJsonLayer } from "@deck.gl/layers";
-import { ScatterplotLayer } from "@deck.gl/layers";
+import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
-import { quantile } from "./Utils";
-import { useElectionData } from "./ElectionDataProvider";
+import { quantile } from "./Utils.jsx";
+import { useElectionData } from "./ElectionDataProvider.jsx";
 
 import boundingBoxesForCounties from "./VotesMapCountiesBB.json";
 
@@ -53,13 +52,12 @@ const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
   return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
 };
 
-const convertD3ColorToArray = (color) => {
-  return color
+const convertD3ColorToArray = (color) =>
+  color
     .replace("rgb(", "")
     .replace(")", "")
     .split(",")
-    .map((val) => parseInt(val));
-};
+    .map((val) => parseInt(val, 10));
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoicmljaGFyZG93cmlnaHQiLCJhIjoiY2podXhvNGUxMHRlaTNycnNteTFyM3UyZCJ9.AvD-USUs_rTwesgEJCmECA";
 
@@ -89,6 +87,7 @@ export default function VotesMap({
   // ************************************************
   // If the user sets a specific county, we show only that counties data @ precinct level
   // Otherwise, we determine if we show counties or precinct state wide data
+  // eslint-disable-next-line no-nested-ternary
   const geoJSONFile = countyFilter
     ? `/static/GA_precincts_2020_${countyFilter}_simple.json`
     : isCountyLevel
@@ -121,6 +120,7 @@ export default function VotesMap({
       const votingResultRaw = feature.properties;
       const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
 
+      // eslint-disable-next-line no-param-reassign
       feature.properties = { ...feature.properties, ...properties };
     });
     if (locationResults.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
@@ -143,11 +143,12 @@ export default function VotesMap({
 
     // Change the zoom level based upon the size of the viewport
     const sizeParam = "none";
-    const boundingBox = boundingBoxesForCounties[countyFilter ? countyFilter : "STATE"];
+    const boundingBox = boundingBoxesForCounties[countyFilter || "STATE"];
+    // eslint-disable-next-line no-nested-ternary
     const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
     const backupLatLong = { latitude: 33.9999, longitude: -84.5641 };
 
-    const INITIAL_VIEW_STATE = {
+    return {
       bounds: boundingBox,
       fitBoundsOptions: { maxZoom: 12, padding: { left: 10, right: 10, bottom: 100, top: 10 } },
       ...backupLatLong,
@@ -159,8 +160,6 @@ export default function VotesMap({
       width: window.innerWidth - 200,
       height: window.innerHeight - 200,
     };
-    return INITIAL_VIEW_STATE;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countyFilter]);
 
   // ************************************************
@@ -177,7 +176,7 @@ export default function VotesMap({
   useEffect(() => {
     if (mapRef && mapRef.current && countyFilter) {
       const map = mapRef.current;
-      map.fitBounds(boundingBoxesForCounties[countyFilter ? countyFilter : "STATE"], { bearing: map.getBearing() });
+      map.fitBounds(boundingBoxesForCounties[countyFilter || "STATE"], { bearing: map.getBearing() });
     }
   }, [countyFilter]);
 
@@ -199,15 +198,13 @@ export default function VotesMap({
   // ************************************************
   // Define How The Elevation Will Be Calculated
   // ************************************************
-  let elevationFunction = useMemo(() => {
+  const elevationFunction = useMemo(() => {
     let [elevationMin, elevationMax] = [0, 0];
     switch (elevationApproach) {
       case "none":
         return null;
       case "votes":
-        return (f) => {
-          return f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
-        };
+        return (f) => f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
       case "turnoutAbsSameDay":
         [elevationMin, elevationMax] = quantile(
           [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
@@ -282,11 +279,12 @@ export default function VotesMap({
     case "electionResultPerRepublicanPerShift":
       // scaleMin = isCountyLevel ? -0.15 : -0.15;
       // scaleMax = isCountyLevel ? -0.15 : -0.15;
+      // eslint-disable-next-line no-case-declarations
       const [firstMin, firstMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.perShiftDemocratic),
         isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
       );
-      scaleMin = Math.abs(firstMin) > Math.abs(firstMax) ? -1 * Math.abs(firstMin) : -1 * Math.abs(firstMax) ;
+      scaleMin = Math.abs(firstMin) > Math.abs(firstMax) ? -1 * Math.abs(firstMin) : -1 * Math.abs(firstMax);
       scaleMax = -1 * scaleMin;
       scaleToColorFunction = (value) => (value < 0.5 ? d3ScaleChromatic.interpolateReds(1 - 2 * value) : d3ScaleChromatic.interpolateBlues(2 * (value - 0.5)));
 
@@ -402,8 +400,8 @@ export default function VotesMap({
         ) *
         (isCountyLevel ? 4 : 1.5) *
         (colorApproach === "electionResultVoteMargin" ? 1 : 2),
-      getFillColor: (f) => {
-        return (colorApproach === "electionResultVoteMargin"
+      getFillColor: (f) =>
+        (colorApproach === "electionResultVoteMargin"
           ? f?.electionResultsCurrent
             ? f?.electionResultsCurrent[attributeForComparison]
             : 0
@@ -411,8 +409,7 @@ export default function VotesMap({
           ? f?.electionResultsComparison[attributeForComparison]
           : 0) < 0
           ? [170, 57, 57, circleOpacity]
-          : [17, 62, 103, circleOpacity];
-      },
+          : [17, 62, 103, circleOpacity],
       getLineColor: (f) =>
         (colorApproach === "electionResultVoteMargin"
           ? f?.electionResultsCurrent
@@ -524,7 +521,7 @@ export default function VotesMap({
                 ? `<div>Height: 
               ${numberFormat.format(lookup[elevationApproach])}
             </div>`
-                : `<span></span>`
+                : "<span></span>"
             }
         `,
             };
@@ -549,7 +546,11 @@ export default function VotesMap({
         >
           {[...Array(50).keys()].map((point) => {
             const color = scaleToColorFunction((point * 2) / 100);
-            return <span style={{ backgroundColor: color, width: "1px" }}>&nbsp;</span>;
+            return (
+              <span key={point} style={{ backgroundColor: color, width: "1px" }}>
+                &nbsp;
+              </span>
+            );
           })}
           <br />
           <span>{numberFormatPercent.format(scaleMin)}</span>

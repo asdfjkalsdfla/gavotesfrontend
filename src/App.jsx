@@ -1,10 +1,12 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import VotesRoot from "./VotesRoot";
-const PrecinctsResultToShapeMatch = React.lazy(() => import('./PrecinctsResultToShapeMatch'));
-// import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
+import VotesRoot from "./VotesRoot.jsx";
+
 import "antd/dist/reset.css";
 import "./App.css";
+
+const PrecinctsResultToShapeMatch = React.lazy(() => import("./PrecinctsResultToShapeMatch.jsx"));
+// import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
 
 const router = createBrowserRouter([
   {

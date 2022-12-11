@@ -1,8 +1,10 @@
-import { useMemo, useState, useTransition } from "react";
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable no-use-before-define */
+import React, { useMemo, useState, useTransition } from "react";
 import { Table, Menu, Collapse, Checkbox, Row, Col } from "antd";
 import { CSVLink } from "react-csv";
-import { useElectionData } from "./ElectionDataProvider";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "./Utils";
+import { useElectionData } from "./ElectionDataProvider.jsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "./Utils.jsx";
 
 const { Panel } = Collapse;
 
@@ -10,8 +12,8 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
 
-  const columns = useMemo(() => {
-    return [
+  const columns = useMemo(
+    () => [
       absenteeComparisonColumnsBuilder(),
       absenteeColumnsBuilder(currentAbsenteeElection, "absenteeCurrent"),
       absenteeColumnsBuilder(baseAbsenteeElection, "absenteeBase"),
@@ -19,8 +21,9 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
       electionResultColumnsBuilder(previousElectionRace, "electionResultsBase"),
       electionResultComparisonColumnsBuilder(),
       demographicColumnBuilder(),
-    ];
-  }, [isCountyLevel, updateIsCountyLevel, updateCountyFilter, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace]);
+    ],
+    [isCountyLevel, updateIsCountyLevel, updateCountyFilter, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace]
+  );
 
   const [columnsDisplayedIDs, updateColumnsDisplayedIDs] = useState([
     "absenteeCurrent##absenteeVotesAsOfCurrentDate",
@@ -97,14 +100,14 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
             {columns
               .filter((column) => column.children)
               .map((dataGroup) => (
-                <Col>
+                <Col key={dataGroup.title}>
                   <div>
                     <b>{dataGroup.title}</b>
                   </div>
                   <div>
                     {dataGroup.children &&
                       dataGroup.children.map((dataElements) => (
-                        <div>
+                        <div key={dataElements.key}>
                           <Checkbox
                             checked={columnsDisplayedIDs.includes(dataElements.key)}
                             onChange={(e) => {
@@ -143,7 +146,7 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
         sticky={true}
         size="small"
       />
-      <CSVLink data={rows} headers={csvFileHeaders}  filename="voting-data.csv">
+      <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
         Download
       </CSVLink>
     </div>
@@ -193,7 +196,7 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
   const children = [
     {
       key: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
-      title: `At Same Days to Election`,
+      title: "At Same Days to Election",
       dataIndex: [absenteeElectionColumn, "absenteeVotesAsOfCurrentDate"],
       width: 100,
       align: "right",
@@ -202,7 +205,7 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
     },
     {
       key: `${absenteeElectionColumn}##totalAbsenteeVotes`,
-      title: `Total`,
+      title: "Total",
       dataIndex: [absenteeElectionColumn, "totalAbsenteeVotes"],
       align: "right",
       width: 100,
@@ -213,7 +216,7 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
   return {
     title: `Absentee Ballots - ${electionInfo.label}`,
     width: children.length * 100,
-    children: children,
+    children,
   };
 };
 
@@ -221,7 +224,7 @@ const absenteeComparisonColumnsBuilder = () => {
   const children = [
     {
       key: "turnoutAbsenteeBallotsSameDay",
-      title: `Ratio on Same Day`,
+      title: "Ratio on Same Day",
       dataIndex: ["absenteeBallotComparison", "turnoutAbsenteeBallotsSameDay"],
       width: 100,
       align: "right",
@@ -230,7 +233,7 @@ const absenteeComparisonColumnsBuilder = () => {
     },
     {
       key: "turnoutAbsenteeBallots",
-      title: `Ratio of All`,
+      title: "Ratio of All",
       dataIndex: ["absenteeBallotComparison", "turnoutAbsenteeBallots"],
       width: 100,
       align: "right",
@@ -239,9 +242,9 @@ const absenteeComparisonColumnsBuilder = () => {
     },
   ];
   return {
-    title: `Comparison of Absentee Ballots`,
+    title: "Comparison of Absentee Ballots",
     width: children.length * 100,
-    children: children,
+    children,
   };
 };
 
@@ -294,7 +297,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
     {
       key: `${raceColumn}##perOther`,
-      title: `Other Candidates %`,
+      title: "Other Candidates %",
       dataIndex: [raceColumn, "perOther"],
       width: 100,
       align: "right",
@@ -347,7 +350,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
           {RDIndicator(-1 * text)} {numberFormatPercent.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(-1*a?.[raceColumn]?.marginEarlyPerRepublican, -1*b?.[raceColumn]?.marginEarlyPerRepublican),
+      sorter: (a, b) => sortNumeric(-1 * a?.[raceColumn]?.marginEarlyPerRepublican, -1 * b?.[raceColumn]?.marginEarlyPerRepublican),
     },
   ];
   return {
@@ -361,7 +364,7 @@ const electionResultComparisonColumnsBuilder = () => {
   const children = [
     {
       key: "perShiftDemocratic",
-      title: `Swing (Shift in R/D %)`,
+      title: "Swing (Shift in R/D %)",
       dataIndex: ["electionResultsComparison", "perShiftDemocratic"],
       width: 100,
       align: "right",
@@ -374,7 +377,7 @@ const electionResultComparisonColumnsBuilder = () => {
     },
     {
       key: "totalVotesPercent",
-      title: `% of Previous Turnout`,
+      title: "% of Previous Turnout",
       dataIndex: ["electionResultsComparison", "totalVotesPercent"],
       width: 100,
       align: "right",
@@ -383,7 +386,7 @@ const electionResultComparisonColumnsBuilder = () => {
     },
     {
       key: "voteShiftDemocraticNormalized",
-      title: `Shift in Vote Margin (Normalized)`,
+      title: "Shift in Vote Margin (Normalized)",
       dataIndex: ["electionResultsComparison", "voteShiftDemocraticNormalized"],
       width: 100,
       align: "right",
@@ -396,22 +399,22 @@ const electionResultComparisonColumnsBuilder = () => {
     },
     {
       key: "perShiftRepublicanEarly",
-      title: `EV Shift in R/D %`,
+      title: "EV Shift in R/D %",
       dataIndex: ["electionResultsComparison", "perShiftRepublicanEarly"],
       width: 100,
       align: "right",
       render: (text) => (
         <>
-          {RDIndicator(-1*text)} {numberFormatPercent.format(Math.abs(text))}
+          {RDIndicator(-1 * text)} {numberFormatPercent.format(Math.abs(text))}
         </>
       ),
-      sorter: (a, b) => sortNumeric(-1*a?.electionResultsComparison?.perShiftRepublicanEarly, -1*b?.electionResultsComparison?.perShiftRepublicanEarly),
+      sorter: (a, b) => sortNumeric(-1 * a?.electionResultsComparison?.perShiftRepublicanEarly, -1 * b?.electionResultsComparison?.perShiftRepublicanEarly),
     },
   ];
   return {
-    title: `Comparison of Election Results`,
+    title: "Comparison of Election Results",
     width: children.length * 100,
-    children: children,
+    children,
   };
 };
 
@@ -419,7 +422,7 @@ const demographicColumnBuilder = () => {
   const children = [
     {
       key: "demographics##whitePer",
-      title: `White %`,
+      title: "White %",
       dataIndex: ["demographics", "whitePer"],
       width: 100,
       align: "right",
@@ -428,7 +431,7 @@ const demographicColumnBuilder = () => {
     },
     {
       key: "demographics##blackPer",
-      title: `Black %`,
+      title: "Black %",
       dataIndex: ["demographics", "blackPer"],
       width: 100,
       align: "right",
@@ -437,7 +440,7 @@ const demographicColumnBuilder = () => {
     },
     {
       key: "demographics##hispanicPer",
-      title: `Hispanic %`,
+      title: "Hispanic %",
       dataIndex: ["demographics", "hispanicPer"],
       width: 100,
       align: "right",
@@ -446,7 +449,7 @@ const demographicColumnBuilder = () => {
     },
     {
       key: "demographics##asianPer",
-      title: `Asian %`,
+      title: "Asian %",
       dataIndex: ["demographics", "asianPer"],
       width: 100,
       align: "right",
@@ -455,7 +458,7 @@ const demographicColumnBuilder = () => {
     },
     {
       key: "demographics##unknownPer",
-      title: `Unknown %`,
+      title: "Unknown %",
       dataIndex: ["demographics", "unknownPer"],
       width: 100,
       align: "right",
@@ -464,8 +467,8 @@ const demographicColumnBuilder = () => {
     },
   ];
   return {
-    title: `Demographics`,
+    title: "Demographics",
     width: children.length * 100,
-    children: children,
+    children,
   };
 };

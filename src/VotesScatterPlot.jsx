@@ -1,8 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import React, { useState, useMemo, startTransition } from "react";
 import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import SimpleLinearRegression from "ml-regression-simple-linear";
-import { useElectionData } from "./ElectionDataProvider";
-import { quantile } from "./Utils";
+import { useElectionData } from "./ElectionDataProvider.jsx";
+import { quantile } from "./Utils.jsx";
 import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data
@@ -19,7 +20,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
   const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
 
   const data = useMemo(() => {
-    console.log(`in update data function`);
+    // console.log("in update data function");
     const pointsOnChart = [];
     let maxX = -500;
     let minX = 500;
@@ -35,9 +36,9 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
       case "perShiftRepublicanEarly":
         xProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublicanEarly * 100;
         break;
-      case "totalVotesRepublicanPercent" :
+      case "totalVotesRepublicanPercent":
         xProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRepublicanPercent * 100;
-        break; 
+        break;
       case "whitePer":
         xProp = (dataPoint) => dataPoint?.demographics?.whitePer * 100;
         break;
@@ -54,8 +55,8 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
     let yProp;
     switch (scatterYAxis) {
       case "turnoutAbsSameDay":
-        // yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 -  dataPoint.electionResultsComparison?.perShiftRepublican * 100 * 0.85;  
-        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 ;
+        // yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 -  dataPoint.electionResultsComparison?.perShiftRepublican * 100 * 0.85;
+        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
         break;
       case "turnoutAbsenteeBallots":
         yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallots * 100;
@@ -256,7 +257,7 @@ function getClickedPoint(x, y, dataOnPlot) {
     const pointY = Number(chartY);
     const deltaX = x - pointX;
     const deltaY = y - pointY;
-    const distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+    const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
     // if distance <= radius, then clicked on a dot
     if (distance <= Number(radius)) {

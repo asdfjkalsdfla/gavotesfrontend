@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { Divider } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 
-import { ElectionDataProvider } from "./ElectionDataProvider";
-// import VotesMap from "./VotesMap";
-const VotesMap = React.lazy(() => import('./VotesMap'));
-import VotesSummary from "./VotesSummary";
-// import VotesScatterPlot from "./VotesScatterPlot";
-const VotesScatterPlot = React.lazy(() => import('./VotesScatterPlot'));
-// import VotesTable from "./VotesTable";
-const VotesTable = React.lazy(() => import('./VotesTable'));
-import WelcomeText from "./WelcomeText";
-import VoteMapOptions from "./VoteMapOptions";
+import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
+
+import WelcomeText from "./WelcomeText.jsx";
+import VoteMapOptions from "./VoteMapOptions.jsx";
 import "./VotesRoot.css";
+
+// import VotesMap from "./VotesMap";
+const VotesMap = React.lazy(() => import("./VotesMap.jsx"));
+// import VotesScatterPlot from "./VotesScatterPlot";
+const VotesScatterPlot = React.lazy(() => import("./VotesScatterPlot.jsx"));
+// import VotesTable from "./VotesTable";
+const VotesTable = React.lazy(() => import("./VotesTable.jsx"));
+// import VotesSummary from "./VotesSummary.jsx";
+const VotesSummary = React.lazy(() => import("./VotesSummary.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
@@ -23,12 +26,12 @@ const params = new URLSearchParams(url.search);
 // What data to show
 const countyParam = params.get("CTYNAME");
 const levelParam = params.get("level");
-const isCountyLevelInitial = levelParam ? levelParam === "county" : countyParam ? false : true;
+const isCountyLevelInitial = levelParam ? levelParam === "county" : !countyParam;
 
 // only show welcome when it's not been shown before
 const welcomeMessageShown = localStorage.getItem("welcomeShown");
 const hideWelcomeParam = params.get("hideWelcome");
-const showWelcomeOnLoad = hideWelcomeParam === "true" || welcomeMessageShown ? false : true;
+const showWelcomeOnLoad = !(hideWelcomeParam === "true" || welcomeMessageShown);
 
 // hide the options parameter?
 const hideOptionsParam = params.get("hideOptions");
@@ -36,19 +39,17 @@ const showOptionsOnLoad = hideOptionsParam !== "true";
 
 // elevation approach
 const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam ? elevationApproachParam : "none";
+const elevationApproachInitial = elevationApproachParam || "none";
 
 // color approach
 const colorApproachParam = params.get("colorApproach");
-const colorApproachInitial = colorApproachParam ? colorApproachParam : "electionResultPerRepublicanPer";
+const colorApproachInitial = colorApproachParam || "electionResultPerRepublicanPer";
 
 // races
 const resultsElectionRaceCurrentIDParam = params.get("resultsElectionRaceCurrentID");
-const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam ? resultsElectionRaceCurrentIDParam : "2022_runoff||US Senate";
+const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam || "2022_runoff||US Senate";
 const resultsElectionRacePerviousIDParam = params.get("resultsElectionRacePerviousID");
-const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam
-  ? resultsElectionRacePerviousIDParam
-  : "2022_general||US Senate";
+const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam || "2022_general||US Senate";
 
 // scatter plot
 const scatterParam = params.get("scatter");
@@ -91,7 +92,7 @@ export default function VotesRoot() {
   // ************************************************
   // Basic UI Events / Controls
   // ************************************************
-  const [showOptions, updateShowOptions] = useState(false);
+  const [showOptions, updateShowOptions] = useState(showOptionsOnLoad);
   const [showWelcome, updateShowWelcome] = useState(showWelcomeOnLoad);
   const [displayType, updateDisplayType] = useState(displayModeInitial);
 

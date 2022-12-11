@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-use-before-define */
 import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 
 import ElectionResult from "./Models/ElectionResult";
@@ -69,8 +71,6 @@ export function ElectionDataProvider({
     levels.forEach((level) => {
       load(level.name, level.updateFunctions);
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace, isCountyLevel]);
 
   const activeLocationResults = useMemo(() => {
@@ -84,8 +84,8 @@ export function ElectionDataProvider({
     return activeResults;
   }, [isCountyLevel, countyFilter, locationElectionData]);
 
-  const electionData = useMemo(() => {
-    return {
+  const electionData = useMemo(
+    () => ({
       currentAbsenteeElection,
       baseAbsenteeElection,
       currentElectionRace,
@@ -94,8 +94,9 @@ export function ElectionDataProvider({
       statewideResults: statewideElectionData,
       locationResults: activeLocationResults,
       countyResults: countyElectionData,
-    };
-  }, [statewideElectionData, activeLocationResults, countyElectionData]);
+    }),
+    [statewideElectionData, activeLocationResults, countyElectionData]
+  );
 
   return (
     <ElectionDataContext.Provider value={electionData}>
@@ -141,7 +142,7 @@ const loadAndCombineElectionDataFiles = async (
   }
   if (!responseAbsenteeBase.ok) {
     console.log("ERROR loading absentee base");
-    return new Map();;
+    return new Map();
   }
   if (!responseElectionResultsCurrent.ok) {
     console.log("ERROR loading election result current");
@@ -154,7 +155,7 @@ const loadAndCombineElectionDataFiles = async (
 
   if (electionResultBaseFileLocation && !electionResultBase.ok) {
     console.log("ERROR loading election result base");
-    return;
+    return new Map();
   }
 
   const jsonPromises = [responseAbsenteeCurrent.json(), responseAbsenteeBase.json(), responseElectionResultsCurrent.json(), responseDemographics.json()];
@@ -195,6 +196,7 @@ const loadAndCombineElectionDataFiles = async (
 
       const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
       properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
+      // eslint-disable-next-line prefer-destructuring
       properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
       combinedElectionData.set(id, properties);
       rdStateVotesTotalBase += properties.electionResultsBase.totalVotesRD || 0;
@@ -205,13 +207,15 @@ const loadAndCombineElectionDataFiles = async (
 
   // Set the comparisons between the results
   [...combinedElectionData.values()].forEach((result) => {
+    // eslint-disable-next-line no-param-reassign
     result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
+    // eslint-disable-next-line no-param-reassign
     result.absenteeBallotComparison =
       result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
   });
 
   demographicsJSON.forEach((row) => {
-    const id = row.id;
+    const { id } = row;
     const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
     properties.demographics = new Demographics(row);
     combinedElectionData.set(id, properties);

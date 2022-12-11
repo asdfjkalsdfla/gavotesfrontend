@@ -89,7 +89,8 @@ export default class ElectionResult {
   // % of votes in the dems favor
   get marginPerPerDemocratic() {
     if (this.#marginPerPerDemocratic) return this.#marginPerPerDemocratic;
-    const value =(this.perRepublican || this.perRepublican === 0) && (this.perDemocratic || this.perDemocratic === 0) ? -1 * this.marginPerRepublican : undefined;
+    const value =
+      (this.perRepublican || this.perRepublican === 0) && (this.perDemocratic || this.perDemocratic === 0) ? -1 * this.marginPerRepublican : undefined;
     this.#marginPerPerDemocratic = value;
     return value;
   }
@@ -98,12 +99,8 @@ export default class ElectionResult {
   get marginEarlyPerRepublican() {
     if (this.#marginEarlyPerRepublican) return this.#marginEarlyPerRepublican;
     const earlyVoteRecords = this.resultsByMode.filter((mode) => ["Advance Voting Votes", "Absentee by Mail Votes"].includes(mode.mode));
-    const republicanVotes = earlyVoteRecords.reduce((accumulator, mode) => {
-      return accumulator + mode.republican;
-    }, 0);
-    const democraticVotes = earlyVoteRecords.reduce((accumulator, mode) => {
-      return accumulator + mode.democratic;
-    }, 0);
+    const republicanVotes = earlyVoteRecords.reduce((accumulator, mode) => accumulator + mode.republican, 0);
+    const democraticVotes = earlyVoteRecords.reduce((accumulator, mode) => accumulator + mode.democratic, 0);
     const totalRDVotes = (republicanVotes || 0) + (democraticVotes || 0);
     const perRepublican = (republicanVotes || 0) / totalRDVotes;
     const perDemocratic = (democraticVotes || 0) / totalRDVotes;

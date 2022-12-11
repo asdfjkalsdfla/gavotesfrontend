@@ -1,0 +1,35 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb-base", "prettier"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2022,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["prettier", "react"],
+  "rules": {
+    "prettier/prettier": "error",
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "no-var": ["error"],
+    "eqeqeq": ["error"],
+    "class-methods-use-this": ["off"],
+    "max-classes-per-file": ["off"],
+    "react/prop-types": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
+    "lines-between-class-members": ["off"],
+    "max-len": "off",
+    "no-nested-ternary" : "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

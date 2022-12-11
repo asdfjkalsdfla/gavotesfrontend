@@ -17,9 +17,7 @@ export const numberFormatPercent = new Intl.NumberFormat("en-us", {
   maximumFractionDigits: 1,
 });
 
-export const RDIndicator = (value) => {
-  return value > 0 ? <span style={{ color: "rgb(102, 134, 181)" }}> D + </span> : <span style={{ color: "#d09897" }}>R+</span>;
-};
+export const RDIndicator = (value) => (value > 0 ? <span style={{ color: "rgb(102, 134, 181)" }}> D + </span> : <span style={{ color: "#d09897" }}>R+</span>);
 
 export const sortNumeric = (a, b) => {
   if (!a || typeof a === "undefined") return 1;
@@ -28,21 +26,16 @@ export const sortNumeric = (a, b) => {
 };
 
 export const quantile = (arr, q) => {
-  const sorted = arr
-    .filter((a) => typeof a === "number" && isFinite(a))
-    .sort((a, b) => {
-      return a - b;
-    });
-  const quantiles = Array.isArray(q) ? q : [q];
-  const positions = quantiles.map((quant) => {
+  const sorted = arr.filter((a) => typeof a === "number" && Number.isFinite(a)).sort((a, b) => a - b);
+  const quants = Array.isArray(q) ? q : [q];
+  const positions = quants.map((quant) => {
     const pos = (sorted.length - 1) * quant;
     const base = Math.floor(pos);
     const rest = pos - base;
     if (sorted[base + 1] !== undefined) {
       return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
-    } else {
-      return sorted[base];
     }
+    return sorted[base];
   });
   return positions;
 };

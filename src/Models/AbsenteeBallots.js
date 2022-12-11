@@ -1,13 +1,13 @@
-import { Temporal } from 'temporal-polyfill'
+import { Temporal } from "temporal-polyfill";
 
 const electionDate = Temporal.PlainDateTime.from({
   year: 2022,
   month: 12,
   day: 6,
-  hour: 19
+  hour: 19,
 });
 
-const currentDate = Temporal.Now.plainDateISO()
+const currentDate = Temporal.Now.plainDateISO();
 const daysToElection = electionDate.until(currentDate).days;
 
 export default class AbsenteeBallots {
@@ -40,9 +40,10 @@ export default class AbsenteeBallots {
   absenteeVotesAsOfDaysOut(daysOut) {
     const absenteeDatesPrior = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection < daysOut);
     if (absenteeDatesPrior.length === 0) return 0;
-    const lastDate = absenteeDatesPrior.reduce((previousValue, nextValue) => {
-      return previousValue > nextValue.DaysFromElection ? previousValue : nextValue.DaysFromElection;
-    }, -9000);
+    const lastDate = absenteeDatesPrior.reduce(
+      (previousValue, nextValue) => (previousValue > nextValue.DaysFromElection ? previousValue : nextValue.DaysFromElection),
+      -9000
+    );
     if (lastDate === -9000) return 0;
     const daysOutAsOfDate = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection === lastDate)[0];
     return daysOutAsOfDate.votesToDate;

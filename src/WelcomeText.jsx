@@ -28,14 +28,14 @@ export default function WelcomeText({ updateShowWelcome }) {
       <h2>How to get around</h2>
       <div>
         <b>See Precinct Level Details for A Single County</b> <br />
-        click on a county, then click the 'See Precinct Level' results button
+        click on a county, then click the &apos;See Precinct Level&apos; results button
         <br />
         <br />
         <b>See Results for All Precincts</b> <br />
-        zoom in on the map using the "+" key on your keyboard. Once you're close enough, you'll see precinct level results
+        zoom in on the map using the &quot;+&quot; key on your keyboard. Once you&apos;re close enough, you&apos;ll see precinct level results
         <br />
         <br />
-        <b>It's tough to see the height. Can I see it better?</b> <br />
+        <b>It&apos;s tough to see the height. Can I see it better?</b> <br />
         Press the shift key and then move your mouse up and down or left and right. That will move you around in the space
         <br />
         <br />

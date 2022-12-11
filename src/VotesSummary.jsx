@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 import { Descriptions, Button, Table } from "antd";
 import { ZoomInOutlined, ZoomOutOutlined, CloseOutlined } from "@ant-design/icons";
-import { useElectionData } from "./ElectionDataProvider";
-import VotesByDateChart from "./VotesByDateChart";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils";
+import { useElectionData } from "./ElectionDataProvider.jsx";
+import VotesByDateChart from "./VotesByDateChart.jsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
+
 const { Column } = Table;
 
 // const numberFormatInteger = new Intl.NumberFormat('en-us', options1);
@@ -24,7 +25,7 @@ export default function VoteSummary({
   const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
     useElectionData();
   const resultSummary = useMemo(() => {
-    const source = activeHover ? activeHover : activeSelection; // use the hover value o/w use the selection
+    const source = activeHover || activeSelection; // use the hover value o/w use the selection
     if (source && source.properties) return source.properties; // if we have the actual object use it
     if (source && locationResults.has(source)) return locationResults.get(source); // pull the data from the current level displayed
     if (source && countyResults.has(source)) return countyResults.get(source);
@@ -39,7 +40,7 @@ export default function VoteSummary({
   return (
     <div>
       <h1>
-        {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary["PRECINCT_N"] || ""}{" "}
+        {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
           <span style={{ float: "right" }}>
             <Button
@@ -100,7 +101,7 @@ export default function VoteSummary({
           <Descriptions.Item label={`Total Accepted in ${absenteeElectionBaseLabel}`}>
             {numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}
           </Descriptions.Item>
-          <Descriptions.Item label={`% of Total`}>
+          <Descriptions.Item label={"% of Total"}>
             {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}
           </Descriptions.Item>
         </Descriptions>

@@ -1,5 +1,5 @@
-import ElectionResult from "./ElectionResult";
 import { describe, it, expect, beforeAll } from "vitest";
+import ElectionResult from "./ElectionResult";
 
 describe.concurrent("Election Result Basic Test", () => {
   let electionResult;

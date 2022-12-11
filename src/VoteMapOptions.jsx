@@ -1,7 +1,8 @@
 import React, { startTransition } from "react";
 import { Select, Button, Checkbox, Radio } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { useElectionData } from "./ElectionDataProvider";
+import { useElectionData } from "./ElectionDataProvider.jsx";
+
 const { Option } = Select;
 
 export default function VoteMapOptions({

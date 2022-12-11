@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select, Input, Table, Checkbox } from "antd";
 import Papa from "papaparse";
+
 const { Option } = Select;
 
 export default function PrecinctsResultToShapeMatch() {
@@ -29,9 +30,9 @@ export default function PrecinctsResultToShapeMatch() {
         responsePrecinctMapManual.text(),
       ]);
 
-      //////////////////////////////////////////////////////////
+      /// ///////////////////////////////////////////////////////
       // Filter to just the results where we don't match
-      //////////////////////////////////////////////////////////
+      /// ///////////////////////////////////////////////////////
 
       // Use a hash map for the look ups
       const electionPrecinctMap = new Map();
@@ -93,8 +94,6 @@ export default function PrecinctsResultToShapeMatch() {
       .map((precinct) => precinct.properties)
       .sort((a, b) => (a.PRECINCT_N > b.PRECINCT_N ? 1 : -1));
     updatePrecinctsMapInSelectedCounty(tmpPrecinctsMapInSelectedCounty);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [manualElectionResultsPrecinctsToShapeMap, selectedCounty]);
 
   const [mapPrecinctsNotSelectedInCounty, updateMapPrecinctsNotSelectedInCounty] = useState([]);
@@ -118,8 +117,8 @@ export default function PrecinctsResultToShapeMatch() {
   if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap) return <div>Loading</div>;
 
   const convertToCSV = (manualData) => {
-    let csv = `county,precinct,mapPrecinctName,electionResultsPrecinctName,score\n`;
-    manualData.forEach((value, key) => {
+    let csv = "county,precinct,mapPrecinctName,electionResultsPrecinctName,score\n";
+    manualData.forEach((value) => {
       csv = `${csv}${value.county},${value.precinct},${value.mapPrecinctName},${value.electionResultsPrecinctName},${value.score}\n`;
     });
     return csv;
@@ -128,7 +127,7 @@ export default function PrecinctsResultToShapeMatch() {
   const precinctOptions =
     mapPrecinctsInSelectedCounty &&
     mapPrecinctsInSelectedCounty.map((precinctShape) => (
-      <Option id={precinctShape.PRECINCT_I} value={precinctShape.PRECINCT_I}>
+      <Option key={precinctShape.PRECINCT_I} id={precinctShape.PRECINCT_I} value={precinctShape.PRECINCT_I}>
         {precinctShape.PRECINCT_N} ({precinctShape.PRECINCT_I})
       </Option>
     ));
@@ -207,7 +206,7 @@ export default function PrecinctsResultToShapeMatch() {
         {showAllCounties ? (
           <>
             {counties.map((county) => (
-              <Option id={county} value={county}>
+              <Option key={county} id={county} value={county}>
                 {county}
               </Option>
             ))}
@@ -215,7 +214,7 @@ export default function PrecinctsResultToShapeMatch() {
         ) : (
           <>
             {countiesNoMatch.map((county) => (
-              <Option id={county} value={county}>
+              <Option key={county} id={county} value={county}>
                 {county}
               </Option>
             ))}
@@ -236,7 +235,7 @@ export default function PrecinctsResultToShapeMatch() {
       <b>Not Used:</b>{" "}
       {mapPrecinctsNotSelectedInCounty &&
         mapPrecinctsNotSelectedInCounty.map((shape) => (
-          <span>
+          <span key={shape.PRECINCT_N}>
             {shape.PRECINCT_N} ({shape.PRECINCT_I}),{" "}
           </span>
         ))}
@@ -244,7 +243,7 @@ export default function PrecinctsResultToShapeMatch() {
       <b>Used Multiple Times:</b>{" "}
       {mapPrecinctsSelectedMultipleTimesInCounty &&
         mapPrecinctsSelectedMultipleTimesInCounty.map((shape) => (
-          <span>
+          <span key={shape.PRECINCT_N}>
             {shape.PRECINCT_N} ({shape.PRECINCT_I}),{" "}
           </span>
         ))}

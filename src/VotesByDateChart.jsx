@@ -4,17 +4,18 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "r
 export default function VotesByDateChart({ resultSummary, absenteeElectionCurrentLabel, absenteeElectionBaseLabel }) {
   // console.log(resultSummary);
   // Filter out bad data points from SOS data
-  let chartPoints =
-    resultSummary["absenteeBase"] && resultSummary["absenteeBase"].votesByDay
-      ? resultSummary["absenteeBase"].votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection > -42)
+  const chartPoints =
+    resultSummary.absenteeBase && resultSummary.absenteeBase.votesByDay
+      ? resultSummary.absenteeBase.votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection > -42)
       : [];
 
   // match up the dates
   const currentElectionMap = new Map();
-  if (resultSummary["absenteeCurrent"] && resultSummary["absenteeCurrent"].votesByDay)
-    resultSummary["absenteeCurrent"].votesByDay.map((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
+  if (resultSummary.absenteeCurrent && resultSummary.absenteeCurrent.votesByDay)
+    resultSummary.absenteeCurrent.votesByDay.map((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
   chartPoints.forEach((point) => {
     if (currentElectionMap.has(point.DaysFromElection)) {
+      // eslint-disable-next-line no-param-reassign
       point.currentElectionVotesOnDate = currentElectionMap.get(point.DaysFromElection);
     }
   });
