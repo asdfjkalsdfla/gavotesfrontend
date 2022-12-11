@@ -78,7 +78,10 @@ export default class ElectionResult {
   // % of votes in the republican favor
   get marginPerRepublican() {
     if (this.#marginPerRepublican) return this.#marginPerRepublican;
-    const value = this.perRepublican && this.perDemocratic ? this.perRepublican - this.perDemocratic : undefined;
+    const value =
+      (this.perRepublican || this.perRepublican === 0) && (this.perDemocratic || this.perDemocratic === 0)
+        ? this.perRepublican - this.perDemocratic
+        : undefined;
     this.#marginPerRepublican = value;
     return value;
   }
@@ -86,7 +89,7 @@ export default class ElectionResult {
   // % of votes in the dems favor
   get marginPerPerDemocratic() {
     if (this.#marginPerPerDemocratic) return this.#marginPerPerDemocratic;
-    const value = this.perRepublican && this.perDemocratic ? -1 * this.marginPerRepublican : undefined;
+    const value =(this.perRepublican || this.perRepublican === 0) && (this.perDemocratic || this.perDemocratic === 0) ? -1 * this.marginPerRepublican : undefined;
     this.#marginPerPerDemocratic = value;
     return value;
   }
