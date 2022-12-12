@@ -27,6 +27,7 @@
     "build": "vite build",
     "buildESB": "esbuild src/index.jsx --outdir=dist --asset-names=assets/[name]-[hash] --bundle --minify --sourcemap --target=es2020 --external:react --analyze",
     "test": "vitest",
+    "bench": "vitest bench",
     "coverage": "vitest run --coverage"
   },
   "eslintConfig": {
