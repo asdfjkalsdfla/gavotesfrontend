@@ -1,4 +1,4 @@
-import { expect, bench } from "vitest";
+import { expect, bench, describe, beforeAll } from "vitest";
 import ElectionResult from "./ElectionResult";
 import ElectionResultComparison from "./ElectionResultComparison";
 
@@ -28,5 +28,5 @@ bench(
     expect(electionResultComparison.totalVotesRepublicanPercent).toBeCloseTo(0.9011088, 5);
     expect(electionResultComparison.totalVotesDemocraticPercent).toBeCloseTo(0.9333966, 5);
   },
-  { time: 5000 }
+  { time: 1000 }
 );

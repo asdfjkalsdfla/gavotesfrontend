@@ -68,6 +68,12 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
       case "perShiftRepublican":
         yProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublican * 100;
         break;
+      case "totalVotesRepublicanPercent":
+        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRepublicanPercent * 100;
+        break;
+      case "totalVotesDemocraticPercent":
+        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesDemocraticPercent * 100;
+        break;
       case "totalVotesPercent":
         yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRDPercent * 100;
         break;

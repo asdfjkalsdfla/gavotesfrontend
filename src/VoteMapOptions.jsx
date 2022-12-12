@@ -101,6 +101,8 @@ export default function VoteMapOptions({
             <Option value="perRBase">Previous Election Vote Share</Option>
             <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
             <Option value="totalVotesPercent">% of Previous Turnout</Option>
+            <Option value="totalVotesRepublicanPercent">Change in R Turnout</Option>
+            <Option value="totalVotesDemocraticPercent">Change in D Turnout</Option>
             <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
             <Option value="turnoutAbsenteeBallots">% of Absentee Votes</Option>
           </Select>
