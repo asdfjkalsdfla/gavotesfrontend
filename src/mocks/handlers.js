@@ -1,11 +1,16 @@
-import * as path from "path";
-import * as fs from "fs";
+import { readFileSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 import { rest } from "msw";
 
+// eslint-disable-next-line no-underscore-dangle
+const _dirname = typeof __dirname !== "undefined" ? __dirname : dirname(fileURLToPath(import.meta.url));
+
+// eslint-disable-next-line import/prefer-default-export
 export const handlers = [
-  rest.get("/static/:file", (_, res, ctx) => {
-    const file = req.params.file;
-    const buffer = fs.readFileSync(path.resolve(__dirname, `/public/static/${file}`));
+  rest.get("/static/:file", (req, res, ctx) => {
+    const { file } = req.params;
+    const buffer = readFileSync(join(_dirname, file), "utf-8");
     return res(ctx.set("Content-Length", buffer.byteLength.toString()), ctx.set("Content-Type", "text/json"), ctx.body(buffer));
   }),
 ];

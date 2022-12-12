@@ -1,4 +1,4 @@
-import { expect, bench, describe, beforeAll } from "vitest";
+import { expect, bench } from "vitest";
 import ElectionResult from "./ElectionResult";
 import ElectionResultComparison from "./ElectionResultComparison";
 
