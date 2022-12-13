@@ -44,7 +44,7 @@
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.0.0",
     "@vitest/coverage-c8": "^0.25.7",
-    "esbuild": "^0.15.15",
+    "esbuild": "latest",
     "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -57,7 +57,7 @@
     "prettier": "^2.8.1",
     "simplify-geojson": "^1.0.3",
     "source-map-explorer": "^2.5.3",
-    "vite": "^4.0.0",
-    "vitest": "^0.25.7"
+    "vite": "latest",
+    "vitest": "latest"
   }
 }
