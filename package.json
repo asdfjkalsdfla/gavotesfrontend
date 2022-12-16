@@ -24,9 +24,9 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/assets/*.js'",
     "start": "vite",
-    "build": "yarn vite build",
+    "build": "vite build",
     "buildESB": "esbuild src/index.jsx --outdir=dist --asset-names=assets/[name]-[hash] --bundle --minify --sourcemap --target=es2020 --external:react --analyze",
-    "test": "yarn vitest",
+    "test": "vitest",
     "test:ci": "CI=true yarn vitest",
     "bench": "vitest bench",
     "coverage": "vitest run --coverage"
