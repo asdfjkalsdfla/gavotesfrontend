@@ -1,4 +1,13 @@
-# Georgia Votes Visual
+<p align="center">
+  <a href="https://georgiavotesvisual.com/" target="_blank" rel="noopener noreferrer">
+    Georgia Votes Visual
+  </a>
+</p>
+<br/>
+<p align="center"
+  <a href="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml"><img src="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml/badge.svg?branch=main" alt="build status"></a>
+</p>
+<br/>
 This project enables visualizing election results and early voting in the State of Georgia. 
 
 ## Data Sources
