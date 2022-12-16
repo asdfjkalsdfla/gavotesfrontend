@@ -1,6 +1,7 @@
 {
   "name": "GAVoteseFrontend",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@deck.gl/core": "^8.8.15",
@@ -57,7 +58,7 @@
     "prettier": "^2.8.1",
     "simplify-geojson": "^1.0.3",
     "source-map-explorer": "^2.5.3",
-    "vite": "latest",
-    "vitest": "latest"
+    "vite": "^4.0.0",
+    "vitest": "^0.25.8"
   }
 }
