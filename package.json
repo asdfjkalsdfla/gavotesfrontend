@@ -45,7 +45,7 @@
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.0.0",
     "@vitest/coverage-c8": "^0.25.7",
-    "esbuild": "latest",
+    // "esbuild": "latest",
     "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
