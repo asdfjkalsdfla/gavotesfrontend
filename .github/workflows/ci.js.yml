@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -25,8 +23,13 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        # cache: 'yarn'
+        cache: 'yarn'
     - run: yarn install --frozen-lockfile
     - run: yarn run buildESB
     - run: yarn run build
     - run: yarn run test:ci
+    - name: Archive Build Outputs
+      uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build/

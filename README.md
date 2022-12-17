@@ -4,11 +4,18 @@
   </a>
 </p>
 <br/>
-<p align="center"
+<p align="center">
   <a href="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml"><img src="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml/badge.svg?branch=main" alt="build status"></a>
 </p>
+
+# Georgia Votes Visual
 <br/>
 This project enables visualizing election results and early voting in the State of Georgia. 
+
+
+## License
+
+[MIT](LICENSE).<br/>
 
 ## Data Sources
 - Shape Files from  Legislative and Congressional Reapportionment Office (http://www.legis.ga.gov/Joint/reapportionment/en-US/default.aspx)
@@ -28,16 +35,16 @@ This project enables visualizing election results and early voting in the State 
 
 In the project directory, you can run:
 
-#### `npm start`
+#### `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-#### `npm test`
+#### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 
-#### `npm run build`
+#### `yarn run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
