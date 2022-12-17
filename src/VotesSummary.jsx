@@ -276,7 +276,7 @@ export default function VoteSummary({
         </React.Fragment>
       )}
       <div style={{ width: "100%", textAlign: "right" }}>
-        <small>{/* <i>Last Updated:</i> {process.env.REACT_APP_UPDATE_DATE} */}</small>
+        <small><i>Last Updated:</i> { import.meta.env.VITE_REACT_APP_UPDATE_DATE}</small>
       </div>
     </div>
   );
