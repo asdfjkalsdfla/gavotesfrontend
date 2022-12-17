@@ -44,6 +44,7 @@
     "not android < 51"
   ],
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "@vitest/coverage-c8": "^0.25.7",
     "eslint": "^8.29.0",

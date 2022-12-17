@@ -100,7 +100,7 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
             {columns
               .filter((column) => column.children)
               .map((dataGroup) => (
-                <Col key={dataGroup.title}>
+                <Col key={dataGroup.key}>
                   <div>
                     <b>{dataGroup.title}</b>
                   </div>
@@ -214,7 +214,7 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
     },
   ];
   return {
-    title: `Absentee Ballots - ${electionInfo.label}`,
+    title: `Absentee Ballots - ${electionInfo?.label}`,
     width: children.length * 100,
     children,
   };
@@ -354,7 +354,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
   ];
   return {
-    title: `${raceInfo.election.label} - ${raceInfo.name}`,
+    title: `${raceInfo?.election?.label} - ${raceInfo?.name}`,
     width: children.length * 100,
     children,
   };
