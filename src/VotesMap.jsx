@@ -30,7 +30,7 @@ const NAVIGATION_CONTROL_STYLES = {
   position: "absolute",
 };
 
-export const COLOR_SCALE = scaleLinear()
+const COLOR_SCALE = scaleLinear()
   .domain([0, 0.3, 0.48, 0.5, 0.52, 0.75, 1])
   .range([
     [125, 7, 7],
