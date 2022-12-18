@@ -35,11 +35,13 @@ export function ElectionDataProvider({
   // Load all levels of election data
   useEffect(() => {
     const load = async (level, updateFunctions) => {
-      const absenteeCurrentFileLocation = `/static/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
-      const absenteeBaseFileLocation = `/static/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
-      const electionResultsCurrentFileLocation = `/static/electionResultsSummary-${currentElectionRace.election.name}-${level}.json`;
-      const electionResultBaseFileLocation = previousElectionRace ? `/static/electionResultsSummary-${previousElectionRace.election.name}-${level}.json` : null;
-      const demographicsFileLocation = `/static/demographics-${level}-2020.json`;
+      const absenteeCurrentFileLocation = `/static/absentee/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
+      const absenteeBaseFileLocation = `/static/absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
+      const electionResultsCurrentFileLocation = `/static/electionResults/electionResultsSummary-${currentElectionRace.election.name}-${level}.json`;
+      const electionResultBaseFileLocation = previousElectionRace
+        ? `/static/electionResults/electionResultsSummary-${previousElectionRace.election.name}-${level}.json`
+        : null;
+      const demographicsFileLocation = `/static/demographics/demographics-${level}-2020.json`;
 
       const updatedElectionData = await loadAndCombineElectionDataFiles(
         absenteeCurrentFileLocation,
