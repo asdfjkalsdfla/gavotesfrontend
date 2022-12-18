@@ -99,6 +99,7 @@ export default function VotesMap({
     const load = async () => {
       const responseGeo = await fetch(geoJSONFile);
       if (!responseGeo.ok) {
+        // eslint-disable-next-line no-console
         console.log("ERROR loading GEO JSON file");
         return;
       }
@@ -160,7 +161,7 @@ export default function VotesMap({
       width: window.innerWidth - 200,
       height: window.innerHeight - 200,
     };
-  }, [countyFilter]);
+  }, [countyFilter, elevationApproach]);
 
   // ************************************************
   // Adjust map on setting changes
@@ -511,6 +512,7 @@ export default function VotesMap({
           if (object.properties) updateActiveHover(object.properties.id);
           const lookup = object.properties ? object.properties : object;
           if (lookup[colorApproach] || lookup[elevationApproach])
+            // eslint-disable-next-line consistent-return
             return {
               html: `\
             <div>Color: ${

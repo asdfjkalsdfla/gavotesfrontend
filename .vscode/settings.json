@@ -4,6 +4,9 @@
         "CTYNAME",
         "datapoint",
         "mapbox",
-        "papaparse"
+        "papaparse",
+        "pickable",
+        "Scatterplot",
+        "wireframe"
     ]
 }
