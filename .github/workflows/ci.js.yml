@@ -28,10 +28,6 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn run buildESB
       - run: yarn run build
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - run: yarn run test:ci
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v3
@@ -43,19 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     if: success() && github.ref == 'refs/heads/main'
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
-    permissions:
-      id-token: write
-      contents: read
     steps:
-      - name: Configure AWS credentials for latest
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::123871754011:role/github-build-gavotesfrontend
-          aws-region: us-east-1
-      - name: Copy files to the test website with the AWS CLI
-        run: |
-          aws s3 sync build/. s3://georgiavotesvisual-latest
-      - name: Update Cloudfront Distro
-        run: |
-          aws cloudfront create-invalidation --distribution-id E3PTAV7LNU8JS2 --paths "/*"
+      deploy-wf:
+        uses: ./.github/workflows/deploy.yml

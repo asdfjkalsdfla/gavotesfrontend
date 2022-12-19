@@ -4,10 +4,7 @@
 name: Deploy to Latest
 
 on:
-  workflow_run:
-    workflows: [Node.js CI]
-    types:
-      - completed
+  workflow_call
 
 jobs:
   deploy:
@@ -39,16 +36,16 @@ jobs:
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/build.zip`, Buffer.from(download.data));
 
-      # - name: "Unzip artifact"
-      #   run: unzip build.zip
-      # - name: Configure AWS credentials for latest
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     role-to-assume: arn:aws:iam::123871754011:role/github-build-gavotesfrontend
-      #     aws-region: us-east-1
-      # - name: Copy files to the test website with the AWS CLI
-      #   run: |
-      #     aws s3 sync . s3://georgiavotesvisual-latest
-      # - name: Update Cloudfront Distro
-      #   run: |
-      #     aws cloudfront create-invalidation --distribution-id E3PTAV7LNU8JS2 --paths "/*"
+      - name: "Unzip artifact"
+        run: unzip build.zip
+      - name: Configure AWS credentials for latest
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::123871754011:role/github-build-gavotesfrontend
+          aws-region: us-east-1
+      - name: Copy files to the test website with the AWS CLI
+        run: |
+          aws s3 sync . s3://georgiavotesvisual-latest
+      - name: Update Cloudfront Distro
+        run: |
+          aws cloudfront create-invalidation --distribution-id E3PTAV7LNU8JS2 --paths "/*"
