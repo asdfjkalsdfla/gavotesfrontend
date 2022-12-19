@@ -35,6 +35,6 @@ jobs:
           name: build
           path: build/
   deploy:
-    needs: test
+    needs: build
     if: success() && github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
