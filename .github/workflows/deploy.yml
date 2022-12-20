@@ -26,7 +26,7 @@ jobs:
           aws-region: us-east-1
       - name: Copy files to the test website with the AWS CLI
         run: |
-          aws s3 sync . s3://georgiavotesvisual-latest
+          aws s3 sync build/. s3://georgiavotesvisual-latest
       - name: Update Cloudfront Distro
         run: |
           aws cloudfront create-invalidation --distribution-id E3PTAV7LNU8JS2 --paths "/*"
