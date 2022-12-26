@@ -8,6 +8,8 @@ on: workflow_call
 jobs:
   deploy:
     name: Upload to Amazon S3
+    environment: Beta
+    concurrency: Beta
     runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
@@ -25,8 +27,6 @@ jobs:
           role-to-assume: arn:aws:iam::123871754011:role/github-build-gavotesfrontend
           aws-region: us-east-1
       - name: Copy files to the test website with the AWS CLI
-        environment: Beta
-        concurrency: Beta
         run: |
           aws s3 sync build/. s3://georgiavotesvisual-latest
       - name: Update Cloudfront Distro
