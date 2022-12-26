@@ -1,7 +1,6 @@
 <p align="center">
   <a href="https://georgiavotesvisual.com/" target="_blank" rel="noopener noreferrer">
-  <img width="400" src="https://georgiavotesvisual.com/static/gavotes2.png" alt="Georgia Votes Visual logo"><br />
-    Georgia Votes Visual
+  <img width="400" src="https://georgiavotesvisual.com/static/gavotes2.png" alt="Georgia Votes Visual logo">
   </a>
 </p>
 <br/>
