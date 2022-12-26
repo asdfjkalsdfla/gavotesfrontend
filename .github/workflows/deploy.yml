@@ -8,7 +8,9 @@ on: workflow_call
 jobs:
   deploy:
     name: Upload to Amazon S3
-    environment: Beta
+    environment: 
+      name: Beta
+      url: https://latest.georgiavotesvisual.com/
     concurrency: Beta
     runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
