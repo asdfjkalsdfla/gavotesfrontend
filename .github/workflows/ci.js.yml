@@ -26,7 +26,6 @@ jobs:
           node-version: "18.x"
           cache: "yarn"
       - run: yarn install --immutable
-      - run: yarn run buildESB
       - run: yarn run build
       - run: yarn run test:ci
       - name: Archive Build Outputs
@@ -34,6 +33,8 @@ jobs:
         with:
           name: build
           path: build/
+      - run: yarn run buildESB
+      
   deploy:
     needs: build
     if: success() && github.ref == 'refs/heads/main'
