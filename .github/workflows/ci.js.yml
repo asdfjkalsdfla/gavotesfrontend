@@ -27,7 +27,7 @@ jobs:
         with:
           name: build
           path: build/
-      - run: yarn run buildESB
+      # - run: yarn run buildESB
       
   deploy:
     needs: build
