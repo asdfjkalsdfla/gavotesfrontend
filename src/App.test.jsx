@@ -1,11 +1,10 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
 import { it } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App.jsx";
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  const root = createRoot(div);
-  root.render(<App />);
-  root.unmount();
+it("renders without crashing", async () => {
+  render(<App />);
+  await waitFor(() => screen.getByText("Options"));
+  await screen.getByText("Options", { exact: false });
 });
