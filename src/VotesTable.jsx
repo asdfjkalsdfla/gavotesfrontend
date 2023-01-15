@@ -369,7 +369,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
   ];
   return {
     title: `${raceInfo?.election?.label} - ${raceInfo?.name}`,
-    key: `electionResult##${raceInfo?.name}`,
+    key: `electionResult##${raceInfo?.election?.label}##${raceInfo?.name}`,
     width: children.length * 100,
     children,
   };
