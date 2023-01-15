@@ -123,20 +123,30 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
           </Row>
         </Panel>
       </Collapse>
-      <Menu mode="horizontal" selectedKeys={countyFilter ? ["county"] : ["state"]}>
-        <Menu.Item key="state">
-          <a
-            onClick={() => {
-              updateCountyFilter(null);
-              updateActiveSelection(null);
-              updateIsCountyLevel(true);
-            }}
-          >
-            State of Georgia
-          </a>
-        </Menu.Item>
-        {countyFilter && <Menu.Item key="county">{countyFilter}</Menu.Item>}
-      </Menu>
+      <Menu
+        mode="horizontal"
+        selectedKeys={countyFilter ? ["county"] : ["state"]}
+        items={[
+          {
+            key: "state",
+            label: (
+              <a
+                onClick={() => {
+                  updateCountyFilter(null);
+                  updateActiveSelection(null);
+                  updateIsCountyLevel(true);
+                }}
+              >
+                State of Georgia
+              </a>
+            ),
+          },
+          {
+            key: "county",
+            label: countyFilter,
+          },
+        ]}
+      />
       <Table
         loading={isPending}
         dataSource={rows}
