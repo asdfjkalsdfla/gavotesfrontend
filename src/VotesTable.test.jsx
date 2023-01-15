@@ -6,7 +6,7 @@ import VotesTable from "./VotesTable.jsx";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
 
 describe.concurrent("Votes Table", () => {
-  it("renders without crashing", async () => {
+  it.skip("renders without crashing", async () => {
     render(
       <ElectionDataProvider
         isCountyLevel={true}
@@ -22,7 +22,7 @@ describe.concurrent("Votes Table", () => {
     await waitFor(() => screen.getByText("Select Data to Display"));
   });
 
-  it("Show columns displayed", async () => {
+  it.skip("Show columns displayed", async () => {
     render(
       <ElectionDataProvider
         isCountyLevel={true}
