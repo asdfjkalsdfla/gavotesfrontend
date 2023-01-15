@@ -8,7 +8,7 @@ import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sort
 
 const { Panel } = Collapse;
 
-export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyFilter, updateIsCountyLevel, updateActiveSelection }) {
+export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFilter, updateIsCountyLevel, updateActiveSelection }) {
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
 
@@ -96,7 +96,7 @@ export default function VoteSummary({ isCountyLevel, countyFilter, updateCountyF
     <div style={{ width: "10fr", height: "1fr" }}>
       <Collapse>
         <Panel header="Select Data to Display" key="1">
-          <Row gutter={30}>
+          <Row gutter={30} key="dataRows">
             {columns
               .filter((column) => column.children)
               .map((dataGroup) => (
@@ -157,6 +157,7 @@ const idColumnBuilder = (isCountyLevel, updateIsCountyLevel, updateCountySelecte
   const idColumnsParent = [
     {
       title: "County",
+      key: "county",
       dataIndex: ["CTYNAME"],
       width: 150,
       sorter: (a, b) => (a.CTYNAME > b.CTYNAME ? 1 : -1),
@@ -181,6 +182,7 @@ const idColumnBuilder = (isCountyLevel, updateIsCountyLevel, updateCountySelecte
   if (!isCountyLevel) {
     idColumnsParent.push({
       title: "Precinct",
+      key: "precinct",
       dataIndex: ["PRECINCT_N"],
       width: 150,
       sorter: (a, b) => (a.PRECINCT_N > b.PRECINCT_N ? 1 : -1),
@@ -215,6 +217,7 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
   ];
   return {
     title: `Absentee Ballots - ${electionInfo?.label}`,
+    key: `absBallots##${electionInfo?.name}`,
     width: children.length * 100,
     children,
   };
@@ -243,6 +246,7 @@ const absenteeComparisonColumnsBuilder = () => {
   ];
   return {
     title: "Comparison of Absentee Ballots",
+    key: "absCompare",
     width: children.length * 100,
     children,
   };
@@ -355,6 +359,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
   ];
   return {
     title: `${raceInfo?.election?.label} - ${raceInfo?.name}`,
+    key: `electionResult##${raceInfo?.name}`,
     width: children.length * 100,
     children,
   };
@@ -413,6 +418,7 @@ const electionResultComparisonColumnsBuilder = () => {
   ];
   return {
     title: "Comparison of Election Results",
+    key: "electionResultCompare",
     width: children.length * 100,
     children,
   };
@@ -469,6 +475,7 @@ const demographicColumnBuilder = () => {
   return {
     title: "Demographics",
     width: children.length * 100,
+    key: "demographics",
     children,
   };
 };
