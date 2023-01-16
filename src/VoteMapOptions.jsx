@@ -57,9 +57,7 @@ export default function VoteMapOptions({
         <Radio.Group
           value={displayType}
           onChange={({ target: { value } }) => {
-            startTransition(() => {
-              updateDisplayType(value);
-            });
+            updateDisplayType(value);
           }}
         >
           <Radio.Button value="map">Map</Radio.Button>

@@ -225,7 +225,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
   // console.log(seg);
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div style={{ width: "100%", height: "100%" }} data-testid="scatterPlot">
       <div style={{ width: "100%", height: "100%" }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>

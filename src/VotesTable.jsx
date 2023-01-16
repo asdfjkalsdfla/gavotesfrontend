@@ -93,7 +93,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   }, [locationResults]);
 
   return (
-    <div style={{ width: "10fr", height: "1fr" }}>
+    <div style={{ width: "10fr", height: "1fr" }}  data-testid="electionResultTable">
       <Collapse>
         <Panel header="Select Data to Display" key="1">
           <Row gutter={30} key="dataRows">

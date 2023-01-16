@@ -8,14 +8,14 @@ import WelcomeText from "./WelcomeText.jsx";
 import VoteMapOptions from "./VoteMapOptions.jsx";
 import "./VotesRoot.css";
 
-// import VotesMap from "./VotesMap";
-const VotesMap = React.lazy(() => import("./VotesMap.jsx"));
-// import VotesScatterPlot from "./VotesScatterPlot";
-const VotesScatterPlot = React.lazy(() => import("./VotesScatterPlot.jsx"));
-// import VotesTable from "./VotesTable";
-const VotesTable = React.lazy(() => import("./VotesTable.jsx"));
-// import VotesSummary from "./VotesSummary.jsx";
-const VotesSummary = React.lazy(() => import("./VotesSummary.jsx"));
+import VotesMap from "./VotesMap.jsx";
+// const VotesMap = React.lazy(() => import("./VotesMap.jsx"));
+import VotesScatterPlot from "./VotesScatterPlot.jsx";
+// const VotesScatterPlot = React.lazy(() => import("./VotesScatterPlot.jsx"));
+import VotesTable from "./VotesTable.jsx";
+// const VotesTable = React.lazy(() => import("./VotesTable.jsx"));
+import VotesSummary from "./VotesSummary.jsx";
+// const VotesSummary = React.lazy(() => import("./VotesSummary.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
