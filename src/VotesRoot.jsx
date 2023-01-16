@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Divider } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 
@@ -120,36 +120,38 @@ export default function VotesRoot() {
         resultsElectionRacePerviousID={resultsElectionRacePerviousID}
       >
         <div className={displayType === "table" && !showOptions ? "full" : "one"}>
-          {displayType === "scatter" && (
-            <VotesScatterPlot
-              isCountyLevel={isCountyLevel}
-              updateActiveSelection={updateActiveSelection}
-              updateActiveHover={updateActiveHover}
-              scatterXAxis={scatterXAxis}
-              scatterYAxis={scatterYAxis}
-            />
-          )}
-          {displayType === "map" && (
-            <VotesMap
-              isCountyLevel={isCountyLevel}
-              countyFilter={countyFilter}
-              elevationApproach={elevationApproach}
-              colorApproach={colorApproach}
-              updateActiveSelection={updateActiveSelection}
-              updateActiveHover={updateActiveHover}
-              userHasSetLevel={userHasSetLevel}
-              updateIsCountyLevel={updateIsCountyLevel}
-            />
-          )}
-          {displayType === "table" && (
-            <VotesTable
-              isCountyLevel={isCountyLevel}
-              countyFilter={countyFilter}
-              updateCountyFilter={updateCountyFilter}
-              updateIsCountyLevel={updateIsCountyLevel}
-              updateActiveSelection={updateActiveSelection}
-            />
-          )}
+          <Suspense fallback={<div>Loading...</div>}>
+            {displayType === "scatter" && (
+              <VotesScatterPlot
+                isCountyLevel={isCountyLevel}
+                updateActiveSelection={updateActiveSelection}
+                updateActiveHover={updateActiveHover}
+                scatterXAxis={scatterXAxis}
+                scatterYAxis={scatterYAxis}
+              />
+            )}
+            {displayType === "map" && (
+              <VotesMap
+                isCountyLevel={isCountyLevel}
+                countyFilter={countyFilter}
+                elevationApproach={elevationApproach}
+                colorApproach={colorApproach}
+                updateActiveSelection={updateActiveSelection}
+                updateActiveHover={updateActiveHover}
+                userHasSetLevel={userHasSetLevel}
+                updateIsCountyLevel={updateIsCountyLevel}
+              />
+            )}
+            {displayType === "table" && (
+              <VotesTable
+                isCountyLevel={isCountyLevel}
+                countyFilter={countyFilter}
+                updateCountyFilter={updateCountyFilter}
+                updateIsCountyLevel={updateIsCountyLevel}
+                updateActiveSelection={updateActiveSelection}
+              />
+            )}
+          </Suspense>
         </div>
         {(displayType !== "table" || showOptions) && (
           <div className="two">
