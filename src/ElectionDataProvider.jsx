@@ -11,7 +11,6 @@ import Demographics from "./Models/Demographics";
 import elections from "./elections.json";
 
 export const ElectionDataContext = createContext(null);
-export const ElectionDispatchContext = createContext(null);
 
 export function ElectionDataProvider({
   isCountyLevel,
@@ -102,20 +101,11 @@ export function ElectionDataProvider({
     [statewideElectionData, activeLocationResults, countyElectionData]
   );
 
-  return (
-    <ElectionDataContext.Provider value={electionData}>
-      {children}
-      {/* <ElectionDispatchContext.Provider value={dispatch}></ElectionDispatchContext.Provider> */}
-    </ElectionDataContext.Provider>
-  );
+  return <ElectionDataContext.Provider value={electionData}>{children}</ElectionDataContext.Provider>;
 }
 
 export function useElectionData() {
   return useContext(ElectionDataContext);
-}
-
-export function useElectionDispatch() {
-  return useContext(ElectionDispatchContext);
 }
 
 const loadAndCombineElectionDataFiles = async (
