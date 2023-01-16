@@ -1,6 +1,6 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import fs from "fs/promises";
 
 export default defineConfig(() => ({
   server: {
@@ -9,6 +9,14 @@ export default defineConfig(() => ({
   },
   build: {
     outDir: "build",
+  },
+  test: {
+    base: "https://georgiavotesvisual.com/",
+    globals: true,
+    environment: "jsdom",
+    exclude: ["**/node_modules/**", "**/dist/**"],
+    setupFiles: ["./src/setupTests.js"],
+    testTimeout: 20000,
   },
   plugins: [react()],
   esbuild: {
