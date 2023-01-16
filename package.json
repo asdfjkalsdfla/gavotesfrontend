@@ -32,17 +32,6 @@
     "bench": "vitest bench",
     "coverage": "vitest run --coverage"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie 11",
-    "not chrome < 51",
-    "not safari < 10",
-    "not android < 51"
-  ],
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
