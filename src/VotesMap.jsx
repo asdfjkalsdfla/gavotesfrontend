@@ -89,10 +89,10 @@ export default function VotesMap({
   // Otherwise, we determine if we show counties or precinct state wide data
   // eslint-disable-next-line no-nested-ternary
   const geoJSONFile = countyFilter
-    ? `/static/shapeFiles/GA_precincts_2020_${countyFilter}_simple.json`
+    ? `static/shapeFiles/GA_precincts_2020_${countyFilter}_simple.json`
     : isCountyLevel
-    ? "/static/shapeFiles/GA_counties_simple.json"
-    : "/static/shapeFiles/GA_precincts_simple_2020.json";
+    ? "static/shapeFiles/GA_counties_simple.json"
+    : "static/shapeFiles/GA_precincts_simple_2020.json";
 
   const urlBase = import.meta.env.MODE === "test" ? "https://georgiavotesvisual.com/" : import.meta.env.BASE_URL;
 

@@ -38,7 +38,7 @@ export function ElectionDataProvider({
   useEffect(() => {
     const load = async (level, updateFunctions) => {
       const absenteeCurrentFileLocation = `${urlBase}static/absentee/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
-      const absenteeBaseFileLocation = `${urlBase}absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
+      const absenteeBaseFileLocation = `${urlBase}static/absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
       const electionResultsCurrentFileLocation = `${urlBase}static/electionResults/electionResultsSummary-${
         currentElectionRace.election.name
       }-${level}.json`;
