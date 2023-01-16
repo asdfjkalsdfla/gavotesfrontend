@@ -94,10 +94,12 @@ export default function VotesMap({
     ? "/static/shapeFiles/GA_counties_simple.json"
     : "/static/shapeFiles/GA_precincts_simple_2020.json";
 
+  const urlBase = import.meta.env.MODE === "test" ? "https://georgiavotesvisual.com/" : import.meta.env.BASE_URL;
+
   const [dataGeoJSONBase, updateDataGeoJSONBase] = useState();
   useEffect(() => {
     const load = async () => {
-      const responseGeo = await fetch(geoJSONFile);
+      const responseGeo = await fetch(`${urlBase}${geoJSONFile}`);
       if (!responseGeo.ok) {
         // eslint-disable-next-line no-console
         console.log("ERROR loading GEO JSON file");

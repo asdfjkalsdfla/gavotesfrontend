@@ -13,6 +13,8 @@ import elections from "./elections.json";
 export const ElectionDataContext = createContext(null);
 export const ElectionDispatchContext = createContext(null);
 
+const urlBase = import.meta.env.MODE === "test" ? "https://georgiavotesvisual.com/" : import.meta.env.BASE_URL;
+
 export function ElectionDataProvider({
   isCountyLevel,
   countyFilter,
@@ -35,13 +37,15 @@ export function ElectionDataProvider({
   // Load all levels of election data
   useEffect(() => {
     const load = async (level, updateFunctions) => {
-      const absenteeCurrentFileLocation = `/static/absentee/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
-      const absenteeBaseFileLocation = `/static/absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
-      const electionResultsCurrentFileLocation = `/static/electionResults/electionResultsSummary-${currentElectionRace.election.name}-${level}.json`;
+      const absenteeCurrentFileLocation = `${urlBase}static/absentee/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
+      const absenteeBaseFileLocation = `${urlBase}absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
+      const electionResultsCurrentFileLocation = `${urlBase}static/electionResults/electionResultsSummary-${
+        currentElectionRace.election.name
+      }-${level}.json`;
       const electionResultBaseFileLocation = previousElectionRace
-        ? `/static/electionResults/electionResultsSummary-${previousElectionRace.election.name}-${level}.json`
+        ? `${urlBase}static/electionResults/electionResultsSummary-${previousElectionRace.election.name}-${level}.json`
         : null;
-      const demographicsFileLocation = `/static/demographics/demographics-${level}-2020.json`;
+      const demographicsFileLocation = `${urlBase}static/demographics/demographics-${level}-2020.json`;
 
       const updatedElectionData = await loadAndCombineElectionDataFiles(
         absenteeCurrentFileLocation,
