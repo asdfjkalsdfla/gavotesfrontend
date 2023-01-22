@@ -9,6 +9,8 @@ on:
       - "main"
       - "renovate/**"
 
+permissions: read-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
