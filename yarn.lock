@@ -587,54 +587,54 @@ __metadata:
   linkType: hard
 
 "@loaders.gl/core@npm:^3.2.10":
-  version: 3.2.12
-  resolution: "@loaders.gl/core@npm:3.2.12"
+  version: 3.2.13
+  resolution: "@loaders.gl/core@npm:3.2.13"
   dependencies:
     "@babel/runtime": ^7.3.1
-    "@loaders.gl/loader-utils": 3.2.12
-    "@loaders.gl/worker-utils": 3.2.12
+    "@loaders.gl/loader-utils": 3.2.13
+    "@loaders.gl/worker-utils": 3.2.13
     "@probe.gl/log": ^3.5.0
     probe.gl: ^3.4.0
-  checksum: 5180551dce04a71a7164d7f6d155f857e1b14532cd3c34f1aae25b66a5596e1fbfeeb6765d28b4b221d73c780577959142344ac1ddec8df53d0b503d59560223
+  checksum: 0df4c61bcc60d1bef904d319dda1025b7ee44650406cf0ebbc306f0fd8c07b983311493bde479a41f11db654f88a070d7f8d1bf590230a45b8f2168db8897457
   languageName: node
   linkType: hard
 
 "@loaders.gl/images@npm:^3.2.10":
-  version: 3.2.12
-  resolution: "@loaders.gl/images@npm:3.2.12"
+  version: 3.2.13
+  resolution: "@loaders.gl/images@npm:3.2.13"
   dependencies:
-    "@loaders.gl/loader-utils": 3.2.12
-  checksum: 04b578e1ddfbb25b3ea1cb921564d0ee0a4e3c18acd02ddce2dd48dae74d54f6a18351fc414a89511802a318734c12ba1d13809788ff58951d01bbd3b443fcb4
+    "@loaders.gl/loader-utils": 3.2.13
+  checksum: d11a5761d2d91a12c7357b6989397e89e2b94d500a9b914ec955fd69fb9c2c9f505fb39367bd61883f07c1b961f26cd285336a79dd9be5b40c04af4784e78d6e
   languageName: node
   linkType: hard
 
-"@loaders.gl/loader-utils@npm:3.2.12":
-  version: 3.2.12
-  resolution: "@loaders.gl/loader-utils@npm:3.2.12"
+"@loaders.gl/loader-utils@npm:3.2.13":
+  version: 3.2.13
+  resolution: "@loaders.gl/loader-utils@npm:3.2.13"
   dependencies:
     "@babel/runtime": ^7.3.1
-    "@loaders.gl/worker-utils": 3.2.12
+    "@loaders.gl/worker-utils": 3.2.13
     "@probe.gl/stats": ^3.5.0
-  checksum: c22392e866dad20e75fb086e231f26b46e0491b1d138290fc4584039f4bf2796a8f6bc11a83a4f1a4fa48f07cf6c9dbff16e908d0bf45d203766cf73757dc4f4
+  checksum: 84e772930e03a92658c5d5b21c13e71578869d181675efdf2cd9c61dcfcb3101ab7541856e5de8558d9b6aa3af5428ec55b337b707da58cc34274f542f0493ff
   languageName: node
   linkType: hard
 
 "@loaders.gl/schema@npm:^3.2.10":
-  version: 3.2.12
-  resolution: "@loaders.gl/schema@npm:3.2.12"
+  version: 3.2.13
+  resolution: "@loaders.gl/schema@npm:3.2.13"
   dependencies:
     "@types/geojson": ^7946.0.7
     apache-arrow: ^4.0.0
-  checksum: 4497a662b3731ae3afe8a21ab49276ecc07fa007c4a1a56559f9eedba76f510b4333cc1e5af7b24b115c93e8a8bc42119767b8bc4c141d3d04a78efa4f2a1bbf
+  checksum: b5c02d53385bc8792f4700f0f100a34954bbb5894ce9a98daa5d93e6307c509157e7119b75697dfb0dc09615780d4518043ba504450143e03f03969f084c1d82
   languageName: node
   linkType: hard
 
-"@loaders.gl/worker-utils@npm:3.2.12":
-  version: 3.2.12
-  resolution: "@loaders.gl/worker-utils@npm:3.2.12"
+"@loaders.gl/worker-utils@npm:3.2.13":
+  version: 3.2.13
+  resolution: "@loaders.gl/worker-utils@npm:3.2.13"
   dependencies:
     "@babel/runtime": ^7.3.1
-  checksum: cebc58cab9be5ddfa76e5c23db093bb0a50ccc7cc09a8d9af755b9fe668b9b689b28fc33d8f14c2c8406eb6243c252d5c957fb01e390bbdb9bec000910782b5f
+  checksum: b4b9eed6703f23eb125f1fd16152f31f2ad875057105693ff1f60a0e04c8eaf389a6b1bb1e0fb3bf01cbc083a92b2295dc307fa02c006b9da47d4054b52ab100
   languageName: node
   linkType: hard
 
@@ -839,8 +839,8 @@ __metadata:
   linkType: hard
 
 "@mswjs/interceptors@npm:^0.17.5":
-  version: 0.17.6
-  resolution: "@mswjs/interceptors@npm:0.17.6"
+  version: 0.17.7
+  resolution: "@mswjs/interceptors@npm:0.17.7"
   dependencies:
     "@open-draft/until": ^1.0.3
     "@types/debug": ^4.1.7
@@ -850,7 +850,7 @@ __metadata:
     outvariant: ^1.2.1
     strict-event-emitter: ^0.2.4
     web-encoding: ^1.1.5
-  checksum: 4a70ed035191fab270fc219b741371eafdb126d6913414f76c0b57fc711391e72b5a95314733a2bc17f5a771058a3bba9c317a55898c1000b684d8fe834d8495
+  checksum: 3cfd537390a3d37b8fe772ccdc1245045aa8b962cb34aa477092e490280e18e544b2e2b6d188f59b3caaeb70192d383eaa0e4f8588bde1ddabd7f9360772fedb
   languageName: node
   linkType: hard
 
