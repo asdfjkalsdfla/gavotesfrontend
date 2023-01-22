@@ -42,7 +42,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
           data-testid="electionResultTable"
         >
           <div
-            class="ant-collapse ant-collapse-icon-position-start css-dev-only-do-not-override-1n7nwfa"
+            class="ant-collapse ant-collapse-icon-position-start"
           >
             <div
               class="ant-collapse-item"
@@ -86,7 +86,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
             </div>
           </div>
           <ul
-            class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-light css-dev-only-do-not-override-1n7nwfa"
+            class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-light"
             data-menu-list="true"
             role="menu"
             tabindex="0"
@@ -161,10 +161,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
             style="display: none;"
           />
           <div
-            class="ant-table-wrapper css-dev-only-do-not-override-1n7nwfa"
+            class="ant-table-wrapper"
           >
             <div
-              class="ant-spin-nested-loading css-dev-only-do-not-override-1n7nwfa"
+              class="ant-spin-nested-loading"
             >
               <div
                 class="ant-spin-container"
@@ -1265,7 +1265,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
             style="float: right;"
           >
             <button
-              class="ant-btn css-dev-only-do-not-override-1n7nwfa ant-btn-circle ant-btn-default ant-btn-icon-only"
+              class="ant-btn ant-btn-circle ant-btn-default ant-btn-icon-only"
               type="button"
             >
               <span
@@ -1336,7 +1336,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
           <br />
         </div>
         <div
-          class="ant-divider css-dev-only-do-not-override-1n7nwfa ant-divider-horizontal"
+          class="ant-divider ant-divider-horizontal"
           role="separator"
         />
         <h1>
@@ -1345,7 +1345,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
             style="float: right;"
           >
             <button
-              class="ant-btn css-dev-only-do-not-override-1n7nwfa ant-btn-circle ant-btn-default ant-btn-icon-only"
+              class="ant-btn ant-btn-circle ant-btn-default ant-btn-icon-only"
               type="button"
             >
               <span
@@ -1379,10 +1379,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
           Type
           <br />
           <div
-            class="ant-radio-group ant-radio-group-outline css-dev-only-do-not-override-1n7nwfa"
+            class="ant-radio-group ant-radio-group-outline"
           >
             <label
-              class="ant-radio-button-wrapper css-dev-only-do-not-override-1n7nwfa"
+              class="ant-radio-button-wrapper"
             >
               <span
                 class="ant-radio-button"
@@ -1402,7 +1402,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               </span>
             </label>
             <label
-              class="ant-radio-button-wrapper css-dev-only-do-not-override-1n7nwfa"
+              class="ant-radio-button-wrapper"
             >
               <span
                 class="ant-radio-button"
@@ -1421,7 +1421,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               </span>
             </label>
             <label
-              class="ant-radio-button-wrapper ant-radio-button-wrapper-checked css-dev-only-do-not-override-1n7nwfa"
+              class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
             >
               <span
                 class="ant-radio-button ant-radio-button-checked"
@@ -1451,7 +1451,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         Base 
         <br />
         <div
-          class="ant-select css-dev-only-do-not-override-1n7nwfa ant-select-single ant-select-show-arrow"
+          class="ant-select ant-select-single ant-select-show-arrow"
           style="width: 300px;"
         >
           <div
@@ -1515,7 +1515,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         Compared to 
         <br />
         <div
-          class="ant-select css-dev-only-do-not-override-1n7nwfa ant-select-single ant-select-show-arrow"
+          class="ant-select ant-select-single ant-select-show-arrow"
           style="width: 300px;"
         >
           <div
@@ -1585,7 +1585,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         Compared to 
         <br />
         <div
-          class="ant-select css-dev-only-do-not-override-1n7nwfa ant-select-single ant-select-show-arrow"
+          class="ant-select ant-select-single ant-select-show-arrow"
           style="width: 300px;"
         >
           <div
@@ -1653,10 +1653,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
           </b>
         </div>
         <label
-          class="ant-checkbox-wrapper css-dev-only-do-not-override-1n7nwfa"
+          class="ant-checkbox-wrapper"
         >
           <span
-            class="ant-checkbox css-dev-only-do-not-override-1n7nwfa"
+            class="ant-checkbox"
           >
             <input
               class="ant-checkbox-input"
@@ -1673,10 +1673,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
         </label>
         <br />
         <label
-          class="ant-checkbox-wrapper css-dev-only-do-not-override-1n7nwfa"
+          class="ant-checkbox-wrapper"
         >
           <span
-            class="ant-checkbox css-dev-only-do-not-override-1n7nwfa"
+            class="ant-checkbox"
           >
             <input
               class="ant-checkbox-input"
@@ -1693,10 +1693,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
         </label>
         <br />
         <label
-          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-1n7nwfa"
+          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
         >
           <span
-            class="ant-checkbox css-dev-only-do-not-override-1n7nwfa ant-checkbox-checked"
+            class="ant-checkbox ant-checkbox-checked"
           >
             <input
               checked=""
@@ -1713,7 +1713,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
           </span>
         </label>
         <div
-          class="ant-divider css-dev-only-do-not-override-1n7nwfa ant-divider-horizontal"
+          class="ant-divider ant-divider-horizontal"
           role="separator"
         />
         <div>
@@ -1724,7 +1724,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
           </h1>
           <div>
             <button
-              class="ant-btn css-dev-only-do-not-override-1n7nwfa ant-btn-primary ant-btn-sm"
+              class="ant-btn ant-btn-primary ant-btn-sm"
               type="button"
             >
               <span
@@ -1752,7 +1752,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
             </button>
           </div>
           <div
-            class="ant-descriptions ant-descriptions-small ant-descriptions-bordered css-dev-only-do-not-override-1n7nwfa"
+            class="ant-descriptions ant-descriptions-small ant-descriptions-bordered"
             style="width: 100%;"
           >
             <div
