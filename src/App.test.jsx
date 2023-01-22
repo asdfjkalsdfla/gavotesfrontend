@@ -1,8 +1,16 @@
 import React from "react";
 import { ConfigProvider } from "antd";
-import { describe, it } from "vitest";
+import { describe, it, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import App from "./App.jsx";
+
+vi.mock("recharts", async () => {
+  const actual = await vi.importActual("recharts");
+  return {
+    ...actual,
+    ResponsiveContainer: (props) => <div {...props} />,
+  };
+});
 
 describe.concurrent("no crashes!", () => {
   it("renders main load without crashing", async () => {
