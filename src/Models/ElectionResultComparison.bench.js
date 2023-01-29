@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { expect, bench } from "vitest";
 import ElectionResult from "./ElectionResult";
 import ElectionResultComparison from "./ElectionResultComparison";

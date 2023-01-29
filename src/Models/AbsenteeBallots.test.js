@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { vi, describe, it, expect, beforeAll } from "vitest";
 import AbsenteeBallots from "./AbsenteeBallots";
 

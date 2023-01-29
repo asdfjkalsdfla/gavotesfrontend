@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, it, expect, beforeAll } from "vitest";
 import ElectionResult from "./ElectionResult";
 import ElectionResultComparison from "./ElectionResultComparison";

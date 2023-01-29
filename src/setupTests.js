@@ -1,4 +1,4 @@
-import { vi, beforeAll, afterEach, afterAll } from "vitest";
+import { vi, expect, beforeAll, afterEach, afterAll } from "vitest";
 // import { server } from "./mocks/server.js";
 
 // // ###########################
@@ -17,31 +17,34 @@ import { vi, beforeAll, afterEach, afterAll } from "vitest";
 // ###########################
 // Mock items note in jsdom
 // ###########################
+const isDomWindow = expect.getState().environment === "jsdom";
 
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: vi.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
+if (isDomWindow) {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(), // deprecated
+      removeListener: vi.fn(), // deprecated
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
 
-class ResizeObserver {
-  observe() {
-    // do nothing
+  class ResizeObserver {
+    observe() {
+      // do nothing
+    }
+    unobserve() {
+      // do nothing
+    }
+    disconnect() {
+      // do nothing
+    }
   }
-  unobserve() {
-    // do nothing
-  }
-  disconnect() {
-    // do nothing
-  }
+
+  window.ResizeObserver = ResizeObserver;
 }
-
-window.ResizeObserver = ResizeObserver;
