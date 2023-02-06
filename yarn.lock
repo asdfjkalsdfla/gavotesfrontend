@@ -5806,14 +5806,13 @@ __metadata:
   linkType: hard
 
 "rc-picker@npm:~3.1.1":
-  version: 3.1.4
-  resolution: "rc-picker@npm:3.1.4"
+  version: 3.1.5
+  resolution: "rc-picker@npm:3.1.5"
   dependencies:
     "@babel/runtime": ^7.10.1
     classnames: ^2.2.1
     rc-trigger: ^5.0.4
-    rc-util: ^5.4.0
-    shallowequal: ^1.1.0
+    rc-util: ^5.27.0
   peerDependencies:
     date-fns: ">= 2.x"
     dayjs: ">= 1.x"
@@ -5827,7 +5826,7 @@ __metadata:
       optional: true
     moment:
       optional: true
-  checksum: 6fea0dc2af3ccf50b2b676b9636a7b59ca1fa79cd65bebe1bf721e6b6d1cb3e72a0522c5817e74ffbf623691e3f4d333e4f9e82fafc515b9b023440848bf0359
+  checksum: 51ef0ea925a905457e5790483cf118e09b9f8b27004b13cc3b4867acc3b9e1eda45a475cfd34cfd4241ce65248b32f7369e4b429dc9aec2af09774db09b8dbb3
   languageName: node
   linkType: hard
 
@@ -5875,8 +5874,8 @@ __metadata:
   linkType: hard
 
 "rc-segmented@npm:~2.1.0":
-  version: 2.1.1
-  resolution: "rc-segmented@npm:2.1.1"
+  version: 2.1.2
+  resolution: "rc-segmented@npm:2.1.2"
   dependencies:
     "@babel/runtime": ^7.11.1
     classnames: ^2.2.1
@@ -5885,7 +5884,7 @@ __metadata:
   peerDependencies:
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
-  checksum: 5b8db86a66ad4c08d03931acfc58272be1095c90b9d5b023b83ba3becf17915bc1b056493fd17371229d58276ac77276dd2f69b44c457cd22925db5c772a62f0
+  checksum: 9ebba682e70b480cacea79985b6c3fcd024d564a3105a9d48c6a0481a87002f8382987195014ce00e37d455e84dbd0def05d24e3671a52bd89aeeec43c82a91a
   languageName: node
   linkType: hard
 
@@ -6076,7 +6075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-util@npm:^5.0.1, rc-util@npm:^5.0.6, rc-util@npm:^5.15.0, rc-util@npm:^5.16.0, rc-util@npm:^5.16.1, rc-util@npm:^5.17.0, rc-util@npm:^5.18.1, rc-util@npm:^5.19.2, rc-util@npm:^5.2.0, rc-util@npm:^5.2.1, rc-util@npm:^5.20.1, rc-util@npm:^5.21.0, rc-util@npm:^5.21.2, rc-util@npm:^5.22.5, rc-util@npm:^5.23.0, rc-util@npm:^5.24.4, rc-util@npm:^5.26.0, rc-util@npm:^5.27.0, rc-util@npm:^5.27.1, rc-util@npm:^5.4.0, rc-util@npm:^5.6.1, rc-util@npm:^5.8.0, rc-util@npm:^5.9.4":
+"rc-util@npm:^5.0.1, rc-util@npm:^5.0.6, rc-util@npm:^5.15.0, rc-util@npm:^5.16.0, rc-util@npm:^5.16.1, rc-util@npm:^5.17.0, rc-util@npm:^5.18.1, rc-util@npm:^5.19.2, rc-util@npm:^5.2.0, rc-util@npm:^5.2.1, rc-util@npm:^5.20.1, rc-util@npm:^5.21.0, rc-util@npm:^5.21.2, rc-util@npm:^5.22.5, rc-util@npm:^5.23.0, rc-util@npm:^5.24.4, rc-util@npm:^5.26.0, rc-util@npm:^5.27.0, rc-util@npm:^5.27.1, rc-util@npm:^5.6.1, rc-util@npm:^5.8.0, rc-util@npm:^5.9.4":
   version: 5.27.2
   resolution: "rc-util@npm:5.27.2"
   dependencies:
