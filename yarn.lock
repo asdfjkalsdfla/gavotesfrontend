@@ -1509,7 +1509,7 @@ __metadata:
     recharts: ^2.1.15
     simplify-geojson: ^1.0.3
     source-map-explorer: ^2.5.3
-    temporal-polyfill: ^0.0.8
+    temporal-polyfill: ^0.1.0
     vite: ^4.0.0
     vitest: ^0.28.4
   languageName: unknown
@@ -7023,12 +7023,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"temporal-polyfill@npm:^0.0.8":
-  version: 0.0.8
-  resolution: "temporal-polyfill@npm:0.0.8"
+"temporal-polyfill@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "temporal-polyfill@npm:0.1.0"
   dependencies:
     temporal-spec: 0.0.3
-  checksum: db7b081add0f7bc8ff4c99d72fcbc38d723d508475b1655609b1f3c6e7c1e051f64dc52b0187edb009436babe5d4b5e40d163fc4d0bab9fb29dcd0901a033bf9
+  checksum: d57ffb44eda451a51e7238a69c412cce6180c90b4c81ca05866b17d8c2f31280b73f6a9d15e2ee0a0328680b7a33c1de5240ae4abcf6c1e3e32fbf2be68b54e0
   languageName: node
   linkType: hard
 
