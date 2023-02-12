@@ -207,12 +207,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up active"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -231,7 +232,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -311,12 +312,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -335,7 +337,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -374,12 +376,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -398,7 +401,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -437,12 +440,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -461,7 +465,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -500,12 +504,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -524,7 +529,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -563,12 +568,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -587,7 +593,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -626,12 +632,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -650,7 +657,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -689,12 +696,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -713,7 +721,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -752,12 +760,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -776,7 +785,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -815,12 +824,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -839,7 +849,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -878,12 +888,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -902,7 +913,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -941,12 +952,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -965,7 +977,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -1004,12 +1016,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                   class="ant-table-column-sorter ant-table-column-sorter-full"
                                 >
                                   <span
+                                    aria-hidden="true"
                                     class="ant-table-column-sorter-inner"
                                   >
                                     <span
                                       aria-label="caret-up"
                                       class="anticon anticon-caret-up ant-table-column-sorter-up"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -1028,7 +1041,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                     <span
                                       aria-label="caret-down"
                                       class="anticon anticon-caret-down ant-table-column-sorter-down"
-                                      role="presentation"
+                                      role="img"
                                     >
                                       <svg
                                         aria-hidden="true"
