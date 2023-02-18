@@ -5,7 +5,7 @@ import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import VotesTable from "./VotesTable.jsx";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
 
-describe.concurrent("Votes Table", () => {
+describe("Votes Table", () => {
   it("renders without crashing", async () => {
     render(
       <ElectionDataProvider
