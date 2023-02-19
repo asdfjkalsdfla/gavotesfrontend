@@ -12,7 +12,7 @@ vi.mock("recharts", async () => {
   };
 });
 
-describe.concurrent("no crashes!", () => {
+describe("no crashes!", () => {
   it("renders main load without crashing", async () => {
     const { getByText, findAllByText } = render(<App />);
     await findAllByText("Georgia Votes Visual", undefined, { timeout: 5000 });
