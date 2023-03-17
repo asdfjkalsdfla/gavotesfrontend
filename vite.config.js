@@ -17,6 +17,7 @@ export default defineConfig(() => ({
     exclude: ["**/node_modules/**", "**/dist/**"],
     setupFiles: ["./src/setupTests.js"],
     testTimeout: 20000,
+    alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
   },
   plugins: [react()],
   esbuild: {
