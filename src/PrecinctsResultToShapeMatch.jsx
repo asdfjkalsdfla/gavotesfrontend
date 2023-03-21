@@ -15,9 +15,9 @@ export default function PrecinctsResultToShapeMatch() {
   useEffect(() => {
     const loadData = async () => {
       const fetchPromises = [
-        fetch("/static/GA_precincts_simple_2020.json"),
-        fetch("/static/2022_general_map_ids.csv"),
-        fetch("/static/2022_general_map_ids_manual.csv"),
+        fetch("/static/GA_precincts_simple_2022.json"),
+        fetch("/static/2022_runoff_map_2022_ids.csv"),
+        fetch("/static/2022_runoff_map_2022_ids_manual.csv"),
       ];
       const [responseShape, responsePrecinctsMap, responsePrecinctMapManual] = await Promise.all(fetchPromises);
       if (!responseShape.ok || !responsePrecinctsMap.ok || !responsePrecinctMapManual.ok) {

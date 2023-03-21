@@ -181,7 +181,7 @@ const loadAndCombineElectionDataFiles = async (
     // Find the current race
     properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter((election) => election.race === currentElectionRace.name)[0];
     combinedElectionData.set(id, properties);
-    rdStateVotesTotalCurrent += properties.electionResultsCurrent.totalVotesRD || 0;
+    rdStateVotesTotalCurrent += properties?.electionResultsCurrent?.totalVotesRD || 0;
   });
   let rdStateVotesTotalBase = 0;
   if (electionResultBaseFileLocation) {
@@ -193,7 +193,7 @@ const loadAndCombineElectionDataFiles = async (
       // eslint-disable-next-line prefer-destructuring
       properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
       combinedElectionData.set(id, properties);
-      rdStateVotesTotalBase += properties.electionResultsBase.totalVotesRD || 0;
+      rdStateVotesTotalBase += properties?.electionResultsBase?.totalVotesRD || 0;
     });
   }
 
