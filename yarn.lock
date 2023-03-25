@@ -120,7 +120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/core@npm:^8.8.15":
+"@deck.gl/core@npm:^8.9.4":
   version: 8.9.4
   resolution: "@deck.gl/core@npm:8.9.4"
   dependencies:
@@ -1337,7 +1337,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "GAVoteseFrontend@workspace:."
   dependencies:
-    "@deck.gl/core": ^8.8.15
+    "@deck.gl/core": ^8.9.4
     "@deck.gl/layers": ^8.8.15
     "@deck.gl/mapbox": ^8.8.15
     "@deck.gl/react": ^8.8.15
