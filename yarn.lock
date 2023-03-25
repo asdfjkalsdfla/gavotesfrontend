@@ -120,7 +120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/core@npm:^8.8.15":
+"@deck.gl/core@npm:^8.9.4":
   version: 8.9.4
   resolution: "@deck.gl/core@npm:8.9.4"
   dependencies:
@@ -142,7 +142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/layers@npm:^8.8.15":
+"@deck.gl/layers@npm:^8.9.4":
   version: 8.9.4
   resolution: "@deck.gl/layers@npm:8.9.4"
   dependencies:
@@ -162,7 +162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/mapbox@npm:^8.8.15":
+"@deck.gl/mapbox@npm:^8.9.4":
   version: 8.9.4
   resolution: "@deck.gl/mapbox@npm:8.9.4"
   dependencies:
@@ -173,7 +173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/react@npm:^8.8.15":
+"@deck.gl/react@npm:^8.9.4":
   version: 8.9.4
   resolution: "@deck.gl/react@npm:8.9.4"
   peerDependencies:
@@ -1252,7 +1252,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react-swc@npm:^3.0.0":
+"@vitejs/plugin-react-swc@npm:^3.2.0":
   version: 3.2.0
   resolution: "@vitejs/plugin-react-swc@npm:3.2.0"
   dependencies:
@@ -1263,7 +1263,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-c8@npm:^0.29.0":
+"@vitest/coverage-c8@npm:^0.29.7":
   version: 0.29.7
   resolution: "@vitest/coverage-c8@npm:0.29.7"
   dependencies:
@@ -1337,41 +1337,41 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "GAVoteseFrontend@workspace:."
   dependencies:
-    "@deck.gl/core": ^8.8.15
-    "@deck.gl/layers": ^8.8.15
-    "@deck.gl/mapbox": ^8.8.15
-    "@deck.gl/react": ^8.8.15
+    "@deck.gl/core": ^8.9.4
+    "@deck.gl/layers": ^8.9.4
+    "@deck.gl/mapbox": ^8.9.4
+    "@deck.gl/react": ^8.9.4
     "@testing-library/react": ^14.0.0
-    "@vitejs/plugin-react-swc": ^3.0.0
-    "@vitest/coverage-c8": ^0.29.0
-    antd: ^5.0.1
-    d3-scale: ^4.0.0
+    "@vitejs/plugin-react-swc": ^3.2.0
+    "@vitest/coverage-c8": ^0.29.7
+    antd: ^5.3.2
+    d3-scale: ^4.0.2
     d3-scale-chromatic: ^3.0.0
-    esbuild: ^0.17.0
-    eslint: ^8.29.0
+    esbuild: ^0.17.13
+    eslint: ^8.36.0
     eslint-config-airbnb: ^19.0.4
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-import: ^2.26.0
+    eslint-config-prettier: ^8.8.0
+    eslint-plugin-import: ^2.27.5
     eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-react: ^7.31.11
+    eslint-plugin-react: ^7.32.2
     eslint-plugin-react-hooks: ^4.6.0
-    jsdom: ^21.0.0
-    mapbox-gl: ^2.10.0
+    jsdom: ^21.1.1
+    mapbox-gl: ^2.13.0
     ml-regression-simple-linear: ^2.0.3
-    msw: ^1.0.0
-    papaparse: ^5.3.2
-    prettier: ^2.8.1
+    msw: ^1.2.1
+    papaparse: ^5.4.1
+    prettier: ^2.8.7
     react: ^18.2.0
     react-csv: ^2.2.2
     react-dom: ^18.2.0
-    react-map-gl: ^7.0.19
-    react-router-dom: ^6.4.3
-    recharts: ^2.1.15
-    simplify-geojson: ^1.0.3
+    react-map-gl: ^7.0.21
+    react-router-dom: ^6.9.0
+    recharts: ^2.5.0
+    simplify-geojson: ^1.0.5
     source-map-explorer: ^2.5.3
-    temporal-polyfill: ^0.1.0
-    vite: ^4.0.0
-    vitest: ^0.29.0
+    temporal-polyfill: ^0.1.1
+    vite: ^4.2.1
+    vitest: ^0.29.7
   languageName: unknown
   linkType: soft
 
@@ -1521,7 +1521,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5.0.1":
+"antd@npm:^5.3.2":
   version: 5.3.2
   resolution: "antd@npm:5.3.2"
   dependencies:
@@ -2254,7 +2254,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-scale@npm:^4.0.0, d3-scale@npm:^4.0.2":
+"d3-scale@npm:^4.0.2":
   version: 4.0.2
   resolution: "d3-scale@npm:4.0.2"
   dependencies:
@@ -2658,7 +2658,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.17.0, esbuild@npm:^0.17.5":
+"esbuild@npm:^0.17.13, esbuild@npm:^0.17.5":
   version: 0.17.13
   resolution: "esbuild@npm:0.17.13"
   dependencies:
@@ -2814,7 +2814,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.5.0":
+"eslint-config-prettier@npm:^8.8.0":
   version: 8.8.0
   resolution: "eslint-config-prettier@npm:8.8.0"
   peerDependencies:
@@ -2848,7 +2848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.26.0":
+"eslint-plugin-import@npm:^2.27.5":
   version: 2.27.5
   resolution: "eslint-plugin-import@npm:2.27.5"
   dependencies:
@@ -2897,7 +2897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.31.11":
+"eslint-plugin-react@npm:^7.32.2":
   version: 7.32.2
   resolution: "eslint-plugin-react@npm:7.32.2"
   dependencies:
@@ -2939,7 +2939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.29.0":
+"eslint@npm:^8.36.0":
   version: 8.36.0
   resolution: "eslint@npm:8.36.0"
   dependencies:
@@ -4098,7 +4098,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^21.0.0":
+"jsdom@npm:^21.1.1":
   version: 21.1.1
   resolution: "jsdom@npm:21.1.1"
   dependencies:
@@ -4333,7 +4333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mapbox-gl@npm:^2.10.0":
+"mapbox-gl@npm:^2.13.0":
   version: 2.13.0
   resolution: "mapbox-gl@npm:2.13.0"
   dependencies:
@@ -4577,7 +4577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:^1.0.0":
+"msw@npm:^1.2.1":
   version: 1.2.1
   resolution: "msw@npm:1.2.1"
   dependencies:
@@ -4928,7 +4928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"papaparse@npm:^5.3.2":
+"papaparse@npm:^5.4.1":
   version: 5.4.1
   resolution: "papaparse@npm:5.4.1"
   checksum: fc9e52f7158dca3517c229e3309065b1ab5da6c7194572fba4f31ff138bc43e3c91182cc40365cc828f97fe10d0aca416068fd731661058bea0f69ddb84a411a
@@ -5087,7 +5087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.8.1":
+"prettier@npm:^2.8.7":
   version: 2.8.7
   resolution: "prettier@npm:2.8.7"
   bin:
@@ -5813,7 +5813,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-map-gl@npm:^7.0.19":
+"react-map-gl@npm:^7.0.21":
   version: 7.0.21
   resolution: "react-map-gl@npm:7.0.21"
   dependencies:
@@ -5837,7 +5837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.4.3":
+"react-router-dom@npm:^6.9.0":
   version: 6.9.0
   resolution: "react-router-dom@npm:6.9.0"
   dependencies:
@@ -5940,7 +5940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^2.1.15":
+"recharts@npm:^2.5.0":
   version: 2.5.0
   resolution: "recharts@npm:2.5.0"
   dependencies:
@@ -6304,7 +6304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simplify-geojson@npm:^1.0.3":
+"simplify-geojson@npm:^1.0.5":
   version: 1.0.5
   resolution: "simplify-geojson@npm:1.0.5"
   dependencies:
@@ -6661,7 +6661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"temporal-polyfill@npm:^0.1.0":
+"temporal-polyfill@npm:^0.1.1":
   version: 0.1.1
   resolution: "temporal-polyfill@npm:0.1.1"
   dependencies:
@@ -7005,7 +7005,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.0.0 || ^4.0.0, vite@npm:^4.0.0":
+"vite@npm:^3.0.0 || ^4.0.0, vite@npm:^4.2.1":
   version: 4.2.1
   resolution: "vite@npm:4.2.1"
   dependencies:
@@ -7043,7 +7043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^0.29.0":
+"vitest@npm:^0.29.7":
   version: 0.29.7
   resolution: "vitest@npm:0.29.7"
   dependencies:
