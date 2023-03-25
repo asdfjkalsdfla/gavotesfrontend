@@ -121,8 +121,8 @@ __metadata:
   linkType: hard
 
 "@deck.gl/core@npm:^8.8.15":
-  version: 8.9.3
-  resolution: "@deck.gl/core@npm:8.9.3"
+  version: 8.9.4
+  resolution: "@deck.gl/core@npm:8.9.4"
   dependencies:
     "@loaders.gl/core": ^3.3.1
     "@loaders.gl/images": ^3.3.1
@@ -138,13 +138,13 @@ __metadata:
     gl-matrix: ^3.0.0
     math.gl: ^3.6.2
     mjolnir.js: ^2.7.0
-  checksum: 3857300dbe1aa31d2304d3c5da78463113f9d41c84fcb87f96dc1e2761482594d3f138ea4985c69e02254902b0cf96f53cd9c37a0fa13632d95568426cd21c26
+  checksum: 9d51c3ee7695d2a1f38b33c858ec9b01a60e96ce1ef5a932ad25f8cac677b0c0f74f820dacdc5d2280c4e7096f407046176f5ccfddbc15b2cc3f0890c7203fc0
   languageName: node
   linkType: hard
 
 "@deck.gl/layers@npm:^8.8.15":
-  version: 8.9.3
-  resolution: "@deck.gl/layers@npm:8.9.3"
+  version: 8.9.4
+  resolution: "@deck.gl/layers@npm:8.9.4"
   dependencies:
     "@loaders.gl/images": ^3.3.1
     "@loaders.gl/schema": ^3.3.1
@@ -158,30 +158,30 @@ __metadata:
     "@deck.gl/core": ^8.0.0
     "@loaders.gl/core": ^3.0.0
     "@luma.gl/core": ^8.0.0
-  checksum: d87d4e456e09884a0cb511bc1b7dfe8660bd4011cebf9233318c255c8878fd2d5295db2f1ef22e3757106e016d761ede152ac55963c8a8566578f9f4ba155ed9
+  checksum: ab7f15de4763ac62b79ec7ec9981b22d9fb30cb9fea4b88aa5f12fb60ba066226d35cc41aa7dc42843ab7d429ec36250829566b505a54c47bfd355cc283f5c6c
   languageName: node
   linkType: hard
 
 "@deck.gl/mapbox@npm:^8.8.15":
-  version: 8.9.3
-  resolution: "@deck.gl/mapbox@npm:8.9.3"
+  version: 8.9.4
+  resolution: "@deck.gl/mapbox@npm:8.9.4"
   dependencies:
     "@types/mapbox-gl": ^2.6.3
   peerDependencies:
     "@deck.gl/core": ^8.0.0
-  checksum: 30754952b4f12dbd5023e7c07262d745987a423afbbecdbf303d27bcf37e536fdbec14c682fd587b1ecb5b9fb50e417c0cb66ad71e157a8fcca9797b086684f0
+  checksum: ac8152a2219d0b8b837571ef5468b02ff4eccac873308e57089397df92c2f01ad78086980a6cc2b3aac09ccf5c3bd3bc745cde5be190edbe4b50c72459e59698
   languageName: node
   linkType: hard
 
 "@deck.gl/react@npm:^8.8.15":
-  version: 8.9.3
-  resolution: "@deck.gl/react@npm:8.9.3"
+  version: 8.9.4
+  resolution: "@deck.gl/react@npm:8.9.4"
   peerDependencies:
     "@deck.gl/core": ^8.0.0
     "@types/react": ">= 16.3"
     react: ">=16.3"
     react-dom: ">=16.3"
-  checksum: ef05bc802404ac675064e6881b2370f80335c3894f9e552f29df5fe23ab7d80a6184feb79301f812e0d029b679658ce108815c189bf433330810ef1b4401ca47
+  checksum: 357a02d8e6200f271ec02a57b0f4f077dd077b06ca85e06fdf3c5b34a87822bdda03e26de357533b6c6910092c27876b0df0fb69734631f5be9181bdf92c2672
   languageName: node
   linkType: hard
 
