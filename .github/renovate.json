@@ -8,27 +8,16 @@
       "enabled": false
     },
     {
-      "groupName": "vitest",
-      "matchPackageNames": ["@vitest/coverage-c8", "vitest"],
-      "matchUpdateTypes": ["minor"],
-      "automerge": true
-    },
-    {
-      "groupName": "deck.gl",
-      "matchPackagePrefixes": ["@deck.gl"],
-      "matchUpdateTypes": ["minor"],
-      "automerge": true
-    },
-    {
       "groupName": "minors",
       "matchUpdateTypes": ["minor"],
-      "automerge": true
+      "automerge": true,
+      "schedule": "before 5am on saturday"
     }
   ],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "schedule": "before 5am on saturday"
+    "schedule": "before 5am on sunday"
   },
   "timezone": "America/New_York",
   "schedule": "every weekend"
