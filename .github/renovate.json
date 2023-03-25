@@ -1,27 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
-  "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchPackageNames": ["@vitest/coverage-c8","vitest"],
       "groupName": "vitest",
+      "matchPackageNames": ["@vitest/coverage-c8","vitest"],
       "matchUpdateTypes": ["minor"],
+      "rangeStrategy": "bump",
       "automerge": true
     },
     {
-      "matchPackagePrefixes": ["@deck.gl"],
       "groupName": "deck.gl",
+      "matchPackagePrefixes": ["@deck.gl"],
       "matchUpdateTypes": ["minor"],
+      "rangeStrategy": "bump",
       "automerge": true
     },
     {
+      "groupName": "minors",
       "excludePackagePatterns": [
         "vitest",
         "deck.gl"
       ],
       "matchUpdateTypes": ["minor"],
-      "groupName": "minors",
+      "rangeStrategy": "bump",
       "automerge": true
     }
   ],
