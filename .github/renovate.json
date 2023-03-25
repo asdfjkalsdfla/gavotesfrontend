@@ -21,7 +21,7 @@
       "automerge": true
     },
     {
-      "updateTypes": ["patch"],
+      "matchUpdateTypes": ["patch"],
       "enabled": false
     }
   ],
