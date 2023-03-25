@@ -4,10 +4,6 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor"],
-      "automerge": true
-    },
-    {
       "matchPackageNames": ["@vitest/coverage-c8","vitest"],
       "groupName": "vitest",
       "matchUpdateTypes": ["minor"],
@@ -17,6 +13,15 @@
       "matchPackagePrefixes": ["@deck.gl"],
       "groupName": "deck.gl",
       "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "excludePackagePatterns": [
+        "vitest",
+        "deck.gl"
+      ],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "minors",
       "automerge": true
     }
   ],
