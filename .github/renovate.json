@@ -4,6 +4,10 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "matchUpdateTypes": ["patch"],
+      "enabled": false
+    },
+    {
       "groupName": "vitest",
       "matchPackageNames": ["@vitest/coverage-c8", "vitest"],
       "matchUpdateTypes": ["minor"],
@@ -17,7 +21,7 @@
     },
     {
       "groupName": "minors",
-      "matchUpdateTypes": ["minor","patch"],
+      "matchUpdateTypes": ["minor"],
       "automerge": true
     }
   ],
