@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-          corepack: true
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
