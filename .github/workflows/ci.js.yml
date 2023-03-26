@@ -20,10 +20,10 @@ jobs:
         with:
           node-version: "18.x"
           corepack: true
-          cache: "yarn"
-      - run: yarn install --immutable
-      - run: yarn run build
-      - run: yarn run test:ci
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run test:ci
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v3
         with:
