@@ -4,13 +4,8 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["patch"],
-      "enabled": false
-    },
-    {
-      "groupName": "minors",
-      "matchUpdateTypes": ["minor"],
+      "groupName": "minors and patches",
+      "matchUpdateTypes": ["minor","patch"],
       "automerge": true,
       "schedule": "before 5am on saturday"
     }
