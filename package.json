@@ -27,7 +27,7 @@
     "analyze": "source-map-explorer 'build/assets/*.js'",
     "start": "vite",
     "build": "vite build",
-    "buildESB": "esbuild src/index.jsx --outdir=dist --asset-names=\"assets/[name]-[hash]\" --bundle --minify --sourcemap --target=es2020 --external:react --analyze",
+    "buildESB": "./esbuild.mjs",
     "test": "vitest",
     "test:ci": "CI=true pnpm vitest",
     "bench": "vitest bench",

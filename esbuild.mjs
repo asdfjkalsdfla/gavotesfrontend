@@ -15,7 +15,7 @@ const ESBUILD_CONFIG = {
   entryPoints: ["./src/index.jsx", "./public/index.html"],
   loader: { ".js": "jsx", ".html": "copy" },
   outdir: `${DIST_DIR}`,
-  entryNames: "[name]",
+  entryNames: "[name]-[hash]",
   chunkNames: "assets/[ext]/[name]-[hash]",
   assetNames: "assets/[ext]/[name]-[hash]",
 };
@@ -60,14 +60,9 @@ const build = async () => {
   // Build our files
   await esbuild.build({
     ...ESBUILD_CONFIG,
-    outdir: `${DIST_DIR}/assets`,
+    outdir: `${DIST_DIR}`,
     minify: true,
     write: true,
-  });
-  fs.copyFile("./index.html", `${DIST_DIR}/index.html`, (err) => {
-    if (err) throw err;
-    // eslint-disable-next-line no-console
-    console.log(`${DIST_DIR}/index.html: copied.`);
   });
 };
 /**

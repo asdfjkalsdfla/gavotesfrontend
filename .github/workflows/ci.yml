@@ -24,13 +24,19 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
+      - run: pnpm run buildESB
       - run: pnpm run test:ci
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v3
         with:
           name: build
           path: build/
-      # - run: yarn run buildESB
+      - name: Archive Build Outputs ES Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: esBuild
+          path: dist/
+      
       
   deploy:
     needs: build
