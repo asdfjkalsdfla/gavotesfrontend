@@ -1,9 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, lazy, Suspense } from "react";
 import { Descriptions, Button, Table } from "antd";
 import { ZoomInOutlined, ZoomOutOutlined, CloseOutlined } from "@ant-design/icons";
 import { useElectionData } from "./ElectionDataProvider.jsx";
-import VotesByDateChart from "./VotesByDateChart.jsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
+
+// import VotesByDateChart from "./VotesByDateChart.jsx";
+const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
 
 const { Column } = Table;
 
@@ -265,7 +267,7 @@ export default function VoteSummary({
 
       <br />
       {showAbsentee && (
-        <React.Fragment>
+        <Suspense fallback={<div>Loading...</div>}>
           <br />
           <b>Votes by Day</b>
           <VotesByDateChart
@@ -273,7 +275,7 @@ export default function VoteSummary({
             absenteeElectionCurrentLabel={absenteeElectionCurrentLabel}
             absenteeElectionBaseLabel={absenteeElectionBaseLabel}
           />
-        </React.Fragment>
+        </Suspense>
       )}
       <div style={{ width: "100%", textAlign: "right" }}>
         <small><i>Last Updated:</i> { import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}</small>
