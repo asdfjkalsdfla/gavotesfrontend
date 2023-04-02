@@ -1,6 +1,6 @@
 #!/bin/bash
 
-aws s3 sync build/ s3://georgiavotesvisual/
+aws s3 sync build/ s3://georgiavotesvisual/ --cache-control max-age=31536000
 # aws s3 cp \
 #        s3://georgiavotesvisual/ \
 #        s3://georgiavotesvisual/ \
