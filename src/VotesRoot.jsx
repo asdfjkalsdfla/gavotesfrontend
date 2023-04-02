@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Divider } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 
@@ -8,14 +8,14 @@ import WelcomeText from "./WelcomeText.jsx";
 import VoteMapOptions from "./VoteMapOptions.jsx";
 import "./VotesRoot.css";
 
-import VotesMap from "./VotesMap.jsx";
-// const VotesMap = React.lazy(() => import("./VotesMap.jsx"));
-import VotesScatterPlot from "./VotesScatterPlot.jsx";
-// const VotesScatterPlot = React.lazy(() => import("./VotesScatterPlot.jsx"));
+// import VotesMap from "./VotesMap.jsx";
+// import VotesSummary from "./VotesSummary.jsx";
+// import VotesScatterPlot from "./VotesScatterPlot.jsx";
 import VotesTable from "./VotesTable.jsx";
-// const VotesTable = React.lazy(() => import("./VotesTable.jsx"));
-import VotesSummary from "./VotesSummary.jsx";
-// const VotesSummary = React.lazy(() => import("./VotesSummary.jsx"));
+const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
+const VotesMap = lazy(() => import("./VotesMap.jsx"));
+const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
+// const VotesTable = lazy(() => import("./VotesTable.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
@@ -193,19 +193,21 @@ export default function VotesRoot() {
                 <Divider />
               </>
             )}
-            <VotesSummary
-              activeSelection={activeSelection}
-              updateActiveSelection={updateActiveSelection}
-              activeHover={activeHover}
-              countyFilter={countyFilter}
-              updateCountyFilter={updateCountyFilter}
-              isCountyLevel={isCountyLevel}
-              updateUserHasSetLevel={updateUserHasSetLevel}
-              updateIsCountyLevel={updateIsCountyLevel}
-              showVoteMode={showVoteMode}
-              showDemographics={showDemographics}
-              showAbsentee={showAbsentee}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <VotesSummary
+                activeSelection={activeSelection}
+                updateActiveSelection={updateActiveSelection}
+                activeHover={activeHover}
+                countyFilter={countyFilter}
+                updateCountyFilter={updateCountyFilter}
+                isCountyLevel={isCountyLevel}
+                updateUserHasSetLevel={updateUserHasSetLevel}
+                updateIsCountyLevel={updateIsCountyLevel}
+                showVoteMode={showVoteMode}
+                showDemographics={showDemographics}
+                showAbsentee={showAbsentee}
+              />
+            </Suspense>
           </div>
         )}
       </ElectionDataProvider>
