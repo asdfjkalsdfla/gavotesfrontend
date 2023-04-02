@@ -5,11 +5,11 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
-    "@deck.gl/core": "^8.9.4",
-    "@deck.gl/layers": "^8.9.4",
-    "@deck.gl/mapbox": "^8.9.4",
-    "@deck.gl/react": "^8.9.4",
-    "antd": "^5.3.2",
+    "@deck.gl/core": "^8.9.6",
+    "@deck.gl/layers": "^8.9.6",
+    "@deck.gl/mapbox": "^8.9.6",
+    "@deck.gl/react": "^8.9.6",
+    "antd": "^5.3.3",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.0.0",
     "mapbox-gl": "^2.13.0",
@@ -36,8 +36,8 @@
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react-swc": "^3.2.0",
-    "@vitest/coverage-c8": "^0.29.7",
-    "esbuild": "^0.17.13",
+    "@vitest/coverage-c8": "^0.29.8",
+    "esbuild": "^0.17.15",
     "eslint": "^8.37.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -51,7 +51,7 @@
     "simplify-geojson": "^1.0.5",
     "source-map-explorer": "^2.5.3",
     "vite": "^4.2.1",
-    "vitest": "^0.29.7"
+    "vitest": "^0.29.8"
   },
   "packageManager": "pnpm@8.1.0"
 }
