@@ -5,7 +5,7 @@
 </p>
 <br/>
 <p align="center">
-  <a href="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml"><img src="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.js.yml/badge.svg?branch=main" alt="build status"></a>
+  <a href="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.yml"><img src="https://github.com/asdfjkalsdfla/gavotesfrontend/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
 </p>
 
 # Georgia Votes Visual
