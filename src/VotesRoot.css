@@ -36,6 +36,10 @@
   padding: 5px 15px;
 }
 
+#regionSummaryName {
+  scroll-margin-top: 40px;
+}
+
 @media only screen and (min-width: 900px) {
   .one {
     grid-column: span 2;
@@ -43,6 +47,10 @@
   .two {
     grid-column: span 1;
     overflow: scroll;
+  }
+
+  #regionSummaryName {
+    scroll-margin-top: 0px;
   }
 }
 
