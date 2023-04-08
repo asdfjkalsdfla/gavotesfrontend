@@ -1733,7 +1733,9 @@ exports[`no crashes! > renders table without crashing 1`] = `
             role="separator"
           />
           <div>
-            <h1>
+            <h1
+              id="regionSummaryName"
+            >
               The State of Georgia
                
                
