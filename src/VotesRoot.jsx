@@ -74,7 +74,13 @@ export default function VotesRoot() {
   // Active Data Point
   // **************************************************
   const [activeHover, updateActiveHover] = useState(null);
-  const [activeSelection, updateActiveSelection] = useState(countyParam);
+  const [activeSelection, updateActiveSelectionState] = useState(countyParam);
+
+  const updateActiveSelection = (activeSelection) => {
+    updateActiveSelectionState(activeSelection);
+    const elementRegionSummary = document.getElementById("regionSummaryName");
+    if (elementRegionSummary) elementRegionSummary.scrollIntoView(true);
+  };
 
   // ************************************************
   // Data Display Controls

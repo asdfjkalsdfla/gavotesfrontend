@@ -41,7 +41,7 @@ export default function VoteSummary({
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
     <div>
-      <h1>
+      <h1 id="regionSummaryName">
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
           <span style={{ float: "right" }}>
