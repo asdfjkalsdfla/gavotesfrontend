@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import React from "react";
 import { ConfigProvider } from "antd";
 import { describe, it, vi } from "vitest";

@@ -13,7 +13,6 @@ export default defineConfig(() => ({
   test: {
     base: "https://georgiavotesvisual.com/",
     globals: true,
-    environment: "jsdom",
     exclude: ["**/node_modules/**", "**/dist/**"],
     setupFiles: ["./src/setupTests.js"],
     testTimeout: 20000,
