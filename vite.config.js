@@ -7,6 +7,7 @@ export default defineConfig(() => ({
     open: true,
     port: 3000,
   },
+  exclude: ["**/dist/**"],
   build: {
     outDir: "build",
   },
