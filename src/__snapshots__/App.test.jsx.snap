@@ -9,7 +9,25 @@ exports[`no crashes! > renders table without crashing 1`] = `
       <div
         class="header"
       >
-        Georgia Votes Visual
+        <span
+          class="headerLogoArea"
+        >
+          <span
+            class="headerLogo"
+          >
+            <img
+              height="20px"
+              src="peach.webp"
+              width="20px"
+            />
+          </span>
+          Georgia Votes 
+          <span
+            class="headerTextVisual"
+          >
+            Visual
+          </span>
+        </span>
         <span
           style="float: right;"
         >

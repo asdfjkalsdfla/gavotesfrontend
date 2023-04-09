@@ -107,7 +107,12 @@ export default function VotesRoot() {
   return (
     <div className="container">
       <div className="header">
-        Georgia Votes Visual
+        <span className="headerLogoArea">
+          <span className="headerLogo">
+            <img src="peach.webp" height="20px" width="20px" />
+          </span>
+          Georgia Votes <span className="headerTextVisual">Visual</span>
+        </span>
         <span style={{ float: "right" }}>
           <SettingOutlined
             size="large"

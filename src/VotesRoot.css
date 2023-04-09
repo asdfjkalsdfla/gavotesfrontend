@@ -21,6 +21,21 @@
   z-index: 999;
 }
 
+.headerLogoArea {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.headerLogo {
+  padding-right: 10px;
+}
+
+.headerTextVisual {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
 .pageGrid {
   display: grid;
   /* grid-template-columns: repeat(11, [col-start] 1fr) 200px; */
