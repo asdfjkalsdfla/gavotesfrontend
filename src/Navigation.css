@@ -1,0 +1,55 @@
+.navigationMenu {
+  z-index: 999;
+  background-color: #333;
+  position: absolute;
+  left: 0px;
+  top: 40px;
+  width: 100vw;
+}
+
+@media only screen and (min-width: 900px) {
+  .navigationMenu {
+    position: relative;
+    background-color: #000;
+    top: 0px;
+    width: auto;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  display: block;
+  color: white;
+  text-align: left;
+  padding: 8px 16px;
+  width: 90vw;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 900px) {
+  li {
+    float: left;
+    font-size: 12px;
+    text-align: center;
+    padding: 4px 16px;
+    width: auto;
+  }
+}
+
+.iconSpace {
+  padding-right: 16px;
+}
+
+@media only screen and (min-width: 900px) {
+  .iconSpace {
+    padding-right: 8px;
+  }
+}

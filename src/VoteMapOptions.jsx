@@ -24,7 +24,6 @@ export default function VoteMapOptions({
   showAbsentee,
   updateShowAbsentee,
   displayType,
-  updateDisplayType,
   scatterXAxis,
   updateScatterXAxis,
   scatterYAxis,
@@ -48,107 +47,97 @@ export default function VoteMapOptions({
           </span>
         )}
       </h1>
-      <div>
-        <b>Main Display:</b>
-      </div>
-      <div>
-        Type
-        <br />
-        <Radio.Group
-          value={displayType}
-          onChange={({ target: { value } }) => {
-            updateDisplayType(value);
-          }}
-        >
-          <Radio.Button value="map">Map</Radio.Button>
-          <Radio.Button value="scatter">Scatter Plot</Radio.Button>
-          <Radio.Button value="table">Table</Radio.Button>
-        </Radio.Group>
-      </div>
-      {displayType === "scatter" && (
+      {(displayType === "scatter" || displayType === "map") && (
         <>
-          <div>X Axis</div>
-          <Select
-            onChange={(value) => {
-              updateScatterXAxis(value);
-            }}
-            style={{ width: 300 }}
-            value={scatterXAxis}
-            virtual={false}
-          >
-            <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
-            <Option value="perRBase">Previous Election Vote Share</Option>
-            <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
-            {/* <Option value="perShiftRepublicanEarly">Shift in Early Vote R/D %</Option> */}
-            {/* <Option value="totalVotesRepublicanPercent">Change in R Votes</Option> */}
-            <Option value="whitePer">White %</Option>
-            <Option value="blackPer">Black %</Option>
-            <Option value="hispanicPer">Hispanic %</Option>
-          </Select>
+          <div>
+            <b>Main Display:</b>
+          </div>
+          {displayType === "scatter" && (
+            <>
+              <div>X Axis</div>
+              <Select
+                onChange={(value) => {
+                  updateScatterXAxis(value);
+                }}
+                style={{ width: 300 }}
+                value={scatterXAxis}
+                virtual={false}
+              >
+                <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
+                <Option value="perRBase">Previous Election Vote Share</Option>
+                <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
+                {/* <Option value="perShiftRepublicanEarly">Shift in Early Vote R/D %</Option> */}
+                {/* <Option value="totalVotesRepublicanPercent">Change in R Votes</Option> */}
+                <Option value="whitePer">White %</Option>
+                <Option value="blackPer">Black %</Option>
+                <Option value="hispanicPer">Hispanic %</Option>
+              </Select>
+              <br />
+              <div>Y Axis</div>
+              <Select
+                onChange={(value) => {
+                  updateScatterYAxis(value);
+                }}
+                style={{ width: 300 }}
+                value={scatterYAxis}
+                virtual={false}
+              >
+                <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
+                <Option value="perRBase">Previous Election Vote Share</Option>
+                <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
+                <Option value="totalVotesPercent">% of Previous Turnout</Option>
+                <Option value="totalVotesRepublicanPercent">Change in R Turnout</Option>
+                <Option value="totalVotesDemocraticPercent">Change in D Turnout</Option>
+                <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
+                <Option value="turnoutAbsenteeBallots">% of Absentee Votes</Option>
+              </Select>
+              <br />
+            </>
+          )}
+          {displayType === "map" && (
+            <>
+              <div>Color Approach</div>
+              <Select
+                onChange={(value) => {
+                  updateColorApproach(value);
+                }}
+                style={{ width: 300 }}
+                placeholder="Color Based On"
+                value={colorApproach}
+                virtual={false}
+              >
+                <Option value="electionResultPerRepublicanPer">Vote Share</Option>
+                <Option value="electionResultVoteMargin">Vote Margin</Option>
+                <Option value="electionResultPerRepublicanPerShift">Vote Swing (Shift in R/D %)</Option>
+                <Option value="totalVotesPercent">% of Previous Turnout</Option>
+                {/* <Option value="electionResultVoteShift">Shift in Vote Margin</Option> */}
+                <Option value="electionResultVoteShiftNormalized">Shift in Vote Margin (normalized)</Option>
+                <Option value="blackPer">Black %</Option>
+                <Option value="hispanicPer">Hispanic %</Option>
+                <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
+                {/* <Option value="turnoutAbs">% of Total Votes</Option> */}
+              </Select>
+              <br />
+              <div>Elevation Approach</div>
+              <Select
+                onChange={(value) => {
+                  updateElevationApproach(value);
+                }}
+                style={{ width: 300 }}
+                placeholder="Elevation Based On"
+                value={elevationApproach}
+              >
+                <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
+                <Option value="turnoutAbs">% of Total Votes</Option>
+                <Option value="votes">Current Votes</Option>
+                <Option value="none">None</Option>
+              </Select>
+            </>
+          )}
           <br />
-          <div>Y Axis</div>
-          <Select
-            onChange={(value) => {
-              updateScatterYAxis(value);
-            }}
-            style={{ width: 300 }}
-            value={scatterYAxis}
-            virtual={false}
-          >
-            <Option value="electionResultPerRepublicanPer">Current Election Vote Share</Option>
-            <Option value="perRBase">Previous Election Vote Share</Option>
-            <Option value="perShiftRepublican">Vote Swing (Shift in R/D %)</Option>
-            <Option value="totalVotesPercent">% of Previous Turnout</Option>
-            <Option value="totalVotesRepublicanPercent">Change in R Turnout</Option>
-            <Option value="totalVotesDemocraticPercent">Change in D Turnout</Option>
-            <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
-            <Option value="turnoutAbsenteeBallots">% of Absentee Votes</Option>
-          </Select>
           <br />
         </>
       )}
-      {displayType === "map" && (
-        <>
-          <div>Color Approach</div>
-          <Select
-            onChange={(value) => {
-              updateColorApproach(value);
-            }}
-            style={{ width: 300 }}
-            placeholder="Color Based On"
-            value={colorApproach}
-            virtual={false}
-          >
-            <Option value="electionResultPerRepublicanPer">Vote Share</Option>
-            <Option value="electionResultVoteMargin">Vote Margin</Option>
-            <Option value="electionResultPerRepublicanPerShift">Vote Swing (Shift in R/D %)</Option>
-            <Option value="totalVotesPercent">% of Previous Turnout</Option>
-            {/* <Option value="electionResultVoteShift">Shift in Vote Margin</Option> */}
-            <Option value="electionResultVoteShiftNormalized">Shift in Vote Margin (normalized)</Option>
-            <Option value="blackPer">Black %</Option>
-            <Option value="hispanicPer">Hispanic %</Option>
-            <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
-            {/* <Option value="turnoutAbs">% of Total Votes</Option> */}
-          </Select>
-          <br />
-          <div>Elevation Approach</div>
-          <Select
-            onChange={(value) => {
-              updateElevationApproach(value);
-            }}
-            style={{ width: 300 }}
-            placeholder="Elevation Based On"
-            value={elevationApproach}
-          >
-            <Option value="turnoutAbsSameDay">Absentee Votes @ Same Day</Option>
-            <Option value="turnoutAbs">% of Total Votes</Option>
-            <Option value="votes">Current Votes</Option>
-            <Option value="none">None</Option>
-          </Select>
-        </>
-      )}
-      <br />
-      <br />
       <div>
         <b>Election Results:</b>
       </div>

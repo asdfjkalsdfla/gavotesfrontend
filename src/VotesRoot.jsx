@@ -1,9 +1,8 @@
 import React, { useState, lazy, Suspense } from "react";
 import { Divider } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
-
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
 
+import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
 import VoteMapOptions from "./VoteMapOptions.jsx";
 import "./VotesRoot.css";
@@ -114,12 +113,7 @@ export default function VotesRoot() {
           Georgia Votes <span className="headerTextVisual">Visual</span>
         </span>
         <span style={{ float: "right" }}>
-          <SettingOutlined
-            size="large"
-            onClick={() => {
-              updateShowOptions(!showOptions);
-            }}
-          />
+          <Navigation displayType={displayType} updateDisplayType={updateDisplayType} updateShowOptions={updateShowOptions} showOptions={showOptions} />
         </span>
       </div>
       <div className="pageGrid">
@@ -179,7 +173,6 @@ export default function VotesRoot() {
                   <VoteMapOptions
                     updateShowOptions={updateShowOptions}
                     displayType={displayType}
-                    updateDisplayType={updateDisplayType}
                     elevationApproach={elevationApproach}
                     updateElevationApproach={updateElevationApproach}
                     colorApproach={colorApproach}

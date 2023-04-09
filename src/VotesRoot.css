@@ -19,14 +19,13 @@
   padding: 10px;
   color: #ffffff;
   z-index: 999;
-}
-
-.headerLogoArea {
   font-size: 18px;
   line-height: 1;
 }
 
 .headerLogo {
+  position: relative;
+  top: -3px;
   padding-right: 10px;
 }
 
