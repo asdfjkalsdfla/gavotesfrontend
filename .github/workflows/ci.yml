@@ -13,6 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions: read-all
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v3
       - name: Install pnpm
@@ -26,6 +27,7 @@ jobs:
       - run: pnpm run build
       - run: pnpm run buildESB
       - run: pnpm run test:ci
+        timeout-minutes: 10
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v3
         with:
