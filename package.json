@@ -4,12 +4,12 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
-    "@deck.gl/core": "^8.9.14",
-    "@deck.gl/layers": "^8.9.14",
-    "@deck.gl/mapbox": "^8.9.14",
-    "@deck.gl/react": "^8.9.14",
-    "antd": "^5.4.7",
+    "@ant-design/icons": "^5.1.0",
+    "@deck.gl/core": "^8.9.15",
+    "@deck.gl/layers": "^8.9.15",
+    "@deck.gl/mapbox": "^8.9.15",
+    "@deck.gl/react": "^8.9.15",
+    "antd": "^5.5.0",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.0.0",
     "mapbox-gl": "^2.14.1",
@@ -19,7 +19,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.0.23",
-    "react-router-dom": "^6.11.1",
+    "react-router-dom": "^6.11.2",
     "recharts": "^2.6.2",
     "temporal-polyfill": "^0.1.1"
   },
@@ -36,9 +36,9 @@
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react-swc": "^3.3.1",
-    "@vitest/coverage-c8": "^0.31.0",
+    "@vitest/coverage-c8": "^0.31.1",
     "esbuild": "^0.17.19",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
@@ -50,8 +50,8 @@
     "prettier": "^2.8.8",
     "simplify-geojson": "^1.0.5",
     "source-map-explorer": "^2.5.3",
-    "vite": "^4.3.5",
-    "vitest": "^0.31.0"
+    "vite": "^4.3.8",
+    "vitest": "^0.31.1"
   },
-  "packageManager": "pnpm@8.5.0"
+  "packageManager": "pnpm@8.5.1"
 }
