@@ -90,7 +90,12 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
         pointsOnChart.push({ id, x, y, z });
       }
     });
-    updateDomainX(DEFAULT_DOMAIN_X);
+
+    const [xMin, xMax] = quantile(
+      pointsOnChart.map((point) => point.x),
+      isCountyLevel ? [0, 1] : [0.01, 0.99]
+    );
+    updateDomainX([xMin * 100, xMax * 100]);
 
     const [yMin, yMax] = quantile(
       pointsOnChart.map((point) => point.y),
@@ -146,7 +151,6 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
           x: "x",
           y: "y",
           r: "z",
-          channels: { name: "id" },
           tip: true,
           stroke: "black",
           strokeOpacity: 0.4,
