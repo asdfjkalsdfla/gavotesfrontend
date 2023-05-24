@@ -151,6 +151,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
           x: "x",
           y: "y",
           r: "z",
+          channels: { name: "id" },
           tip: true,
           stroke: "black",
           strokeOpacity: 0.4,
