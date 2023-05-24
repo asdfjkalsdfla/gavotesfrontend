@@ -141,8 +141,18 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
         domain: domainY,
       },
       marks: [
-        Plot.dot(data.pointsOnChart, { x: "x", y: "y", r: "z", channels: { name: "id" }, tip: true, strokeOpacity: 0.5 }),
-        Plot.linearRegressionY(data.pointsOnChart, { x: "x", y: "y" }),
+        Plot.linearRegressionY(data.pointsOnChart, { x: "x", y: "y", stroke: "blue" }),
+        Plot.dot(data.pointsOnChart, {
+          x: "x",
+          y: "y",
+          r: "z",
+          channels: { name: "id" },
+          tip: true,
+          stroke: "black",
+          strokeOpacity: 0.4,
+          fill: "black",
+          fillOpacity: 0.2,
+        }),
         Plot.crosshair(data.pointsOnChart, { x: "x", y: "y" }),
       ],
     });
