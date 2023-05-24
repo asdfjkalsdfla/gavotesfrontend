@@ -498,6 +498,7 @@ export default function VotesMap({
       ref={mapRef}
       onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
       style={{ width: "100%", height: "100%" }}
+      reuseMaps
     >
       <DeckGLOverlay
         // ContextProvider={MapContext.Provider}
