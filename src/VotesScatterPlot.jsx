@@ -1,8 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unsafe-optional-chaining */
-import React, { useState, useMemo, startTransition } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import * as Plot from "@observablehq/plot";
-import PlotFigure from "./PlotFigure.jsx";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { quantile } from "./Utils.jsx";
 import "./VotesScatter.css";
@@ -13,6 +12,7 @@ const DEFAULT_DOMAIN_Y = [0, 150];
 const DEFAULT_ZOOM = { x1: null, x2: null };
 
 export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyLevel, updateActiveHover, updateActiveSelection }) {
+  const ref = useRef();
   const { locationResults } = useElectionData();
   // x axis domain
   const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
@@ -125,32 +125,34 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
     [updateActiveSelection]
   );
 
+  useEffect(() => {
+    const plot = Plot.plot({
+      width: 1300,
+      height: 800,
+      grid: true,
+      x: {
+        label: "% 2020",
+        percent: true,
+        domain: domainX,
+      },
+      y: {
+        label: "% 2022",
+        percent: true,
+        domain: domainY,
+      },
+      marks: [
+        Plot.dot(data.pointsOnChart, { x: "x", y: "y", r: "z", channels: { name: "id" }, tip: true, strokeOpacity: 0.5 }),
+        Plot.linearRegressionY(data.pointsOnChart, { x: "x", y: "y" }),
+        Plot.crosshair(data.pointsOnChart, { x: "x", y: "y" }),
+      ],
+    });
+    ref.current.append(plot);
+    return () => plot.remove();
+  }, [data, domainX, domainY]);
+
   return (
     <div style={{ width: "100%", height: "100%" }} data-testid="scatterPlot">
-      <div style={{ width: "100%", height: "100%" }}>
-        <PlotFigure
-          options={{
-            width: 1300,
-            height: 800,
-            grid: true,
-            x: {
-              label: "% 2020",
-              percent: true,
-              domain: domainX,
-            },
-            y: {
-              label: "% 2022",
-              percent: true,
-              domain: domainY,
-            },
-            marks: [
-              Plot.dot(data.pointsOnChart, { x: "x", y: "y", r: "z", channels: { name: "id" }, tip: true, strokeOpacity: 0.5 }),
-              Plot.linearRegressionY(data.pointsOnChart, { x: "x", y: "y" }),
-              Plot.crosshair(data.pointsOnChart, { x: "x", y: "y" }),
-            ],
-          }}
-        />
-      </div>
+      <div ref={ref} style={{ width: "100%", height: "100%" }} />
     </div>
   );
 }
