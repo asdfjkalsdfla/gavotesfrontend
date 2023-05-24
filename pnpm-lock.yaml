@@ -31,9 +31,6 @@ dependencies:
   mapbox-gl:
     specifier: ^2.15.0
     version: 2.15.0
-  ml-regression-simple-linear:
-    specifier: ^2.0.3
-    version: 2.0.3
   papaparse:
     specifier: ^5.4.1
     version: 5.4.1
@@ -3099,10 +3096,6 @@ packages:
       binary-search-bounds: 2.0.5
     dev: false
 
-  /is-any-array@2.0.1:
-    resolution: {integrity: sha512-UtilS7hLRu++wb/WBAw9bNuP1Eg04Ivn1vERJck8zJthEvXCBEBpGR/33u/xLKWEQf95803oalHrVDptcAvFdQ==}
-    dev: false
-
   /is-arguments@1.1.1:
     resolution: {integrity: sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==}
     engines: {node: '>= 0.4'}
@@ -3617,18 +3610,6 @@ packages:
     dependencies:
       minimist: 1.2.8
     dev: true
-
-  /ml-regression-base@2.1.6:
-    resolution: {integrity: sha512-yTckvEc8szc6VrUTJSgAClShvCoPZdNt8pmyRe8aGsIWGjg6bYFotp9mDUwAB0snvKAbQWd6A4trL/PDCASLug==}
-    dependencies:
-      is-any-array: 2.0.1
-    dev: false
-
-  /ml-regression-simple-linear@2.0.3:
-    resolution: {integrity: sha512-xcLviI0Gqs0TXE5+QsPLbJm372RyZsX6xmsufez3Dz6vq/r10+KyOJ8JvUimhryKvPaZQvx6BTnzAfQbj/IeLQ==}
-    dependencies:
-      ml-regression-base: 2.1.6
-    dev: false
 
   /mlly@1.2.1:
     resolution: {integrity: sha512-1aMEByaWgBPEbWV2BOPEMySRrzl7rIHXmQxam4DM8jVjalTQDjpN2ZKOLUrwyhfZQO7IXHml2StcHMhooDeEEQ==}
