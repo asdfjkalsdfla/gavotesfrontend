@@ -47,7 +47,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^22.1.0",
     "msw": "^1.2.2",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "simplify-geojson": "^1.0.5",
     "source-map-explorer": "^2.5.3",
     "vite": "^4.4.2",
