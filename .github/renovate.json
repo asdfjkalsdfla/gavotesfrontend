@@ -5,16 +5,11 @@
   "packageRules": [
     {
       "groupName": "minors and patches",
-      "matchUpdateTypes": ["minor","patch"],
+      "matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
       "automerge": true,
-      "schedule": "before 5am on saturday"
+      "schedule": "before 6am on sunday"
     }
   ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true,
-    "schedule": "before 5am on sunday"
-  },
   "timezone": "America/New_York",
   "schedule": "every weekend"
 }
