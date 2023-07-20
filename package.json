@@ -9,7 +9,7 @@
     "@deck.gl/layers": "^8.9.21",
     "@deck.gl/mapbox": "^8.9.21",
     "@deck.gl/react": "^8.9.21",
-    "antd": "^5.7.0",
+    "antd": "^5.7.1",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.0.0",
     "mapbox-gl": "^2.15.0",
@@ -19,7 +19,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.2",
-    "react-router-dom": "^6.14.1",
+    "react-router-dom": "^6.14.2",
     "recharts": "^2.7.2",
     "temporal-polyfill": "^0.1.1"
   },
@@ -37,7 +37,7 @@
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "@vitest/coverage-c8": "^0.33.0",
-    "esbuild": "^0.18.13",
+    "esbuild": "^0.18.14",
     "eslint": "^8.45.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -53,5 +53,5 @@
     "vite": "^4.4.4",
     "vitest": "^0.33.0"
   },
-  "packageManager": "pnpm@8.6.7"
+  "packageManager": "pnpm@8.6.9"
 }
