@@ -1,13 +1,14 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 export default defineConfig(() => ({
+  plugins: [react(), basicSsl()],
   server: {
-    open: true,
+    open: "/index.html",
     port: 3000,
   },
-  exclude: ["**/dist/**"],
   build: {
     outDir: "build",
   },
@@ -19,7 +20,6 @@ export default defineConfig(() => ({
     testTimeout: 20000,
     alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
   },
-  plugins: [react()],
   esbuild: {
     loader: "jsx",
     include: /src\/.*\.jsx?$/,
