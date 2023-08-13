@@ -1,8 +1,9 @@
 import React, { useMemo, lazy, Suspense } from "react";
-import { Descriptions, Button, Table } from "antd";
-import { ZoomInOutlined, ZoomOutOutlined, CloseOutlined } from "@ant-design/icons";
+import { Descriptions, Table } from "antd";
+import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
+import { Button } from "@/components/ui/button";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
 const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
@@ -41,48 +42,50 @@ export default function VoteSummary({
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
     <div>
-      <h1 id="regionSummaryName">
+      <div id="regionSummaryName" className="text-2xl font-bold">
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
           <span style={{ float: "right" }}>
             <Button
-              shape="circle"
-              icon={<CloseOutlined />}
+              variant="outline"
+              size="icon"
               onClick={() => {
                 updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
                 updateActiveSelection(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
               }}
-            />
+            >
+              <X />
+            </Button>
           </span>
         )}
-      </h1>
+      </div>
       {!resultSummary.PRECINCT_N && (
         <React.Fragment>
           {isCountyLevel ? (
             <div>
               <Button
-                type="primary"
-                icon={<ZoomInOutlined />}
-                size="small"
+                variant="outline"
+                size="sm"
                 onClick={() => {
                   updateIsCountyLevel(false);
                   updateUserHasSetLevel(true);
                   if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
                 }}
               >
-                Precinct Level
+                <ZoomIn className="mr-2 h-4 w-4" /> Precinct Level
               </Button>
             </div>
           ) : (
             <Button
-              icon={<ZoomOutOutlined />}
-              size="small"
+              variant="outline"
+              size="sm"
               onClick={() => {
                 updateIsCountyLevel(true);
                 updateUserHasSetLevel(true);
                 updateCountyFilter(null);
               }}
             >
+              <ZoomOut className="mr-2 h-4 w-4" />
               County Level
             </Button>
           )}
@@ -278,7 +281,9 @@ export default function VoteSummary({
         </Suspense>
       )}
       <div style={{ width: "100%", textAlign: "right" }}>
-        <small><i>Last Updated:</i> { import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}</small>
+        <small>
+          <i>Last Updated:</i> {import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}
+        </small>
       </div>
     </div>
   );
