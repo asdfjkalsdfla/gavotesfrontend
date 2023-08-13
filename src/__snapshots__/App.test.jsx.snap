@@ -1374,7 +1374,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
             </div>
             <a
               download="voting-data.csv"
-              href="blob:nodedata:c0f6b932-5fd9-4a03-b3d7-b7665a1a9e3f"
+              href="data:text/csv;charset=utf-8,﻿\\"County\\",\\"Ratio on Same Day\\",\\"At Same Days to Election\\",\\"At Same Days to Election\\",\\"Walker (R) %\\",\\"Warnock (D) %\\",\\"Margin %\\",\\"Walker (R) %\\",\\"Warnock (D) %\\",\\"Margin %\\",\\"Swing (Shift in R/D %)\\",\\"% of Previous Turnout\\",\\"Shift in Vote Margin (Normalized)\\""
               target="_self"
             >
               Download
@@ -1527,6 +1527,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-controls="rc_select_TEST_OR_SSR_list"
                   aria-expanded="false"
                   aria-haspopup="listbox"
+                  aria-label="Search"
                   aria-owns="rc_select_TEST_OR_SSR_list"
                   autocomplete="off"
                   class="ant-select-selection-search-input"
@@ -1591,6 +1592,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-controls="rc_select_TEST_OR_SSR_list"
                   aria-expanded="false"
                   aria-haspopup="listbox"
+                  aria-label="Search"
                   aria-owns="rc_select_TEST_OR_SSR_list"
                   autocomplete="off"
                   class="ant-select-selection-search-input"
@@ -1661,6 +1663,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-controls="rc_select_TEST_OR_SSR_list"
                   aria-expanded="false"
                   aria-haspopup="listbox"
+                  aria-label="Search"
                   aria-owns="rc_select_TEST_OR_SSR_list"
                   autocomplete="off"
                   class="ant-select-selection-search-input"
