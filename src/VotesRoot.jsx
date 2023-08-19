@@ -9,11 +9,11 @@ import "./VotesRoot.css";
 // import VotesMap from "./VotesMap.jsx";
 // import VotesSummary from "./VotesSummary.jsx";
 // import VotesScatterPlot from "./VotesScatterPlot.jsx";
-import VotesTable from "./VotesTable.jsx";
+// import VotesTable from "./VotesTable.jsx";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
 const VotesMap = lazy(() => import("./VotesMap.jsx"));
 const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
-// const VotesTable = lazy(() => import("./VotesTable.jsx"));
+const VotesTable = lazy(() => import("./VotesTable.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
