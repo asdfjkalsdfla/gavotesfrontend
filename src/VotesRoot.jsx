@@ -105,17 +105,20 @@ export default function VotesRoot() {
 
   return (
     <div className="container">
-      <div className="header">
-        <span className="headerLogoArea">
-          <span className="headerLogo">
-            <img src="peach.webp" height="20px" width="20px" />
-          </span>
-          Georgia Votes <span className="headerTextVisual">Visual</span>
-        </span>
-        <span style={{ float: "right" }}>
+      <header className="header">
+        <nav className="mx-auto flex items-center justify-between" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <span className="headerLogoArea">
+              <span className="headerLogo">
+                <img src="peach.webp" height="20px" width="20px" />
+              </span>
+              Georgia Votes <span className="headerTextVisual">Visual</span>
+            </span>
+          </div>
+
           <Navigation displayType={displayType} updateDisplayType={updateDisplayType} updateShowOptions={updateShowOptions} showOptions={showOptions} />
-        </span>
-      </div>
+        </nav>
+      </header>
       <div className="pageGrid">
         <ElectionDataProvider
           isCountyLevel={isCountyLevel}
