@@ -1,5 +1,6 @@
 import React from "react";
-import { Button } from "antd";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { CloseOutlined } from "@ant-design/icons";
 
 export default function WelcomeText({ updateShowWelcome }) {
@@ -9,13 +10,15 @@ export default function WelcomeText({ updateShowWelcome }) {
         Welcome!
         <span style={{ float: "right" }}>
           <Button
-            shape="circle"
-            icon={<CloseOutlined />}
+            variant="outline"
+            size="icon"
             onClick={() => {
               localStorage.setItem("welcomeShown", true);
               updateShowWelcome(false);
             }}
-          />
+          >
+            <X />
+          </Button>
         </span>
       </h1>
       <br />
