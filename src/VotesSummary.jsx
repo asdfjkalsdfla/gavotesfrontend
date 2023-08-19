@@ -60,36 +60,39 @@ export default function VoteSummary({
         )}
       </div>
       {!resultSummary.PRECINCT_N && (
-        <React.Fragment>
+        <div className="py-3">
           {isCountyLevel ? (
             <div>
               <Button
                 variant="outline"
-                size="sm"
+                size="xs"
                 onClick={() => {
                   updateIsCountyLevel(false);
                   updateUserHasSetLevel(true);
                   if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
                 }}
+                className="p-0.3"
               >
-                <ZoomIn className="mr-2 h-4 w-4" /> Precinct Level
+                <ZoomIn className="ml-2 mr-2 h-3 w-3" />
+                <span className="mr-3">Precinct Level</span>
               </Button>
             </div>
           ) : (
             <Button
               variant="outline"
-              size="sm"
+              size="xs"
               onClick={() => {
                 updateIsCountyLevel(true);
                 updateUserHasSetLevel(true);
                 updateCountyFilter(null);
               }}
+              className="p-0.3"
             >
-              <ZoomOut className="mr-2 h-4 w-4" />
-              County Level
+              <ZoomOut className="ml-2 mr-2 h-3 w-3" />
+              <span className="mr-3">County Level</span>
             </Button>
           )}
-        </React.Fragment>
+        </div>
       )}
       {showAbsentee && (
         <>
