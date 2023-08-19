@@ -1,5 +1,4 @@
 import React, { useState, lazy, Suspense } from "react";
-import { Divider } from "antd";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
 
 import Navigation from "./Navigation.jsx";
@@ -168,7 +167,6 @@ export default function VotesRoot() {
               {showWelcome && (
                 <>
                   <WelcomeText updateShowWelcome={updateShowWelcome} />
-                  <Divider />
                 </>
               )}
               {(showOptions || showWelcome) && (
@@ -199,7 +197,6 @@ export default function VotesRoot() {
                     showAbsentee={showAbsentee}
                     updateShowAbsentee={updateShowAbsentee}
                   />
-                  <Divider />
                 </>
               )}
               <Suspense fallback={<div>Loading...</div>}>
