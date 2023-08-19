@@ -1,5 +1,5 @@
 import React, { useMemo, lazy, Suspense } from "react";
-import { Descriptions, Table } from "antd";
+import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
@@ -41,7 +41,7 @@ export default function VoteSummary({
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
-    <div>
+    <div className="p-4">
       <div id="regionSummaryName" className="text-2xl font-bold">
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
@@ -91,7 +91,6 @@ export default function VoteSummary({
           )}
         </React.Fragment>
       )}
-
       {showAbsentee && (
         <Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }} contentStyle={{ textAlign: "right", width: "40%" }}>
           <Descriptions.Item label={`Accepted  ${absenteeElectionCurrentLabel}`}>
@@ -111,163 +110,33 @@ export default function VoteSummary({
           </Descriptions.Item>
         </Descriptions>
       )}
-      <Descriptions
-        title={`${currentElectionRace.election?.label} - ${currentElectionRace?.name}`}
-        column={1}
-        bordered
-        size="small"
-        style={{ width: "100%" }}
-        contentStyle={{ textAlign: "right", width: "40%" }}
-      >
-        <Descriptions.Item label={`${currentElectionRace?.republican} (R)`}>
-          {numberFormat.format(resultSummary?.electionResultsCurrent?.republican)} (
-          {numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perRepublican)})
-        </Descriptions.Item>
-        <Descriptions.Item label={`${currentElectionRace?.democratic} (D)`}>
-          {numberFormat.format(resultSummary?.electionResultsCurrent?.democratic)} (
-          {numberFormatPercent.format(resultSummary?.electionResultsCurrent?.perDemocratic)})
-        </Descriptions.Item>
-        <Descriptions.Item label="Vote Margin">
-          {RDIndicator(resultSummary?.electionResultsCurrent?.marginDemocratic)}{" "}
-          {numberFormat.format(Math.abs(resultSummary?.electionResultsCurrent?.marginRepublican))} (
-          {numberFormatPercent.format(Math.abs(resultSummary?.electionResultsCurrent?.marginPerRepublican))})
-        </Descriptions.Item>
-        {resultSummary.electionResultsComparison && (
-          <>
-            <Descriptions.Item label="Swing (Shift in R/D %)">
-              {RDIndicator(resultSummary.electionResultsComparison.perShiftDemocratic)}{" "}
-              {numberFormatPercent.format(Math.abs(resultSummary.electionResultsComparison?.perShiftDemocratic))}
-            </Descriptions.Item>
-            <Descriptions.Item label="% of Previous Turnout">
-              {numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesPercent)}
-            </Descriptions.Item>
-            {/* <Descriptions.Item label="R/D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRDPercent)}</Descriptions.Item>
-                <Descriptions.Item label="D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesDemocraticPercent)}</Descriptions.Item>
-                <Descriptions.Item label="R % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRepublicanPercent)}</Descriptions.Item> */}
-            {/* <Descriptions.Item label="Shift in Vote Margin">
-              {RDIndicator(resultSummary.electionResultsComparison.voteShiftDemocratic)}{" "}
-              {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocratic))}
-            </Descriptions.Item> */}
-            <Descriptions.Item label="Shift in Vote Margin (normalized)">
-              {RDIndicator(resultSummary.electionResultsComparison.voteShiftDemocraticNormalized)}{" "}
-              {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocraticNormalized))}
-            </Descriptions.Item>
-          </>
-        )}
-      </Descriptions>
-      {showVoteMode && (
-        <React.Fragment>
-          <br />
-          <br />
-          <b>Result by Vote Method</b>
-          <br />
-          <Table dataSource={resultSummary?.electionResultsCurrent?.resultsByMode} pagination={false} sortDirections="">
-            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
-            <Column
-              title={`${currentElectionRace?.republican} (R)`}
-              align="right"
-              dataIndex="republican"
-              key="republican"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
-                </>
-              )}
-            />
-            <Column
-              title={`${currentElectionRace?.democratic} (D)`}
-              dataIndex="democratic"
-              key="democratic"
-              align="right"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
-                </>
-              )}
-            />
-          </Table>
-        </React.Fragment>
-      )}
+      <ElectionResultSummary
+        race={currentElectionRace}
+        raceResult={resultSummary?.electionResultsCurrent}
+        raceComparison={resultSummary.electionResultsComparison}
+        showVoteMode={showVoteMode}
+      />
       {resultSummary.electionResultsComparison && (
-        <React.Fragment>
-          <br />
-          <Descriptions
-            title={`${previousElectionRace.election.label} - ${previousElectionRace.name}`}
-            column={1}
-            bordered
-            size="small"
-            style={{ width: "100%" }}
-            contentStyle={{ textAlign: "right", width: "40%" }}
-          >
-            <Descriptions.Item label={`${previousElectionRace?.republican} (R)`}>
-              {numberFormat.format(resultSummary?.electionResultsBase?.republican)} (
-              {numberFormatPercent.format(resultSummary?.electionResultsBase?.perRepublican)})
-            </Descriptions.Item>
-            <Descriptions.Item label={`${previousElectionRace?.democratic} (D)`}>
-              {numberFormat.format(resultSummary?.electionResultsBase?.democratic)} (
-              {numberFormatPercent.format(resultSummary?.electionResultsBase?.perDemocratic)})
-            </Descriptions.Item>
-            <Descriptions.Item label="Vote Margin">
-              {RDIndicator(resultSummary?.electionResultsCurrent?.marginDemocratic)}{" "}
-              {numberFormat.format(Math.abs(resultSummary?.electionResultsBase?.marginRepublican))} (
-              {numberFormatPercent.format(Math.abs(resultSummary?.electionResultsBase?.marginPerRepublican))})
-            </Descriptions.Item>
-          </Descriptions>
-          <br />
-        </React.Fragment>
-      )}
-      {resultSummary.electionResultsComparison && showVoteMode && (
-        <React.Fragment>
-          <br />
-          <br />
-          <b>Result by Vote Method</b>
-          <br />
-          <Table dataSource={resultSummary?.electionResultsBase?.resultsByMode} pagination={false}>
-            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
-            <Column
-              title={`${currentElectionRace?.republican} (R)`}
-              dataIndex="republican"
-              key="republican"
-              align="right"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
-                </>
-              )}
-            />
-            <Column
-              title={`${currentElectionRace?.democratic} (D)`}
-              dataIndex="democratic"
-              key="democratic"
-              align="right"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
-                </>
-              )}
-            />
-          </Table>
-        </React.Fragment>
-      )}
-      {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
-        <Descriptions
-          title="Demographics of 2020 Registered Voters "
-          column={1}
-          bordered
-          size="small"
-          style={{ width: "100%" }}
-          contentStyle={{ textAlign: "right", width: "40%" }}
-        >
-          <Descriptions.Item label="White (not hispanic)">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</Descriptions.Item>
-          <Descriptions.Item label="Black">{numberFormatPercent.format(resultSummary.demographics.blackPer)}</Descriptions.Item>
-          <Descriptions.Item label="Asian">{numberFormatPercent.format(resultSummary.demographics.asianPer)}</Descriptions.Item>
-          <Descriptions.Item label="Hispanic">{numberFormatPercent.format(resultSummary.demographics.hispanicPer)}</Descriptions.Item>
-          <Descriptions.Item label="Unknown">
-            {numberFormatPercent.format(resultSummary.demographics.unknownPer + resultSummary.demographics.otherPer)}
-          </Descriptions.Item>
-        </Descriptions>
+        <ElectionResultSummary race={previousElectionRace} raceResult={resultSummary?.electionResultsBase} showVoteMode={showVoteMode} />
       )}
 
+      {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
+        <>
+          <div className="text-lg font-bold py-3">Demographics of 2020 Registered Voters</div>
+          <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+            <div>White (not hispanic)</div>
+            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</div>
+            <div>Black</div>
+            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.blackPer)}</div>
+            <div>Asian</div>
+            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.asianPer)}</div>
+            <div>Hispanic</div>
+            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.hispanicPer)}</div>
+            <div>Unknown</div>
+            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.otherPer)}</div>
+          </div>
+        </>
+      )}
       <br />
       {showAbsentee && (
         <Suspense fallback={<div>Loading...</div>}>
@@ -286,5 +155,84 @@ export default function VoteSummary({
         </small>
       </div>
     </div>
+  );
+}
+
+function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode }) {
+  return (
+    <>
+      <div className="text-lg font-bold py-3">
+        {race.election?.label} - {race?.name}
+      </div>
+      <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+        <div>{race?.republican} (R)</div>
+        <div className="text-right">
+          {numberFormat.format(raceResult?.republican)} ({numberFormatPercent.format(raceResult?.perRepublican)})
+        </div>
+        <div>{race?.democratic} (D)</div>
+        <div className="text-right">
+          {numberFormat.format(raceResult?.democratic)} ({numberFormatPercent.format(raceResult?.perDemocratic)})
+        </div>
+        <div>Vote Margin</div>
+        <div className="text-right">
+          {RDIndicator(raceResult?.marginDemocratic)} {numberFormat.format(Math.abs(raceResult?.marginRepublican))} (
+          {numberFormatPercent.format(Math.abs(raceResult?.marginPerRepublican))})
+        </div>
+        {raceComparison && (
+          <>
+            <div>Swing (Shift in R/D %)</div>
+            <div className="text-right">
+              {RDIndicator(raceComparison.perShiftDemocratic)} {numberFormatPercent.format(Math.abs(raceComparison?.perShiftDemocratic))}
+            </div>
+            <div>% of Previous Turnout</div>
+            <div className="text-right">{numberFormatPercent.format(raceComparison?.totalVotesPercent)}</div>
+            {/* <Descriptions.Item label="R/D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRDPercent)}</Descriptions.Item>
+                <Descriptions.Item label="D % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesDemocraticPercent)}</Descriptions.Item>
+                <Descriptions.Item label="R % of Previous Turnout">{numberFormatPercent.format(resultSummary.electionResultsComparison?.totalVotesRepublicanPercent)}</Descriptions.Item> */}
+            {/* <Descriptions.Item label="Shift in Vote Margin">
+              {RDIndicator(resultSummary.electionResultsComparison.voteShiftDemocratic)}{" "}
+              {numberFormat.format(Math.abs(resultSummary.electionResultsComparison.voteShiftDemocratic))}
+            </Descriptions.Item> */}
+            <div>Shift in Vote Margin (normalized)</div>
+            <div className="text-right">
+              {RDIndicator(raceComparison.voteShiftDemocraticNormalized)} {numberFormat.format(Math.abs(raceComparison.voteShiftDemocraticNormalized))}
+            </div>
+          </>
+        )}
+      </div>
+      {showVoteMode && (
+        <React.Fragment>
+          <br />
+          <br />
+          <b>Result by Vote Method</b>
+          <br />
+          <Table dataSource={raceResult?.resultsByMode} pagination={false} sortDirections="">
+            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
+            <Column
+              title={`${race?.republican} (R)`}
+              align="right"
+              dataIndex="republican"
+              key="republican"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
+                </>
+              )}
+            />
+            <Column
+              title={`${race?.democratic} (D)`}
+              dataIndex="democratic"
+              key="democratic"
+              align="right"
+              render={(value, row) => (
+                <>
+                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
+                </>
+              )}
+            />
+          </Table>
+        </React.Fragment>
+      )}
+    </>
   );
 }
