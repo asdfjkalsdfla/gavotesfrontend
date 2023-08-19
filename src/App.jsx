@@ -5,13 +5,13 @@ import VotesRoot from "./VotesRoot.jsx";
 // import "antd/dist/reset.css";
 import "./App.css";
 
-const PrecinctsResultToShapeMatch = React.lazy(() => import("./PrecinctsResultToShapeMatch.jsx"));
+// FIX - const PrecinctsResultToShapeMatch = React.lazy(() => import("./PrecinctsResultToShapeMatch.jsx"));
 // import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
 
 const router = createBrowserRouter([
   {
     path: "/precincts/match",
-    element: <PrecinctsResultToShapeMatch />,
+    // element: <PrecinctsResultToShapeMatch />,
   },
   {
     path: "/",

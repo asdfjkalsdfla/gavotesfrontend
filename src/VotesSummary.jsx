@@ -1,5 +1,5 @@
 import React, { useMemo, lazy, Suspense } from "react";
-import { Table } from "antd";
+// import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 // import VotesByDateChart from "./VotesByDateChart.jsx";
 const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
 
-const { Column } = Table;
+// const { Column } = Table;
 
 // const numberFormatInteger = new Intl.NumberFormat('en-us', options1);
 
@@ -207,7 +207,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
           <br />
           <b>Result by Vote Method</b>
           <br />
-          <Table dataSource={raceResult?.resultsByMode} pagination={false} sortDirections="">
+          {/* <Table dataSource={raceResult?.resultsByMode} pagination={false} sortDirections="">
             <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
             <Column
               title={`${race?.republican} (R)`}
@@ -231,7 +231,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
                 </>
               )}
             />
-          </Table>
+          </Table> */}
         </React.Fragment>
       )}
     </>
