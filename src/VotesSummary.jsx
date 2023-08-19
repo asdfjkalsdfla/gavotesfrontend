@@ -92,23 +92,21 @@ export default function VoteSummary({
         </React.Fragment>
       )}
       {showAbsentee && (
-        <Descriptions title="Absentee Ballots" column={1} bordered size="small" style={{ width: "100%" }} contentStyle={{ textAlign: "right", width: "40%" }}>
-          <Descriptions.Item label={`Accepted  ${absenteeElectionCurrentLabel}`}>
-            {numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}
-          </Descriptions.Item>
-          <Descriptions.Item label={`Accepted at Same Date in ${absenteeElectionBaseLabel}`}>
-            {numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}
-          </Descriptions.Item>
-          <Descriptions.Item label="vs. Same Day">
-            {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}
-          </Descriptions.Item>
-          <Descriptions.Item label={`Total Accepted in ${absenteeElectionBaseLabel}`}>
-            {numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}
-          </Descriptions.Item>
-          <Descriptions.Item label={"% of Total"}>
-            {numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}
-          </Descriptions.Item>
-        </Descriptions>
+        <>
+          <div className="text-lg font-bold py-3">Absentee Ballots</div>
+          <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+            <div>Accepted {absenteeElectionCurrentLabel}</div>
+            <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
+            <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
+            <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}</div>
+            <div>vs. Same Day</div>
+            <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}</div>
+            <div>Total Accepted in {absenteeElectionBaseLabel}</div>
+            <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}</div>
+            <div>% of Total</div>
+            <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}</div>
+          </div>
+        </>
       )}
       <ElectionResultSummary
         race={currentElectionRace}
