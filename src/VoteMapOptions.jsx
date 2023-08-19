@@ -7,7 +7,7 @@ import { useElectionData } from "./ElectionDataProvider.jsx";
 
 export default function VoteMapSelectItems({
   updateElevationApproach,
-  updateShowSelectItems,
+  updateShowOptions,
   elevationApproach,
   updateColorApproach,
   colorApproach,
@@ -33,22 +33,20 @@ export default function VoteMapSelectItems({
 
   return (
     <React.Fragment>
-      <div className="grid w-full items-center gap-4">
-        <div className="flex text-2xl font-bold">
+      <div className="grid w-full items-center gap-2">
+        <div className="text-2xl font-bold">
           Options
-          {updateShowSelectItems && (
-            <span style={{ float: "right" }}>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => {
-                  updateShowSelectItems(false);
-                }}
-              >
-                <X />
-              </Button>
-            </span>
-          )}
+          <span style={{ float: "right" }}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => {
+                updateShowOptions(false);
+              }}
+            >
+              <X />
+            </Button>
+          </span>
         </div>
         {(displayType === "scatter" || displayType === "map") && (
           <>
