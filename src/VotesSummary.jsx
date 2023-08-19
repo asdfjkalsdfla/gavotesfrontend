@@ -41,7 +41,7 @@ export default function VoteSummary({
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
-    <div className="p-4">
+    <div>
       <div id="regionSummaryName" className="text-2xl font-bold">
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
@@ -97,7 +97,7 @@ export default function VoteSummary({
       {showAbsentee && (
         <>
           <div className="text-lg font-bold py-3">Absentee Ballots</div>
-          <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-3">
             <div>Accepted {absenteeElectionCurrentLabel}</div>
             <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
             <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
@@ -124,7 +124,7 @@ export default function VoteSummary({
       {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
         <>
           <div className="text-lg font-bold py-3">Demographics of 2020 Registered Voters</div>
-          <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-3">
             <div>White (not hispanic)</div>
             <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</div>
             <div>Black</div>
@@ -165,7 +165,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
       <div className="text-lg font-bold py-3">
         {race.election?.label} - {race?.name}
       </div>
-      <div className="grid grid-cols-[60%_40%] w-full items-center gap-4">
+      <div className="grid grid-cols-[6fr_4fr] items-center gap-3">
         <div>{race?.republican} (R)</div>
         <div className="text-right">
           {numberFormat.format(raceResult?.republican)} ({numberFormatPercent.format(raceResult?.perRepublican)})

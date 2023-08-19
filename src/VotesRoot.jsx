@@ -164,7 +164,7 @@ export default function VotesRoot() {
             </Suspense>
           </div>
           {(displayType !== "table" || showOptions) && (
-            <div className="two">
+            <div className="two p-4">
               {showWelcome && (
                 <>
                   <WelcomeText updateShowWelcome={updateShowWelcome} />
