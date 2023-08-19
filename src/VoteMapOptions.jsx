@@ -78,7 +78,6 @@ export default function VoteMapSelectItems({
                     </SelectContent>
                   </Select>
                 </div>
-                <br />
                 <div className="flex flex-col space-y-1.5">
                   <label htmlFor="yaxis">Y Axis</label>
                   <Select
@@ -104,7 +103,6 @@ export default function VoteMapSelectItems({
                     </SelectContent>
                   </Select>
                 </div>
-                <br />
               </>
             )}
             {displayType === "map" && (
@@ -155,8 +153,6 @@ export default function VoteMapSelectItems({
                 </div>
               </>
             )}
-            <br />
-            <br />
           </>
         )}
         <div className="flex font-bold">Election Results</div>
@@ -254,7 +250,7 @@ export default function VoteMapSelectItems({
         )}
 
         <div className="flex font-bold">Geography Data</div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <div className="items-top flex space-x-2">
             <Checkbox
               id="absBallots"
