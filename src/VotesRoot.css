@@ -21,7 +21,13 @@
   z-index: 999;
   font-size: 18px;
   line-height: 1;
+  /* display: inline; */
 }
+
+.header img, .header svg {
+  display: inline;
+}
+
 
 .headerLogo {
   position: relative;

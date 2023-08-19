@@ -27,19 +27,19 @@ li {
   display: block;
   color: white;
   text-align: left;
-  padding: 8px 16px;
+  padding: 8px 0px;
   width: 90vw;
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
+  margin: auto
 }
 
 @media only screen and (min-width: 900px) {
   li {
     float: left;
-    font-size: 12px;
     text-align: center;
-    padding: 4px 16px;
+    padding: 0px 16px;
     width: auto;
   }
 }

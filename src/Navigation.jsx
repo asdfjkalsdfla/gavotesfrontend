@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
+// import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
+import {
+  SlidersHorizontal as SettingOutlined,
+  Menu as MenuOutlined,
+  Table as TableOutlined,
+  ScatterChart as DotChartOutlined,
+  Globe as GlobalOutlined,
+} from "lucide-react";
 import "./Navigation.css";
 
 export default function Navigation({ updateDisplayType, updateShowOptions, showOptions }) {
@@ -21,23 +28,17 @@ export default function Navigation({ updateDisplayType, updateShowOptions, showO
 function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
   return (
     <div className="navigationMenu">
-      <ul>
+      <ul className="text-xs font-sans">
         <li onClick={() => updateDisplayType("map")}>
-          <span className="iconSpace">
-            <GlobalOutlined />
-          </span>{" "}
+          <GlobalOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
           Map
         </li>
         <li onClick={() => updateDisplayType("scatter")}>
-          <span className="iconSpace">
-            <DotChartOutlined />
-          </span>
+          <DotChartOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
           Scatter Plot
         </li>
         <li onClick={() => updateDisplayType("table")}>
-          <span className="iconSpace">
-            <TableOutlined />
-          </span>
+          <TableOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
           Table
         </li>
         <li
@@ -45,9 +46,7 @@ function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
             updateShowOptions(!showOptions);
           }}
         >
-          <span className="iconSpace">
-            <SettingOutlined size="large" />
-          </span>
+          <SettingOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
           Settings
         </li>
       </ul>
