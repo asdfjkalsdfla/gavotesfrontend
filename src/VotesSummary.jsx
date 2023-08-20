@@ -49,6 +49,7 @@ export default function VoteSummary({
           {activeSelection && activeSelection === resultSummary.id && (
             <span style={{ float: "right" }}>
               <Button
+                className="h-6 w-6"
                 variant="outline"
                 size="icon"
                 onClick={() => {

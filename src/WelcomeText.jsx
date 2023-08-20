@@ -11,6 +11,7 @@ export default function WelcomeText({ updateShowWelcome }) {
           Welcome!
           <span style={{ float: "right" }}>
             <Button
+              className="h-6 w-6"
               variant="outline"
               size="icon"
               onClick={() => {
