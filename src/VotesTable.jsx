@@ -130,7 +130,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
       {showColumnSelect && (
         <div className="pt-6">
           <div className="text-lg font-bold">Data Elements</div>
-          <div className="grid grid-cols-2 md:grid-cols-7 gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-7 gap-x-10">
             {columns
               .filter((column) => column.children)
               .map((dataGroup) => (
