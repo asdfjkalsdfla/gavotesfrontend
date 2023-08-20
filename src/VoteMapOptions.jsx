@@ -2,6 +2,7 @@ import React from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 
@@ -32,9 +33,9 @@ export default function VoteMapSelectItems({
   const { elections } = useElectionData();
 
   return (
-    <React.Fragment>
-      <div className="grid w-full items-center gap-2">
-        <div className="text-2xl font-bold">
+    <Card className="mb-5">
+      <CardHeader className="pb-3">
+        <CardTitle>
           Options
           <span style={{ float: "right" }}>
             <Button
@@ -47,10 +48,13 @@ export default function VoteMapSelectItems({
               <X />
             </Button>
           </span>
-        </div>
+        </CardTitle>
+        <CardDescription>Set what's displayed</CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-1">
         {(displayType === "scatter" || displayType === "map") && (
-          <>
-            <div className="flex font-bold">Main Display</div>
+          <div className="mb-5">
+            <div className="flex font-bold">Display Strategy</div>
             {displayType === "scatter" && (
               <>
                 <div className="flex flex-col space-y-1.5">
@@ -106,7 +110,7 @@ export default function VoteMapSelectItems({
             {displayType === "map" && (
               <>
                 <div className="flex flex-col space-y-1.5">
-                  <label htmlFor="elevationApproach">Color Approach</label>
+                  <label htmlFor="elevationApproach">Colors Show</label>
                   <Select
                     onValueChange={(value) => {
                       updateColorApproach(value);
@@ -131,7 +135,7 @@ export default function VoteMapSelectItems({
                   </Select>
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <label htmlFor="elevationApproach">Elevation Approach</label>
+                  <label htmlFor="elevationApproach">Elevation Shows</label>
                   <Select
                     onValueChange={(value) => {
                       updateElevationApproach(value);
@@ -151,76 +155,65 @@ export default function VoteMapSelectItems({
                 </div>
               </>
             )}
-          </>
+          </div>
         )}
-        <div className="flex font-bold">Election Results</div>
-        <div className="flex flex-col space-y-1.5">
-          <label htmlFor="baseElection">Base</label>
-          <Select
-            value={electionResultCurrent}
-            onValueChange={(value) => {
-              updateElectionResultCurrent(value);
-            }}
-          >
-            <SelectTrigger id="baseElection">
-              <SelectValue placeholder="Base Race" />
-            </SelectTrigger>
-            <SelectContent position="popper">
-              {elections
-                .filter((election) => !election.isCurrentElection)
-                .map((election) =>
-                  election.races.map((race) => (
-                    <SelectItem
-                      key={`${election.name}||${race.name}`}
-                      value={`${election.name}||${race.name}`}
-                    >{`${election.label} - ${race.name}`}</SelectItem>
-                  )),
-                )}
-            </SelectContent>
-          </Select>
+        <div className="mb-5">
+          <div className="flex font-bold">Election Results</div>
+          <div className="flex flex-col space-y-1.5">
+            <label htmlFor="baseElection">Base</label>
+            <Select
+              value={electionResultCurrent}
+              onValueChange={(value) => {
+                updateElectionResultCurrent(value);
+              }}
+            >
+              <SelectTrigger id="baseElection">
+                <SelectValue placeholder="Base Race" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                {elections
+                  .filter((election) => !election.isCurrentElection)
+                  .map((election) =>
+                    election.races.map((race) => (
+                      <SelectItem
+                        key={`${election.name}||${race.name}`}
+                        value={`${election.name}||${race.name}`}
+                      >{`${election.label} - ${race.name}`}</SelectItem>
+                    )),
+                  )}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <label htmlFor="baseElection">Compared to </label>
+            <Select
+              value={electionResultBase}
+              onValueChange={(value) => {
+                updateElectionResultBase(value);
+              }}
+            >
+              <SelectTrigger id="prevElection">
+                <SelectValue placeholder="Previous Race" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                {elections
+                  .filter((election) => !election.isCurrentElection)
+                  .map((election) =>
+                    election.races.map((race) => (
+                      <SelectItem
+                        key={`${election.name}||${race.name}`}
+                        value={`${election.name}||${race.name}`}
+                      >{`${election.label} - ${race.name}`}</SelectItem>
+                    )),
+                  )}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="flex flex-col space-y-1.5">
-          <label htmlFor="baseElection">Compared to </label>
-          <Select
-            value={electionResultBase}
-            onValueChange={(value) => {
-              updateElectionResultBase(value);
-            }}
-          >
-            <SelectTrigger id="prevElection">
-              <SelectValue placeholder="Previous Race" />
-            </SelectTrigger>
-            <SelectContent position="popper">
-              {elections
-                .filter((election) => !election.isCurrentElection)
-                .map((election) =>
-                  election.races.map((race) => (
-                    <SelectItem
-                      key={`${election.name}||${race.name}`}
-                      value={`${election.name}||${race.name}`}
-                    >{`${election.label} - ${race.name}`}</SelectItem>
-                  )),
-                )}
-            </SelectContent>
-          </Select>
-        </div>
+
         {(elevationApproach !== "none" || displayType === "table") && (
-          <>
-            <br />
-            <br />
-            <div>
-              <b>Absentee Ballots:</b>
-            </div>
-            {/* Current Election<br /><Select
-            style={{ width: 300 }}
-            placeholder="Base Election"
-            virtual={true}
-            value={absenteeCurrent}
-            onChange={(value) => { updateAbsenteeCurrent(value) }}
-        >
-            {elections.map(election => <SelectItem key={election.name} value={election.name}>{election.label}</SelectItem>)}
-        </Select>
-        <br /> */}
+          <div className="mb-5">
+            <div className="flex font-bold">Absentee Ballots</div>
             <div className="flex flex-col space-y-1.5">
               <label htmlFor="baseElection">Compared to </label>
               <Select
@@ -244,10 +237,10 @@ export default function VoteMapSelectItems({
                 </SelectContent>
               </Select>
             </div>
-          </>
+          </div>
         )}
 
-        <div className="flex font-bold">Geography Data</div>
+        <div className="flex font-bold">Selected County/Precinct Data</div>
         <div className="flex flex-col gap-2">
           <div className="items-top flex space-x-2">
             <Checkbox
@@ -293,7 +286,7 @@ export default function VoteMapSelectItems({
             </div>
           </div>
         </div>
-      </div>
-    </React.Fragment>
+      </CardContent>
+    </Card>
   );
 }

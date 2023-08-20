@@ -2,8 +2,9 @@ import React, { useMemo, lazy, Suspense } from "react";
 // import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./ElectionDataProvider.jsx";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
 const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
@@ -41,127 +42,129 @@ export default function VoteSummary({
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
-    <div>
-      <div id="regionSummaryName" className="text-3xl font-bold">
-        {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
-        {activeSelection && activeSelection === resultSummary.id && (
-          <span style={{ float: "right" }}>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
-                updateActiveSelection(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
-              }}
-            >
-              <X />
-            </Button>
-          </span>
-        )}
-      </div>
-      {!resultSummary.PRECINCT_N && (
-        <div className="pt-3  ">
-          {isCountyLevel ? (
-            <div>
+    <Card>
+      <CardHeader className="pb-3">
+        <CardTitle>
+          {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
+          {activeSelection && activeSelection === resultSummary.id && (
+            <span style={{ float: "right" }}>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
+                  updateActiveSelection(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
+                }}
+              >
+                <X />
+              </Button>
+            </span>
+          )}
+        </CardTitle>
+        <CardDescription>Election results</CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-1">
+        {!resultSummary.PRECINCT_N && (
+          <div className="pt-3  ">
+            {isCountyLevel ? (
+              <div>
+                <Button
+                  variant="outline"
+                  size="xs"
+                  onClick={() => {
+                    updateIsCountyLevel(false);
+                    updateUserHasSetLevel(true);
+                    if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
+                  }}
+                  className="p-0.3"
+                >
+                  <ZoomIn className="ml-2 mr-2 h-3 w-3" />
+                  <span className="mr-3">Precinct Level</span>
+                </Button>
+              </div>
+            ) : (
               <Button
                 variant="outline"
                 size="xs"
                 onClick={() => {
-                  updateIsCountyLevel(false);
+                  updateIsCountyLevel(true);
                   updateUserHasSetLevel(true);
-                  if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
+                  updateCountyFilter(null);
                 }}
                 className="p-0.3"
               >
-                <ZoomIn className="ml-2 mr-2 h-3 w-3" />
-                <span className="mr-3">Precinct Level</span>
+                <ZoomOut className="ml-2 mr-2 h-3 w-3" />
+                <span className="mr-3">County Level</span>
               </Button>
+            )}
+          </div>
+        )}
+        {showAbsentee && (
+          <div>
+            <div className="text-lg font-bold pt-6">Absentee Ballots</div>
+            <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
+              <div>Accepted {absenteeElectionCurrentLabel}</div>
+              <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
+              <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
+              <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}</div>
+              <div>vs. Same Day</div>
+              <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}</div>
+              <div>Total Accepted in {absenteeElectionBaseLabel}</div>
+              <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}</div>
+              <div>% of Total</div>
+              <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}</div>
             </div>
-          ) : (
-            <Button
-              variant="outline"
-              size="xs"
-              onClick={() => {
-                updateIsCountyLevel(true);
-                updateUserHasSetLevel(true);
-                updateCountyFilter(null);
-              }}
-              className="p-0.3"
-            >
-              <ZoomOut className="ml-2 mr-2 h-3 w-3" />
-              <span className="mr-3">County Level</span>
-            </Button>
-          )}
+          </div>
+        )}
+        <ElectionResultSummary
+          race={currentElectionRace}
+          raceResult={resultSummary?.electionResultsCurrent}
+          raceComparison={resultSummary.electionResultsComparison}
+          showVoteMode={showVoteMode}
+        />
+        {resultSummary.electionResultsComparison && (
+          <ElectionResultSummary race={previousElectionRace} raceResult={resultSummary?.electionResultsBase} showVoteMode={showVoteMode} />
+        )}
+        {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
+          <>
+            <div className="text-lg font-bold pt-6">Demographics of 2020 Registered Voters</div>
+            <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
+              <div>White (not hispanic)</div>
+              <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</div>
+              <div>Black</div>
+              <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.blackPer)}</div>
+              <div>Asian</div>
+              <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.asianPer)}</div>
+              <div>Hispanic</div>
+              <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.hispanicPer)}</div>
+              <div>Unknown</div>
+              <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.otherPer)}</div>
+            </div>
+          </>
+        )}
+        {showAbsentee && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <div className="text-lg font-bold pt-6">Votes by Day</div>
+            <VotesByDateChart
+              resultSummary={resultSummary}
+              absenteeElectionCurrentLabel={absenteeElectionCurrentLabel}
+              absenteeElectionBaseLabel={absenteeElectionBaseLabel}
+            />
+          </Suspense>
+        )}
+        <div className="text-right">
+          <small>
+            <i>Last Updated:</i> {import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}
+          </small>
         </div>
-      )}
-      {showAbsentee && (
-        <>
-          <div className="text-lg font-bold pt-6">Absentee Ballots</div>
-          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
-            <div>Accepted {absenteeElectionCurrentLabel}</div>
-            <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
-            <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
-            <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}</div>
-            <div>vs. Same Day</div>
-            <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}</div>
-            <div>Total Accepted in {absenteeElectionBaseLabel}</div>
-            <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.totalAbsenteeVotes)}</div>
-            <div>% of Total</div>
-            <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallots)}</div>
-          </div>
-        </>
-      )}
-      <ElectionResultSummary
-        race={currentElectionRace}
-        raceResult={resultSummary?.electionResultsCurrent}
-        raceComparison={resultSummary.electionResultsComparison}
-        showVoteMode={showVoteMode}
-      />
-      {resultSummary.electionResultsComparison && (
-        <ElectionResultSummary race={previousElectionRace} raceResult={resultSummary?.electionResultsBase} showVoteMode={showVoteMode} />
-      )}
-
-      {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
-        <>
-          <div className="text-lg font-bold pt-6">Demographics of 2020 Registered Voters</div>
-          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
-            <div>White (not hispanic)</div>
-            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</div>
-            <div>Black</div>
-            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.blackPer)}</div>
-            <div>Asian</div>
-            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.asianPer)}</div>
-            <div>Hispanic</div>
-            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.hispanicPer)}</div>
-            <div>Unknown</div>
-            <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.otherPer)}</div>
-          </div>
-        </>
-      )}
-      <br />
-      {showAbsentee && (
-        <Suspense fallback={<div>Loading...</div>}>
-          <br />
-          <b>Votes by Day</b>
-          <VotesByDateChart
-            resultSummary={resultSummary}
-            absenteeElectionCurrentLabel={absenteeElectionCurrentLabel}
-            absenteeElectionBaseLabel={absenteeElectionBaseLabel}
-          />
-        </Suspense>
-      )}
-      <div style={{ width: "100%", textAlign: "right" }}>
-        <small>
-          <i>Last Updated:</i> {import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}
-        </small>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 
 function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode }) {
   return (
-    <>
+    <div>
       <div className="text-lg font-bold pt-6">
         {race.election?.label} - {race?.name}
       </div>
@@ -234,6 +237,6 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
           </Table> */}
         </React.Fragment>
       )}
-    </>
+    </div>
   );
 }
