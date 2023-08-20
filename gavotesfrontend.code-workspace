@@ -9,7 +9,8 @@
 			"**/build": true,
 			"**/dist": true,
             "**/node_modules": true,
-			"**/coverage": true
+			"**/coverage": true,
+			"./buildAnalysis.html"
         }
 	}
 }

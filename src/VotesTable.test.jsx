@@ -21,7 +21,7 @@ describe("Votes Table", () => {
         <VotesTable />
       </ElectionDataProvider>
     );
-    await waitFor(() => screen.getByText("Select Data to Display"));
+    await waitFor(() => screen.getByText("State of Georgia"));
   });
 
   it("Show columns displayed", async () => {
@@ -37,8 +37,8 @@ describe("Votes Table", () => {
         <VotesTable />
       </ElectionDataProvider>
     );
-    await waitFor(() => screen.getByText("Select Data to Display"));
-    fireEvent.click(screen.getByText("Select Data to Display"));
+    await waitFor(() => screen.getByText("State of Georgia"));
+    fireEvent.click(screen.getByTestId("dataElementSettings"));
     await waitFor(() => screen.getByText("Asian %"));
   });
 });

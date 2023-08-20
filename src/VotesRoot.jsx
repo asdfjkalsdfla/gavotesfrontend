@@ -1,5 +1,4 @@
 import React, { useState, lazy, Suspense } from "react";
-import { Divider } from "antd";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
 
 import Navigation from "./Navigation.jsx";
@@ -10,11 +9,11 @@ import "./VotesRoot.css";
 // import VotesMap from "./VotesMap.jsx";
 // import VotesSummary from "./VotesSummary.jsx";
 // import VotesScatterPlot from "./VotesScatterPlot.jsx";
-import VotesTable from "./VotesTable.jsx";
+// import VotesTable from "./VotesTable.jsx";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
 const VotesMap = lazy(() => import("./VotesMap.jsx"));
 const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
-// const VotesTable = lazy(() => import("./VotesTable.jsx"));
+const VotesTable = lazy(() => import("./VotesTable.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
@@ -105,17 +104,20 @@ export default function VotesRoot() {
 
   return (
     <div className="container">
-      <div className="header">
-        <span className="headerLogoArea">
-          <span className="headerLogo">
-            <img src="peach.webp" height="20px" width="20px" />
-          </span>
-          Georgia Votes <span className="headerTextVisual">Visual</span>
-        </span>
-        <span style={{ float: "right" }}>
+      <header className="header">
+        <nav className="mx-auto flex items-center justify-between" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <span className="headerLogoArea">
+              <span className="headerLogo">
+                <img src="peach.webp" height="20px" width="20px" />
+              </span>
+              Georgia Votes <span className="headerTextVisual">Visual</span>
+            </span>
+          </div>
+
           <Navigation displayType={displayType} updateDisplayType={updateDisplayType} updateShowOptions={updateShowOptions} showOptions={showOptions} />
-        </span>
-      </div>
+        </nav>
+      </header>
       <div className="pageGrid">
         <ElectionDataProvider
           isCountyLevel={isCountyLevel}
@@ -161,11 +163,10 @@ export default function VotesRoot() {
             </Suspense>
           </div>
           {(displayType !== "table" || showOptions) && (
-            <div className="two">
+            <div className="two p-4">
               {showWelcome && (
                 <>
                   <WelcomeText updateShowWelcome={updateShowWelcome} />
-                  <Divider />
                 </>
               )}
               {(showOptions || showWelcome) && (
@@ -196,7 +197,6 @@ export default function VotesRoot() {
                     showAbsentee={showAbsentee}
                     updateShowAbsentee={updateShowAbsentee}
                   />
-                  <Divider />
                 </>
               )}
               <Suspense fallback={<div>Loading...</div>}>
