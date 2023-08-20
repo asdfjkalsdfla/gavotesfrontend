@@ -42,15 +42,15 @@ function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
     <div className="navigationMenu">
       <ul>
         <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("map")}>
-          <GlobalOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
+          <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
           Map
         </li>
         <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("scatter")}>
-          <DotChartOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
+          <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
           Scatter Plot
         </li>
         <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("table")}>
-          <TableOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
+          <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />
           Table
         </li>
         <li
@@ -59,7 +59,7 @@ function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
             updateShowOptions(!showOptions);
           }}
         >
-          <SettingOutlined className="mr-2 md:mr-1 md:ml-2 h-4 w-4" />
+          <SettingOutlined className="mr-2 md:mr-1 h-4 w-4" />
           Settings
         </li>
       </ul>
