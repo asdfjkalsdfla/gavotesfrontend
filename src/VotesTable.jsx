@@ -114,6 +114,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
         <div className="flex flex-1 justify-end">
           <button
             type="button"
+            data-testid="dataElementSettings"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
             onClick={() => {
               updateShowColumnSelect(!showColumnSelect);
