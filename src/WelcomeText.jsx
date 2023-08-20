@@ -12,7 +12,7 @@ export default function WelcomeText({ updateShowWelcome }) {
           <span style={{ float: "right" }}>
             <Button
               className="h-6 w-6"
-              variant="outline"
+              variant="none"
               size="icon"
               onClick={() => {
                 localStorage.setItem("welcomeShown", true);

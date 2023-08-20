@@ -50,7 +50,7 @@ export default function VoteSummary({
             <span style={{ float: "right" }}>
               <Button
                 className="h-6 w-6"
-                variant="outline"
+                variant="none"
                 size="icon"
                 onClick={() => {
                   updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
