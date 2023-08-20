@@ -1,7 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
-import { Table, Menu } from "antd";
+import { Table } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Settings, Download } from "lucide-react";
 import { CSVLink } from "react-csv";
@@ -98,7 +98,18 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
     <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTable">
       <div className="mx-auto flex items-center justify-between">
         <div className="flex lg:flex-1">
-          <div className="text-2xl font-bold">State of Georgia - Fulton</div>
+          <div className="text-2xl font-bold">
+            <a
+              onClick={() => {
+                updateCountyFilter(null);
+                updateActiveSelection(null);
+                updateIsCountyLevel(true);
+              }}
+            >
+              State of Georgia
+            </a>
+            {countyFilter && <> - {countyFilter} </>}
+          </div>
         </div>
         <div className="flex flex-1 justify-end">
           <button
@@ -153,39 +164,17 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
           </div>
         </div>
       )}
-      <Menu
-        mode="horizontal"
-        selectedKeys={countyFilter ? ["county"] : ["state"]}
-        items={[
-          {
-            key: "state",
-            label: (
-              <a
-                onClick={() => {
-                  updateCountyFilter(null);
-                  updateActiveSelection(null);
-                  updateIsCountyLevel(true);
-                }}
-              >
-                State of Georgia
-              </a>
-            ),
-          },
-          {
-            key: "county",
-            label: countyFilter,
-          },
-        ]}
-      />
-      <Table
-        loading={isPending}
-        dataSource={rows}
-        columns={columnsDisplayed}
-        scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
-        pagination={{ pageSize: 100 }}
-        sticky={true}
-        size="small"
-      />
+      <div className="pt-6">
+        <Table
+          loading={isPending}
+          dataSource={rows}
+          columns={columnsDisplayed}
+          scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
+          pagination={{ pageSize: 100 }}
+          sticky={true}
+          size="small"
+        />
+      </div>
     </div>
   );
 }
