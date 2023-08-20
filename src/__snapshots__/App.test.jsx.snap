@@ -285,7 +285,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         >
           <div
             class="p-4"
-            data-testid="electionResultTable"
+            data-testid="electionResultTableWrapper"
           >
             <div
               class="mx-auto flex items-center justify-between"
@@ -538,6 +538,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   >
                     <div
                       class="ant-table ant-table-small ant-table-fixed-header ant-table-fixed-column ant-table-scroll-horizontal ant-table-has-fix-left"
+                      data-testid="electionResultTable"
                     >
                       <div
                         class="ant-table-container"
@@ -12615,13 +12616,14 @@ exports[`no crashes! > renders table without crashing 1`] = `
                             >
                               <input
                                 aria-autocomplete="list"
-                                aria-controls="undefined_list"
+                                aria-controls="rc_select_TEST_OR_SSR_list"
                                 aria-expanded="false"
                                 aria-haspopup="listbox"
                                 aria-label="Page Size"
-                                aria-owns="undefined_list"
+                                aria-owns="rc_select_TEST_OR_SSR_list"
                                 autocomplete="off"
                                 class="ant-select-selection-search-input"
+                                id="rc_select_TEST_OR_SSR"
                                 role="combobox"
                                 type="search"
                                 value=""

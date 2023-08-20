@@ -95,7 +95,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   }, [locationResults]);
 
   return (
-    <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTable">
+    <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTableWrapper">
       <div className="mx-auto flex items-center justify-between">
         <div className="flex lg:flex-1">
           <div className="text-2xl font-bold">
@@ -174,6 +174,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
           pagination={{ pageSize: 100 }}
           sticky={true}
           size="small"
+          data-testid="electionResultTable"
         />
       </div>
     </div>
