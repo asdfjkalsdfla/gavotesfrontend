@@ -8,7 +8,7 @@
   padding: 10px 0px 10px 0px;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
   .navigationMenu {
     position: relative;
     background-color: #000;
@@ -37,7 +37,7 @@ li {
   margin: auto
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
   li {
     float: left;
     text-align: center;
