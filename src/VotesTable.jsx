@@ -1,16 +1,18 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
-import { Table, Menu, Collapse, Checkbox, Row, Col } from "antd";
+import { Table, Menu } from "antd";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Settings, Download } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "./Utils.jsx";
 
-const { Panel } = Collapse;
-
 export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFilter, updateIsCountyLevel, updateActiveSelection }) {
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
+
+  const [showColumnSelect, updateShowColumnSelect] = useState(false);
 
   const columns = useMemo(
     () => [
@@ -22,7 +24,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
       electionResultComparisonColumnsBuilder(),
       demographicColumnBuilder(),
     ],
-    [isCountyLevel, updateIsCountyLevel, updateCountyFilter, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace]
+    [isCountyLevel, updateIsCountyLevel, updateCountyFilter, currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace],
   );
 
   const [columnsDisplayedIDs, updateColumnsDisplayedIDs] = useState([
@@ -93,36 +95,64 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   }, [locationResults]);
 
   return (
-    <div style={{ width: "10fr", height: "1fr" }}  data-testid="electionResultTable">
-      <Collapse>
-        <Panel header="Select Data to Display" key="1">
-          <Row gutter={30} key="dataRows">
+    <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTable">
+      <div className="mx-auto flex items-center justify-between">
+        <div className="flex lg:flex-1">
+          <div className="text-2xl font-bold">State of Georgia - Fulton</div>
+        </div>
+        <div className="flex flex-1 justify-end">
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+            onClick={() => {
+              updateShowColumnSelect(!showColumnSelect);
+            }}
+          >
+            <Settings className="mr-2 h-5 w-5" />
+          </button>
+          <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
+            <Download className="mr-2 h-5 w-5" />
+          </CSVLink>
+        </div>
+      </div>
+      {showColumnSelect && (
+        <div className="pt-6">
+          <div className="text-lg font-bold">Data Elements</div>
+          <div className="flex gap-x-10">
             {columns
               .filter((column) => column.children)
               .map((dataGroup) => (
-                <Col key={dataGroup.key}>
+                <div key={dataGroup.key}>
                   <div>
                     <b>{dataGroup.title}</b>
                   </div>
                   <div>
                     {dataGroup.children &&
                       dataGroup.children.map((dataElements) => (
-                        <div key={dataElements.key}>
+                        <div key={dataElements.key} className="pt-1.5 items-top flex space-x-5">
                           <Checkbox
+                            id={dataElements.key}
                             checked={columnsDisplayedIDs.includes(dataElements.key)}
-                            onChange={(e) => {
-                              updateColumnsDisplayedCheckboxes(dataElements.key, e.target.checked);
+                            onCheckedChange={(checked) => {
+                              updateColumnsDisplayedCheckboxes(dataElements.key, checked);
                             }}
                           />{" "}
-                          {dataElements.title}
+                          <div className="grid leading-none">
+                            <label
+                              htmlFor={dataElements.key}
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              {dataElements.title}
+                            </label>
+                          </div>
                         </div>
                       ))}
                   </div>
-                </Col>
+                </div>
               ))}
-          </Row>
-        </Panel>
-      </Collapse>
+          </div>
+        </div>
+      )}
       <Menu
         mode="horizontal"
         selectedKeys={countyFilter ? ["county"] : ["state"]}
@@ -156,9 +186,6 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
         sticky={true}
         size="small"
       />
-      <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
-        Download
-      </CSVLink>
     </div>
   );
 }
