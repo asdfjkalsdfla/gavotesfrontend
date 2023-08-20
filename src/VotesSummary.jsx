@@ -42,7 +42,7 @@ export default function VoteSummary({
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
     <div>
-      <div id="regionSummaryName" className="text-2xl font-bold">
+      <div id="regionSummaryName" className="text-3xl font-bold">
         {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
         {activeSelection && activeSelection === resultSummary.id && (
           <span style={{ float: "right" }}>
@@ -60,7 +60,7 @@ export default function VoteSummary({
         )}
       </div>
       {!resultSummary.PRECINCT_N && (
-        <div className="py-3">
+        <div className="pt-3  ">
           {isCountyLevel ? (
             <div>
               <Button
@@ -96,8 +96,8 @@ export default function VoteSummary({
       )}
       {showAbsentee && (
         <>
-          <div className="text-lg font-bold py-3">Absentee Ballots</div>
-          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-3">
+          <div className="text-lg font-bold pt-6">Absentee Ballots</div>
+          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
             <div>Accepted {absenteeElectionCurrentLabel}</div>
             <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
             <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
@@ -123,8 +123,8 @@ export default function VoteSummary({
 
       {showDemographics && resultSummary?.demographics?.whitePer > 0 && (
         <>
-          <div className="text-lg font-bold py-3">Demographics of 2020 Registered Voters</div>
-          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-3">
+          <div className="text-lg font-bold pt-6">Demographics of 2020 Registered Voters</div>
+          <div className="grid grid-cols-[6fr_4fr] w-full items-center gap-1.5 p-2">
             <div>White (not hispanic)</div>
             <div className="text-right">{numberFormatPercent.format(resultSummary.demographics.whitePer)}</div>
             <div>Black</div>
@@ -162,10 +162,10 @@ export default function VoteSummary({
 function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode }) {
   return (
     <>
-      <div className="text-lg font-bold py-3">
+      <div className="text-lg font-bold pt-6">
         {race.election?.label} - {race?.name}
       </div>
-      <div className="grid grid-cols-[6fr_4fr] items-center gap-3">
+      <div className="grid grid-cols-[6fr_4fr] items-center gap-1.5 p-2">
         <div>{race?.republican} (R)</div>
         <div className="text-right">
           {numberFormat.format(raceResult?.republican)} ({numberFormatPercent.format(raceResult?.perRepublican)})
