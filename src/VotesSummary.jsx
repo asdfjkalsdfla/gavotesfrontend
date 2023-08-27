@@ -42,7 +42,7 @@ export default function VoteSummary({
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
-    <Card>
+    <Card id="regionSummaryName">
       <CardHeader className="pb-3">
         <CardTitle>
           {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
