@@ -5,7 +5,7 @@
   grid-template-rows: 56px minmax(0, 1fr);
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
   .container {
     height: 100vh;
   }
@@ -13,32 +13,12 @@
 
 .header {
   grid-column: 1;
-  background-color: black;
-  position: sticky;
-  top: 0;
-  padding: 10px;
-  color: #ffffff;
   z-index: 999;
-  font-size: 18px;
-  line-height: 1;
   /* display: inline; */
 }
 
 .header img, .header svg {
   display: inline;
-}
-
-
-.headerLogo {
-  position: relative;
-  top: -3px;
-  padding-right: 10px;
-}
-
-.headerTextVisual {
-  font-size: 16px;
-  text-transform: uppercase;
-  font-weight: bolder;
 }
 
 .pageGrid {
@@ -59,7 +39,7 @@
   scroll-margin-top: 60px;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
   .one {
     grid-column: span 2;
   }

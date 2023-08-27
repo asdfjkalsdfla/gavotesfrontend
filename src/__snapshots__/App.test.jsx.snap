@@ -7,11 +7,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
       class="container"
     >
       <header
-        class="header"
+        class="header bg-black py-2 px-5 h-auto top-0 bg-slate-950 text-white text-lg leading-5"
       >
         <nav
           aria-label="Global"
-          class="mx-auto flex items-center justify-between"
+          class="mx-auto h-full flex items-center justify-between"
         >
           <div
             class="flex lg:flex-1"
@@ -20,7 +20,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="headerLogoArea"
             >
               <span
-                class="headerLogo"
+                class="pr-3"
               >
                 <img
                   height="20px"
@@ -30,7 +30,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               </span>
               Georgia Votes 
               <span
-                class="headerTextVisual"
+                class="uppercase font-bold"
               >
                 Visual
               </span>

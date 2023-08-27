@@ -104,14 +104,14 @@ export default function VotesRoot() {
 
   return (
     <div className="container">
-      <header className="header">
-        <nav className="mx-auto flex items-center justify-between" aria-label="Global">
+      <header className="header bg-black py-2 px-5 h-auto top-0 bg-slate-950 text-white text-lg leading-5">
+        <nav className="mx-auto h-full flex items-center justify-between" aria-label="Global">
           <div className="flex lg:flex-1">
             <span className="headerLogoArea">
-              <span className="headerLogo">
+              <span className="pr-3">
                 <img src="peach.webp" height="20px" width="20px" />
               </span>
-              Georgia Votes <span className="headerTextVisual">Visual</span>
+              Georgia Votes <span className="uppercase font-bold">Visual</span>
             </span>
           </div>
 
