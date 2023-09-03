@@ -528,10 +528,10 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="pt-6"
             >
               <div
-                class="ant-table-wrapper css-dev-only-do-not-override-17a39f8"
+                class="ant-table-wrapper css-dev-only-do-not-override-nnuwmp"
               >
                 <div
-                  class="ant-spin-nested-loading css-dev-only-do-not-override-17a39f8"
+                  class="ant-spin-nested-loading css-dev-only-do-not-override-nnuwmp"
                 >
                   <div
                     class="ant-spin-container"
@@ -12513,7 +12513,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                       </div>
                     </div>
                     <ul
-                      class="ant-pagination ant-pagination-mini ant-table-pagination ant-table-pagination-right css-dev-only-do-not-override-17a39f8"
+                      class="ant-pagination ant-pagination-mini ant-table-pagination ant-table-pagination-right css-dev-only-do-not-override-nnuwmp"
                     >
                       <li
                         aria-disabled="true"
@@ -12606,7 +12606,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                       >
                         <div
                           aria-label="Page Size"
-                          class="ant-select ant-select-sm ant-pagination-options-size-changer css-dev-only-do-not-override-17a39f8 ant-select-single ant-select-show-arrow ant-select-show-search"
+                          class="ant-select ant-select-sm ant-pagination-options-size-changer css-dev-only-do-not-override-nnuwmp ant-select-single ant-select-show-arrow ant-select-show-search"
                         >
                           <div
                             class="ant-select-selector"
