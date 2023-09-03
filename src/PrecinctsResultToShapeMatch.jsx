@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowDownUp, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
@@ -124,13 +128,15 @@ export default function PrecinctsResultToShapeMatch() {
     return csv;
   };
 
-  const precinctOptions =
-    mapPrecinctsInSelectedCounty &&
-    mapPrecinctsInSelectedCounty.map((precinctShape) => (
-      <SelectItem key={precinctShape.PRECINCT_I} id={precinctShape.PRECINCT_I} value={precinctShape.PRECINCT_I}>
-        {precinctShape.PRECINCT_N} ({precinctShape.PRECINCT_I})
-      </SelectItem>
-    ));
+  const precinctOptions = useMemo(
+    () =>
+      mapPrecinctsInSelectedCounty &&
+      mapPrecinctsInSelectedCounty.map((precinctShape) => ({
+        value: precinctShape.PRECINCT_I,
+        label: `${precinctShape.PRECINCT_N} (${precinctShape.PRECINCT_I})`,
+      })),
+    [mapPrecinctsInSelectedCounty],
+  );
 
   const columns = useMemo(
     () => [
@@ -164,14 +170,9 @@ export default function PrecinctsResultToShapeMatch() {
         cell: ({ row }) => {
           const precinct = row.original;
           return (
-            <Select
+            <Combobox
               id={`${precinct.county}_${precinct.precinct}`}
               style={{ width: "400px" }}
-              showSearch
-              filterOption={(input, option) => {
-                if (!input) return false;
-                return option.children.join(" ").toLowerCase().indexOf(input.toLowerCase()) >= 0;
-              }}
               value={
                 manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())
                   ? manualElectionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase()).precinct
@@ -190,17 +191,13 @@ export default function PrecinctsResultToShapeMatch() {
                 electionResultsPrecinctsToShapeMap.set(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase(), recordMap);
                 updateManualElectionResultsPrecinctsToShapeMap(newMap);
               }}
-            >
-              <SelectTrigger id={`${precinct.county}_${precinct.precinct}_compared`}>
-                <SelectValue placeholder="Precinct" />
-              </SelectTrigger>
-              <SelectContent position="popper">{precinctOptions}</SelectContent>
-            </Select>
+              options={precinctOptions}
+            />
           );
         },
       },
     ],
-    [selectedCounty],
+    [selectedCounty, mapPrecinctsInSelectedCounty, precinctOptions],
   );
 
   const table = useReactTable({
@@ -215,34 +212,13 @@ export default function PrecinctsResultToShapeMatch() {
     <div className="p-5">
       <div className="text-lg">Map Data</div>
       <b>County:</b>{" "}
-      <Select
+      <Combobox
         onValueChange={(value) => {
           updateSelectedCounty(value);
         }}
-      >
-        <SelectTrigger className="w-6/12" id="county">
-          <SelectValue placeholder="Select" />
-        </SelectTrigger>
-        <SelectContent position="popper">
-          {showAllCounties ? (
-            <>
-              {counties.map((county) => (
-                <SelectItem key={county} id={county} value={county}>
-                  {county}
-                </SelectItem>
-              ))}
-            </>
-          ) : (
-            <>
-              {countiesNoMatch.map((county) => (
-                <SelectItem key={county} id={county} value={county}>
-                  {county}
-                </SelectItem>
-              ))}
-            </>
-          )}
-        </SelectContent>
-      </Select>{" "}
+        value={selectedCounty}
+        options={counties.map((county) => ({ value: county, label: county }))}
+      />
       <Checkbox
         onCheckedChange={(checked) => {
           updateShowAllCounties(checked);
@@ -301,5 +277,40 @@ export default function PrecinctsResultToShapeMatch() {
       </div>
       {showCSVOutputs && <textarea rows={4} cols={90} value={convertToCSV(manualElectionResultsPrecinctsToShapeMap)} />}
     </div>
+  );
+}
+
+export function Combobox({ value, onValueChange, options }) {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
+          {value ? options.find((option) => option.value.toUpperCase() === value.toUpperCase())?.label : "Select..."}
+          <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search..." className="h-9" />
+          <CommandEmpty>No values found.</CommandEmpty>
+          <CommandGroup>
+            {options.map((option) => (
+              <CommandItem
+                key={option.value}
+                onSelect={() => {
+                  onValueChange(option.value === value ? "" : option.value);
+                  setOpen(false);
+                }}
+              >
+                {option.label}
+                <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
