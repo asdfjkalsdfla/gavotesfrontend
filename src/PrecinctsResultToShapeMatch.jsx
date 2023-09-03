@@ -133,7 +133,7 @@ export default function PrecinctsResultToShapeMatch() {
     ));
 
   const columns = useMemo(
-    [
+    () => [
       {
         header: "Election Precinct Name",
         accessorKey: "electionResultsPrecinctName",
