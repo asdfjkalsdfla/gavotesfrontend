@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
 
-import { ArrowDownUp, Check } from "lucide-react";
+import { ArrowDownUp, ArrowUpDown, MoreHorizontal, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
@@ -141,18 +141,39 @@ export default function PrecinctsResultToShapeMatch() {
   const columns = useMemo(
     () => [
       {
-        header: "Election Precinct Name",
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Election Precinct Name
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
         accessorKey: "electionResultsPrecinctName",
         sorter: (a, b) => a.electionResultsPrecinctName > b.electionResultsPrecinctName,
         defaultSortOrder: "ascend",
       },
       {
-        header: "Match Score",
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Match Score
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
         accessorKey: "score",
         sorter: (a, b) => a.score - b.score,
       },
       {
-        header: "Manual",
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Manual
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
         accessorKey: "man",
         cell: ({ row }) => {
           const precinct = row.original;
@@ -200,10 +221,17 @@ export default function PrecinctsResultToShapeMatch() {
     [selectedCounty, mapPrecinctsInSelectedCounty, precinctOptions],
   );
 
+  const [sorting, setSorting] = React.useState([]);
+
   const table = useReactTable({
     data: electionPrecinctsInSelectedCounty,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap) return <div>Loading</div>;
