@@ -292,24 +292,26 @@ export function Combobox({ value, onValueChange, options }) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
-          <CommandEmpty>No values found.</CommandEmpty>
-          <CommandGroup>
-            {options.map((option) => (
-              <CommandItem
-                key={option.value}
-                onSelect={() => {
-                  onValueChange(option.value === value ? "" : option.value);
-                  setOpen(false);
-                }}
-              >
-                {option.label}
-                <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
+        {open && (
+          <Command>
+            <CommandInput placeholder="Search..." className="h-9" />
+            <CommandEmpty>No values found.</CommandEmpty>
+            <CommandGroup>
+              {options.map((option) => (
+                <CommandItem
+                  key={option.value}
+                  onSelect={() => {
+                    onValueChange(option.value === value ? "" : option.value);
+                    setOpen(false);
+                  }}
+                >
+                  {option.label}
+                  <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        )}
       </PopoverContent>
     </Popover>
   );
