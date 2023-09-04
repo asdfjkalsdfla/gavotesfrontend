@@ -3,7 +3,7 @@ import Papa from "papaparse";
 
 import { ArrowDownUp, ArrowUpDown, MoreHorizontal, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Command, CommandEmpty, CommandList, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
@@ -323,21 +323,23 @@ export function Combobox({ value, onValueChange, options }) {
         {open && (
           <Command>
             <CommandInput placeholder="Search..." className="h-9" />
-            <CommandEmpty>No values found.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  onSelect={() => {
-                    onValueChange(option.value === value ? "" : option.value);
-                    setOpen(false);
-                  }}
-                >
-                  {option.label}
-                  <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <CommandList>
+              <CommandEmpty>No values found.</CommandEmpty>
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => {
+                      onValueChange(option.value === value ? "" : option.value);
+                      setOpen(false);
+                    }}
+                  >
+                    {option.label}
+                    <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
           </Command>
         )}
       </PopoverContent>
