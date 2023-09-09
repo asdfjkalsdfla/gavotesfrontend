@@ -15,7 +15,7 @@ jobs:
     permissions: read-all
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v2
       - name: Use Node.js 20.x and cache
