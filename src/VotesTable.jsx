@@ -1,7 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
-import { Table } from "antd";
+import { ConfigProvider, Table } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Settings, Download } from "lucide-react";
 import { CSVLink } from "react-csv";
@@ -95,6 +95,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   }, [locationResults]);
 
   return (
+    <ConfigProvider theme={{ hashed: false }}>
     <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTableWrapper">
       <div className="mx-auto flex items-center justify-between">
         <div className="flex lg:flex-1">
@@ -178,6 +179,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
         />
       </div>
     </div>
+    </ConfigProvider>
   );
 }
 
