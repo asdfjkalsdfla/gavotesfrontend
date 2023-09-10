@@ -11,12 +11,12 @@
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
-    "antd": "^5.8.6",
+    "antd": "^5.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.0.0",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.276.0",
     "mapbox-gl": "^2.15.0",
     "ml-regression-simple-linear": "^2.0.4",
     "papaparse": "^5.4.1",
@@ -42,17 +42,17 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
-    "@vitest/coverage-v8": "0.34.3",
+    "@vitest/coverage-v8": "0.34.4",
     "autoprefixer": "^10.4.15",
     "esbuild": "^0.19.2",
-    "eslint": "^8.48.0",
+    "eslint": "^8.49.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
@@ -68,7 +68,7 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.4"
   },
-  "packageManager": "pnpm@8.7.1"
+  "packageManager": "pnpm@8.7.4"
 }
