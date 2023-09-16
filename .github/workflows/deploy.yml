@@ -24,7 +24,7 @@ jobs:
           name: build
           path: build/
       - name: Configure AWS credentials for latest
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::123871754011:role/github-build-gavotesfrontend
           aws-region: us-east-1
