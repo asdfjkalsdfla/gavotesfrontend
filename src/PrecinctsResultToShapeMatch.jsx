@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Select, Input, Table, Checkbox } from "antd";
+import React, { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
 
-const { Option } = Select;
+import { ArrowDownUp, ArrowUpDown, MoreHorizontal, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandList, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
@@ -78,7 +84,7 @@ export default function PrecinctsResultToShapeMatch() {
     loadData();
   }, []);
 
-  const [showAllCounties, updateShowAllCounties] = useState(false);
+  const [showAllCounties, updateShowAllCounties] = useState(true);
   const [selectedCounty, updateSelectedCounty] = useState();
   const [electionPrecinctsInSelectedCounty, updateElectionPrecinctsInSelectedCounty] = useState([]);
   const [mapPrecinctsInSelectedCounty, updatePrecinctsMapInSelectedCounty] = useState([]);
@@ -86,7 +92,7 @@ export default function PrecinctsResultToShapeMatch() {
   useEffect(() => {
     if (!selectedCounty) return;
     const tmpPrecinctsInSelectedCounty = [...electionResultsPrecinctsToShapeMap.values()]
-      .filter((precinct) => precinct.county === selectedCounty)
+      .filter((precinct) => precinct.county.toUpperCase() === selectedCounty.toUpperCase())
       .sort((a, b) => (a.electionResultsPrecinctName > b.electionResultsPrecinctName ? 1 : -1));
     updateElectionPrecinctsInSelectedCounty(tmpPrecinctsInSelectedCounty);
     const tmpPrecinctsMapInSelectedCounty = [...shapePrecincts.values()]
@@ -103,7 +109,7 @@ export default function PrecinctsResultToShapeMatch() {
     const tmpPrecinctsMapUsedMulti = [];
     mapPrecinctsInSelectedCounty.forEach((shapePrecinct) => {
       const shapesInElectionMap = electionPrecinctsInSelectedCounty.filter(
-        (electionToMapRecord) => electionToMapRecord.precinct.toUpperCase() === shapePrecinct.PRECINCT_I
+        (electionToMapRecord) => electionToMapRecord.precinct.toUpperCase() === shapePrecinct.PRECINCT_I,
       );
       if (shapesInElectionMap.length === 0) tmpPrecinctsMapNotUsed.push(shapePrecinct);
       if (shapesInElectionMap.length > 1) tmpPrecinctsMapUsedMulti.push(shapePrecinct);
@@ -114,8 +120,6 @@ export default function PrecinctsResultToShapeMatch() {
 
   const [showCSVOutputs] = useState(true);
 
-  if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap) return <div>Loading</div>;
-
   const convertToCSV = (manualData) => {
     let csv = "county,precinct,mapPrecinctName,electionResultsPrecinctName,score\n";
     manualData.forEach((value) => {
@@ -124,112 +128,132 @@ export default function PrecinctsResultToShapeMatch() {
     return csv;
   };
 
-  const precinctOptions =
-    mapPrecinctsInSelectedCounty &&
-    mapPrecinctsInSelectedCounty.map((precinctShape) => (
-      <Option key={precinctShape.PRECINCT_I} id={precinctShape.PRECINCT_I} value={precinctShape.PRECINCT_I}>
-        {precinctShape.PRECINCT_N} ({precinctShape.PRECINCT_I})
-      </Option>
-    ));
+  const precinctOptions = useMemo(
+    () =>
+      mapPrecinctsInSelectedCounty &&
+      mapPrecinctsInSelectedCounty.map((precinctShape) => ({
+        value: precinctShape.PRECINCT_I,
+        label: `${precinctShape.PRECINCT_N} (${precinctShape.PRECINCT_I})`,
+      })),
+    [mapPrecinctsInSelectedCounty],
+  );
 
-  const columns = [
-    {
-      title: "Election Precinct Name",
-      dataIndex: "electionResultsPrecinctName",
-      sorter: (a, b) => a.electionResultsPrecinctName > b.electionResultsPrecinctName,
-      defaultSortOrder: "ascend",
-    },
-    {
-      title: "Match Score",
-      dataIndex: "score",
-      sorter: (a, b) => a.score - b.score,
-    },
-    {
-      title: "Manual",
-      dataIndex: "man",
-      render: (text, precinct) => (
-        <Checkbox
-          checked={manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())}
-          enabled={false}
-        />
-      ),
-    },
-    {
-      title: "Precinct",
-      dataIndex: "precinct",
-      render: (text, precinct) => (
-        <Select
-          id={`${precinct.county}_${precinct.precinct}`}
-          style={{ width: "400px" }}
-          showSearch
-          filterOption={(input, option) => {
-            if (!input) return false;
-            return option.children.join(" ").toLowerCase().indexOf(input.toLowerCase()) >= 0;
-          }}
-          value={
-            manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())
-              ? manualElectionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase()).precinct
-              : electionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())?.precinct
-          }
-          onChange={(value) => {
-            const recordMap = {
-              county: precinct.county,
-              precinct: value,
-              mapPrecinctName: "TODO",
-              electionResultsPrecinctName: precinct.electionResultsPrecinctName,
-              score: 85,
-            };
-            const newMap = new Map(manualElectionResultsPrecinctsToShapeMap);
-            newMap.set(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase(), recordMap);
-            electionResultsPrecinctsToShapeMap.set(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase(), recordMap);
-            updateManualElectionResultsPrecinctsToShapeMap(newMap);
-          }}
-        >
-          {precinctOptions}
-        </Select>
-      ),
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Election Precinct Name
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        accessorKey: "electionResultsPrecinctName",
+        sorter: (a, b) => a.electionResultsPrecinctName > b.electionResultsPrecinctName,
+        defaultSortOrder: "ascend",
+      },
+      {
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Match Score
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        accessorKey: "score",
+        sorter: (a, b) => a.score - b.score,
+      },
+      {
+        header: ({ column }) => {
+          return (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+              Manual
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        accessorKey: "man",
+        cell: ({ row }) => {
+          const precinct = row.original;
+          return (
+            <Checkbox
+              checked={manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())}
+              enabled={false}
+            />
+          );
+        },
+      },
+      {
+        header: "Precinct",
+        accessorKey: "precinct",
+        cell: ({ row }) => {
+          const precinct = row.original;
+          return (
+            <Combobox
+              id={`${precinct.county}_${precinct.precinct}`}
+              style={{ width: "400px" }}
+              value={
+                manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())
+                  ? manualElectionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase()).precinct
+                  : electionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())?.precinct
+              }
+              onValueChange={(value) => {
+                const recordMap = {
+                  county: precinct.county,
+                  precinct: value,
+                  mapPrecinctName: "TODO",
+                  electionResultsPrecinctName: precinct.electionResultsPrecinctName,
+                  score: 85,
+                };
+                const newMap = new Map(manualElectionResultsPrecinctsToShapeMap);
+                newMap.set(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase(), recordMap);
+                electionResultsPrecinctsToShapeMap.set(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase(), recordMap);
+                updateManualElectionResultsPrecinctsToShapeMap(newMap);
+              }}
+              options={precinctOptions}
+            />
+          );
+        },
+      },
+    ],
+    [selectedCounty, mapPrecinctsInSelectedCounty, precinctOptions],
+  );
 
-  console.log(counties);
+  const [sorting, setSorting] = React.useState([]);
+
+  const table = useReactTable({
+    data: electionPrecinctsInSelectedCounty,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
+  });
+
+  if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap) return <div>Loading</div>;
 
   return (
-    <div>
+    <div className="p-5">
+      <div className="text-lg">Map Data</div>
       <b>County:</b>{" "}
-      <Select
-        showSearch
-        onChange={(value) => {
+      <Combobox
+        onValueChange={(value) => {
           updateSelectedCounty(value);
         }}
-        style={{ width: "200px" }}
-      >
-        {showAllCounties ? (
-          <>
-            {counties.map((county) => (
-              <Option key={county} id={county} value={county}>
-                {county}
-              </Option>
-            ))}
-          </>
-        ) : (
-          <>
-            {countiesNoMatch.map((county) => (
-              <Option key={county} id={county} value={county}>
-                {county}
-              </Option>
-            ))}
-          </>
-        )}
-        )
-      </Select>{" "}
+        value={selectedCounty}
+        options={counties.map((county) => ({ value: county, label: county }))}
+      />
       <Checkbox
-        onChange={(e) => {
-          updateShowAllCounties(e.target.checked);
+        onCheckedChange={(checked) => {
+          updateShowAllCounties(checked);
         }}
         checked={showAllCounties}
-      >
-        All
-      </Checkbox>
+      />{" "}
+      All
       <br />
       <br />
       <b>Not Used:</b>{" "}
@@ -249,15 +273,76 @@ export default function PrecinctsResultToShapeMatch() {
         ))}
       <br />
       <br />
-      <Table
-        columns={columns}
-        size="small"
-        dataSource={electionPrecinctsInSelectedCounty}
-        rows={100}
-        pagination={{ pageSize: 100 }}
-        style={{ width: "800px" }}
-      />
-      {showCSVOutputs && <Input.TextArea rows={4} value={convertToCSV(manualElectionResultsPrecinctsToShapeMap)} />}
+      <div className="rounded-md border w-6/12">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      {showCSVOutputs && <textarea rows={4} cols={90} value={convertToCSV(manualElectionResultsPrecinctsToShapeMap)} />}
     </div>
+  );
+}
+
+export function Combobox({ value, onValueChange, options }) {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
+          {value ? options.find((option) => option.value.toUpperCase() === value.toUpperCase())?.label : "Select..."}
+          <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        {open && (
+          <Command>
+            <CommandInput placeholder="Search..." className="h-9" />
+            <CommandList>
+              <CommandEmpty>No values found.</CommandEmpty>
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => {
+                      onValueChange(option.value === value ? "" : option.value);
+                      setOpen(false);
+                    }}
+                  >
+                    {option.label}
+                    <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        )}
+      </PopoverContent>
+    </Popover>
   );
 }
