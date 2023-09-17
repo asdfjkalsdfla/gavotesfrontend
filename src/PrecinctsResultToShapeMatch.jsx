@@ -84,7 +84,7 @@ export default function PrecinctsResultToShapeMatch() {
     loadData();
   }, []);
 
-  const [showAllCounties, updateShowAllCounties] = useState(true);
+  const [showAllCounties, updateShowAllCounties] = useState(false);
   const [selectedCounty, updateSelectedCounty] = useState();
   const [electionPrecinctsInSelectedCounty, updateElectionPrecinctsInSelectedCounty] = useState([]);
   const [mapPrecinctsInSelectedCounty, updatePrecinctsMapInSelectedCounty] = useState([]);
@@ -193,7 +193,6 @@ export default function PrecinctsResultToShapeMatch() {
           return (
             <Combobox
               id={`${precinct.county}_${precinct.precinct}`}
-              style={{ width: "400px" }}
               value={
                 manualElectionResultsPrecinctsToShapeMap.has(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase())
                   ? manualElectionResultsPrecinctsToShapeMap.get(`${precinct.county}_${precinct.electionResultsPrecinctName}`.toUpperCase()).precinct
@@ -236,24 +235,38 @@ export default function PrecinctsResultToShapeMatch() {
 
   if (!electionResultNoMatch || !manualElectionResultsPrecinctsToShapeMap) return <div>Loading</div>;
 
+  const countiesDisplayed = showAllCounties ? counties : countiesNoMatch;
+
   return (
     <div className="p-5">
-      <div className="text-lg">Map Data</div>
-      <b>County:</b>{" "}
-      <Combobox
-        onValueChange={(value) => {
-          updateSelectedCounty(value);
-        }}
-        value={selectedCounty}
-        options={counties.map((county) => ({ value: county, label: county }))}
-      />
-      <Checkbox
-        onCheckedChange={(checked) => {
-          updateShowAllCounties(checked);
-        }}
-        checked={showAllCounties}
-      />{" "}
-      All
+      <div className="flex font-bold text-xl">Map Data</div>
+      <div className="flex flex-row gap-4">
+        <div className="items-center space-x-2">
+          <label htmlFor="countySelection">County</label>
+          <Combobox
+            id="countySelection"
+            onValueChange={(value) => {
+              updateSelectedCounty(value);
+            }}
+            value={selectedCounty}
+            options={countiesDisplayed.map((county) => ({ value: county, label: county }))}
+          />
+        </div>
+        <div className="items-center flex space-x-2">
+          <Checkbox
+            id="allCounties"
+            onCheckedChange={(checked) => {
+              updateShowAllCounties(checked);
+            }}
+            checked={showAllCounties}
+          />
+          <div className="grid gap-1.5 leading-none">
+            <label htmlFor="allCounties" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              All
+            </label>
+          </div>
+        </div>
+      </div>
       <br />
       <br />
       <b>Not Used:</b>{" "}
@@ -273,7 +286,7 @@ export default function PrecinctsResultToShapeMatch() {
         ))}
       <br />
       <br />
-      <div className="rounded-md border w-6/12">
+      <div className="rounded-md border w-3/4">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -314,12 +327,12 @@ export function Combobox({ value, onValueChange, options }) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
+        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[400px] justify-between">
           {value ? options.find((option) => option.value.toUpperCase() === value.toUpperCase())?.label : "Select..."}
           <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[400px] p-0">
         {open && (
           <Command>
             <CommandInput placeholder="Search..." className="h-9" />
