@@ -1,7 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
-import { Table } from "antd";
+import { ConfigProvider, Table } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Settings, Download } from "lucide-react";
 import { CSVLink } from "react-csv";
@@ -95,89 +95,93 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   }, [locationResults]);
 
   return (
-    <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTableWrapper">
-      <div className="mx-auto flex items-center justify-between">
-        <div className="flex lg:flex-1">
-          <div className="text-2xl font-bold">
-            <a
+    <ConfigProvider theme={{ hashed: false }}>
+      <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTableWrapper">
+        <div className="mx-auto flex items-center justify-between">
+          <div className="flex lg:flex-1">
+            <div className="text-2xl font-bold">
+              <a
+                onClick={() => {
+                  updateCountyFilter(null);
+                  updateActiveSelection(null);
+                  updateIsCountyLevel(true);
+                }}
+              >
+                State of Georgia
+              </a>
+              {countyFilter && <> - {countyFilter} </>}
+            </div>
+          </div>
+          <div className="flex flex-1 justify-end">
+            <button
+              type="button"
+              data-testid="dataElementSettings"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
               onClick={() => {
-                updateCountyFilter(null);
-                updateActiveSelection(null);
-                updateIsCountyLevel(true);
+                updateShowColumnSelect(!showColumnSelect);
               }}
             >
-              State of Georgia
-            </a>
-            {countyFilter && <> - {countyFilter} </>}
+              <Settings className="mr-2 h-5 w-5" />
+            </button>
+            {!navigator.userAgent.includes("jsdom") && (
+              <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
+                <Download className="mr-2 h-5 w-5" />
+              </CSVLink>
+            )}
           </div>
         </div>
-        <div className="flex flex-1 justify-end">
-          <button
-            type="button"
-            data-testid="dataElementSettings"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
-            onClick={() => {
-              updateShowColumnSelect(!showColumnSelect);
-            }}
-          >
-            <Settings className="mr-2 h-5 w-5" />
-          </button>
-          <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
-            <Download className="mr-2 h-5 w-5" />
-          </CSVLink>
-        </div>
-      </div>
-      {showColumnSelect && (
-        <div className="pt-6">
-          <div className="text-lg font-bold">Data Elements</div>
-          <div className="grid grid-cols-1 md:grid-cols-7 gap-x-10">
-            {columns
-              .filter((column) => column.children)
-              .map((dataGroup) => (
-                <div key={dataGroup.key}>
-                  <div>
-                    <b>{dataGroup.title}</b>
-                  </div>
-                  <div>
-                    {dataGroup.children &&
-                      dataGroup.children.map((dataElements) => (
-                        <div key={dataElements.key} className="pt-1.5 items-top flex space-x-5">
-                          <Checkbox
-                            id={dataElements.key}
-                            checked={columnsDisplayedIDs.includes(dataElements.key)}
-                            onCheckedChange={(checked) => {
-                              updateColumnsDisplayedCheckboxes(dataElements.key, checked);
-                            }}
-                          />{" "}
-                          <div className="grid leading-none">
-                            <label
-                              htmlFor={dataElements.key}
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              {dataElements.title}
-                            </label>
+        {showColumnSelect && (
+          <div className="pt-6">
+            <div className="text-lg font-bold">Data Elements</div>
+            <div className="grid grid-cols-1 md:grid-cols-7 gap-x-10">
+              {columns
+                .filter((column) => column.children)
+                .map((dataGroup) => (
+                  <div key={dataGroup.key}>
+                    <div>
+                      <b>{dataGroup.title}</b>
+                    </div>
+                    <div>
+                      {dataGroup.children &&
+                        dataGroup.children.map((dataElements) => (
+                          <div key={dataElements.key} className="pt-1.5 items-top flex space-x-5">
+                            <Checkbox
+                              id={dataElements.key}
+                              checked={columnsDisplayedIDs.includes(dataElements.key)}
+                              onCheckedChange={(checked) => {
+                                updateColumnsDisplayedCheckboxes(dataElements.key, checked);
+                              }}
+                            />{" "}
+                            <div className="grid leading-none">
+                              <label
+                                htmlFor={dataElements.key}
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                {dataElements.title}
+                              </label>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
+        )}
+        <div className="pt-6">
+          <Table
+            loading={isPending}
+            dataSource={rows}
+            columns={columnsDisplayed}
+            scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
+            pagination={{ pageSize: 100 }}
+            sticky={true}
+            size="small"
+            data-testid="electionResultTable"
+          />
         </div>
-      )}
-      <div className="pt-6">
-        <Table
-          loading={isPending}
-          dataSource={rows}
-          columns={columnsDisplayed}
-          scroll={{ scrollToFirstRowOnChange: true, x: "max-content", y: 500 }}
-          pagination={{ pageSize: 100 }}
-          sticky={true}
-          size="small"
-          data-testid="electionResultTable"
-        />
       </div>
-    </div>
+    </ConfigProvider>
   );
 }
 
