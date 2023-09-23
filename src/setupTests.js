@@ -1,7 +1,7 @@
-import { Blob } from "buffer";
+// import { Blob } from "buffer";
 import { vi, expect, beforeAll, afterEach, afterAll } from "vitest";
 
-globalThis.Blob = Blob; // use Node.js Blob instead of Jsdom's Blob
+// globalThis.Blob = Blob; // use Node.js Blob instead of Jsdom's Blob
 // import { server } from "./mocks/server.js";
 
 // // ###########################

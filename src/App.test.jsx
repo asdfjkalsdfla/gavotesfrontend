@@ -4,6 +4,7 @@ import React from "react";
 import { describe, it, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import App from "./App.jsx";
+vi.spyOn(window.URL, "createObjectURL").mockImplementation(() => "http://fake.url");
 
 vi.mock("recharts", async () => {
   const actual = await vi.importActual("recharts");
