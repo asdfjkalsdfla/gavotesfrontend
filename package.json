@@ -30,7 +30,7 @@
     "react-map-gl": "^7.1.6",
     "react-router-dom": "^6.17.0",
     "recharts": "^2.9.0",
-    "tailwind-merge": "^1.14.0",
+    "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "temporal-polyfill": "^0.1.1"
   },
