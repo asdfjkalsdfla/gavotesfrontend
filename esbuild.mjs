@@ -12,7 +12,7 @@ const ESBUILD_CONFIG = {
   splitting: true,
   format: "esm",
   sourcemap: false,
-  entryPoints: ["./src/index.jsx", "./public/index.html"],
+  entryPoints: ["./src/index.jsx"],
   loader: { ".js": "jsx", ".html": "copy" },
   outdir: `${DIST_DIR}`,
   entryNames: "[name]-[hash]",
