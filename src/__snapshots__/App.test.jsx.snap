@@ -44,7 +44,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               type="button"
             >
               <svg
-                class="lucide lucide-menu"
+                class="lucide lucide-menu "
                 fill="none"
                 height="24"
                 stroke="currentColor"
@@ -92,7 +92,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
                   <svg
-                    class="mr-2 md:mr-1 h-4 w-4"
+                    class="lucide lucide-globe mr-2 md:mr-1 h-4 w-4"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -121,7 +121,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
                   <svg
-                    class="mr-2 md:mr-1 h-4 w-4"
+                    class="lucide lucide-scatter-chart mr-2 md:mr-1 h-4 w-4"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -167,7 +167,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
                   <svg
-                    class="mr-2 md:mr-1 h-4 w-4"
+                    class="lucide lucide-table mr-2 md:mr-1 h-4 w-4"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -201,7 +201,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 >
                   <svg
-                    class="mr-2 md:mr-1 h-4 w-4"
+                    class="lucide lucide-sliders-horizontal mr-2 md:mr-1 h-4 w-4"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -307,7 +307,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <svg
-                    class="mr-2 h-5 w-5"
+                    class="lucide lucide-settings mr-2 h-5 w-5"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -494,7 +494,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   target="_self"
                 >
                   <svg
-                    class="mr-2 h-5 w-5"
+                    class="lucide lucide-download mr-2 h-5 w-5"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -12688,7 +12688,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-6 w-6"
                   >
                     <svg
-                      class="lucide lucide-x"
+                      class="lucide lucide-x "
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -12781,7 +12781,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-6 w-6"
                   >
                     <svg
-                      class="lucide lucide-x"
+                      class="lucide lucide-x "
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -12845,7 +12845,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     </span>
                     <svg
                       aria-hidden="true"
-                      class="h-4 w-4 opacity-50"
+                      class="lucide lucide-chevron-down h-4 w-4 opacity-50"
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -12888,7 +12888,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     </span>
                     <svg
                       aria-hidden="true"
-                      class="h-4 w-4 opacity-50"
+                      class="lucide lucide-chevron-down h-4 w-4 opacity-50"
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -12940,7 +12940,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     </span>
                     <svg
                       aria-hidden="true"
-                      class="h-4 w-4 opacity-50"
+                      class="lucide lucide-chevron-down h-4 w-4 opacity-50"
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -13030,7 +13030,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                       style="pointer-events: none;"
                     >
                       <svg
-                        class="h-4 w-4"
+                        class="lucide lucide-check h-4 w-4"
                         fill="none"
                         height="24"
                         stroke="currentColor"
@@ -13092,7 +13092,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground p-0.3"
                   >
                     <svg
-                      class="ml-2 mr-2 h-3 w-3"
+                      class="lucide lucide-zoom-in ml-2 mr-2 h-3 w-3"
                       fill="none"
                       height="24"
                       stroke="currentColor"
