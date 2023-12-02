@@ -21,7 +21,7 @@
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.0.0",
     "lucide-react": "^0.293.0",
-    "mapbox-gl": "^2.15.0",
+    "mapbox-gl": "^3.0.0",
     "ml-regression-simple-linear": "^3.0.0",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
