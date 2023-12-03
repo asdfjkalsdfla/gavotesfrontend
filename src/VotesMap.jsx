@@ -1,6 +1,6 @@
-import "mapbox-gl/dist/mapbox-gl.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import Map, { NavigationControl, useControl } from "react-map-gl";
+import Map, { NavigationControl, useControl } from "react-map-gl/maplibre";
 // import {
 //   LightingEffect,
 //   AmbientLight,
