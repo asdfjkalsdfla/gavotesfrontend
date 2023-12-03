@@ -10,7 +10,8 @@
 			"**/dist": true,
             "**/node_modules": true,
 			"**/coverage": true,
-			"./buildAnalysis.html"
+			"./buildAnalysis.html": true,
+			"./buildMeta.json": true,
         }
 	}
 }

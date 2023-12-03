@@ -15,6 +15,7 @@ const ESBUILD_CONFIG = {
   entryPoints: ["./src/index.jsx"],
   loader: { ".js": "jsx", ".html": "copy" },
   outdir: `${DIST_DIR}`,
+  metafile: true,
   entryNames: "[name]-[hash]",
   chunkNames: "assets/[ext]/[name]-[hash]",
   assetNames: "assets/[ext]/[name]-[hash]",
@@ -58,12 +59,13 @@ const build = async () => {
     console.log(`${DIST_DIR} already exists.`);
   }
   // Build our files
-  await esbuild.build({
+  let buildResult = await esbuild.build({
     ...ESBUILD_CONFIG,
     outdir: `${DIST_DIR}`,
     minify: true,
     write: true,
   });
+  fs.writeFileSync('buildMeta.json', JSON.stringify(buildResult.metafile))
 };
 /**
  *
