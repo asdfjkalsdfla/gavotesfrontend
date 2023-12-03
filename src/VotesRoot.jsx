@@ -1,5 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
+import ErrorBoundary from "./ErrorBoundary.js";
 
 import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
@@ -128,39 +129,41 @@ export default function VotesRoot() {
           resultsElectionRacePerviousID={resultsElectionRacePerviousID}
         >
           <div className={displayType === "table" && !showOptions ? "full" : "one"}>
-            <Suspense fallback={<div>Loading...</div>}>
-              {displayType === "scatter" && (
-                <VotesScatterPlot
-                  isCountyLevel={isCountyLevel}
-                  updateActiveSelection={updateActiveSelection}
-                  updateActiveHover={updateActiveHover}
-                  scatterXAxis={scatterXAxis}
-                  scatterYAxis={scatterYAxis}
-                />
-              )}
-              {displayType === "map" && (
-                // <div>test</div>
-                <VotesMap
-                  isCountyLevel={isCountyLevel}
-                  countyFilter={countyFilter}
-                  elevationApproach={elevationApproach}
-                  colorApproach={colorApproach}
-                  updateActiveSelection={updateActiveSelection}
-                  updateActiveHover={updateActiveHover}
-                  userHasSetLevel={userHasSetLevel}
-                  updateIsCountyLevel={updateIsCountyLevel}
-                />
-              )}
-              {displayType === "table" && (
-                <VotesTable
-                  isCountyLevel={isCountyLevel}
-                  countyFilter={countyFilter}
-                  updateCountyFilter={updateCountyFilter}
-                  updateIsCountyLevel={updateIsCountyLevel}
-                  updateActiveSelection={updateActiveSelection}
-                />
-              )}
-            </Suspense>
+            <ErrorBoundary fallback={<p>Something went wrong</p>}>
+              <Suspense fallback={<div>Loading...</div>}>
+                {displayType === "scatter" && (
+                  <VotesScatterPlot
+                    isCountyLevel={isCountyLevel}
+                    updateActiveSelection={updateActiveSelection}
+                    updateActiveHover={updateActiveHover}
+                    scatterXAxis={scatterXAxis}
+                    scatterYAxis={scatterYAxis}
+                  />
+                )}
+                {displayType === "map" && (
+                  // <div>test</div>
+                  <VotesMap
+                    isCountyLevel={isCountyLevel}
+                    countyFilter={countyFilter}
+                    elevationApproach={elevationApproach}
+                    colorApproach={colorApproach}
+                    updateActiveSelection={updateActiveSelection}
+                    updateActiveHover={updateActiveHover}
+                    userHasSetLevel={userHasSetLevel}
+                    updateIsCountyLevel={updateIsCountyLevel}
+                  />
+                )}
+                {displayType === "table" && (
+                  <VotesTable
+                    isCountyLevel={isCountyLevel}
+                    countyFilter={countyFilter}
+                    updateCountyFilter={updateCountyFilter}
+                    updateIsCountyLevel={updateIsCountyLevel}
+                    updateActiveSelection={updateActiveSelection}
+                  />
+                )}
+              </Suspense>
+            </ErrorBoundary>
           </div>
           {(displayType !== "table" || showOptions) && (
             <div className="two p-4">
