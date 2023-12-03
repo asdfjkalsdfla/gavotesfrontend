@@ -68,7 +68,7 @@ function DeckGLOverlay(props) {
 }
 
 export default function VotesMap({
-  mapStyle = "mapbox://styles/mapbox/light-v10",
+  mapStyle = `https://api.mapbox.com/styles/v1/mapbox/light-v10?access_token=${MAPBOX_TOKEN}`,
   elevationApproach,
   colorApproach,
   updateActiveSelection,
@@ -91,9 +91,9 @@ export default function VotesMap({
   const geoJSONFile = countyFilter
     ? `static/shapeFiles/GA_precincts_2022_${countyFilter}_simple.json`
     : isCountyLevel
-    ? "static/shapeFiles/GA_counties_simple.json"
-    : "static/shapeFiles/GA_precincts_simple_2022.json";
-    
+      ? "static/shapeFiles/GA_counties_simple.json"
+      : "static/shapeFiles/GA_precincts_simple_2022.json";
+
   const [dataGeoJSONBase, updateDataGeoJSONBase] = useState();
   useEffect(() => {
     const load = async () => {
@@ -209,7 +209,7 @@ export default function VotesMap({
       case "turnoutAbsSameDay":
         [elevationMin, elevationMax] = quantile(
           [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-          isCountyLevel ? [0.0, 1] : [0.05, 0.95]
+          isCountyLevel ? [0.0, 1] : [0.05, 0.95],
         );
         return (f) => {
           const value =
@@ -221,7 +221,7 @@ export default function VotesMap({
       default:
         [elevationMin, elevationMax] = quantile(
           [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
-          isCountyLevel ? [0.0, 1] : [0.05, 0.95]
+          isCountyLevel ? [0.0, 1] : [0.05, 0.95],
         );
         return (f) => {
           const value =
@@ -243,7 +243,7 @@ export default function VotesMap({
     case "totalVotesPercent":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.totalVotesPercent),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       // console.log(`Min: ${scaleMin}, Max: ${scaleMax}`);
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
@@ -256,7 +256,7 @@ export default function VotesMap({
     case "turnoutAbs":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -268,7 +268,7 @@ export default function VotesMap({
     case "turnoutAbsSameDay":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -283,7 +283,7 @@ export default function VotesMap({
       // eslint-disable-next-line no-case-declarations
       const [firstMin, firstMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.electionResultsComparison?.perShiftDemocratic),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleMin = Math.abs(firstMin) > Math.abs(firstMax) ? -1 * Math.abs(firstMin) : -1 * Math.abs(firstMax);
       scaleMax = -1 * scaleMin;
@@ -298,7 +298,7 @@ export default function VotesMap({
     case "hispanicPer":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.demographics?.hispanicPer),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -310,7 +310,7 @@ export default function VotesMap({
     case "blackPer":
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
@@ -395,9 +395,9 @@ export default function VotesMap({
                 ? f?.electionResultsCurrent[attributeForComparison]
                 : 0
               : f?.electionResultsComparison
-              ? f?.electionResultsComparison[attributeForComparison]
-              : 0
-          )
+                ? f?.electionResultsComparison[attributeForComparison]
+                : 0,
+          ),
         ) *
         (isCountyLevel ? 4 : 1.5) *
         (colorApproach === "electionResultVoteMargin" ? 1 : 2),
@@ -407,8 +407,8 @@ export default function VotesMap({
             ? f?.electionResultsCurrent[attributeForComparison]
             : 0
           : f?.electionResultsComparison
-          ? f?.electionResultsComparison[attributeForComparison]
-          : 0) < 0
+            ? f?.electionResultsComparison[attributeForComparison]
+            : 0) < 0
           ? [170, 57, 57, circleOpacity]
           : [17, 62, 103, circleOpacity],
       getLineColor: (f) =>
@@ -417,8 +417,8 @@ export default function VotesMap({
             ? f?.electionResultsCurrent[attributeForComparison]
             : 0
           : f?.electionResultsComparison
-          ? f?.electionResultsComparison[attributeForComparison]
-          : 0) < 0
+            ? f?.electionResultsComparison[attributeForComparison]
+            : 0) < 0
           ? [170, 57, 57, circleOpacity + 120]
           : [17, 62, 103, circleOpacity + 120],
       lineWidthPixels: isCountyLevel ? 5 : 1,
@@ -427,7 +427,7 @@ export default function VotesMap({
     if (dataGeoJSON && showSecondaryColor) {
       [scaleMin, scaleMax] = quantile(
         [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
-        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98]
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
