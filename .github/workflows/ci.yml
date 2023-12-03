@@ -8,6 +8,11 @@ on:
     branches:
       - "main"
       - "renovate/**"
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
 
 jobs:
   build:
