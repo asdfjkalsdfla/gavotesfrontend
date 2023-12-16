@@ -36,12 +36,12 @@ jobs:
       - run: pnpm run test:ci
         timeout-minutes: 5
       - name: Archive Build Outputs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build/
       - name: Archive Build Outputs ES Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: esBuild
           path: dist/
