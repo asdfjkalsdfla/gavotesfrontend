@@ -1,13 +1,12 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Map, useControl } from "react-map-gl/maplibre";
+import { Map } from "react-map-gl/maplibre";
 // import {
 //   LightingEffect,
 //   AmbientLight,
 //   DirectionalLight,
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
-import { MapView } from "@deck.gl/core/dist/esm";
 import DeckGL from "@deck.gl/react/dist/esm";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
@@ -135,7 +134,7 @@ export default function VotesMap({
       bearing: initialBearing,
     };
     return viewState;
-  }, [countyFilter, elevationApproach]);
+  }, []);
 
   // ************************************************
   // Adjust map on setting changes
@@ -497,11 +496,9 @@ export default function VotesMap({
         controller={true}
         getTooltip={getTooltip}
       >
-        <MapView id="map" controller={true}>
-          <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
-          <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
-          {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
-        </MapView>
+        <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
+        <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
+        {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
       </DeckGL>
     </div>
   );
