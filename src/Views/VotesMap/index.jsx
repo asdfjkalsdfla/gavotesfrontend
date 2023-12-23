@@ -1,6 +1,6 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Map } from "react-map-gl/maplibre";
+import { Map, useControl } from "react-map-gl/maplibre";
 // import {
 //   LightingEffect,
 //   AmbientLight,
@@ -8,6 +8,7 @@ import { Map } from "react-map-gl/maplibre";
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
 import DeckGL from "@deck.gl/react/dist/esm";
+import { MapboxOverlay } from "@deck.gl/mapbox/dist/esm";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
@@ -16,6 +17,12 @@ import { useElectionData } from "../../ElectionDataProvider.jsx";
 import MapScale from "./MapScale.jsx";
 import { numberFormat, numberFormatPercent, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
+
+function DeckGLOverlay(props) {
+  const overlay = useControl(() => new MapboxOverlay(props));
+  overlay.setProps(props);
+  return null;
+}
 
 const NAVIGATION_CONTROL_STYLES = {
   marginTop: 50,
@@ -489,17 +496,23 @@ export default function VotesMap({
 
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
-      <DeckGL
+      <Map
         initialViewState={INITIAL_VIEW_STATE}
-        layers={layers}
-        // effects={effects}
-        controller={true}
-        getTooltip={getTooltip}
+        reuseMap
+        mapStyle={mapStyle}
+        ref={mapRef}
+        onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
       >
-        <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
-        <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
-        {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
-      </DeckGL>
+        <DeckGLOverlay
+          layers={layers}
+          // effects={effects}
+          controller={true}
+          getTooltip={getTooltip}
+        >
+          <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
+          {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
+        </DeckGLOverlay>
+      </Map>
     </div>
   );
 }
