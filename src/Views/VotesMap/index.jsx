@@ -7,23 +7,22 @@ import { Map, useControl } from "react-map-gl/maplibre";
 //   DirectionalLight,
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
-import { MapView } from "@deck.gl/core/dist/esm";
 import DeckGL from "@deck.gl/react/dist/esm";
+import { MapboxOverlay } from "@deck.gl/mapbox/dist/esm";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
-import { quantile } from "./Utils.jsx";
-import { useElectionData } from "./ElectionDataProvider.jsx";
+import { quantile } from "../../Utils.jsx";
+import { useElectionData } from "../../ElectionDataProvider.jsx";
+import MapScale from "./MapScale.jsx";
+import { numberFormat, numberFormatPercent, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
+import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 
-import boundingBoxesForCounties from "./VotesMapCountiesBB.json";
-
-const numberFormat = new Intl.NumberFormat("en-us");
-
-const numberFormatPercent = new Intl.NumberFormat("en-us", {
-  style: "percent",
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
+function DeckGLOverlay(props) {
+  const overlay = useControl(() => new MapboxOverlay(props));
+  overlay.setProps(props);
+  return null;
+}
 
 const NAVIGATION_CONTROL_STYLES = {
   marginTop: 50,
@@ -43,30 +42,12 @@ const COLOR_SCALE = scaleLinear()
     [0, 20, 56],
   ]);
 
-const normalizeZeroOne = (value, min, max) => {
-  if (!value && value !== 0) return undefined;
-  return Math.max(0, Math.min(1, (value - min) / (max - min) || 0));
-};
-
-const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
-  const absMax = Math.max(Math.abs(min), Math.abs(max));
-  return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
-};
-
 const convertD3ColorToArray = (color) =>
   color
     .replace("rgb(", "")
     .replace(")", "")
     .split(",")
     .map((val) => parseInt(val, 10));
-
-const MAPBOX_TOKEN = "pk.eyJ1IjoicmljaGFyZG93cmlnaHQiLCJhIjoiY2podXhvNGUxMHRlaTNycnNteTFyM3UyZCJ9.AvD-USUs_rTwesgEJCmECA";
-
-function DeckGLOverlay(props) {
-  const overlay = useControl(() => new MapboxOverlay(props));
-  overlay.setProps(props);
-  return null;
-}
 
 export default function VotesMap({
   mapStyle = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
@@ -149,8 +130,7 @@ export default function VotesMap({
     // eslint-disable-next-line no-nested-ternary
     const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
     const backupLatLong = { latitude: 32.7, longitude: -82.5641 };
-
-    return {
+    const viewState = {
       bounds: boundingBox,
       fitBoundsOptions: { maxZoom: 12, padding: { left: 10, right: 10, bottom: 100, top: 10 } },
       ...backupLatLong,
@@ -159,10 +139,9 @@ export default function VotesMap({
       maxZoom: 20,
       pitch: initialPitch,
       bearing: initialBearing,
-      width: window.innerWidth - 200,
-      height: window.innerHeight - 200,
     };
-  }, [countyFilter, elevationApproach]);
+    return viewState;
+  }, []);
 
   // ************************************************
   // Adjust map on setting changes
@@ -517,45 +496,23 @@ export default function VotesMap({
 
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
-      <DeckGL
+      <Map
         initialViewState={INITIAL_VIEW_STATE}
-        layers={layers}
-        // effects={effects}
-        controller={true}
-        getTooltip={getTooltip}
+        reuseMap
+        mapStyle={mapStyle}
+        ref={mapRef}
+        onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
       >
-        <MapView id="map" controller={true}>
-          <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
+        <DeckGLOverlay
+          layers={layers}
+          // effects={effects}
+          controller={true}
+          getTooltip={getTooltip}
+        >
           <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
-          {scaleToColorFunction && (
-            <div
-              style={{
-                position: "absolute",
-                top: "88%",
-                right: 0,
-                width: 200,
-                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-                margin: 24,
-                padding: "5px 24px",
-                backgroundColor: "white",
-                zIndex: 999,
-              }}
-            >
-              {[...Array(50).keys()].map((point) => {
-                const color = scaleToColorFunction((point * 2) / 100);
-                return (
-                  <span key={point} style={{ backgroundColor: color, width: "1px" }}>
-                    &nbsp;
-                  </span>
-                );
-              })}
-              <br />
-              <span>{numberFormatPercent.format(scaleMin)}</span>
-              <span style={{ float: "right" }}>{numberFormatPercent.format(scaleMax)}</span>
-            </div>
-          )}
-        </MapView>
-      </DeckGL>
+          {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
+        </DeckGLOverlay>
+      </Map>
     </div>
   );
 }

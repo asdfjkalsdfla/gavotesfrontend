@@ -12,7 +12,7 @@ import "./VotesRoot.css";
 // import VotesScatterPlot from "./VotesScatterPlot.jsx";
 // import VotesTable from "./VotesTable.jsx";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
-const VotesMap = lazy(() => import("./VotesMap.jsx"));
+const VotesMap = lazy(() => import("./Views/VotesMap/index.jsx"));
 const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
 const VotesTable = lazy(() => import("./VotesTable.jsx"));
 
