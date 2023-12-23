@@ -15,7 +15,7 @@ import { scaleLinear } from "d3-scale";
 import { quantile } from "../../Utils.jsx";
 import { useElectionData } from "../../ElectionDataProvider.jsx";
 import MapScale from "./MapScale.jsx";
-import { numberFormat, numberFormatPercent } from "../../Utils";
+import { numberFormat, numberFormatPercent, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 
 const NAVIGATION_CONTROL_STYLES = {
@@ -35,16 +35,6 @@ const COLOR_SCALE = scaleLinear()
     [17, 62, 103],
     [0, 20, 56],
   ]);
-
-const normalizeZeroOne = (value, min, max) => {
-  if (!value && value !== 0) return undefined;
-  return Math.max(0, Math.min(1, (value - min) / (max - min) || 0));
-};
-
-const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
-  const absMax = Math.max(Math.abs(min), Math.abs(max));
-  return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
-};
 
 const convertD3ColorToArray = (color) =>
   color
