@@ -148,7 +148,7 @@ export default function VotesMap({
     const boundingBox = boundingBoxesForCounties[countyFilter || "STATE"];
     // eslint-disable-next-line no-nested-ternary
     const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
-    const backupLatLong = { latitude: 33.9999, longitude: -84.5641 };
+    const backupLatLong = { latitude: 32.7, longitude: -82.5641 };
 
     return {
       bounds: boundingBox,
@@ -516,7 +516,7 @@ export default function VotesMap({
   };
 
   return (
-    <div className="max-w-10 max-h-10">
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
       <DeckGL
         initialViewState={INITIAL_VIEW_STATE}
         layers={layers}
@@ -524,14 +524,8 @@ export default function VotesMap({
         controller={true}
         getTooltip={getTooltip}
       >
-        <MapView id="map" height="50%" width="50%" controller={true}>
-          <Map
-            reuseMap
-            mapStyle={mapStyle}
-            ref={mapRef}
-            onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
-            style={{ width: "100%", height: "100%" }}
-          />
+        <MapView id="map" controller={true}>
+          <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
           <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
           {scaleToColorFunction && (
             <div
