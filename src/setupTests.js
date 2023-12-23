@@ -48,4 +48,8 @@ if (isDomWindow) {
   }
 
   window.ResizeObserver = ResizeObserver;
+
+  const { getComputedStyle } = window;
+  window.getComputedStyle = (elt) => getComputedStyle(elt);
+
 }
