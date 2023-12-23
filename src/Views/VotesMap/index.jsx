@@ -124,8 +124,7 @@ export default function VotesMap({
     // eslint-disable-next-line no-nested-ternary
     const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
     const backupLatLong = { latitude: 32.7, longitude: -82.5641 };
-
-    return {
+    const viewState = {
       bounds: boundingBox,
       fitBoundsOptions: { maxZoom: 12, padding: { left: 10, right: 10, bottom: 100, top: 10 } },
       ...backupLatLong,
@@ -134,9 +133,8 @@ export default function VotesMap({
       maxZoom: 20,
       pitch: initialPitch,
       bearing: initialBearing,
-      width: window.innerWidth - 200,
-      height: window.innerHeight - 200,
     };
+    return viewState;
   }, [countyFilter, elevationApproach]);
 
   // ************************************************
