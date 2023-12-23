@@ -1,13 +1,14 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import Map, { NavigationControl, useControl } from "react-map-gl/maplibre";
+import { Map, useControl } from "react-map-gl/maplibre";
 // import {
 //   LightingEffect,
 //   AmbientLight,
 //   DirectionalLight,
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
-import { MapboxOverlay } from "@deck.gl/mapbox";
+import { MapView } from "@deck.gl/core/dist/esm";
+import DeckGL from "@deck.gl/react/dist/esm";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
@@ -68,7 +69,7 @@ function DeckGLOverlay(props) {
 }
 
 export default function VotesMap({
-  mapStyle = `https://api.mapbox.com/styles/v1/mapbox/light-v10?access_token=${MAPBOX_TOKEN}`,
+  mapStyle = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
   elevationApproach,
   colorApproach,
   updateActiveSelection,
@@ -489,77 +490,78 @@ export default function VotesMap({
   }
 
   // console.log( `geojson_${colorApproach}_${absenteeElectionBaseID}_${absenteeElectionCurrentID}_${resultsElectionRaceCurrentID}_${resultsElectionRacePerviousID}`);
+  const getTooltip = ({ object }) => {
+    if (!object) {
+      updateActiveHover(object);
+      return;
+    }
+    if (object.properties) updateActiveHover(object.properties.id);
+    const lookup = object.properties ? object.properties : object;
+    if (lookup[colorApproach] || lookup[elevationApproach])
+      // eslint-disable-next-line consistent-return
+      return {
+        html: `\
+      <div>Color: ${
+        colorApproach === "electionResultVoteShift" ? numberFormat.format(lookup[colorApproach]) : numberFormatPercent.format(lookup[colorApproach])
+      }</div>
+      ${
+        elevationApproach !== "none" && lookup[elevationApproach]
+          ? `<div>Height: 
+        ${numberFormat.format(lookup[elevationApproach])}
+      </div>`
+          : "<span></span>"
+      }
+  `,
+      };
+  };
 
   return (
-    <Map
-      initialViewState={INITIAL_VIEW_STATE}
-      mapStyle={mapStyle}
-      mapboxAccessToken={MAPBOX_TOKEN}
-      ref={mapRef}
-      onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
-      style={{ width: "100%", height: "100%" }}
-      reuseMaps
-    >
-      <DeckGLOverlay
-        // ContextProvider={MapContext.Provider}
+    <div className="max-w-10 max-h-10">
+      <DeckGL
+        initialViewState={INITIAL_VIEW_STATE}
         layers={layers}
         // effects={effects}
         controller={true}
-        getTooltip={({ object }) => {
-          if (!object) {
-            updateActiveHover(object);
-            return;
-          }
-          if (object.properties) updateActiveHover(object.properties.id);
-          const lookup = object.properties ? object.properties : object;
-          if (lookup[colorApproach] || lookup[elevationApproach])
-            // eslint-disable-next-line consistent-return
-            return {
-              html: `\
-            <div>Color: ${
-              colorApproach === "electionResultVoteShift" ? numberFormat.format(lookup[colorApproach]) : numberFormatPercent.format(lookup[colorApproach])
-            }</div>
-            ${
-              elevationApproach !== "none" && lookup[elevationApproach]
-                ? `<div>Height: 
-              ${numberFormat.format(lookup[elevationApproach])}
-            </div>`
-                : "<span></span>"
-            }
-        `,
-            };
-        }}
-      />
-      <div style={NAVIGATION_CONTROL_STYLES}>
-        <NavigationControl />
-      </div>
-      {scaleToColorFunction && (
-        <div
-          style={{
-            position: "absolute",
-            top: "88%",
-            right: 0,
-            width: 200,
-            boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-            margin: 24,
-            padding: "5px 24px",
-            backgroundColor: "white",
-            zIndex: 999,
-          }}
-        >
-          {[...Array(50).keys()].map((point) => {
-            const color = scaleToColorFunction((point * 2) / 100);
-            return (
-              <span key={point} style={{ backgroundColor: color, width: "1px" }}>
-                &nbsp;
-              </span>
-            );
-          })}
-          <br />
-          <span>{numberFormatPercent.format(scaleMin)}</span>
-          <span style={{ float: "right" }}>{numberFormatPercent.format(scaleMax)}</span>
-        </div>
-      )}
-    </Map>
+        getTooltip={getTooltip}
+      >
+        <MapView id="map" height="50%" width="50%" controller={true}>
+          <Map
+            reuseMap
+            mapStyle={mapStyle}
+            ref={mapRef}
+            onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)}
+            style={{ width: "100%", height: "100%" }}
+          />
+          <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
+          {scaleToColorFunction && (
+            <div
+              style={{
+                position: "absolute",
+                top: "88%",
+                right: 0,
+                width: 200,
+                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+                margin: 24,
+                padding: "5px 24px",
+                backgroundColor: "white",
+                zIndex: 999,
+              }}
+            >
+              {[...Array(50).keys()].map((point) => {
+                const color = scaleToColorFunction((point * 2) / 100);
+                return (
+                  <span key={point} style={{ backgroundColor: color, width: "1px" }}>
+                    &nbsp;
+                  </span>
+                );
+              })}
+              <br />
+              <span>{numberFormatPercent.format(scaleMin)}</span>
+              <span style={{ float: "right" }}>{numberFormatPercent.format(scaleMax)}</span>
+            </div>
+          )}
+        </MapView>
+      </DeckGL>
+    </div>
   );
 }
