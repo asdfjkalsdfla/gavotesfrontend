@@ -49,6 +49,8 @@ if (isDomWindow) {
 
   window.ResizeObserver = ResizeObserver;
 
+  window.URL.createObjectURL = vi.fn();
+
   const { getComputedStyle } = window;
   window.getComputedStyle = (elt) => getComputedStyle(elt);
 

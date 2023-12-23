@@ -26,6 +26,7 @@ export default defineConfig(
     server: {
       open: "/",
       port: 3000,
+      cors: { origin: ["https://localhost","https://basemaps.cartocdn.com"]}
     },
     build: {
       outDir: "build",
