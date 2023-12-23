@@ -43,12 +43,6 @@ const convertD3ColorToArray = (color) =>
     .split(",")
     .map((val) => parseInt(val, 10));
 
-function DeckGLOverlay(props) {
-  const overlay = useControl(() => new MapboxOverlay(props));
-  overlay.setProps(props);
-  return null;
-}
-
 export default function VotesMap({
   mapStyle = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
   elevationApproach,
