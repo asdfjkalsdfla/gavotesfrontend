@@ -43,8 +43,6 @@ const convertD3ColorToArray = (color) =>
     .split(",")
     .map((val) => parseInt(val, 10));
 
-const MAPBOX_TOKEN = "pk.eyJ1IjoicmljaGFyZG93cmlnaHQiLCJhIjoiY2podXhvNGUxMHRlaTNycnNteTFyM3UyZCJ9.AvD-USUs_rTwesgEJCmECA";
-
 function DeckGLOverlay(props) {
   const overlay = useControl(() => new MapboxOverlay(props));
   overlay.setProps(props);
