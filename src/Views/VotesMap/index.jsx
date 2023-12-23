@@ -50,7 +50,7 @@ const convertD3ColorToArray = (color) =>
     .map((val) => parseInt(val, 10));
 
 export default function VotesMap({
-  mapStyle = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
+  mapStyle = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
   elevationApproach,
   colorApproach,
   updateActiveSelection,
