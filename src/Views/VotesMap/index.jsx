@@ -12,18 +12,11 @@ import DeckGL from "@deck.gl/react/dist/esm";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
-import { quantile } from "./Utils.jsx";
-import { useElectionData } from "./ElectionDataProvider.jsx";
-
-import boundingBoxesForCounties from "./VotesMapCountiesBB.json";
-
-const numberFormat = new Intl.NumberFormat("en-us");
-
-const numberFormatPercent = new Intl.NumberFormat("en-us", {
-  style: "percent",
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
+import { quantile } from "../../Utils.jsx";
+import { useElectionData } from "../../ElectionDataProvider.jsx";
+import MapScale from "./MapScale.jsx";
+import { numberFormat, numberFormatPercent } from "../../Utils";
+import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 
 const NAVIGATION_CONTROL_STYLES = {
   marginTop: 50,
@@ -527,33 +520,7 @@ export default function VotesMap({
         <MapView id="map" controller={true}>
           <Map reuseMap mapStyle={mapStyle} ref={mapRef} onViewStateChange={(viewport) => updateZoomLevel(viewport.viewState)} />
           <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
-          {scaleToColorFunction && (
-            <div
-              style={{
-                position: "absolute",
-                top: "88%",
-                right: 0,
-                width: 200,
-                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-                margin: 24,
-                padding: "5px 24px",
-                backgroundColor: "white",
-                zIndex: 999,
-              }}
-            >
-              {[...Array(50).keys()].map((point) => {
-                const color = scaleToColorFunction((point * 2) / 100);
-                return (
-                  <span key={point} style={{ backgroundColor: color, width: "1px" }}>
-                    &nbsp;
-                  </span>
-                );
-              })}
-              <br />
-              <span>{numberFormatPercent.format(scaleMin)}</span>
-              <span style={{ float: "right" }}>{numberFormatPercent.format(scaleMax)}</span>
-            </div>
-          )}
+          {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
         </MapView>
       </DeckGL>
     </div>
