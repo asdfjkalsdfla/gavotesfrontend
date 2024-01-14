@@ -66,7 +66,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^23.2.0",
     "postcss": "^8.4.33",
-    "prettier": "^3.2.1",
+    "prettier": "^3.2.2",
     "rollup-plugin-visualizer": "^5.12.0",
     "simplify-geojson": "^1.0.5",
     "source-map-explorer": "^2.5.3",
