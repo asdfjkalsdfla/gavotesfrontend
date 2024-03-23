@@ -7,8 +7,8 @@ import { Map, useControl } from "react-map-gl/maplibre";
 //   DirectionalLight,
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
-import DeckGL from "@deck.gl/react/dist/esm";
-import { MapboxOverlay } from "@deck.gl/mapbox/dist/esm";
+import DeckGL from "@deck.gl/react";
+import { MapboxOverlay } from "@deck.gl/mapbox";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";

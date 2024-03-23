@@ -26,7 +26,7 @@ export default defineConfig(
     server: {
       open: "/",
       port: 3000,
-      cors: { origin: ["https://localhost","https://basemaps.cartocdn.com"]}
+      cors: { origin: ["https://localhost", "https://basemaps.cartocdn.com"] }
     },
     build: {
       outDir: "build",
@@ -38,7 +38,7 @@ export default defineConfig(
       exclude: ["**/node_modules/**", "**/dist/**"],
       setupFiles: ["./src/setupTests.js"],
       testTimeout: 20000,
-      alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
+      // alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
     }
   });
 
