@@ -41,7 +41,7 @@ export default class AbsenteeBallots {
     if (absenteeDatesPrior.length === 0) return 0;
     const lastDate = absenteeDatesPrior.reduce(
       (previousValue, nextValue) => (previousValue > nextValue.DaysFromElection ? previousValue : nextValue.DaysFromElection),
-      -9000
+      -9000,
     );
     if (lastDate === -9000) return 0;
     const daysOutAsOfDate = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection === lastDate)[0];

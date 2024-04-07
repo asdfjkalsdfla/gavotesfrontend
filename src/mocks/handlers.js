@@ -3,10 +3,9 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { rest } from "msw";
 
-// eslint-disable-next-line no-underscore-dangle
+// eslint-disable-next-line no-undef
 const _dirname = typeof __dirname !== "undefined" ? __dirname : dirname(fileURLToPath(import.meta.url));
 
-// eslint-disable-next-line import/prefer-default-export
 export const handlers = [
   rest.get("/static/:file", (req, res, ctx) => {
     const { file } = req.params;

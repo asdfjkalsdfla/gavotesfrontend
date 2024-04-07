@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { scaleLinear } from "d3-scale";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
@@ -32,7 +32,7 @@ export default function GeoLayer(countyFilter, isCountyLevel, elevationApproach,
   // ************************************************
   // If the user sets a specific county, we show only that counties data @ precinct level
   // Otherwise, we determine if we show counties or precinct state wide data
-  // eslint-disable-next-line no-nested-ternary
+
   const geoJSONFile = countyFilter
     ? `static/shapeFiles/GA_precincts_2022_${countyFilter}_simple.json`
     : isCountyLevel
@@ -44,7 +44,6 @@ export default function GeoLayer(countyFilter, isCountyLevel, elevationApproach,
     const load = async () => {
       const responseGeo = await fetch(`${import.meta.env.VITE_API_URL_BASE}${geoJSONFile}`);
       if (!responseGeo.ok) {
-        // eslint-disable-next-line no-console
         console.log("ERROR loading GEO JSON file");
         return;
       }
@@ -55,6 +54,7 @@ export default function GeoLayer(countyFilter, isCountyLevel, elevationApproach,
   }, [geoJSONFile]);
 
   const [dataGeoJSON, updateDataGeoJSON] = useState();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [dataPropsOnly, updateDataPropsOnly] = useState();
 
   useEffect(() => {
@@ -66,7 +66,6 @@ export default function GeoLayer(countyFilter, isCountyLevel, elevationApproach,
       const votingResultRaw = feature.properties;
       const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
 
-      // eslint-disable-next-line no-param-reassign
       feature.properties = { ...feature.properties, ...properties };
     });
     if (locationResults.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
@@ -88,7 +87,6 @@ export default function GeoLayer(countyFilter, isCountyLevel, elevationApproach,
       const votingResultRaw = feature.properties;
       const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
 
-      // eslint-disable-next-line no-param-reassign
       feature.properties = { ...feature.properties, ...properties };
     });
     if (locationResults.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
