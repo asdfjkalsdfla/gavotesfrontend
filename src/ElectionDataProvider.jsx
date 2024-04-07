@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-use-before-define */
 import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 
 import ElectionResult from "./Models/ElectionResult";
@@ -52,7 +50,7 @@ export function ElectionDataProvider({
         demographicsFileLocation,
         level === "county",
         currentElectionRace,
-        previousElectionRace
+        previousElectionRace,
       );
       updateFunctions.forEach((updateFunction) => {
         if (level === "state") {
@@ -98,7 +96,7 @@ export function ElectionDataProvider({
       locationResults: activeLocationResults,
       countyResults: countyElectionData,
     }),
-    [statewideElectionData, activeLocationResults, countyElectionData]
+    [statewideElectionData, activeLocationResults, countyElectionData],
   );
 
   return <ElectionDataContext.Provider value={electionData}>{children}</ElectionDataContext.Provider>;
@@ -116,7 +114,7 @@ const loadAndCombineElectionDataFiles = async (
   demographicsFileLocation,
   isCountyLevel,
   currentElectionRace,
-  previousElectionRace
+  previousElectionRace,
 ) => {
   // console.log(`fetching data`);
   const fetchPromises = [];
@@ -126,9 +124,8 @@ const loadAndCombineElectionDataFiles = async (
   fetchPromises.push(fetch(demographicsFileLocation));
   if (electionResultBaseFileLocation) fetchPromises.push(fetch(electionResultBaseFileLocation));
 
-  const [responseAbsenteeCurrent, responseAbsenteeBase, responseElectionResultsCurrent, responseDemographics, electionResultBase] = await Promise.all(
-    fetchPromises
-  );
+  const [responseAbsenteeCurrent, responseAbsenteeBase, responseElectionResultsCurrent, responseDemographics, electionResultBase] =
+    await Promise.all(fetchPromises);
 
   if (!responseAbsenteeCurrent.ok) {
     console.log("ERROR loading absentee current");
@@ -190,7 +187,7 @@ const loadAndCombineElectionDataFiles = async (
 
       const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
       properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
-      // eslint-disable-next-line prefer-destructuring
+
       properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
       combinedElectionData.set(id, properties);
       rdStateVotesTotalBase += properties?.electionResultsBase?.totalVotesRD || 0;
@@ -201,9 +198,8 @@ const loadAndCombineElectionDataFiles = async (
 
   // Set the comparisons between the results
   [...combinedElectionData.values()].forEach((result) => {
-    // eslint-disable-next-line no-param-reassign
     result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
-    // eslint-disable-next-line no-param-reassign
+
     result.absenteeBallotComparison =
       result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
   });

@@ -1,4 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
 export default class ElectionResultComparison {
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
   #voteShiftRepublican;

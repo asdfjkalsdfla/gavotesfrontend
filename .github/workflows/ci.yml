@@ -34,6 +34,7 @@ jobs:
       - run: pnpm run build
       - run: pnpm run buildESB
       - run: pnpm run test:ci
+      - run: pnpm run check
         timeout-minutes: 5
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v4

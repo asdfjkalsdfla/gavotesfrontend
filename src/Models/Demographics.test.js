@@ -1,5 +1,5 @@
 // @vitest-environment node
-/* eslint-disable no-underscore-dangle */
+
 import { describe, it, expect, beforeAll } from "vitest";
 // import fs from "fs";
 // import path from "path";

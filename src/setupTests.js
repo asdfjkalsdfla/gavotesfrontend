@@ -1,4 +1,4 @@
-import { vi, expect, beforeAll, afterEach, afterAll } from "vitest";
+import { vi, expect } from "vitest";
 
 // import { server } from "./mocks/server.js";
 
@@ -53,5 +53,4 @@ if (isDomWindow) {
 
   const { getComputedStyle } = window;
   window.getComputedStyle = (elt) => getComputedStyle(elt);
-
 }

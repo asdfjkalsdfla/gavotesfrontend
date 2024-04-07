@@ -1,5 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
 import { ConfigProvider, Table } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";

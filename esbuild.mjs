@@ -51,11 +51,11 @@ const build = async () => {
   if (!fs.existsSync(DIST_DIR)) {
     fs.mkdir(DIST_DIR, (err) => {
       if (err) throw err;
-      // eslint-disable-next-line no-console
+       
       console.log(`${DIST_DIR} created.`);
     });
   } else {
-    // eslint-disable-next-line no-console
+     
     console.log(`${DIST_DIR} already exists.`);
   }
   // Build our files

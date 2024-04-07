@@ -39,7 +39,7 @@ bench(
     expect(typeof electionResultComparison.totalVotesRepublicanPercent).toBe("number");
     expect(typeof electionResultComparison.totalVotesDemocraticPercent).toBe("number");
   },
-  { time: 1000 }
+  { time: 1000 },
 );
 
 // const electionCurrentCached = new ElectionResult({

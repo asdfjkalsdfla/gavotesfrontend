@@ -7,7 +7,6 @@ import { Map, useControl } from "react-map-gl/maplibre";
 //   DirectionalLight,
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
-import DeckGL from "@deck.gl/react";
 import { MapboxOverlay } from "@deck.gl/mapbox";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
@@ -69,7 +68,7 @@ export default function VotesMap({
   // ************************************************
   // If the user sets a specific county, we show only that counties data @ precinct level
   // Otherwise, we determine if we show counties or precinct state wide data
-  // eslint-disable-next-line no-nested-ternary
+
   const geoJSONFile = countyFilter
     ? `static/shapeFiles/GA_precincts_2022_${countyFilter}_simple.json`
     : isCountyLevel
@@ -81,7 +80,6 @@ export default function VotesMap({
     const load = async () => {
       const responseGeo = await fetch(`${import.meta.env.VITE_API_URL_BASE}${geoJSONFile}`);
       if (!responseGeo.ok) {
-        // eslint-disable-next-line no-console
         console.log("ERROR loading GEO JSON file");
         return;
       }
@@ -103,7 +101,6 @@ export default function VotesMap({
       const votingResultRaw = feature.properties;
       const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
 
-      // eslint-disable-next-line no-param-reassign
       feature.properties = { ...feature.properties, ...properties };
     });
     if (locationResults.size > 0) updateDataGeoJSON({ ...dataGeoJSONBase });
@@ -127,7 +124,7 @@ export default function VotesMap({
     // Change the zoom level based upon the size of the viewport
     const sizeParam = "none";
     const boundingBox = boundingBoxesForCounties[countyFilter || "STATE"];
-    // eslint-disable-next-line no-nested-ternary
+
     const backupZoom = countyFilter ? 10 : sizeParam === "small" || sizeParam === "small…" ? 5 : 6.7;
     const backupLatLong = { latitude: 32.7, longitude: -82.5641 };
     const viewState = {
@@ -477,7 +474,6 @@ export default function VotesMap({
     if (object.properties) updateActiveHover(object.properties.id);
     const lookup = object.properties ? object.properties : object;
     if (lookup[colorApproach] || lookup[elevationApproach])
-      // eslint-disable-next-line consistent-return
       return {
         html: `\
       <div>Color: ${

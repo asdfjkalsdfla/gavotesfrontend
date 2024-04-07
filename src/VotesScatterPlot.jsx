@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unsafe-optional-chaining */
 import React, { useState, useMemo, startTransition } from "react";
 import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import { SimpleLinearRegression } from "ml-regression-simple-linear";
@@ -95,7 +93,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 
     const regression = new SimpleLinearRegression(
       pointsOnChart.map((point) => point.x),
-      pointsOnChart.map((point) => point.y)
+      pointsOnChart.map((point) => point.y),
     );
     const regressionLineData = [
       { x: maxX, y: regression.predict(maxX) },
@@ -109,7 +107,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 
     const [yMin, yMax] = quantile(
       pointsOnChart.map((point) => point.y),
-      isCountyLevel ? [0, 1] : [0.01, 0.99]
+      isCountyLevel ? [0, 1] : [0.01, 0.99],
     );
     updateDomainY([yMin - 1, yMax + 1]);
     // updateDomainY([20, 100]);
@@ -155,7 +153,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
   }
 
   // Update zoom end coordinates
-  function handleMouseMove(e, ...all) {
+  function handleMouseMove(e) {
     // console.log(e);
     // console.log(all);
     const xValue = e?.activePayload[0].payload.x;
@@ -170,7 +168,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
 
   // When zooming stops, update with filtered data points
   // Ignore if not enough zoom
-  function handleMouseUp(e) {
+  function handleMouseUp() {
     if (isZooming) {
       setIsZooming(false);
       let { x1, x2, y1, y2 } = zoomArea;
@@ -199,15 +197,16 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
       ({ id }) => {
         updateActiveHover(id);
       },
-    [updateActiveHover]
+    [updateActiveHover],
   );
 
   const hoverScatterDotOut = useMemo(
     () =>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ({ id }) => {
         updateActiveHover(null);
       },
-    [updateActiveHover]
+    [updateActiveHover],
   );
 
   const clickScatterDot = useMemo(
@@ -215,7 +214,7 @@ export default function VotesScatterPlot({ scatterXAxis, scatterYAxis, isCountyL
       ({ id }) => {
         updateActiveSelection(id);
       },
-    [updateActiveSelection]
+    [updateActiveSelection],
   );
 
   const range = useMemo(() => [0, isCountyLevel ? 500 : 200], [isCountyLevel]);

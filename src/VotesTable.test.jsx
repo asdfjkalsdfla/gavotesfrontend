@@ -19,7 +19,7 @@ describe("Votes Table", () => {
         resultsElectionRacePerviousID="2022_general||US Senate"
       >
         <VotesTable />
-      </ElectionDataProvider>
+      </ElectionDataProvider>,
     );
     await waitFor(() => screen.getByText("State of Georgia"));
   });
@@ -35,7 +35,7 @@ describe("Votes Table", () => {
         resultsElectionRacePerviousID="2022_general||US Senate"
       >
         <VotesTable />
-      </ElectionDataProvider>
+      </ElectionDataProvider>,
     );
     await waitFor(() => screen.getByText("State of Georgia"));
     fireEvent.click(screen.getByTestId("dataElementSettings"));

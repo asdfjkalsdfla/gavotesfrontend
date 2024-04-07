@@ -15,7 +15,6 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
     resultSummary.absenteeCurrent.votesByDay.map((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
   chartPoints.forEach((point) => {
     if (currentElectionMap.has(point.DaysFromElection)) {
-      // eslint-disable-next-line no-param-reassign
       point.currentElectionVotesOnDate = currentElectionMap.get(point.DaysFromElection);
     }
   });
