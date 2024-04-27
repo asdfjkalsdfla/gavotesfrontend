@@ -44,7 +44,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               type="button"
             >
               <svg
-                class="lucide lucide-menu "
+                class="lucide lucide-menu"
                 fill="none"
                 height="24"
                 stroke="currentColor"
@@ -12532,7 +12532,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-6 w-6"
                   >
                     <svg
-                      class="lucide lucide-x "
+                      class="lucide lucide-x"
                       fill="none"
                       height="24"
                       stroke="currentColor"
@@ -12625,7 +12625,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                     class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-6 w-6"
                   >
                     <svg
-                      class="lucide lucide-x "
+                      class="lucide lucide-x"
                       fill="none"
                       height="24"
                       stroke="currentColor"
