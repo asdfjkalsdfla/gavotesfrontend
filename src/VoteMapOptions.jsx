@@ -174,13 +174,15 @@ export default function VoteMapSelectItems({
               <SelectContent position="popper">
                 {elections
                   .filter((election) => !election.isCurrentElection)
-                  .map((election) =>
-                    election.races.map((race) => (
-                      <SelectItem
-                        key={`${election.name}||${race.name}`}
-                        value={`${election.name}||${race.name}`}
-                      >{`${election.label} - ${race.name}`}</SelectItem>
-                    )),
+                  .map(
+                    (election) =>
+                      election.races &&
+                      election.races.map((race) => (
+                        <SelectItem
+                          key={`${election.name}||${race.name}`}
+                          value={`${election.name}||${race.name}`}
+                        >{`${election.label} - ${race.name}`}</SelectItem>
+                      )),
                   )}
               </SelectContent>
             </Select>
@@ -199,13 +201,15 @@ export default function VoteMapSelectItems({
               <SelectContent position="popper">
                 {elections
                   .filter((election) => !election.isCurrentElection)
-                  .map((election) =>
-                    election.races.map((race) => (
-                      <SelectItem
-                        key={`${election.name}||${race.name}`}
-                        value={`${election.name}||${race.name}`}
-                      >{`${election.label} - ${race.name}`}</SelectItem>
-                    )),
+                  .map(
+                    (election) =>
+                      election.races &&
+                      election.races.map((race) => (
+                        <SelectItem
+                          key={`${election.name}||${race.name}`}
+                          value={`${election.name}||${race.name}`}
+                        >{`${election.label} - ${race.name}`}</SelectItem>
+                      )),
                   )}
               </SelectContent>
             </Select>
