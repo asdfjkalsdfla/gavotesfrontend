@@ -1,5 +1,11 @@
 [
   {
+    "name": "2024_primary",
+    "label": "2024 Primary",
+    "date": "2024-05-21",
+    "isCurrentElection": true
+  },
+  {
     "name": "2022_runoff",
     "label": "2022 Senate Runoff",
     "date": "2022-12-06",
