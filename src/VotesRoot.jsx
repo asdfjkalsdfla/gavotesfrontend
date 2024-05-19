@@ -38,7 +38,7 @@ const showOptionsOnLoad = hideOptionsParam !== "true";
 
 // elevation approach
 const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam || "none";
+const elevationApproachInitial = elevationApproachParam || "turnoutAbsSameDay";
 
 // color approach
 const colorApproachParam = params.get("colorApproach");
@@ -62,7 +62,7 @@ export default function VotesRoot() {
   // ************************************************
   // Determine the Data To Show
   // ************************************************
-  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2022_runoff");
+  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2024_primary");
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState(resultsElectionRacePerviousIDInitial);
@@ -91,8 +91,8 @@ export default function VotesRoot() {
   const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
 
   const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(false);
-  const [showDemographics, updateShowDemographics] = useState(true);
+  const [showAbsentee, updateShowAbsentee] = useState(true);
+  const [showDemographics, updateShowDemographics] = useState(false);
 
   // ************************************************
   // Basic UI Events / Controls
