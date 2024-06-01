@@ -12,9 +12,10 @@ const ESBUILD_CONFIG = {
   splitting: true,
   format: "esm",
   sourcemap: false,
-  entryPoints: ["./src/index.jsx", "./public/index.html"],
+  entryPoints: ["./src/index.jsx"],
   loader: { ".js": "jsx", ".html": "copy" },
   outdir: `${DIST_DIR}`,
+  metafile: true,
   entryNames: "[name]-[hash]",
   chunkNames: "assets/[ext]/[name]-[hash]",
   assetNames: "assets/[ext]/[name]-[hash]",
@@ -50,20 +51,21 @@ const build = async () => {
   if (!fs.existsSync(DIST_DIR)) {
     fs.mkdir(DIST_DIR, (err) => {
       if (err) throw err;
-      // eslint-disable-next-line no-console
+       
       console.log(`${DIST_DIR} created.`);
     });
   } else {
-    // eslint-disable-next-line no-console
+     
     console.log(`${DIST_DIR} already exists.`);
   }
   // Build our files
-  await esbuild.build({
+  let buildResult = await esbuild.build({
     ...ESBUILD_CONFIG,
     outdir: `${DIST_DIR}`,
     minify: true,
     write: true,
   });
+  fs.writeFileSync('buildMeta.json', JSON.stringify(buildResult.metafile))
 };
 /**
  *

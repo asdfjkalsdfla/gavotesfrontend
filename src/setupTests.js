@@ -1,7 +1,5 @@
-// import { Blob } from "buffer";
-import { vi, expect, beforeAll, afterEach, afterAll } from "vitest";
+import { vi, expect } from "vitest";
 
-// globalThis.Blob = Blob; // use Node.js Blob instead of Jsdom's Blob
 // import { server } from "./mocks/server.js";
 
 // // ###########################
@@ -50,4 +48,9 @@ if (isDomWindow) {
   }
 
   window.ResizeObserver = ResizeObserver;
+
+  window.URL.createObjectURL = vi.fn();
+
+  const { getComputedStyle } = window;
+  window.getComputedStyle = (elt) => getComputedStyle(elt);
 }

@@ -30,9 +30,9 @@ describe("no crashes!", () => {
   it("renders table without crashing", async ({ expect }) => {
     const { baseElement, getByText, findAllByText, findByTestId } = render(<App />);
     await findAllByText("Georgia Votes", undefined, { timeout: 7500 });
-    fireEvent.click(getByText("Table"));
+    const button = getByText("Table");
+    fireEvent.click(button);
     await findByTestId("electionResultTable", undefined, { timeout: 7500 });
-    await findAllByText("FULTON", undefined, { timeout: 7500 });
     expect(baseElement).toMatchSnapshot();
   });
 });

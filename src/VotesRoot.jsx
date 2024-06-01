@@ -1,5 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
+import ErrorBoundary from "./ErrorBoundary.js";
 
 import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
@@ -11,7 +12,7 @@ import "./VotesRoot.css";
 // import VotesScatterPlot from "./VotesScatterPlot.jsx";
 // import VotesTable from "./VotesTable.jsx";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
-const VotesMap = lazy(() => import("./VotesMap.jsx"));
+const VotesMap = lazy(() => import("./Views/VotesMap/index.jsx"));
 const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
 const VotesTable = lazy(() => import("./VotesTable.jsx"));
 
@@ -37,7 +38,7 @@ const showOptionsOnLoad = hideOptionsParam !== "true";
 
 // elevation approach
 const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam || "none";
+const elevationApproachInitial = elevationApproachParam || "turnoutAbsSameDay";
 
 // color approach
 const colorApproachParam = params.get("colorApproach");
@@ -61,7 +62,7 @@ export default function VotesRoot() {
   // ************************************************
   // Determine the Data To Show
   // ************************************************
-  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2022_runoff");
+  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2024_primary");
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState(resultsElectionRacePerviousIDInitial);
@@ -90,8 +91,8 @@ export default function VotesRoot() {
   const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
 
   const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(false);
-  const [showDemographics, updateShowDemographics] = useState(true);
+  const [showAbsentee, updateShowAbsentee] = useState(true);
+  const [showDemographics, updateShowDemographics] = useState(false);
 
   // ************************************************
   // Basic UI Events / Controls
@@ -128,39 +129,41 @@ export default function VotesRoot() {
           resultsElectionRacePerviousID={resultsElectionRacePerviousID}
         >
           <div className={displayType === "table" && !showOptions ? "full" : "one"}>
-            <Suspense fallback={<div>Loading...</div>}>
-              {displayType === "scatter" && (
-                <VotesScatterPlot
-                  isCountyLevel={isCountyLevel}
-                  updateActiveSelection={updateActiveSelection}
-                  updateActiveHover={updateActiveHover}
-                  scatterXAxis={scatterXAxis}
-                  scatterYAxis={scatterYAxis}
-                />
-              )}
-              {displayType === "map" && (
-                // <div>test</div>
-                <VotesMap
-                  isCountyLevel={isCountyLevel}
-                  countyFilter={countyFilter}
-                  elevationApproach={elevationApproach}
-                  colorApproach={colorApproach}
-                  updateActiveSelection={updateActiveSelection}
-                  updateActiveHover={updateActiveHover}
-                  userHasSetLevel={userHasSetLevel}
-                  updateIsCountyLevel={updateIsCountyLevel}
-                />
-              )}
-              {displayType === "table" && (
-                <VotesTable
-                  isCountyLevel={isCountyLevel}
-                  countyFilter={countyFilter}
-                  updateCountyFilter={updateCountyFilter}
-                  updateIsCountyLevel={updateIsCountyLevel}
-                  updateActiveSelection={updateActiveSelection}
-                />
-              )}
-            </Suspense>
+            <ErrorBoundary fallback={<p>Something went wrong</p>}>
+              <Suspense fallback={<div>Loading...</div>}>
+                {displayType === "scatter" && (
+                  <VotesScatterPlot
+                    isCountyLevel={isCountyLevel}
+                    updateActiveSelection={updateActiveSelection}
+                    updateActiveHover={updateActiveHover}
+                    scatterXAxis={scatterXAxis}
+                    scatterYAxis={scatterYAxis}
+                  />
+                )}
+                {displayType === "map" && (
+                  // <div>test</div>
+                  <VotesMap
+                    isCountyLevel={isCountyLevel}
+                    countyFilter={countyFilter}
+                    elevationApproach={elevationApproach}
+                    colorApproach={colorApproach}
+                    updateActiveSelection={updateActiveSelection}
+                    updateActiveHover={updateActiveHover}
+                    userHasSetLevel={userHasSetLevel}
+                    updateIsCountyLevel={updateIsCountyLevel}
+                  />
+                )}
+                {displayType === "table" && (
+                  <VotesTable
+                    isCountyLevel={isCountyLevel}
+                    countyFilter={countyFilter}
+                    updateCountyFilter={updateCountyFilter}
+                    updateIsCountyLevel={updateIsCountyLevel}
+                    updateActiveSelection={updateActiveSelection}
+                  />
+                )}
+              </Suspense>
+            </ErrorBoundary>
           </div>
           {(displayType !== "table" || showOptions) && (
             <div className="two p-4">

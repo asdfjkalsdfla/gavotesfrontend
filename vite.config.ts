@@ -24,19 +24,21 @@ export default defineConfig(
       },
     },
     server: {
-      open: "/index.html",
+      open: "/",
       port: 3000,
+      cors: { origin: ["https://localhost", "https://basemaps.cartocdn.com"] }
     },
     build: {
       outDir: "build",
     },
     test: {
+      pool: "vmForks",
       base: "https://georgiavotesvisual.com/",
       globals: true,
       exclude: ["**/node_modules/**", "**/dist/**"],
       setupFiles: ["./src/setupTests.js"],
       testTimeout: 20000,
-      alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
+      // alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
     }
   });
 

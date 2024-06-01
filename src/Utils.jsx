@@ -39,3 +39,13 @@ export const quantile = (arr, q) => {
   });
   return positions;
 };
+
+export const normalizeZeroOne = (value, min, max) => {
+  if (!value && value !== 0) return undefined;
+  return Math.max(0, Math.min(1, (value - min) / (max - min) || 0));
+};
+
+export const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
+  const absMax = Math.max(Math.abs(min), Math.abs(max));
+  return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
+};

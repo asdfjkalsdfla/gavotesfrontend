@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
 
-import { ArrowDownUp, ArrowUpDown, MoreHorizontal, Check } from "lucide-react";
+import { ArrowDownUp, ArrowUpDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandList, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -12,6 +12,7 @@ import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [countiesNoMatch, updateCountiesNoMatch] = useState([]);
   const [shapePrecincts, updateShapesPrecincts] = useState();
   const [electionResultsPrecinctsToShapeMap, updateElectionResultsPrecinctsToShapeMap] = useState();

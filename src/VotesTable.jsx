@@ -1,5 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable no-use-before-define */
 import React, { useMemo, useState, useTransition } from "react";
 import { ConfigProvider, Table } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -123,11 +121,9 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
             >
               <Settings className="mr-2 h-5 w-5" />
             </button>
-            {!navigator.userAgent.includes("jsdom") && (
-              <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
-                <Download className="mr-2 h-5 w-5" />
-              </CSVLink>
-            )}
+            <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
+              <Download className="mr-2 h-5 w-5" />
+            </CSVLink>
           </div>
         </div>
         {showColumnSelect && (
