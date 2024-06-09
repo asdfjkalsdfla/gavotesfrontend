@@ -157,41 +157,49 @@ const loadAndCombineElectionDataFiles = async (
 
   const combinedElectionData = new Map();
 
-  absenteeCurrentJSON.forEach((row) => {
-    const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-    properties.absenteeCurrent = new AbsenteeBallots(row);
-    combinedElectionData.set(id, properties);
-  });
-  absenteeBaseJSON.forEach((row) => {
-    const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-    properties.absenteeBase = new AbsenteeBallots(row);
-    combinedElectionData.set(id, properties);
-  });
+  absenteeCurrentJSON
+    .filter((row) => row.county !== "FAKECOUNTY")
+    .forEach((row) => {
+      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
+      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+      properties.absenteeCurrent = new AbsenteeBallots(row);
+      combinedElectionData.set(id, properties);
+    });
+  absenteeBaseJSON
+    .filter((row) => row.county !== "FAKECOUNTY")
+    .forEach((row) => {
+      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
+      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+      properties.absenteeBase = new AbsenteeBallots(row);
+      combinedElectionData.set(id, properties);
+    });
 
   let rdStateVotesTotalCurrent = 0;
-  electionResultsCurrentJSON.forEach((row) => {
-    const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-    properties.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
-    // Find the current race
-    properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter((election) => election.race === currentElectionRace.name)[0];
-    combinedElectionData.set(id, properties);
-    rdStateVotesTotalCurrent += properties?.electionResultsCurrent?.totalVotesRD || 0;
-  });
+  electionResultsCurrentJSON
+    .filter((row) => row.county !== "FAKECOUNTY")
+    .forEach((row) => {
+      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
+      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+      properties.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
+      // Find the current race
+      properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter((election) => election.race === currentElectionRace.name)[0];
+      combinedElectionData.set(id, properties);
+      rdStateVotesTotalCurrent += properties?.electionResultsCurrent?.totalVotesRD || 0;
+    });
   let rdStateVotesTotalBase = 0;
   if (electionResultBaseFileLocation) {
-    electionResultBaseJSON.forEach((row) => {
-      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
+    electionResultBaseJSON
+      .filter((row) => row.county !== "FAKECOUNTY")
+      .forEach((row) => {
+        const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
 
-      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-      properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
+        const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+        properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
 
-      properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
-      combinedElectionData.set(id, properties);
-      rdStateVotesTotalBase += properties?.electionResultsBase?.totalVotesRD || 0;
-    });
+        properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
+        combinedElectionData.set(id, properties);
+        rdStateVotesTotalBase += properties?.electionResultsBase?.totalVotesRD || 0;
+      });
   }
 
   const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
