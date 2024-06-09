@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader.tsx";
+import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "../Utils.jsx";
 
 export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace): ColumnDef<any>[] {
@@ -34,6 +35,7 @@ export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCounty
         ) : (
           <span>{getValue()}</span>
         ),
+      enableHiding: false,
     },
   ];
   if (!isCountyLevel) {
@@ -52,13 +54,13 @@ const absenteeComparisonColumnsBuilder = (): ColumnDef<any> => {
       id: "turnoutAbsenteeBallotsSameDay",
       header: ({ column }) => <DataTableColumnHeader column={column} title="Ratio on Same Day" />,
       accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.absenteeVotesAsOfCurrentDate,
-      cell: ({ getValue }) => numberFormatRatio.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatRatio.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "turnoutAbsenteeBallots",
       header: ({ column }) => <DataTableColumnHeader column={column} title="Ratio on All" />,
       accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.turnoutAbsenteeBallots,
-      cell: ({ getValue }) => numberFormatRatio.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatRatio.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
@@ -74,13 +76,13 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn): ColumnDef
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="At Same Days to Election" />,
       accessorFn: (originalRow) => originalRow[absenteeElectionColumn]?.absenteeVotesAsOfCurrentDate,
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${absenteeElectionColumn}##totalAbsenteeVotes`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="Totals" />,
       accessorFn: (originalRow) => originalRow[absenteeElectionColumn]?.totalAbsenteeVotes,
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
@@ -96,13 +98,13 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
       id: `${raceColumn}##republican`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (R)`} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.republican,
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##perRepublican`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (R) %`} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perRepublican,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##democratic`,
@@ -110,40 +112,40 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
       accessorFn: (originalRow) => {
         return originalRow[raceColumn]?.democratic;
       },
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##perDemocratic`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (D) %`} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perDemocratic,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##other`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="Other Candidates" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.other,
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##perOther`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`Other %`} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perOther,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##totalVotes`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="Total" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.totalVotes,
-      cell: ({ getValue }) => numberFormat.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##marginDemocratic`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="Margin" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginDemocratic,
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(getValue())} {numberFormat.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
     },
     {
@@ -151,9 +153,9 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
       header: ({ column }) => <DataTableColumnHeader column={column} title="Margin %" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginPerPerDemocratic,
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
     },
     {
@@ -161,9 +163,9 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
       header: ({ column }) => <DataTableColumnHeader column={column} title="Early Vote Margin %" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginEarlyPerRepublican,
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(-1 * getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
     },
   ];
@@ -181,9 +183,9 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
       header: "Swing (Shift in R/D %)",
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftDemocratic,
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
     },
     {
@@ -197,9 +199,9 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
       header: "Shift in Vote Margin (Normalized)",
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.voteShiftDemocraticNormalized,
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(getValue())} {numberFormat.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
     },
     {
@@ -209,9 +211,9 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
       width: 100,
       align: "right",
       cell: ({ getValue }) => (
-        <>
+        <DataTableCellNumeric>
           {RDIndicator(-1 * getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
-        </>
+        </DataTableCellNumeric>
       ),
       sorter: (a, b) => sortNumeric(-1 * a?.electionResultsComparison?.perShiftRepublicanEarly, -1 * b?.electionResultsComparison?.perShiftRepublicanEarly),
     },
@@ -229,28 +231,19 @@ const demographicColumnBuilder = (): ColumnDef<any> => {
       id: "demographics##whitePer",
       header: "White %",
       accessorFn: (originalRow) => originalRow?.demographics?.whitePer,
-      width: 100,
-      align: "right",
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.demographics?.whitePer, b?.demographics?.whitePer),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##blackPer",
       header: "Black %",
       accessorFn: (originalRow) => originalRow?.demographics?.blackPer,
-      width: 100,
-      align: "right",
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.demographics?.blackPer, b?.demographics?.blackPer),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##hispanicPer",
       header: "Hispanic %",
       accessorFn: (originalRow) => originalRow?.demographics?.hispanicPer,
-      width: 100,
-      align: "right",
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.demographics?.hispanicPer, b?.demographics?.hispanicPer),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##asianPer",
@@ -258,15 +251,13 @@ const demographicColumnBuilder = (): ColumnDef<any> => {
       accessorFn: (originalRow) => {
         return originalRow?.demographics?.asianPer;
       },
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.demographics?.asianPer, b?.demographics?.asianPer),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##unknownPer",
       header: "Unknown %",
       accessorFn: (originalRow) => originalRow?.demographics?.unknownPer,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.demographics?.unknownPer, b?.demographics?.unknownPer),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
