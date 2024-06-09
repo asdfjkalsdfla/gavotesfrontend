@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "../Utils.jsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../Utils.jsx";
 
 export function dataColumnBuilder(currentAbsenteeElection : any, baseAbsenteeElection : any, currentElectionRace: any, previousElectionRace: any): ColumnDef<any>[] {
   return [
@@ -15,7 +15,7 @@ export function dataColumnBuilder(currentAbsenteeElection : any, baseAbsenteeEle
   ];
 }
 
-export function idColumnBuilder(isCountyLevel: Boolean, updateIsCountyLevel: Function, updateCountyFilter: Function, updateActiveSelection: Function): ColumnDef<any>[] {
+export function idColumnBuilder(isCountyLevel: boolean, updateIsCountyLevel: Function, updateCountyFilter: Function, updateActiveSelection: Function): ColumnDef<any>[] {
   const idColumnsParent: ColumnDef<any>[] = [
     {
       id: "county",
