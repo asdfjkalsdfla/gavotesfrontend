@@ -180,42 +180,33 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
     {
       id: "perShiftDemocratic",
       header: "Swing (Shift in R/D %)",
-      accessorKey: ["electionResultsComparison", "perShiftDemocratic"],
-      width: 100,
-      align: "right",
+      accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftDemocratic,
       cell: ({ getValue }) => (
         <>
           {RDIndicator(getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
         </>
-      ),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.perShiftDemocratic, b?.electionResultsComparison?.perShiftDemocratic),
+      )
     },
     {
       id: "totalVotesPercent",
       header: "% of Previous Turnout",
-      accessorKey: ["electionResultsComparison", "totalVotesPercent"],
-      width: 100,
-      align: "right",
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.totalVotesPercent, b?.electionResultsComparison?.totalVotesPercent),
+      accessorFn: (originalRow) => originalRow?.electionResultsComparison?.totalVotesPercent,
+      cell: ({ getValue }) => numberFormatPercent.format(getValue())
     },
     {
       id: "voteShiftDemocraticNormalized",
       header: "Shift in Vote Margin (Normalized)",
-      accessorKey: ["electionResultsComparison", "voteShiftDemocraticNormalized"],
-      width: 100,
-      align: "right",
+      accessorFn: (originalRow) => originalRow?.electionResultsComparison?.voteShiftDemocraticNormalized,
       cell: ({ getValue }) => (
         <>
           {RDIndicator(getValue())} {numberFormat.format(Math.abs(getValue()))}
         </>
-      ),
-      sorter: (a, b) => sortNumeric(a?.electionResultsComparison?.voteShiftDemocraticNormalized, b?.electionResultsComparison?.voteShiftDemocraticNormalized),
+      )
     },
     {
       id: "perShiftRepublicanEarly",
       header: "EV Shift in R/D %",
-      accessorKey: ["electionResultsComparison", "perShiftRepublicanEarly"],
+      accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftRepublicanEarly,
       width: 100,
       align: "right",
       cell: ({ getValue }) => (
