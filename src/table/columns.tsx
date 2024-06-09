@@ -3,7 +3,7 @@ import { DataTableColumnHeader } from "./DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, sortNumeric } from "../Utils.jsx";
 
-export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace): ColumnDef<any>[] {
+export function dataColumnBuilder(currentAbsenteeElection : any, baseAbsenteeElection : any, currentElectionRace: any, previousElectionRace: any): ColumnDef<any>[] {
   return [
     absenteeComparisonColumnsBuilder(),
     absenteeColumnsBuilder(currentAbsenteeElection, "absenteeCurrent"),
@@ -15,7 +15,7 @@ export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection,
   ];
 }
 
-export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection): ColumnDef<any>[] {
+export function idColumnBuilder(isCountyLevel: Boolean, updateIsCountyLevel: Function, updateCountyFilter: Function, updateActiveSelection: Function): ColumnDef<any>[] {
   const idColumnsParent: ColumnDef<any>[] = [
     {
       id: "county",
