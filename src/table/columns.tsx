@@ -108,7 +108,6 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
       id: `${raceColumn}##democratic`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.democratic} (D)`} />,
       accessorFn: (originalRow) => {
-        console.log(originalRow[raceColumn]);
         return originalRow[raceColumn]?.democratic;
       },
       cell: ({ getValue }) => numberFormat.format(getValue()),
@@ -155,7 +154,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
         <>
           {RDIndicator(getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
         </>
-      )
+      ),
     },
     {
       id: `${raceColumn}##marginEarlyPerRepublican`,
@@ -165,7 +164,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
         <>
           {RDIndicator(-1 * getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
         </>
-      )
+      ),
     },
   ];
   return {
@@ -185,13 +184,13 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
         <>
           {RDIndicator(getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
         </>
-      )
+      ),
     },
     {
       id: "totalVotesPercent",
       header: "% of Previous Turnout",
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.totalVotesPercent,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue())
+      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
     },
     {
       id: "voteShiftDemocraticNormalized",
@@ -201,7 +200,7 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
         <>
           {RDIndicator(getValue())} {numberFormat.format(Math.abs(getValue()))}
         </>
-      )
+      ),
     },
     {
       id: "perShiftRepublicanEarly",
