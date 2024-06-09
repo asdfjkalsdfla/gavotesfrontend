@@ -37,8 +37,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="space-y-4">
-      <DataTableViewOptions table={table} />
+    <div className="space-y-4"  data-testid="electionResultTable">
+      <span data-testid="dataElementSettings"><DataTableViewOptions table={table} /></span>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
