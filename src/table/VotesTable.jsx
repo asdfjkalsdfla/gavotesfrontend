@@ -10,8 +10,6 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
 
-  const [showColumnSelect, updateShowColumnSelect] = useState(false);
-
   const idColumns = useMemo(
     () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection),
     [isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection],
