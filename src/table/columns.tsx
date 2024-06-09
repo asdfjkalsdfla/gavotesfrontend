@@ -192,7 +192,7 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
       id: "totalVotesPercent",
       header: "% of Previous Turnout",
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.totalVotesPercent,
-      cell: ({ getValue }) => numberFormatPercent.format(getValue()),
+      cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "voteShiftDemocraticNormalized",
@@ -208,14 +208,11 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
       id: "perShiftRepublicanEarly",
       header: "EV Shift in R/D %",
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftRepublicanEarly,
-      width: 100,
-      align: "right",
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
           {RDIndicator(-1 * getValue())} {numberFormatPercent.format(Math.abs(getValue()))}
         </DataTableCellNumeric>
       ),
-      sorter: (a, b) => sortNumeric(-1 * a?.electionResultsComparison?.perShiftRepublicanEarly, -1 * b?.electionResultsComparison?.perShiftRepublicanEarly),
     },
   ];
   return {
