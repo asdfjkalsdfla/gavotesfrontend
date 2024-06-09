@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useTransition } from "react";
 import { idColumnBuilder, dataColumnBuilder } from "./columns.tsx";
 import { DataTable } from "./DataTable.tsx";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Settings, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { useElectionData } from "../ElectionDataProvider.jsx";
 
