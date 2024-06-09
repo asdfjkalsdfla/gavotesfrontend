@@ -12,6 +12,9 @@
 			"**/coverage": true,
 			"./buildAnalysis.html": true,
 			"./buildMeta.json": true,
-        }
+		},
+		"cSpell.words": [
+			"testid"
+		]
 	}
 }
