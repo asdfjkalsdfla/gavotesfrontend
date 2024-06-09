@@ -1,9 +1,8 @@
-import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../Utils.jsx";
 
-export function dataColumnBuilder(currentAbsenteeElection : any, baseAbsenteeElection : any, currentElectionRace: any, previousElectionRace: any): ColumnDef<any>[] {
+export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace) {
   return [
     absenteeComparisonColumnsBuilder(),
     absenteeColumnsBuilder(currentAbsenteeElection, "absenteeCurrent"),
@@ -15,8 +14,8 @@ export function dataColumnBuilder(currentAbsenteeElection : any, baseAbsenteeEle
   ];
 }
 
-export function idColumnBuilder(isCountyLevel: boolean, updateIsCountyLevel: Function, updateCountyFilter: Function, updateActiveSelection: Function): ColumnDef<any>[] {
-  const idColumnsParent: ColumnDef<any>[] = [
+export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection) {
+  const idColumnsParent = [
     {
       id: "county",
       accessorKey: "CTYNAME",
@@ -48,8 +47,8 @@ export function idColumnBuilder(isCountyLevel: boolean, updateIsCountyLevel: Fun
   return idColumnsParent;
 }
 
-const absenteeComparisonColumnsBuilder = (): ColumnDef<any> => {
-  const children: ColumnDef<any>[] = [
+const absenteeComparisonColumnsBuilder = () => {
+  const children = [
     {
       id: "turnoutAbsenteeBallotsSameDay",
       header: ({ column }) => <DataTableColumnHeader column={column} title="Ratio on Same Day" />,
@@ -70,8 +69,8 @@ const absenteeComparisonColumnsBuilder = (): ColumnDef<any> => {
   };
 };
 
-const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn): ColumnDef<any> => {
-  const children: ColumnDef<any>[] = [
+const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
+  const children = [
     {
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
       header: ({ column }) => <DataTableColumnHeader column={column} title="At Same Days to Election" />,
@@ -92,8 +91,8 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn): ColumnDef
   };
 };
 
-const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
-  const children: ColumnDef<any>[] = [
+const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
+  const children = [
     {
       id: `${raceColumn}##republican`,
       header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (R)`} />,
@@ -128,7 +127,7 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
     },
     {
       id: `${raceColumn}##perOther`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title={`Other %`} />,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Other %" />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perOther,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
@@ -176,8 +175,8 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn): ColumnDef<any> => {
   };
 };
 
-const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
-  const children: ColumnDef<any>[] = [
+const electionResultComparisonColumnsBuilder = () => {
+  const children = [
     {
       id: "perShiftDemocratic",
       header: "Swing (Shift in R/D %)",
@@ -222,8 +221,8 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<any> => {
   };
 };
 
-const demographicColumnBuilder = (): ColumnDef<any> => {
-  const children: ColumnDef<any>[] = [
+const demographicColumnBuilder = () => {
+  const children = [
     {
       id: "demographics##whitePer",
       header: "White %",

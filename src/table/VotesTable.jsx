@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useTransition } from "react";
-import { idColumnBuilder, dataColumnBuilder } from "./columns.tsx";
+import { idColumnBuilder, dataColumnBuilder } from "./columns.jsx";
 import { DataTable } from "./DataTable.tsx";
 import { Download } from "lucide-react";
 import { CSVLink } from "react-csv";
@@ -80,9 +80,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFi
           </CSVLink>
         </div>
       </div>
-      <div className="pt-6">
-        <DataTable columns={columns} data={rows} />
-      </div>
+      <div className="pt-6">{!isPending && <DataTable columns={columns} data={rows} />}</div>
     </div>
   );
 }
