@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
 
-export function DataTableCellNumeric<TData, TValue>({ children, className }: Any) {
+export function DataTableCellNumeric({ children, className }: any) {
   return <div className={cn("w-[80px] text-right", className)}>{children}</div>;
 }
