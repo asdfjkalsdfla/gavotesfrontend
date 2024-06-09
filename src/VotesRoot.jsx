@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
-import ErrorBoundary from "./ErrorBoundary.js";
+import ErrorBoundary from "./ErrorBoundary.jsx";
 
 import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
