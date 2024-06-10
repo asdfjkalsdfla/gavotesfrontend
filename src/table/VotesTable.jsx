@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { useElectionData } from "../ElectionDataProvider.jsx";
 
-export default function VotesTable({ isCountyLevel, countyFilter, updateCountyFilter, updateIsCountyLevel, updateActiveSelection }) {
+export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateCountyFilter, updateActiveSelection }) {
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
   const [rows, updateRows] = useState([]);
 

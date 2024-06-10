@@ -20,13 +20,13 @@ export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCounty
       id: "county",
       accessorKey: "CTYNAME",
       header: ({ column }) => <DataTableColumnHeader column={column} title="County" />,
-      cell: ({ getValue, row }) =>
+      cell: ({ getValue }) =>
         isCountyLevel ? (
           <a
             onClick={() => {
               updateIsCountyLevel(false);
-              updateActiveSelection(null);
-              updateCountyFilter(row.CTYNAME);
+              updateCountyFilter(getValue());
+              updateActiveSelection(getValue());
             }}
           >
             {getValue()}
