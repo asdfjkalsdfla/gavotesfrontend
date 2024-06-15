@@ -12,7 +12,7 @@ export const numberFormatRatio = new Intl.NumberFormat("en-us", {
 
 export const numberFormatPercent = new Intl.NumberFormat("en-us", {
   style: "percent",
-  minimumIntegerDigits: 2,
+  minimumIntegerDigits: 1,
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });

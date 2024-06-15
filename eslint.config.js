@@ -42,6 +42,7 @@ export default tseslint.config(
       "import/no-extraneous-dependencies": ["off"],
       "lines-between-class-members": ["off"],
       "no-nested-ternary": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     },
     settings: {
       react: {

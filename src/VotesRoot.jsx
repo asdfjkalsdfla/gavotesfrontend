@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
-import ErrorBoundary from "./ErrorBoundary.js";
+import ErrorBoundary from "./ErrorBoundary.jsx";
 
 import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
@@ -14,7 +14,7 @@ import "./VotesRoot.css";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
 const VotesMap = lazy(() => import("./Views/VotesMap/index.jsx"));
 const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
-const VotesTable = lazy(() => import("./VotesTable.jsx"));
+const VotesTable = lazy(() => import("./table/VotesTable.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params

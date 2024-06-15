@@ -1,9 +1,9 @@
 import { Temporal } from "temporal-polyfill";
 
 const electionDate = Temporal.PlainDateTime.from({
-  year: 2022,
-  month: 12,
-  day: 6,
+  year: 2024,
+  month: 11,
+  day: 5,
   hour: 19,
 });
 
