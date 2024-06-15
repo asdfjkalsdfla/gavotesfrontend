@@ -28,7 +28,7 @@ describe("no crashes!", () => {
   });
   it("renders table without crashing", async ({ expect }) => {
     const { baseElement, getByText, findAllByText, findByTestId } = render(<App />);
-    
+
     const button = getByText("Table");
     fireEvent.click(button);
     await findAllByText("Georgia Votes", undefined, { timeout: 7500 });

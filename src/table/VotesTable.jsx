@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useTransition } from "react";
 import { idColumnBuilder, dataColumnBuilder } from "./columns.jsx";
 import { DataTable } from "./DataTable.tsx";
-import { Download } from "lucide-react";
-import { CSVLink } from "react-csv";
+// import { Download } from "lucide-react";
+// import { CSVLink } from "react-csv";
 import { useElectionData } from "../ElectionDataProvider.jsx";
 
 export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateCountyFilter, updateActiveSelection }) {
