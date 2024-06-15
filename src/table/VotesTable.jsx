@@ -24,15 +24,19 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
   }, [idColumns, dataColumns]);
 
   const csvFileHeaders = [];
-  // columnsDisplayed.forEach((column) => {
-  //   if (column.columns) {
-  //     column.columns.forEach((childColumn) => {
-  //       csvFileHeaders.push({ label: childColumn.title, key: childColumn.dataIndex.join(".") });
-  //     });
-  //   } else {
-  //     csvFileHeaders.push({ label: column.title, key: column.dataIndex.join(".") });
-  //   }
-  // });
+  columns.length &&
+    columns.forEach((column) => {
+      if (column.columns) {
+        column.columns.forEach((childColumn) => {
+          csvFileHeaders.push({
+            label: childColumn.meta.title,
+            //  key: childColumn?.dataIndex.join(".")
+            // TODO - figure out way to not use the accessor function
+          });
+        });
+      }
+    });
+
   const [isPending, startTransition] = useTransition();
 
   useMemo(() => {
@@ -75,9 +79,9 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
           </div>
         </div>
         <div className="flex flex-1 justify-end">
-          <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
+          {/* <CSVLink data={rows} headers={csvFileHeaders} filename="voting-data.csv">
             <Download className="mr-2 h-5 w-5" />
-          </CSVLink>
+          </CSVLink> */}
         </div>
       </div>
       <div className="pt-6">{!isPending && <DataTable columns={columns} data={rows} />}</div>
