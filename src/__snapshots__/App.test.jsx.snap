@@ -415,25 +415,41 @@ exports[`no crashes! > renders table without crashing 1`] = `
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="10"
                           >
-                            2022 Senate Runoff - US Senate
+                            <div
+                              class=""
+                            >
+                              2022 Senate Runoff - US Senate
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="10"
                           >
-                            2022 General - US Senate
+                            <div
+                              class=""
+                            >
+                              2022 General - US Senate
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="4"
                           >
-                            Comparison of Election Results
+                            <div
+                              class=""
+                            >
+                              Comparison of Election Results
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="5"
                           >
-                            Demographics
+                            <div
+                              class=""
+                            >
+                              Demographics
+                            </div>
                           </th>
                         </tr>
                         <tr
@@ -815,7 +831,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                 type="button"
                               >
                                 <span>
-                                  Walker (D) %
+                                  Warnock (D) %
                                 </span>
                                 <svg
                                   class="ml-2 h-4 w-4"
@@ -1175,7 +1191,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                                 type="button"
                               >
                                 <span>
-                                  Walker (D) %
+                                  Warnock (D) %
                                 </span>
                                 <svg
                                   class="ml-2 h-4 w-4"
@@ -1415,55 +1431,325 @@ exports[`no crashes! > renders table without crashing 1`] = `
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Swing (Shift in R/D %)
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rkk:"
+                                type="button"
+                              >
+                                <span>
+                                  Swing (Shift in R/D %)
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            % of Previous Turnout
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rko:"
+                                type="button"
+                              >
+                                <span>
+                                  % of Previous Turnout
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Shift in Vote Margin (Normalized)
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rks:"
+                                type="button"
+                              >
+                                <span>
+                                  Shift in Vote Margin (Normalized)
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            EV Shift in R/D %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rl0:"
+                                type="button"
+                              >
+                                <span>
+                                  EV Shift in R/D %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            White %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rl4:"
+                                type="button"
+                              >
+                                <span>
+                                  White %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Black %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rl8:"
+                                type="button"
+                              >
+                                <span>
+                                  Black %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Hispanic %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rlc:"
+                                type="button"
+                              >
+                                <span>
+                                  Hispanic %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Asian %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rlg:"
+                                type="button"
+                              >
+                                <span>
+                                  Asian %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                           <th
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                             colspan="1"
                           >
-                            Unknown %
+                            <div
+                              class="flex items-center space-x-2"
+                            >
+                              <button
+                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                                data-state="closed"
+                                id="radix-:rlk:"
+                                type="button"
+                              >
+                                <span>
+                                  Unknown %
+                                </span>
+                                <svg
+                                  class="ml-2 h-4 w-4"
+                                  fill="none"
+                                  height="15"
+                                  viewBox="0 0 15 15"
+                                  width="15"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -1503,7 +1789,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                       </p>
                       <button
                         aria-autocomplete="none"
-                        aria-controls="radix-:rkj:"
+                        aria-controls="radix-:rln:"
                         aria-expanded="false"
                         class="flex items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-8 w-[70px]"
                         data-state="closed"
