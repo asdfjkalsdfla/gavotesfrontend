@@ -19,6 +19,7 @@ export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCounty
     {
       id: "county",
       accessorKey: "CTYNAME",
+      meta: { title: "County" },
       header: ({ column }) => <DataTableColumnHeader column={column} title="County" />,
       cell: ({ getValue }) =>
         isCountyLevel ? (
@@ -41,6 +42,7 @@ export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCounty
     idColumnsParent.push({
       id: "precinct",
       accessorKey: "PRECINCT_N",
+      meta: { title: "Precinct" },
       header: ({ column }) => <DataTableColumnHeader column={column} title="Precinct" />,
     });
   }
@@ -51,19 +53,22 @@ const absenteeComparisonColumnsBuilder = () => {
   const children = [
     {
       id: "turnoutAbsenteeBallotsSameDay",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Ratio on Same Day" />,
+      meta: { title: "Ratio on Same Day" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.absenteeVotesAsOfCurrentDate,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatRatio.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "turnoutAbsenteeBallots",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Ratio on All" />,
+      meta: { title: "Ratio on All" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.turnoutAbsenteeBallots,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatRatio.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
     header: "Comparison of Absentee Ballots",
+    meta: { title: "Comparison of Absentee Ballots" },
     id: "absCompare",
     columns: children,
   };
@@ -73,20 +78,23 @@ const absenteeColumnsBuilder = (electionInfo, absenteeElectionColumn) => {
   const children = [
     {
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="At Same Days to Election" />,
+      meta: { title: "At Same Days to Election" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[absenteeElectionColumn]?.absenteeVotesAsOfCurrentDate,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${absenteeElectionColumn}##totalAbsenteeVotes`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Totals" />,
+      meta: { title: "Totals" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[absenteeElectionColumn]?.totalAbsenteeVotes,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
-    header: `Absentee Ballots - ${electionInfo?.label}`,
     id: `absBallots##${electionInfo?.name}`,
+    meta: { title: `Absentee Ballots - ${electionInfo?.label}` },
+    header: `Absentee Ballots - ${electionInfo?.label}`,
     columns: children,
   };
 };
@@ -95,19 +103,22 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
   const children = [
     {
       id: `${raceColumn}##republican`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (R)`} />,
+      meta: { title: `${raceInfo?.republican} (R)` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.republican,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##perRepublican`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (R) %`} />,
+      meta: { title: `${raceInfo?.republican} (R) %` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perRepublican,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##democratic`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.democratic} (D)`} />,
+      meta: { title: `${raceInfo?.democratic} (D)` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => {
         return originalRow[raceColumn]?.democratic;
       },
@@ -115,31 +126,36 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
     {
       id: `${raceColumn}##perDemocratic`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title={`${raceInfo?.republican} (D) %`} />,
+      meta: { title: `${raceInfo?.democratic} (D) %` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perDemocratic,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##other`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Other Candidates" />,
+      meta: { title: "Other Candidates" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.other,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##perOther`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Other %" />,
+      meta: { title: "Other %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.perOther,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##totalVotes`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Total" />,
+      meta: { title: "Total" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.totalVotes,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: `${raceColumn}##marginDemocratic`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Margin" />,
+      meta: { title: "Margin" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginDemocratic,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -149,7 +165,8 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
     {
       id: `${raceColumn}##marginPerPerDemocratic`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Margin %" />,
+      meta: { title: "Margin %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginPerPerDemocratic,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -159,7 +176,8 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
     {
       id: `${raceColumn}##marginEarlyPerRepublican`,
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Early Vote Margin %" />,
+      meta: { title: "Early Vote Margin %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow[raceColumn]?.marginEarlyPerRepublican,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -169,8 +187,9 @@ const electionResultColumnsBuilder = (raceInfo, raceColumn) => {
     },
   ];
   return {
-    header: `${raceInfo?.election?.label} - ${raceInfo?.name}`,
     id: `electionResult##${raceInfo?.election?.label}##${raceInfo?.name}`,
+    meta: { title: `${raceInfo?.election?.label} - ${raceInfo?.name}` },
+    header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
     columns: children,
   };
 };
@@ -179,7 +198,8 @@ const electionResultComparisonColumnsBuilder = () => {
   const children = [
     {
       id: "perShiftDemocratic",
-      header: "Swing (Shift in R/D %)",
+      meta: { title: "Swing (Shift in R/D %)" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftDemocratic,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -189,13 +209,15 @@ const electionResultComparisonColumnsBuilder = () => {
     },
     {
       id: "totalVotesPercent",
-      header: "% of Previous Turnout",
+      meta: { title: "% of Previous Turnout" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.totalVotesPercent,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "voteShiftDemocraticNormalized",
-      header: "Shift in Vote Margin (Normalized)",
+      meta: { title: "Shift in Vote Margin (Normalized)" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.voteShiftDemocraticNormalized,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -205,7 +227,8 @@ const electionResultComparisonColumnsBuilder = () => {
     },
     {
       id: "perShiftRepublicanEarly",
-      header: "EV Shift in R/D %",
+      meta: { title: "EV Shift in R/D %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.electionResultsComparison?.perShiftRepublicanEarly,
       cell: ({ getValue }) => (
         <DataTableCellNumeric>
@@ -215,8 +238,9 @@ const electionResultComparisonColumnsBuilder = () => {
     },
   ];
   return {
-    header: "Comparison of Election Results",
     id: "electionResultCompare",
+    meta: { title: "Comparison of Election Results" },
+    header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
     columns: children,
   };
 };
@@ -225,25 +249,29 @@ const demographicColumnBuilder = () => {
   const children = [
     {
       id: "demographics##whitePer",
-      header: "White %",
+      meta: { title: "White %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.demographics?.whitePer,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##blackPer",
-      header: "Black %",
+      meta: { title: "Black %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.demographics?.blackPer,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##hispanicPer",
-      header: "Hispanic %",
+      meta: { title: "Hispanic %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.demographics?.hispanicPer,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
     {
       id: "demographics##asianPer",
-      header: "Asian %",
+      meta: { title: "Asian %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => {
         return originalRow?.demographics?.asianPer;
       },
@@ -251,14 +279,16 @@ const demographicColumnBuilder = () => {
     },
     {
       id: "demographics##unknownPer",
-      header: "Unknown %",
+      meta: { title: "Unknown %" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
       accessorFn: (originalRow) => originalRow?.demographics?.unknownPer,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatPercent.format(getValue())}</DataTableCellNumeric>,
     },
   ];
   return {
-    header: "Demographics",
     id: "demographics",
+    meta: { title: "Demographics" },
+    header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
     columns: children,
   };
 };
