@@ -62,7 +62,7 @@ export default function VotesRoot() {
   // ************************************************
   // Determine the Data To Show
   // ************************************************
-  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2024_primary");
+  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState("2024_general");
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState(resultsElectionRacePerviousIDInitial);
