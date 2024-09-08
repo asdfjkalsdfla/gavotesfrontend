@@ -46,9 +46,9 @@ const colorApproachInitial = colorApproachParam || "electionResultPerRepublicanP
 
 // races
 const resultsElectionRaceCurrentIDParam = params.get("resultsElectionRaceCurrentID");
-const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam || "2022_runoff||US Senate";
+const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam || "2022_general||Governor";
 const resultsElectionRacePerviousIDParam = params.get("resultsElectionRacePerviousID");
-const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam || "2022_general||US Senate";
+const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
 
 // scatter plot
 const scatterParam = params.get("scatter");
