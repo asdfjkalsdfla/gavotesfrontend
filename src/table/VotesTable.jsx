@@ -24,6 +24,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
   }, [idColumns, dataColumns]);
 
   const csvFileHeaders = [];
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   columns.length &&
     columns.forEach((column) => {
       if (column.columns) {
