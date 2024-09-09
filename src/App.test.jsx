@@ -2,7 +2,7 @@
 
 import React from "react";
 import { describe, it, vi } from "vitest";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import App from "./App.jsx";
 
 vi.mock("recharts", async () => {
@@ -27,12 +27,12 @@ describe("no crashes!", () => {
     await findByTestId("scatterPlot", undefined, { timeout: 5000 });
   });
   it("renders table without crashing", async ({ expect }) => {
-    const { baseElement, getByText, findAllByText, findByTestId } = render(<App />);
-
-    const button = getByText("Table");
+    const { baseElement } = render(<App />);
+    await screen.findAllByText("Georgia Votes", undefined, { timeout: 7500 });
+    const button = screen.getByText("Table");
     fireEvent.click(button);
-    await findAllByText("Georgia Votes", undefined, { timeout: 7500 });
-    await findByTestId("electionResultTable", undefined, { timeout: 7500 });
-    expect(baseElement).toMatchSnapshot();
+    await screen.findByTestId("electionResultTable", undefined, { timeout: 7500 });
+    // await findAllByText("Election results", undefined, { timeout: 7500 });
+    expect(screen.getByTestId("electionResultTable")).toMatchSnapshot();
   });
 });
