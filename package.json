@@ -42,7 +42,7 @@
     "build": "vite build",
     "buildESB": "./esbuild.mjs",
     "test": "vitest --pool=vmThreads",
-    "test:ci": "CI=true pnpm vitest --pool=vmThreads",
+    "test:ci": "CI=true vitest --pool=vmThreads",
     "bench": "vitest bench",
     "coverage": "vitest run --coverage",
     "check": "eslint src"
