@@ -27,7 +27,7 @@ describe("no crashes!", () => {
     await findByTestId("scatterPlot", undefined, { timeout: 5000 });
   });
   it("renders table without crashing", async ({ expect }) => {
-    const { baseElement } = render(<App />);
+    render(<App />);
     await screen.findAllByText("Georgia Votes", undefined, { timeout: 7500 });
     const button = screen.getByText("Table");
     fireEvent.click(button);
