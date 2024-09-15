@@ -61,7 +61,7 @@ importers:
         version: 3.1.0
       deck.gl:
         specifier: ^9.0.29
-        version: 9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.8))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lucide-react:
         specifier: ^0.441.0
         version: 0.441.0(react@18.3.1)
@@ -620,8 +620,8 @@ packages:
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
 
-  '@eslint-community/regexpp@4.11.0':
-    resolution: {integrity: sha512-G/M/tIiMrTAxEWRfLfQJMmGNX28IxBg4PBz8XqQhqUHLFI6TL2htpIB1iQCj144V5ee/JaKyT9/WZ0MGZWfA7A==}
+  '@eslint-community/regexpp@4.11.1':
+    resolution: {integrity: sha512-m4DVN9ZqskZoLU5GlWZadwDnYo3vAEydiUayB9widCl9ffWx2IvPnp6n3on5rJmziJSw9Bv+Z3ChDVdMwXCY8Q==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
   '@eslint/config-array@0.18.0':
@@ -658,20 +658,23 @@ packages:
     resolution: {integrity: sha512-Ca3xVXU0LoxljEebuM9r3ss4tyXBfHROcxlFmbNwa2kDTVNSjUKCBgthgXnMD7akgguwwcL7zGnAp645SkJpow==}
     hasBin: true
 
-  '@floating-ui/core@1.6.7':
-    resolution: {integrity: sha512-yDzVT/Lm101nQ5TCVeK65LtdN7Tj4Qpr9RTXJ2vPFLqtLxwOrpoxAHAJI8J3yYWUc40J0BDBheaitK5SJmno2g==}
+  '@floating-ui/core@1.6.8':
+    resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
 
   '@floating-ui/dom@1.6.10':
     resolution: {integrity: sha512-fskgCFv8J8OamCmyun8MfjB1Olfn+uZKjOKZ0vhYF3gRmEUXcGOjxWL8bBr7i4kIuPZ2KD2S3EUIOxnjC8kl2A==}
 
-  '@floating-ui/react-dom@2.1.1':
-    resolution: {integrity: sha512-4h84MJt3CHrtG18mGsXuLCHMrug49d7DFkU0RMIyshRveBeyV2hmV/pDaF2Uxtu8kgq5r46llp5E5FQiR0K2Yg==}
+  '@floating-ui/dom@1.6.11':
+    resolution: {integrity: sha512-qkMCxSR24v2vGkhYDo/UzxfJN3D4syqSjyuTFz6C7XcpU1pASPRieNI0Kj5VP3/503mOfYiGY891ugBX1GlABQ==}
+
+  '@floating-ui/react-dom@2.1.2':
+    resolution: {integrity: sha512-06okr5cgPzMNBy+Ycse2A6udMi4bqwW/zgBF/rwjcNqWkyr82Mcg8b0vjX8OJpZFy/FKjJmw6wV7t44kK6kW7A==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  '@floating-ui/utils@0.2.7':
-    resolution: {integrity: sha512-X8R8Oj771YRl/w+c1HqAC1szL8zWQRwFvgDwT129k9ACdBoud/+/rX9V0qiMl6LWUdP9voC2nDVZYPMQQsb6eA==}
+  '@floating-ui/utils@0.2.8':
+    resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -4396,11 +4399,11 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@arcgis/core@4.30.9(@floating-ui/utils@0.2.7)':
+  '@arcgis/core@4.30.9(@floating-ui/utils@0.2.8)':
     dependencies:
       '@esri/arcgis-html-sanitizer': 4.0.3
       '@esri/calcite-colors': 6.1.0
-      '@esri/calcite-components': 2.12.2(@floating-ui/utils@0.2.7)
+      '@esri/calcite-components': 2.12.2(@floating-ui/utils@0.2.8)
       '@vaadin/grid': 24.3.22
       '@zip.js/zip.js': 2.7.52
       luxon: 3.4.4
@@ -4452,9 +4455,9 @@ snapshots:
       '@math.gl/web-mercator': 4.1.0
       d3-hexbin: 0.2.2
 
-  '@deck.gl/arcgis@9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.7))(@deck.gl/core@9.0.29)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))':
+  '@deck.gl/arcgis@9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.8))(@deck.gl/core@9.0.29)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))':
     dependencies:
-      '@arcgis/core': 4.30.9(@floating-ui/utils@0.2.7)
+      '@arcgis/core': 4.30.9(@floating-ui/utils@0.2.8)
       '@deck.gl/core': 9.0.29
       '@luma.gl/constants': 9.0.27
       '@luma.gl/core': 9.0.27
@@ -4747,7 +4750,7 @@ snapshots:
       eslint: 9.10.0(jiti@1.21.6)
       eslint-visitor-keys: 3.4.3
 
-  '@eslint-community/regexpp@4.11.0': {}
+  '@eslint-community/regexpp@4.11.1': {}
 
   '@eslint/config-array@0.18.0':
     dependencies:
@@ -4785,7 +4788,7 @@ snapshots:
 
   '@esri/calcite-colors@6.1.0': {}
 
-  '@esri/calcite-components@2.12.2(@floating-ui/utils@0.2.7)':
+  '@esri/calcite-components@2.12.2(@floating-ui/utils@0.2.8)':
     dependencies:
       '@esri/calcite-ui-icons': 3.31.0
       '@floating-ui/dom': 1.6.10
@@ -4793,7 +4796,7 @@ snapshots:
       '@types/color': 3.0.6
       '@types/sortablejs': 1.15.7
       color: 4.2.3
-      composed-offset-position: 0.0.6(@floating-ui/utils@0.2.7)
+      composed-offset-position: 0.0.6(@floating-ui/utils@0.2.8)
       dayjs: 1.11.12
       focus-trap: 7.5.4
       interactjs: 1.10.27
@@ -4806,22 +4809,27 @@ snapshots:
 
   '@esri/calcite-ui-icons@3.31.0': {}
 
-  '@floating-ui/core@1.6.7':
+  '@floating-ui/core@1.6.8':
     dependencies:
-      '@floating-ui/utils': 0.2.7
+      '@floating-ui/utils': 0.2.8
 
   '@floating-ui/dom@1.6.10':
     dependencies:
-      '@floating-ui/core': 1.6.7
-      '@floating-ui/utils': 0.2.7
+      '@floating-ui/core': 1.6.8
+      '@floating-ui/utils': 0.2.8
 
-  '@floating-ui/react-dom@2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@floating-ui/dom@1.6.11':
     dependencies:
-      '@floating-ui/dom': 1.6.10
+      '@floating-ui/core': 1.6.8
+      '@floating-ui/utils': 0.2.8
+
+  '@floating-ui/react-dom@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@floating-ui/dom': 1.6.11
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@floating-ui/utils@0.2.7': {}
+  '@floating-ui/utils@0.2.8': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
@@ -5444,7 +5452,7 @@ snapshots:
 
   '@radix-ui/react-popper@1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-arrow': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.5)(react@18.3.1)
       '@radix-ui/react-context': 1.1.0(@types/react@18.3.5)(react@18.3.1)
@@ -5937,7 +5945,7 @@ snapshots:
 
   '@typescript-eslint/eslint-plugin@8.5.0(@typescript-eslint/parser@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)':
     dependencies:
-      '@eslint-community/regexpp': 4.11.0
+      '@eslint-community/regexpp': 4.11.1
       '@typescript-eslint/parser': 8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
       '@typescript-eslint/scope-manager': 8.5.0
       '@typescript-eslint/type-utils': 8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
@@ -6517,9 +6525,9 @@ snapshots:
 
   commander@4.1.1: {}
 
-  composed-offset-position@0.0.6(@floating-ui/utils@0.2.7):
+  composed-offset-position@0.0.6(@floating-ui/utils@0.2.8):
     dependencies:
-      '@floating-ui/utils': 0.2.7
+      '@floating-ui/utils': 0.2.8
 
   concat-map@0.0.1: {}
 
@@ -6642,10 +6650,10 @@ snapshots:
 
   decimal.js@10.4.3: {}
 
-  deck.gl@9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  deck.gl@9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.8))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@deck.gl/aggregation-layers': 9.0.29(@deck.gl/core@9.0.29)(@deck.gl/layers@9.0.29(@deck.gl/core@9.0.29)(@loaders.gl/core@4.2.3)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27)))(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))
-      '@deck.gl/arcgis': 9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.7))(@deck.gl/core@9.0.29)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))
+      '@deck.gl/arcgis': 9.0.29(@arcgis/core@4.30.9(@floating-ui/utils@0.2.8))(@deck.gl/core@9.0.29)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))
       '@deck.gl/carto': 9.0.29(tohhxspcoitd3pjgjvnslcpbw4)
       '@deck.gl/core': 9.0.29
       '@deck.gl/extensions': 9.0.29(@deck.gl/core@9.0.29)(@luma.gl/core@9.0.27)(@luma.gl/engine@9.0.27(@luma.gl/core@9.0.27))
@@ -6661,7 +6669,7 @@ snapshots:
       '@luma.gl/core': 9.0.27
       '@luma.gl/engine': 9.0.27(@luma.gl/core@9.0.27)
     optionalDependencies:
-      '@arcgis/core': 4.30.9(@floating-ui/utils@0.2.7)
+      '@arcgis/core': 4.30.9(@floating-ui/utils@0.2.8)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -7053,7 +7061,7 @@ snapshots:
   eslint@9.10.0(jiti@1.21.6):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.10.0(jiti@1.21.6))
-      '@eslint-community/regexpp': 4.11.0
+      '@eslint-community/regexpp': 4.11.1
       '@eslint/config-array': 0.18.0
       '@eslint/eslintrc': 3.1.0
       '@eslint/js': 9.10.0
