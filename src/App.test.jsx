@@ -32,7 +32,7 @@ describe("no crashes!", () => {
     const button = screen.getByText("Table");
     fireEvent.click(button);
     await screen.findByTestId("electionResultTable", undefined, { timeout: 7500 });
-    // await findAllByText("Election results", undefined, { timeout: 7500 });
+    await screen.findAllByText("Election results", undefined, { timeout: 7500 });
     expect(screen.getByTestId("electionResultTable")).toMatchSnapshot();
   });
 });
