@@ -69,6 +69,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "globals": "^15.11.0",
     "jsdom": "^25.0.1",
+    "msw": "^2.4.10",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "rollup-plugin-visualizer": "^5.12.0",
