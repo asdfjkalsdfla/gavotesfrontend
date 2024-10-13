@@ -1,10 +1,10 @@
 import { readFileSync } from "fs";
-import { dirname, join } from "path";
+import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { http, HttpResponse } from "msw";
 
 // eslint-disable-next-line no-undef
-const _dirname = typeof __dirname !== "undefined" ? __dirname : dirname(fileURLToPath(import.meta.url) + "/src/mocks/static/");
+const _dirname = typeof __dirname !== "undefined" ? __dirname : `${dirname(fileURLToPath(import.meta.url))}/src/mocks/static/`;
 
 export const handlers = [
   http.get("https://georgiavotesvisual.com/static/absentee/:file", (req) => {
