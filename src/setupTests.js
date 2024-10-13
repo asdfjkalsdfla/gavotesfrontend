@@ -1,19 +1,28 @@
-import { vi, expect } from "vitest";
+import { vi, expect, beforeAll, afterEach, afterAll } from "vitest";
 
-// import { server } from "./mocks/server.js";
+import { server } from "./mocks/server.mjs";
 
-// // ###########################
-// // HTTP Mocking
-// // ###########################
+// ###########################
+// HTTP Mocking
+// ###########################
 
-// // Establish API mocking before all tests.
-// beforeAll(() => server.listen());
+// Establish API mocking before all tests.
+beforeAll(() =>
+  server.listen({
+    onUnhandledRequest: (request, print) => {
+      // console.log(request);
+      if (request.url.toString().startsWith("https://georgiavotesvisual.com/static/absentee/")) {
+        print.error();
+      }
+    },
+  }),
+);
 
-// // so they don't affect other tests.
-// afterEach(() => server.resetHandlers());
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers());
 
-// // Clean up after the tests are finished.
-// afterAll(() => server.close());
+// Clean up after the tests are finished.
+afterAll(() => server.close());
 
 // ###########################
 // Mock items note in jsdom
