@@ -13,10 +13,10 @@ describe("Votes Table", () => {
       <ElectionDataProvider
         isCountyLevel={true}
         countyFilter={null}
-        absenteeElectionBaseID="2022_runoff"
+        absenteeElectionBaseID="2022_general"
         absenteeElectionCurrentID="2022_general"
-        resultsElectionRaceCurrentID="2022_runoff||US Senate"
-        resultsElectionRacePerviousID="2022_general||US Senate"
+        resultsElectionRaceCurrentID="2022_general||US Senate"
+        resultsElectionRacePerviousID="2020_general||President of the United States"
       >
         <VotesTable />
       </ElectionDataProvider>,
@@ -29,10 +29,10 @@ describe("Votes Table", () => {
       <ElectionDataProvider
         isCountyLevel={true}
         countyFilter={null}
-        absenteeElectionBaseID="2022_runoff"
+        absenteeElectionBaseID="2022_general"
         absenteeElectionCurrentID="2022_general"
-        resultsElectionRaceCurrentID="2022_runoff||US Senate"
-        resultsElectionRacePerviousID="2022_general||US Senate"
+        resultsElectionRaceCurrentID="2022_general||US Senate"
+        resultsElectionRacePerviousID="2020_general||President of the United States"
       >
         <VotesTable />
       </ElectionDataProvider>,
