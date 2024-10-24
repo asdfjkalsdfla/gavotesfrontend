@@ -13,7 +13,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
       aria-haspopup="menu"
       class="items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 ml-auto hidden h-8 lg:flex"
       data-state="closed"
-      id="radix-:rh4:"
+      id="radix-:rhg:"
       type="button"
     >
       <svg
@@ -127,7 +127,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rh8:"
+                  id="radix-:rhk:"
                   type="button"
                 >
                   <span>
@@ -163,7 +163,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhc:"
+                  id="radix-:rho:"
                   type="button"
                 >
                   <span>
@@ -199,7 +199,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhg:"
+                  id="radix-:rhs:"
                   type="button"
                 >
                   <span>
@@ -235,119 +235,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhk:"
-                  type="button"
-                >
-                  <span>
-                    At Same Days to Election
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rho:"
-                  type="button"
-                >
-                  <span>
-                    Totals
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rhs:"
-                  type="button"
-                >
-                  <span>
-                    At Same Days to Election
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
                   id="radix-:ri0:"
                   type="button"
                 >
                   <span>
-                    Totals
+                    At Same Days to Election
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -383,7 +275,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Kemp (R)
+                    Totals
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -419,7 +311,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Kemp (R) %
+                    At Same Days to Election
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -455,7 +347,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Abrams (D)
+                    Totals
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -491,7 +383,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Abrams (D) %
+                    Kemp (R)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -527,7 +419,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Other Candidates
+                    Kemp (R) %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -563,7 +455,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Other %
+                    Abrams (D)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -599,7 +491,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Total
+                    Abrams (D) %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -635,7 +527,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Margin
+                    Other Candidates
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -671,7 +563,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Margin %
+                    Other %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -707,7 +599,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Early Vote Margin %
+                    Total
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -743,7 +635,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Trump (R)
+                    Margin
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -779,7 +671,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Trump (R) %
+                    Margin %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -815,7 +707,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Biden (D)
+                    Early Vote Margin %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -851,7 +743,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Biden (D) %
+                    Trump (R)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -887,7 +779,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Other Candidates
+                    Trump (R) %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -923,7 +815,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Other %
+                    Biden (D)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -959,7 +851,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Total
+                    Biden (D) %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -995,7 +887,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Margin
+                    Other Candidates
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1031,7 +923,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Margin %
+                    Other %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1067,7 +959,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Early Vote Margin %
+                    Total
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1103,7 +995,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Swing (Shift in R/D %)
+                    Margin
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1139,7 +1031,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    % of Previous Turnout
+                    Margin %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1175,7 +1067,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Shift in Vote Margin (Normalized)
+                    Early Vote Margin %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1211,7 +1103,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    EV Shift in R/D %
+                    Swing (Shift in R/D %)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1247,7 +1139,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    White %
+                    % of Previous Turnout
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1283,7 +1175,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Black %
+                    Shift in Vote Margin (Normalized)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1319,7 +1211,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Hispanic %
+                    EV Shift in R/D %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1355,7 +1247,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   type="button"
                 >
                   <span>
-                    Asian %
+                    White %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -1388,6 +1280,114 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
                   id="radix-:rlk:"
+                  type="button"
+                >
+                  <span>
+                    Black %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rlo:"
+                  type="button"
+                >
+                  <span>
+                    Hispanic %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rls:"
+                  type="button"
+                >
+                  <span>
+                    Asian %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rm0:"
                   type="button"
                 >
                   <span>
@@ -1469,7 +1469,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,266
+                1,952
               </div>
             </td>
             <td
@@ -1850,7 +1850,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                8,043
+                12,282
               </div>
             </td>
             <td
@@ -2231,7 +2231,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                103,771
+                158,227
               </div>
             </td>
             <td
@@ -2612,7 +2612,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                69,617
+                108,520
               </div>
             </td>
             <td
@@ -2993,7 +2993,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                16,210
+                23,201
               </div>
             </td>
             <td
@@ -3374,7 +3374,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                6,609
+                10,105
               </div>
             </td>
             <td
@@ -3755,7 +3755,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,841
+                4,155
               </div>
             </td>
             <td
@@ -4136,7 +4136,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                13,876
+                20,886
               </div>
             </td>
             <td
@@ -4517,7 +4517,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                3,064
+                4,485
               </div>
             </td>
             <td
@@ -4898,7 +4898,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                448
+                642
               </div>
             </td>
             <td
@@ -5249,7 +5249,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         </p>
         <button
           aria-autocomplete="none"
-          aria-controls="radix-:rln:"
+          aria-controls="radix-:rm3:"
           aria-expanded="false"
           class="flex items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-8 w-[70px]"
           data-state="closed"
