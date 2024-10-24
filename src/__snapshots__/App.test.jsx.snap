@@ -2576,7 +2576,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                NaN
+                0.00
               </div>
             </td>
             <td
@@ -4100,7 +4100,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                NaN
+                0.00
               </div>
             </td>
             <td
