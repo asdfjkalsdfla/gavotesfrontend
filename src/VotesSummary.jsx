@@ -245,7 +245,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
           <br />
           <b>Result by Vote Method</b>
           <br />
-          <DataTable columns={columnsVoteMode} data={raceResult?.resultsByMode} />
+          <DataTable columns={columnsVoteMode} data={raceResult?.resultsByMode} initialSortColumn="mode" />
         </React.Fragment>
       )}
     </div>

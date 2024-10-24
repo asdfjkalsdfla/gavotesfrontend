@@ -143,7 +143,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      d="M7.14645 2.14645C7.34171 1.95118 7.65829 1.95118 7.85355 2.14645L11.8536 6.14645C12.0488 6.34171 12.0488 6.65829 11.8536 6.85355C11.6583 7.04882 11.3417 7.04882 11.1464 6.85355L8 3.70711L8 12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5L7 3.70711L3.85355 6.85355C3.65829 7.04882 3.34171 7.04882 3.14645 6.85355C2.95118 6.65829 2.95118 6.34171 3.14645 6.14645L7.14645 2.14645Z"
                       fill="currentColor"
                       fill-rule="evenodd"
                     />
@@ -1424,7 +1424,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                EMANUEL
+                APPLING
               </a>
             </td>
             <td
@@ -1442,7 +1442,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -1451,7 +1451,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -1460,7 +1460,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -1469,7 +1469,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,952
+                1,768
               </div>
             </td>
             <td
@@ -1478,7 +1478,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                3,632
+                3,657
               </div>
             </td>
             <td
@@ -1487,7 +1487,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                5,505
+                5,552
               </div>
             </td>
             <td
@@ -1496,7 +1496,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                72.8%
+                82.8%
               </div>
             </td>
             <td
@@ -1505,7 +1505,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,024
+                1,131
               </div>
             </td>
             <td
@@ -1514,7 +1514,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                26.8%
+                16.9%
               </div>
             </td>
             <td
@@ -1523,259 +1523,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                33
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                7,562
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                3,481
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                46.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                34.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                6,551
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                69.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2,884
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                30.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                66
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                9,501
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                3,667
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                38.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                5.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                7.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                79.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                565
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                28.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                59.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                28.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.9%
+                20
               </div>
             </td>
             <td
@@ -1793,136 +1541,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                9.2%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                LOWNDES
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                12,282
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                22,734
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                21,256
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                61.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                13,275
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                38.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                229
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                34,760
+                6,703
               </div>
             </td>
             <td
@@ -1937,7 +1556,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                7,981
+                4,421
               </div>
             </td>
             <td
@@ -1952,7 +1571,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                23.0%
+                66.0%
               </div>
             </td>
             <td
@@ -1967,7 +1586,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                14.0%
+                58.2%
               </div>
             </td>
             <td
@@ -1976,7 +1595,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                25,691
+                6,526
               </div>
             </td>
             <td
@@ -1985,7 +1604,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                55.4%
+                78.2%
               </div>
             </td>
             <td
@@ -1994,7 +1613,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                20,117
+                1,779
               </div>
             </td>
             <td
@@ -2003,7 +1622,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                43.4%
+                21.3%
               </div>
             </td>
             <td
@@ -2012,7 +1631,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                547
+                36
               </div>
             </td>
             <td
@@ -2021,7 +1640,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1.2%
+                0.4%
               </div>
             </td>
             <td
@@ -2030,22 +1649,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                46,355
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                5,574
+                8,341
               </div>
             </td>
             <td
@@ -2060,22 +1664,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                12.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                27.4%
+                4,747
               </div>
             </td>
             <td
@@ -2090,16 +1679,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                10.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                75.0%
+                56.9%
               </div>
             </td>
             <td
@@ -2114,7 +1694,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                3,549
+                20.5%
               </div>
             </td>
             <td
@@ -2129,730 +1709,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                41.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                55.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                33.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4.0%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                FULTON
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                158,227
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                302,618
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                128,167
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                30.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                289,085
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                68.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2,632
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                419,884
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                160,918
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                38.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                43.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                137,240
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                26.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                381,144
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                72.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                6,275
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                524,659
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                243,904
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                46.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                59.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                8.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                80.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                33,028
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                16.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                38.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                41.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                3.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                11.3%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                DEKALB
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                3
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                3
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                108,520
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                210,933
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                54,522
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                18.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                241,901
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                81.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1,806
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                298,229
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                187,379
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                62.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                70.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                58,373
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                15.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                308,227
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                83.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4,204
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                370,804
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                249,854
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                67.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
-                74.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                4.6%
+                9.0%
               </div>
             </td>
             <td
@@ -2876,7 +1733,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                11,298
+                646
               </div>
             </td>
             <td
@@ -2891,7 +1748,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                4.6%
+                37.7%
               </div>
             </td>
             <td
@@ -2900,7 +1757,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                31.4%
+                72.0%
               </div>
             </td>
             <td
@@ -2909,7 +1766,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                50.7%
+                17.9%
               </div>
             </td>
             <td
@@ -2918,7 +1775,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2.8%
+                2.1%
               </div>
             </td>
             <td
@@ -2927,7 +1784,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                3.2%
+                0.5%
               </div>
             </td>
             <td
@@ -2936,7 +1793,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                8.9%
+                6.7%
               </div>
             </td>
           </tr>
@@ -2948,7 +1805,769 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                HOUSTON
+                ATKINSON
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                545
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,168
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,767
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                78.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                467
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                20.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                12
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,246
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                1,300
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                57.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                50.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,300
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                72.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                825
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                26.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                30
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,155
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                1,475
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                46.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                11.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                11.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                71.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                127
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                38.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                67.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                18.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.3%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BACON
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,280
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,742
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,312
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                89.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                393
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                16
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,721
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                2,919
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                78.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                79.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,018
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                625
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                13.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                25
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,668
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                3,393
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                72.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                42.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                5.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                79.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                221
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                37.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                78.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                12.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6.1%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BAKER
               </a>
             </td>
             <td
@@ -2993,7 +2612,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                23,201
+                407
               </div>
             </td>
             <td
@@ -3002,7 +2621,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                40,565
+                724
               </div>
             </td>
             <td
@@ -3011,7 +2630,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                34,842
+                755
               </div>
             </td>
             <td
@@ -3020,7 +2639,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                58.8%
+                60.0%
               </div>
             </td>
             <td
@@ -3029,7 +2648,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                23,928
+                500
               </div>
             </td>
             <td
@@ -3038,7 +2657,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                40.4%
+                39.7%
               </div>
             </td>
             <td
@@ -3047,7 +2666,388 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                440
+                3
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,258
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                255
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                20.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                4.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                897
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                57.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                652
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                41.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,555
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                245
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                15.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                25.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                4.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                80.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                60
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                30.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                52.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                40.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4.9%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BALDWIN
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5,706
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,913
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7,987
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                53.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6,913
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                46.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                102
               </div>
             </td>
             <td
@@ -3065,7 +3065,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                59,210
+                15,002
               </div>
             </td>
             <td
@@ -3080,7 +3080,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                10,914
+                1,074
               </div>
             </td>
             <td
@@ -3095,7 +3095,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                18.4%
+                7.2%
               </div>
             </td>
             <td
@@ -3110,7 +3110,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                12.8%
+                1.3%
               </div>
             </td>
             <td
@@ -3119,7 +3119,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                41,534
+                8,903
               </div>
             </td>
             <td
@@ -3128,7 +3128,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                55.5%
+                48.8%
               </div>
             </td>
             <td
@@ -3137,7 +3137,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                32,232
+                9,140
               </div>
             </td>
             <td
@@ -3146,7 +3146,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                43.1%
+                50.1%
               </div>
             </td>
             <td
@@ -3155,7 +3155,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,057
+                208
               </div>
             </td>
             <td
@@ -3164,7 +3164,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1.4%
+                1.1%
               </div>
             </td>
             <td
@@ -3173,37 +3173,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                74,823
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                9,302
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                12.4%
+                18,251
               </div>
             </td>
             <td
@@ -3218,7 +3188,37 @@ exports[`no crashes! > renders table without crashing 1`] = `
                    D + 
                 </span>
                  
-                18.5%
+                237
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                1.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                39.9%
               </div>
             </td>
             <td
@@ -3233,7 +3233,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                6.0%
+                8.5%
               </div>
             </td>
             <td
@@ -3242,22 +3242,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                79.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                3,517
+                82.2%
               </div>
             </td>
             <td
@@ -3272,7 +3257,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                31.3%
+                1,262
               </div>
             </td>
             <td
@@ -3281,7 +3266,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                55.8%
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                41.2%
               </div>
             </td>
             <td
@@ -3290,7 +3281,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                30.0%
+                51.7%
               </div>
             </td>
             <td
@@ -3299,7 +3290,379 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2.6%
+                40.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.3%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BANKS
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,292
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,720
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6,651
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                90.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                607
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                68
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7,326
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                6,044
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                82.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                82.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7,795
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                88.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                932
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                74
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,801
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                6,863
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                78.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                49.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                4.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                83.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                587
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                32.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.6%
               </div>
             </td>
             <td
@@ -3317,7 +3680,406 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                7.5%
+                2.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7.1%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BARROW
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,779
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                16,911
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                21,833
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                74.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7,309
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                24.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                288
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                29,430
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                14,524
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                49.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                44.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                26,804
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                70.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10,453
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                27.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                664
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                37,921
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                16,351
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                43.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                7.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                6.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                77.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                1,522
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                37.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                69.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                11.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8.8%
               </div>
             </td>
           </tr>
@@ -3710,7 +4472,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                PEACH
+                BEN HILL
               </a>
             </td>
             <td
@@ -3728,7 +4490,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -3737,7 +4499,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -3746,7 +4508,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -3755,7 +4517,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                4,155
+                2,152
               </div>
             </td>
             <td
@@ -3764,7 +4526,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                7,053
+                3,738
               </div>
             </td>
             <td
@@ -3773,7 +4535,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                5,542
+                3,412
               </div>
             </td>
             <td
@@ -3782,7 +4544,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                55.2%
+                66.7%
               </div>
             </td>
             <td
@@ -3791,7 +4553,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                4,431
+                1,680
               </div>
             </td>
             <td
@@ -3800,7 +4562,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                44.1%
+                32.8%
               </div>
             </td>
             <td
@@ -3809,7 +4571,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                66
+                26
               </div>
             </td>
             <td
@@ -3818,7 +4580,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.7%
+                0.5%
               </div>
             </td>
             <td
@@ -3827,22 +4589,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                10,039
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                1,111
+                5,118
               </div>
             </td>
             <td
@@ -3857,7 +4604,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                11.1%
+                1,732
               </div>
             </td>
             <td
@@ -3872,70 +4619,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                6.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                6,502
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                51.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                5,920
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                47.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                123
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                12,545
+                33.8%
               </div>
             </td>
             <td
@@ -3950,7 +4634,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                582
+                31.9%
               </div>
             </td>
             <td
@@ -3959,13 +4643,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                4.6%
+                4,110
               </div>
             </td>
             <td
@@ -3974,12 +4652,24 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(102, 134, 181);"
-                >
-                   D + 
-                </span>
-                 
+                62.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,392
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
                 36.5%
               </div>
             </td>
@@ -3989,208 +4679,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                6.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                80.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                648
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                43.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                49.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                40.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                3.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                5.6%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                PAULDING
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                20,886
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                43,751
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                43,992
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                65.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                22,427
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                33.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                585
+                58
               </div>
             </td>
             <td
@@ -4208,7 +4697,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                67,004
+                6,560
               </div>
             </td>
             <td
@@ -4223,7 +4712,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                21,565
+                1,718
               </div>
             </td>
             <td
@@ -4238,115 +4727,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                32.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                27.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                54,525
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                63.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                29,704
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                34.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1,156
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                85,385
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                24,821
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                29.1%
+                26.2%
               </div>
             </td>
             <td
@@ -4361,7 +4742,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                    D + 
                 </span>
                  
-                4.7%
+                15.0%
               </div>
             </td>
             <td
@@ -4376,547 +4757,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                3.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                78.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                1,828
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                32.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                66.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                19.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                3.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                8.1%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                HARRIS
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4,485
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                8,617
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                12,924
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                75.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4,008
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                23.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                107
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                17,039
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                8,916
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                52.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                40.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                14,319
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                71.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                5,457
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                27.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                215
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                19,991
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                8,862
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                44.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                0.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                8.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                85.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                1,869
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                40.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                75.2%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                14.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.8%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                6.3%
-              </div>
-            </td>
-          </tr>
-          <tr
-            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-            data-state="false"
-          >
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <a>
-                MILLER
-              </a>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                NaN
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.00
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                4
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                642
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1,269
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                1,689
+                7.7%
               </div>
             </td>
             <td
@@ -4934,7 +4775,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                462
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                366
               </div>
             </td>
             <td
@@ -4943,7 +4790,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                21.3%
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                46.9%
               </div>
             </td>
             <td
@@ -4952,7 +4805,154 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                13
+                58.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                34.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4.1%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BERRIEN
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,584
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,248
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5,209
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                772
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                12.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                38
               </div>
             </td>
             <td
@@ -4970,7 +4970,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,164
+                6,019
               </div>
             </td>
             <td
@@ -4985,7 +4985,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                1,227
+                4,437
               </div>
             </td>
             <td
@@ -5000,7 +5000,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                56.7%
+                73.7%
               </div>
             </td>
             <td
@@ -5015,7 +5015,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                57.4%
+                71.4%
               </div>
             </td>
             <td
@@ -5024,7 +5024,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,066
+                6,419
               </div>
             </td>
             <td
@@ -5033,7 +5033,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                72.9%
+                82.9%
               </div>
             </td>
             <td
@@ -5042,7 +5042,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                749
+                1,269
               </div>
             </td>
             <td
@@ -5051,7 +5051,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                26.4%
+                16.4%
               </div>
             </td>
             <td
@@ -5060,7 +5060,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                20
+                55
               </div>
             </td>
             <td
@@ -5078,7 +5078,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,835
+                7,743
               </div>
             </td>
             <td
@@ -5093,7 +5093,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                1,317
+                5,150
               </div>
             </td>
             <td
@@ -5108,7 +5108,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                46.5%
+                66.5%
               </div>
             </td>
             <td
@@ -5123,7 +5123,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                8.9%
+                34.2%
               </div>
             </td>
             <td
@@ -5138,6 +5138,63 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
+                7.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                77.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                342
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                37.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                82.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
                 10.2%
               </div>
             </td>
@@ -5147,7 +5204,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                76.3%
+                1.6%
               </div>
             </td>
             <td
@@ -5156,13 +5213,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                180
+                0.4%
               </div>
             </td>
             <td
@@ -5171,58 +5222,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                48.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                69.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                26.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2.9%
+                4.4%
               </div>
             </td>
           </tr>

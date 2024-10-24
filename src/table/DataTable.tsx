@@ -16,11 +16,12 @@ import { DataTablePagination } from "./DataTablePagination.tsx";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  initialSortColumn: string,
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([{id: initialSortColumn, desc: false}]);
 
   const table = useReactTable({
     data,
@@ -35,7 +36,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       columnVisibility,
     },
   });
-
+  
   return (
     <div className="space-y-4"  data-testid="electionResultTable">
       <span data-testid="dataElementSettings"><DataTableViewOptions table={table} /></span>
