@@ -4,6 +4,9 @@ import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable } from "./table/DataTable.tsx";
+import { DataTableColumnHeader } from "./table/DataTableColumnHeader.tsx";
+import { DataTableCellNumeric } from "./table/DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
@@ -164,6 +167,37 @@ export default function VoteSummary({
 }
 
 function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode }) {
+  const columnsVoteMode = [
+    {
+      id: "mode",
+      accessorKey: "mode",
+      meta: { title: "Vote Mode" },
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Vote Mode" />,
+      enableHiding: false,
+    },
+    {
+      id: `${race}##perR`,
+      accessorKey: "republican",
+      meta: { title: `${race?.republican} (R)` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
+      cell: ({ row }) => (
+        <DataTableCellNumeric>
+          {numberFormat.format(row.original?.republican)} ({numberFormatPercent.format(row.original?.perRepublican)})
+        </DataTableCellNumeric>
+      ),
+    },
+    {
+      id: `${race}##perD`,
+      accessorKey: "democratic",
+      meta: { title: `${race?.democratic} (D)` },
+      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
+      cell: ({ row }) => (
+        <DataTableCellNumeric>
+          {numberFormat.format(row.original?.democratic)} ({numberFormatPercent.format(row.original?.perDemocratic)})
+        </DataTableCellNumeric>
+      ),
+    },
+  ];
   return (
     <div>
       <div className="text-lg font-bold pt-6">
@@ -211,31 +245,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
           <br />
           <b>Result by Vote Method</b>
           <br />
-          {/* <Table dataSource={raceResult?.resultsByMode} pagination={false} sortDirections="">
-            <Column title="Method" dataIndex="mode" key="mode" sorter={(a, b) => (a.mode > b.mode ? 1 : -1)} sortOrder="ascend" />
-            <Column
-              title={`${race?.republican} (R)`}
-              align="right"
-              dataIndex="republican"
-              key="republican"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.republican)} ({numberFormatPercent.format(row?.perRepublican)})
-                </>
-              )}
-            />
-            <Column
-              title={`${race?.democratic} (D)`}
-              dataIndex="democratic"
-              key="democratic"
-              align="right"
-              render={(value, row) => (
-                <>
-                  {numberFormat.format(row?.democratic)} ({numberFormatPercent.format(row?.perDemocratic)})
-                </>
-              )}
-            />
-          </Table> */}
+          <DataTable columns={columnsVoteMode} data={raceResult?.resultsByMode} />
         </React.Fragment>
       )}
     </div>
