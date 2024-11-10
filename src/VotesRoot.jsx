@@ -73,7 +73,6 @@ export default function VotesRoot() {
   // Active Data Point
   // **************************************************
   const [activeHover, updateActiveHover] = useState(null);
-  
   const [activeSelection, updateActiveSelectionState] = useState(countyParam);
 
   const updateActiveSelection = (activeSelection) => {
