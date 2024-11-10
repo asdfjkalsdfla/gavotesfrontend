@@ -38,7 +38,7 @@ const showOptionsOnLoad = hideOptionsParam !== "true";
 
 // elevation approach
 const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam || "turnoutAbsSameDay";
+const elevationApproachInitial = elevationApproachParam || "none";
 
 // color approach
 const colorApproachParam = params.get("colorApproach");
@@ -46,7 +46,7 @@ const colorApproachInitial = colorApproachParam || "electionResultPerRepublicanP
 
 // races
 const resultsElectionRaceCurrentIDParam = params.get("resultsElectionRaceCurrentID");
-const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam || "2022_general||Governor";
+const resultsElectionRaceCurrentIDInitial = resultsElectionRaceCurrentIDParam || "2024_general||President";
 const resultsElectionRacePerviousIDParam = params.get("resultsElectionRacePerviousID");
 const resultsElectionRacePerviousIDInitial = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
 
@@ -91,7 +91,7 @@ export default function VotesRoot() {
   const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
 
   const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(true);
+  const [showAbsentee, updateShowAbsentee] = useState(false);
   const [showDemographics, updateShowDemographics] = useState(false);
 
   // ************************************************
