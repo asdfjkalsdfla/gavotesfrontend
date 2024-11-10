@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Papa from "papaparse";
 
-import { ArrowDownUp, ArrowUpDown, Check } from "lucide-react";
+import { ChevronsUpDown, ArrowUpDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandList, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -12,10 +12,11 @@ import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
+  const [countyOptions, updateCountyOptions] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [countiesNoMatch, updateCountiesNoMatch] = useState([]);
-  const [shapePrecincts, updateShapesPrecincts] = useState();
-  const [electionResultsPrecinctsToShapeMap, updateElectionResultsPrecinctsToShapeMap] = useState();
+  const [shapePrecincts, updateShapesPrecincts] = useState(new Map());
+  const [electionResultsPrecinctsToShapeMap, updateElectionResultsPrecinctsToShapeMap] = useState(new Map());
   const [electionResultNoMatch, updateElectionsNoMatch] = useState();
   const [manualElectionResultsPrecinctsToShapeMap, updateManualElectionResultsPrecinctsToShapeMap] = useState();
 
@@ -23,7 +24,7 @@ export default function PrecinctsResultToShapeMatch() {
     const loadData = async () => {
       const fetchPromises = [
         fetch("/static/shapeFiles/GA_precincts_simple_2022.json"),
-        fetch("/static/2022_runoff_map_2022_ids.csv"),
+        fetch("/static/2024_general_map_2022_ids.csv"),
         fetch("/static/2022_runoff_map_2022_ids_manual.csv"),
       ];
       const [responseShape, responsePrecinctsMap, responsePrecinctMapManual] = await Promise.all(fetchPromises);
@@ -78,15 +79,25 @@ export default function PrecinctsResultToShapeMatch() {
       // all
       const countiesSet = new Set();
       geoJSON.features.forEach((precinct) => countiesSet.add(precinct.properties.CTYNAME));
-      const counties = [...countiesSet.values()].sort();
+      let counties = [...countiesSet.values()].sort();
+      counties = counties.filter((county) => {
+        return county && county.length > 0;
+      });
       updateCounties(counties);
     };
 
     loadData();
   }, []);
 
-  const [showAllCounties, updateShowAllCounties] = useState(true);
-  const [selectedCounty, updateSelectedCounty] = useState();
+  const [showAllCounties, updateShowAllCounties] = useState(false);
+
+  useEffect(() => {
+    const countiesToUses = showAllCounties ? counties : countiesNoMatch;
+    const countyOptions = countiesToUses.map((county) => ({ value: county, label: county }));
+    updateCountyOptions(countyOptions);
+  }, [counties, countiesNoMatch, showAllCounties]);
+
+  const [selectedCounty, updateSelectedCounty] = useState("APPLING");
   const [electionPrecinctsInSelectedCounty, updateElectionPrecinctsInSelectedCounty] = useState([]);
   const [mapPrecinctsInSelectedCounty, updatePrecinctsMapInSelectedCounty] = useState([]);
 
@@ -246,7 +257,7 @@ export default function PrecinctsResultToShapeMatch() {
           updateSelectedCounty(value);
         }}
         value={selectedCounty}
-        options={counties.map((county) => ({ value: county, label: county }))}
+        options={countyOptions}
       />
       <Checkbox
         onCheckedChange={(checked) => {
@@ -274,7 +285,7 @@ export default function PrecinctsResultToShapeMatch() {
         ))}
       <br />
       <br />
-      <div className="rounded-md border w-6/12">
+      <div className="rounded-md border w-9/12">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -311,38 +322,39 @@ export default function PrecinctsResultToShapeMatch() {
 
 export function Combobox({ value, onValueChange, options }) {
   const [open, setOpen] = React.useState(false);
+  // const [value, setValue] = React.useState(valueExternal);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-          {value ? options.find((option) => option.value.toUpperCase() === value.toUpperCase())?.label : "Select..."}
-          <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {value ? options.find((option) => option.value === value)?.label : "Select option..."}
+          <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
-        {open && (
-          <Command>
-            <CommandInput placeholder="Search..." className="h-9" />
-            <CommandList>
-              <CommandEmpty>No values found.</CommandEmpty>
-              <CommandGroup>
-                {options.map((option) => (
-                  <CommandItem
-                    key={option.value}
-                    onSelect={() => {
-                      onValueChange(option.value === value ? "" : option.value);
-                      setOpen(false);
-                    }}
-                  >
-                    {option.label}
-                    <Check className={cn("ml-auto h-4 w-4", value === option.value ? "opacity-100" : "opacity-0")} />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        )}
+        <Command>
+          <CommandInput placeholder="Search option..." className="h-9" />
+          <CommandList>
+            <CommandEmpty>No options found.</CommandEmpty>
+            <CommandGroup>
+              {options.map((option) => (
+                <CommandItem
+                  key={option.value}
+                  value={option.value}
+                  // onSelect={(value) => console.log("Selected", value)}
+                  onSelect={(value) => {
+                    onValueChange(value);
+                    setOpen(false);
+                  }}
+                >
+                  {option.label}
+                  <Check className={cn("ml-auto", value === option.value ? "opacity-100" : "opacity-0")} />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </PopoverContent>
     </Popover>
   );
