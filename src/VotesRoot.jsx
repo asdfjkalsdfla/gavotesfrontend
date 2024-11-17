@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import { ElectionSelectionContextProvider } from "./context/ElectionSelectionContext.tsx";
 import { ElectionDataProvider } from "./context/ElectionDataProvider.jsx";
+import { ScatterPlotPreferenceContextProvider } from "./Views/VotesScatter/PreferenceContext.tsx";
 import ErrorBoundary from "./ErrorBoundary.jsx";
 
 import Navigation from "./Navigation.jsx";
@@ -78,9 +79,6 @@ export default function VotesRoot() {
   const [elevationApproach, updateElevationApproach] = useState(elevationApproachInitial);
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
 
-  const [scatterXAxis, updateScatterXAxis] = useState("electionResultPerRepublicanPer");
-  const [scatterYAxis, updateScatterYAxis] = useState("turnoutAbsSameDay");
-
   const [showVoteMode, updateShowVoteMode] = useState(false);
   const [showAbsentee, updateShowAbsentee] = useState(false);
   const [showDemographics, updateShowDemographics] = useState(false);
@@ -113,89 +111,85 @@ export default function VotesRoot() {
       <div className="pageGrid">
         <ElectionSelectionContextProvider>
           <ElectionDataProvider isCountyLevel={isCountyLevel} countyFilter={countyFilter}>
-            <div className={displayType === "table" && !showOptions ? "full" : "one"}>
-              <ErrorBoundary fallback={<p>Something went wrong</p>}>
-                <Suspense fallback={<div>Loading...</div>}>
-                  {displayType === "scatter" && (
-                    <VotesScatterPlot
-                      isCountyLevel={isCountyLevel}
-                      updateActiveSelection={updateActiveSelection}
-                      updateActiveHover={updateActiveHover}
-                      scatterXAxis={scatterXAxis}
-                      scatterYAxis={scatterYAxis}
-                    />
+            <ScatterPlotPreferenceContextProvider>
+              <div className={displayType === "table" && !showOptions ? "full" : "one"}>
+                <ErrorBoundary fallback={<p>Something went wrong</p>}>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    {displayType === "scatter" && (
+                      <VotesScatterPlot
+                        isCountyLevel={isCountyLevel}
+                        updateActiveSelection={updateActiveSelection}
+                        updateActiveHover={updateActiveHover}
+                      />
+                    )}
+                    {displayType === "map" && (
+                      // <div>test</div>
+                      <VotesMap
+                        isCountyLevel={isCountyLevel}
+                        countyFilter={countyFilter}
+                        elevationApproach={elevationApproach}
+                        colorApproach={colorApproach}
+                        updateActiveSelection={updateActiveSelection}
+                        updateActiveHover={updateActiveHover}
+                        userHasSetLevel={userHasSetLevel}
+                        updateIsCountyLevel={updateIsCountyLevel}
+                      />
+                    )}
+                    {displayType === "table" && (
+                      <VotesTable
+                        isCountyLevel={isCountyLevel}
+                        countyFilter={countyFilter}
+                        updateCountyFilter={updateCountyFilter}
+                        updateIsCountyLevel={updateIsCountyLevel}
+                        updateActiveSelection={updateActiveSelection}
+                      />
+                    )}
+                  </Suspense>
+                </ErrorBoundary>
+              </div>
+              {(displayType !== "table" || showOptions) && (
+                <div className="two p-4">
+                  {showWelcome && (
+                    <>
+                      <WelcomeText updateShowWelcome={updateShowWelcome} />
+                    </>
                   )}
-                  {displayType === "map" && (
-                    // <div>test</div>
-                    <VotesMap
-                      isCountyLevel={isCountyLevel}
-                      countyFilter={countyFilter}
-                      elevationApproach={elevationApproach}
-                      colorApproach={colorApproach}
-                      updateActiveSelection={updateActiveSelection}
-                      updateActiveHover={updateActiveHover}
-                      userHasSetLevel={userHasSetLevel}
-                      updateIsCountyLevel={updateIsCountyLevel}
-                    />
+                  {(showOptions || showWelcome) && (
+                    <>
+                      <VoteMapOptions
+                        updateShowOptions={updateShowOptions}
+                        displayType={displayType}
+                        elevationApproach={elevationApproach}
+                        updateElevationApproach={updateElevationApproach}
+                        colorApproach={colorApproach}
+                        updateColorApproach={updateColorApproach}
+                        showVoteMode={showVoteMode}
+                        updateShowVoteMode={updateShowVoteMode}
+                        showDemographics={showDemographics}
+                        updateShowDemographics={updateShowDemographics}
+                        showAbsentee={showAbsentee}
+                        updateShowAbsentee={updateShowAbsentee}
+                      />
+                    </>
                   )}
-                  {displayType === "table" && (
-                    <VotesTable
-                      isCountyLevel={isCountyLevel}
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <VotesSummary
+                      activeSelection={activeSelection}
+                      updateActiveSelection={updateActiveSelection}
+                      activeHover={activeHover}
                       countyFilter={countyFilter}
                       updateCountyFilter={updateCountyFilter}
+                      isCountyLevel={isCountyLevel}
+                      updateUserHasSetLevel={updateUserHasSetLevel}
                       updateIsCountyLevel={updateIsCountyLevel}
-                      updateActiveSelection={updateActiveSelection}
-                    />
-                  )}
-                </Suspense>
-              </ErrorBoundary>
-            </div>
-            {(displayType !== "table" || showOptions) && (
-              <div className="two p-4">
-                {showWelcome && (
-                  <>
-                    <WelcomeText updateShowWelcome={updateShowWelcome} />
-                  </>
-                )}
-                {(showOptions || showWelcome) && (
-                  <>
-                    <VoteMapOptions
-                      updateShowOptions={updateShowOptions}
-                      displayType={displayType}
-                      elevationApproach={elevationApproach}
-                      updateElevationApproach={updateElevationApproach}
-                      colorApproach={colorApproach}
-                      updateColorApproach={updateColorApproach}
-                      scatterXAxis={scatterXAxis}
-                      updateScatterXAxis={updateScatterXAxis}
-                      scatterYAxis={scatterYAxis}
-                      updateScatterYAxis={updateScatterYAxis}
                       showVoteMode={showVoteMode}
-                      updateShowVoteMode={updateShowVoteMode}
                       showDemographics={showDemographics}
-                      updateShowDemographics={updateShowDemographics}
                       showAbsentee={showAbsentee}
-                      updateShowAbsentee={updateShowAbsentee}
                     />
-                  </>
-                )}
-                <Suspense fallback={<div>Loading...</div>}>
-                  <VotesSummary
-                    activeSelection={activeSelection}
-                    updateActiveSelection={updateActiveSelection}
-                    activeHover={activeHover}
-                    countyFilter={countyFilter}
-                    updateCountyFilter={updateCountyFilter}
-                    isCountyLevel={isCountyLevel}
-                    updateUserHasSetLevel={updateUserHasSetLevel}
-                    updateIsCountyLevel={updateIsCountyLevel}
-                    showVoteMode={showVoteMode}
-                    showDemographics={showDemographics}
-                    showAbsentee={showAbsentee}
-                  />
-                </Suspense>
-              </div>
-            )}
+                  </Suspense>
+                </div>
+              )}
+            </ScatterPlotPreferenceContextProvider>
           </ElectionDataProvider>
         </ElectionSelectionContextProvider>
       </div>

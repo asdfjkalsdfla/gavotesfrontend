@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { useElectionSelection } from "../context/ElectionSelectionContext.tsx";
 import { useElectionData } from "../context/ElectionDataProvider.jsx";
+import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
 
 export default function VoteMapSelectItems({
   updateElevationApproach,
@@ -20,10 +21,6 @@ export default function VoteMapSelectItems({
   showAbsentee,
   updateShowAbsentee,
   displayType,
-  scatterXAxis,
-  updateScatterXAxis,
-  scatterYAxis,
-  updateScatterYAxis,
 }) {
   const {
     absenteeElectionBaseID,
@@ -33,6 +30,7 @@ export default function VoteMapSelectItems({
     resultsElectionRacePerviousID,
     updateResultsElectionRacePerviousID,
   } = useElectionSelection();
+  const { scatterXAxis, updateScatterXAxis, scatterYAxis, updateScatterYAxis } = useScatterPreference();
   const { elections } = useElectionData();
 
   return (
