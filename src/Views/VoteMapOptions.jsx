@@ -8,7 +8,7 @@ import { useElectionSelection } from "../context/ElectionSelectionContext.tsx";
 import { useElectionData } from "../context/ElectionDataProvider.jsx";
 import { useMapPreference } from "./VotesMap/PreferenceContext.tsx";
 import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
-import { useSummaryPreferences  } from "./VotesSummary/PreferenceContext.tsx";
+import { useSummaryPreferences } from "./VotesSummary/PreferenceContext.tsx";
 
 export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   const {

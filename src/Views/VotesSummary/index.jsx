@@ -7,7 +7,7 @@ import { DataTable } from "../VotesTable/DataTable.tsx";
 import { DataTableColumnHeader } from "../VotesTable/DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "../VotesTable/DataTableCellNumeric.tsx";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
-import { useSummaryPreferences  } from "./PreferenceContext.tsx";
+import { useSummaryPreferences } from "./PreferenceContext.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
