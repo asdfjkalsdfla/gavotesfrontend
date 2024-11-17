@@ -1,6 +1,6 @@
 import { DataTableColumnHeader } from "./DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../Utils.jsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
 
 export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection, currentElectionRace, previousElectionRace) {
   return [

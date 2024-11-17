@@ -15,7 +15,7 @@ import "./VotesRoot.css";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
 const VotesMap = lazy(() => import("./Views/VotesMap/index.jsx"));
 const VotesScatterPlot = lazy(() => import("./Views/VotesScatter/index.jsx"));
-const VotesTable = lazy(() => import("./table/VotesTable.jsx"));
+const VotesTable = lazy(() => import("./Views/VotesTable/index.jsx"));
 
 // ************************************************
 // Pull the initial values from the URL params
