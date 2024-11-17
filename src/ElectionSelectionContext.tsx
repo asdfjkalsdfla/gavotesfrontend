@@ -2,13 +2,13 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface ElectionSelection {
   absenteeElectionBaseID: string;
-  updateAbsenteeElectionBaseID: Function;
+  updateAbsenteeElectionBaseID: React.Dispatch<React.SetStateAction<string>>;
   absenteeElectionCurrentID: string;
-  updateAbsenteeElectionCurrentID: Function;
+  updateAbsenteeElectionCurrentID: React.Dispatch<React.SetStateAction<string>>;
   resultsElectionRaceCurrentID: string;
-  updateResultsElectionRaceCurrentID: Function;
+  updateResultsElectionRaceCurrentID: React.Dispatch<React.SetStateAction<string>>;
   resultsElectionRacePerviousID: string;
-  updateResultsElectionRacePerviousID: Function;
+  updateResultsElectionRacePerviousID: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // ************************************************

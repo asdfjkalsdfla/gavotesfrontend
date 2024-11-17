@@ -28,8 +28,6 @@ export default function VoteMapSelectItems({
   const {
     absenteeElectionBaseID,
     updateAbsenteeElectionBaseID,
-    absenteeElectionCurrentID,
-    updateAbsenteeElectionCurrentID,
     resultsElectionRaceCurrentID,
     updateResultsElectionRaceCurrentID,
     resultsElectionRacePerviousID,

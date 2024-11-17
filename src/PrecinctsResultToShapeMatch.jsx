@@ -13,7 +13,6 @@ import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
   const [countyOptions, updateCountyOptions] = useState([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [countiesNoMatch, updateCountiesNoMatch] = useState([]);
   const [shapePrecincts, updateShapesPrecincts] = useState(new Map());
   const [electionResultsPrecinctsToShapeMap, updateElectionResultsPrecinctsToShapeMap] = useState(new Map());

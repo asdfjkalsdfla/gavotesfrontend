@@ -109,7 +109,6 @@ const loadAndCombineElectionDataFiles = async (
   currentElectionRace,
   previousElectionRace,
 ) => {
-  console.log(`fetching data`);
   const fetchPromises = [];
   fetchPromises.push(fetch(absenteeCurrentFileLocation));
   fetchPromises.push(fetch(absenteeBaseFileLocation));

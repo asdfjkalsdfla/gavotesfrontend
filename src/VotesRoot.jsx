@@ -112,10 +112,7 @@ export default function VotesRoot() {
       </header>
       <div className="pageGrid">
         <ElectionSelectionContextProvider>
-          <ElectionDataProvider
-            isCountyLevel={isCountyLevel}
-            countyFilter={countyFilter}
-          >
+          <ElectionDataProvider isCountyLevel={isCountyLevel} countyFilter={countyFilter}>
             <div className={displayType === "table" && !showOptions ? "full" : "one"}>
               <ErrorBoundary fallback={<p>Something went wrong</p>}>
                 <Suspense fallback={<div>Loading...</div>}>
