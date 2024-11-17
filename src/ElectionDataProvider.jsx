@@ -5,24 +5,18 @@ import ElectionResultComparison from "./Models/ElectionResultComparison";
 import AbsenteeBallots from "./Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "./Models/AbsenteeBallotsComparison";
 import Demographics from "./Models/Demographics";
+import { useElectionSelection } from "./ElectionSelectionContext.tsx";
 
 import elections from "./elections.json";
 
 export const ElectionDataContext = createContext(null);
 
-export function ElectionDataProvider({
-  isCountyLevel,
-  countyFilter,
-  absenteeElectionBaseID,
-  absenteeElectionCurrentID,
-  resultsElectionRaceCurrentID,
-  resultsElectionRacePerviousID,
-  children,
-}) {
-  const baseAbsenteeElection = convertElectionIDToObject(absenteeElectionBaseID);
-  const currentAbsenteeElection = convertElectionIDToObject(absenteeElectionCurrentID);
-  const currentElectionRace = convertElectionRaceIDToObject(resultsElectionRaceCurrentID);
-  const previousElectionRace = convertElectionRaceIDToObject(resultsElectionRacePerviousID);
+export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) {
+  const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = useElectionSelection();
+  const absenteeElectionCurrent = useMemo(() => convertElectionIDToObject(absenteeElectionCurrentID), [absenteeElectionCurrentID]);
+  const absenteeElectionBase = useMemo(() => convertElectionIDToObject(absenteeElectionBaseID), [absenteeElectionBaseID]);
+  const resultsElectionRaceCurrent = useMemo(() => convertElectionRaceIDToObject(resultsElectionRaceCurrentID), [resultsElectionRaceCurrentID]);
+  const resultsElectionRacePervious = useMemo(() => convertElectionRaceIDToObject(resultsElectionRacePerviousID), [resultsElectionRacePerviousID]);
 
   // Data
   const [statewideElectionData, updateStatewideTotals] = useState({});
@@ -32,13 +26,13 @@ export function ElectionDataProvider({
   // Load all levels of election data
   useEffect(() => {
     const load = async (level, updateFunctions) => {
-      const absenteeCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionCurrentID}-${level}.json`;
-      const absenteeBaseFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionBaseID}-${level}.json`;
+      const absenteeCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionCurrent.name}-${level}.json`;
+      const absenteeBaseFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionBase.name}-${level}.json`;
       const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${
-        currentElectionRace.election.name
+        resultsElectionRaceCurrent.election.name
       }-${level}.json`;
-      const electionResultBaseFileLocation = previousElectionRace
-        ? `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${previousElectionRace.election.name}-${level}.json`
+      const electionResultBaseFileLocation = resultsElectionRacePervious
+        ? `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRacePervious.election.name}-${level}.json`
         : null;
       const demographicsFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/demographics/demographics-${level}-2020.json`;
 
@@ -49,8 +43,8 @@ export function ElectionDataProvider({
         electionResultBaseFileLocation,
         demographicsFileLocation,
         level === "county",
-        currentElectionRace,
-        previousElectionRace,
+        resultsElectionRaceCurrent,
+        resultsElectionRacePervious,
       );
       updateFunctions.forEach((updateFunction) => {
         if (level === "state") {
@@ -61,7 +55,7 @@ export function ElectionDataProvider({
       });
     };
 
-    if (!absenteeElectionBaseID || !absenteeElectionCurrentID || !currentElectionRace) return; // fail if we don't have the required info
+    if (!absenteeElectionBase || !absenteeElectionCurrent || !resultsElectionRaceCurrent) return; // fail if we don't have the required info
     const levels = [
       { name: "state", updateFunctions: [updateStatewideTotals] },
       { name: "county", updateFunctions: isCountyLevel ? [updateCountyElectionData, updateLocationElectionData] : [updateCountyElectionData] },
@@ -72,7 +66,7 @@ export function ElectionDataProvider({
     levels.forEach((level) => {
       load(level.name, level.updateFunctions);
     });
-  }, [absenteeElectionBaseID, absenteeElectionCurrentID, currentElectionRace, previousElectionRace, isCountyLevel]);
+  }, [absenteeElectionBase, absenteeElectionCurrent, resultsElectionRaceCurrent, resultsElectionRacePervious, isCountyLevel]);
 
   const activeLocationResults = useMemo(() => {
     if (isCountyLevel || !countyFilter) return locationElectionData; // at county level, we don't filter or when using all precincts
@@ -85,19 +79,18 @@ export function ElectionDataProvider({
     return activeResults;
   }, [isCountyLevel, countyFilter, locationElectionData]);
 
-  const electionData = useMemo(
-    () => ({
-      currentAbsenteeElection,
-      baseAbsenteeElection,
-      currentElectionRace,
-      previousElectionRace,
+  const electionData = useMemo(() => {
+    return {
+      currentAbsenteeElection: absenteeElectionCurrent,
+      baseAbsenteeElection: absenteeElectionBase,
+      currentElectionRace: resultsElectionRaceCurrent,
+      previousElectionRace: resultsElectionRacePervious,
       elections,
       statewideResults: statewideElectionData,
       locationResults: activeLocationResults,
       countyResults: countyElectionData,
-    }),
-    [statewideElectionData, activeLocationResults, countyElectionData],
-  );
+    };
+  }, [statewideElectionData, activeLocationResults, countyElectionData]);
 
   return <ElectionDataContext.Provider value={electionData}>{children}</ElectionDataContext.Provider>;
 }
@@ -116,7 +109,7 @@ const loadAndCombineElectionDataFiles = async (
   currentElectionRace,
   previousElectionRace,
 ) => {
-  // console.log(`fetching data`);
+  console.log(`fetching data`);
   const fetchPromises = [];
   fetchPromises.push(fetch(absenteeCurrentFileLocation));
   fetchPromises.push(fetch(absenteeBaseFileLocation));

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useElectionSelection } from "./ElectionSelectionContext.tsx";
 import { useElectionData } from "./ElectionDataProvider.jsx";
 
 export default function VoteMapSelectItems({
@@ -12,12 +13,6 @@ export default function VoteMapSelectItems({
   elevationApproach,
   updateColorApproach,
   colorApproach,
-  absenteeBase,
-  updateAbsenteeBase,
-  electionResultBase,
-  updateElectionResultBase,
-  electionResultCurrent,
-  updateElectionResultCurrent,
   showVoteMode,
   updateShowVoteMode,
   showDemographics,
@@ -30,6 +25,16 @@ export default function VoteMapSelectItems({
   scatterYAxis,
   updateScatterYAxis,
 }) {
+  const {
+    absenteeElectionBaseID,
+    updateAbsenteeElectionBaseID,
+    absenteeElectionCurrentID,
+    updateAbsenteeElectionCurrentID,
+    resultsElectionRaceCurrentID,
+    updateResultsElectionRaceCurrentID,
+    resultsElectionRacePerviousID,
+    updateResultsElectionRacePerviousID,
+  } = useElectionSelection();
   const { elections } = useElectionData();
 
   return (
@@ -161,15 +166,15 @@ export default function VoteMapSelectItems({
         <div className="mb-5">
           <div className="flex font-bold">Election Results</div>
           <div className="flex flex-col space-y-1.5">
-            <label htmlFor="baseElection">Base</label>
+            <label htmlFor="currentElection">Current</label>
             <Select
-              value={electionResultCurrent}
+              value={resultsElectionRaceCurrentID}
               onValueChange={(value) => {
-                updateElectionResultCurrent(value);
+                updateResultsElectionRaceCurrentID(value);
               }}
             >
-              <SelectTrigger id="baseElection">
-                <SelectValue placeholder="Base Race" />
+              <SelectTrigger id="currentElection">
+                <SelectValue placeholder="Current Race" />
               </SelectTrigger>
               <SelectContent position="popper">
                 {elections
@@ -190,9 +195,9 @@ export default function VoteMapSelectItems({
           <div className="flex flex-col space-y-1.5">
             <label htmlFor="baseElection">Compared to </label>
             <Select
-              value={electionResultBase}
+              value={resultsElectionRacePerviousID}
               onValueChange={(value) => {
-                updateElectionResultBase(value);
+                updateResultsElectionRacePerviousID(value);
               }}
             >
               <SelectTrigger id="prevElection">
@@ -223,9 +228,9 @@ export default function VoteMapSelectItems({
               <label htmlFor="baseElection">Compared to </label>
               <Select
                 placeholder="Base Election"
-                value={absenteeBase}
+                value={absenteeElectionBaseID}
                 onValueChange={(value) => {
-                  updateAbsenteeBase(value);
+                  updateAbsenteeElectionBaseID(value);
                 }}
               >
                 <SelectTrigger id="comparedTo">
