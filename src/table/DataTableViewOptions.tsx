@@ -36,7 +36,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
         <DropdownMenuSeparator />
         {table.getAllColumns().map((column) => {
           return (
-            <DropdownMenuGroup>
+            <DropdownMenuGroup key={column.id}>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>{column?.columnDef?.meta?.title || column?.id}</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
