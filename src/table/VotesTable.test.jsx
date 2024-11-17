@@ -5,8 +5,8 @@ import { it, describe } from "vitest";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 // import "@testing-library/jest-dom";
 import VotesTable from "./VotesTable.jsx";
-import { ElectionSelectionContext } from "../ElectionSelectionContext.tsx";
-import { ElectionDataProvider } from "../ElectionDataProvider.jsx";
+import { ElectionSelectionContext } from "../context/ElectionSelectionContext.tsx";
+import { ElectionDataProvider } from "../context/ElectionDataProvider.jsx";
 
 describe("Votes Table", () => {
   it("renders without crashing", async () => {

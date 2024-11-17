@@ -1,7 +1,7 @@
 import React, { useMemo, lazy, Suspense } from "react";
 // import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
-import { useElectionData } from "./ElectionDataProvider.jsx";
+import { useElectionData } from "./context/ElectionDataProvider.jsx";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "./table/DataTable.tsx";

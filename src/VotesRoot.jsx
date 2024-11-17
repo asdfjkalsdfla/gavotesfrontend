@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
-import { ElectionSelectionContextProvider } from "./ElectionSelectionContext.tsx";
-import { ElectionDataProvider } from "./ElectionDataProvider.jsx";
+import { ElectionSelectionContextProvider } from "./context/ElectionSelectionContext.tsx";
+import { ElectionDataProvider } from "./context/ElectionDataProvider.jsx";
 import ErrorBoundary from "./ErrorBoundary.jsx";
 
 import Navigation from "./Navigation.jsx";

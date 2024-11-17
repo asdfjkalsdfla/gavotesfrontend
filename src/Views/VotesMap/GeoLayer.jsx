@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { scaleLinear } from "d3-scale";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
-import { useElectionData } from "../../ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import { quantile, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
 
 const convertD3ColorToArray = (color) =>

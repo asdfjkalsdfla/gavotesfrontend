@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 
-import ElectionResult from "./Models/ElectionResult";
-import ElectionResultComparison from "./Models/ElectionResultComparison";
-import AbsenteeBallots from "./Models/AbsenteeBallots";
-import AbsenteeBallotsComparison from "./Models/AbsenteeBallotsComparison";
-import Demographics from "./Models/Demographics";
+import ElectionResult from "../Models/ElectionResult";
+import ElectionResultComparison from "../Models/ElectionResultComparison";
+import AbsenteeBallots from "../Models/AbsenteeBallots";
+import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
+import Demographics from "..//Models/Demographics";
 import { useElectionSelection } from "./ElectionSelectionContext.tsx";
 
-import elections from "./elections.json";
+import elections from "../elections.json";
 
 export const ElectionDataContext = createContext(null);
 

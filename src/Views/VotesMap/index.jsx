@@ -12,7 +12,7 @@ import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
 import { quantile } from "../../Utils.jsx";
-import { useElectionData } from "../../ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import MapScale from "./MapScale.jsx";
 import { numberFormat, numberFormatPercent, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
