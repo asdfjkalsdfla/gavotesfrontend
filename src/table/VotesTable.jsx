@@ -85,7 +85,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
           </CSVLink> */}
         </div>
       </div>
-      <div className="pt-6">{!isPending && <DataTable columns={columns} data={rows} />}</div>
+      <div className="pt-6">{!isPending && <DataTable columns={columns} data={rows} initialSortColumn="county" />}</div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
       aria-haspopup="menu"
       class="items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 ml-auto hidden h-8 lg:flex"
       data-state="closed"
-      id="radix-:rh4:"
+      id="radix-:rgc:"
       type="button"
     >
       <svg
@@ -78,7 +78,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class=""
               >
-                2022 General - Governor
+                2024 General - President
               </div>
             </th>
             <th
@@ -127,7 +127,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rh8:"
+                  id="radix-:rgg:"
                   type="button"
                 >
                   <span>
@@ -143,7 +143,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      d="M7.14645 2.14645C7.34171 1.95118 7.65829 1.95118 7.85355 2.14645L11.8536 6.14645C12.0488 6.34171 12.0488 6.65829 11.8536 6.85355C11.6583 7.04882 11.3417 7.04882 11.1464 6.85355L8 3.70711L8 12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5L7 3.70711L3.85355 6.85355C3.65829 7.04882 3.34171 7.04882 3.14645 6.85355C2.95118 6.65829 2.95118 6.34171 3.14645 6.14645L7.14645 2.14645Z"
                       fill="currentColor"
                       fill-rule="evenodd"
                     />
@@ -163,7 +163,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhc:"
+                  id="radix-:rgk:"
                   type="button"
                 >
                   <span>
@@ -199,7 +199,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhg:"
+                  id="radix-:rgo:"
                   type="button"
                 >
                   <span>
@@ -235,7 +235,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhk:"
+                  id="radix-:rgs:"
                   type="button"
                 >
                   <span>
@@ -271,7 +271,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rho:"
+                  id="radix-:rh0:"
                   type="button"
                 >
                   <span>
@@ -307,7 +307,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rhs:"
+                  id="radix-:rh4:"
                   type="button"
                 >
                   <span>
@@ -343,7 +343,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:ri0:"
+                  id="radix-:rh8:"
                   type="button"
                 >
                   <span>
@@ -379,367 +379,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:ri4:"
-                  type="button"
-                >
-                  <span>
-                    Kemp (R)
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:ri8:"
-                  type="button"
-                >
-                  <span>
-                    Kemp (R) %
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:ric:"
-                  type="button"
-                >
-                  <span>
-                    Abrams (D)
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rig:"
-                  type="button"
-                >
-                  <span>
-                    Abrams (D) %
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rik:"
-                  type="button"
-                >
-                  <span>
-                    Other Candidates
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rio:"
-                  type="button"
-                >
-                  <span>
-                    Other %
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:ris:"
-                  type="button"
-                >
-                  <span>
-                    Total
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rj0:"
-                  type="button"
-                >
-                  <span>
-                    Margin
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rj4:"
-                  type="button"
-                >
-                  <span>
-                    Margin %
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rj8:"
-                  type="button"
-                >
-                  <span>
-                    Early Vote Margin %
-                  </span>
-                  <svg
-                    class="ml-2 h-4 w-4"
-                    fill="none"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </th>
-            <th
-              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-              colspan="1"
-            >
-              <div
-                class="flex items-center space-x-2"
-              >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
-                  data-state="closed"
-                  id="radix-:rjc:"
+                  id="radix-:rhc:"
                   type="button"
                 >
                   <span>
@@ -775,7 +415,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rjg:"
+                  id="radix-:rhg:"
                   type="button"
                 >
                   <span>
@@ -811,11 +451,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rjk:"
+                  id="radix-:rhk:"
                   type="button"
                 >
                   <span>
-                    Biden (D)
+                    Harris (D)
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -847,11 +487,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rjo:"
+                  id="radix-:rho:"
                   type="button"
                 >
                   <span>
-                    Biden (D) %
+                    Harris (D) %
                   </span>
                   <svg
                     class="ml-2 h-4 w-4"
@@ -883,7 +523,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rjs:"
+                  id="radix-:rhs:"
                   type="button"
                 >
                   <span>
@@ -919,7 +559,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rk0:"
+                  id="radix-:ri0:"
                   type="button"
                 >
                   <span>
@@ -955,7 +595,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rk4:"
+                  id="radix-:ri4:"
                   type="button"
                 >
                   <span>
@@ -991,7 +631,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rk8:"
+                  id="radix-:ri8:"
                   type="button"
                 >
                   <span>
@@ -1027,7 +667,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rkc:"
+                  id="radix-:ric:"
                   type="button"
                 >
                   <span>
@@ -1063,7 +703,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rkg:"
+                  id="radix-:rig:"
                   type="button"
                 >
                   <span>
@@ -1099,7 +739,367 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rkk:"
+                  id="radix-:rik:"
+                  type="button"
+                >
+                  <span>
+                    Trump (R)
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rio:"
+                  type="button"
+                >
+                  <span>
+                    Trump (R) %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:ris:"
+                  type="button"
+                >
+                  <span>
+                    Biden (D)
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rj0:"
+                  type="button"
+                >
+                  <span>
+                    Biden (D) %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rj4:"
+                  type="button"
+                >
+                  <span>
+                    Other Candidates
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rj8:"
+                  type="button"
+                >
+                  <span>
+                    Other %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rjc:"
+                  type="button"
+                >
+                  <span>
+                    Total
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rjg:"
+                  type="button"
+                >
+                  <span>
+                    Margin
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rjk:"
+                  type="button"
+                >
+                  <span>
+                    Margin %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rjo:"
+                  type="button"
+                >
+                  <span>
+                    Early Vote Margin %
+                  </span>
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    fill="none"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    width="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th
+              class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+              colspan="1"
+            >
+              <div
+                class="flex items-center space-x-2"
+              >
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
+                  data-state="closed"
+                  id="radix-:rjs:"
                   type="button"
                 >
                   <span>
@@ -1135,7 +1135,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rko:"
+                  id="radix-:rk0:"
                   type="button"
                 >
                   <span>
@@ -1171,7 +1171,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rks:"
+                  id="radix-:rk4:"
                   type="button"
                 >
                   <span>
@@ -1207,7 +1207,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rl0:"
+                  id="radix-:rk8:"
                   type="button"
                 >
                   <span>
@@ -1243,7 +1243,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rl4:"
+                  id="radix-:rkc:"
                   type="button"
                 >
                   <span>
@@ -1279,7 +1279,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rl8:"
+                  id="radix-:rkg:"
                   type="button"
                 >
                   <span>
@@ -1315,7 +1315,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rlc:"
+                  id="radix-:rkk:"
                   type="button"
                 >
                   <span>
@@ -1351,7 +1351,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rlg:"
+                  id="radix-:rko:"
                   type="button"
                 >
                   <span>
@@ -1387,7 +1387,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   aria-haspopup="menu"
                   class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 -ml-3 h-8 data-[state=open]:bg-accent"
                   data-state="closed"
-                  id="radix-:rlk:"
+                  id="radix-:rks:"
                   type="button"
                 >
                   <span>
@@ -1424,7 +1424,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                EMANUEL
+                APPLING
               </a>
             </td>
             <td
@@ -1442,7 +1442,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -1451,7 +1451,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -1460,7 +1460,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                NaN
               </div>
             </td>
             <td
@@ -1469,7 +1469,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+<<<<<<< HEAD
                 3,632
+=======
+                3,657
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
               </div>
             </td>
             <td
@@ -1478,7 +1482,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                3,632
+                3,657
               </div>
             </td>
             <td
@@ -1487,7 +1491,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                5,505
+                6,761
               </div>
             </td>
             <td
@@ -1496,7 +1500,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                72.8%
+                81.3%
               </div>
             </td>
             <td
@@ -1505,7 +1509,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,024
+                1,560
               </div>
             </td>
             <td
@@ -1514,7 +1518,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                26.8%
+                18.7%
               </div>
             </td>
             <td
@@ -1523,7 +1527,115 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                33
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,321
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                5,201
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                62.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                60.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6,526
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                78.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,779
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                21.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                36
               </div>
             </td>
             <td
@@ -1541,7 +1653,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                7,562
+                8,341
               </div>
             </td>
             <td
@@ -1556,7 +1668,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                3,481
+                4,747
               </div>
             </td>
             <td
@@ -1571,7 +1683,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                46.0%
+                56.9%
               </div>
             </td>
             <td
@@ -1586,70 +1698,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                34.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                6,551
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                69.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2,884
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                30.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                66
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                9,501
+                20.5%
               </div>
             </td>
             <td
@@ -1664,7 +1713,16 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                3,667
+                5.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                99.8%
               </div>
             </td>
             <td
@@ -1679,7 +1737,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                38.6%
+                203
               </div>
             </td>
             <td
@@ -1694,7 +1752,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                5.2%
+                40.3%
               </div>
             </td>
             <td
@@ -1703,13 +1761,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                7.4%
+                72.0%
               </div>
             </td>
             <td
@@ -1718,6 +1770,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+<<<<<<< HEAD
                 79.6%
               </div>
             </td>
@@ -3300,6 +3353,9 @@ exports[`no crashes! > renders table without crashing 1`] = `
                 class="w-[80px] text-right"
               >
                 2.6%
+=======
+                17.9%
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
               </div>
             </td>
             <td
@@ -3317,7 +3373,2302 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                7.5%
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6.7%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                ATKINSON
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,168
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,168
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,350
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                77.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                700
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                23.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,050
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                1,650
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                54.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                38.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,300
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                72.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                825
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                26.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                30
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,155
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                1,475
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                46.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                11.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                7.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                96.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                97
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                26.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                67.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                18.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.3%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BACON
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,742
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2,742
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,186
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                645
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                13.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,831
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                3,541
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                73.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                NaN%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,018
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                625
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                13.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                25
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,668
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                3,393
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                72.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                42.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                0.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                103.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                32
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                NaN%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                78.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                12.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6.1%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BAKER
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.00
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.00
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                724
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                724
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                883
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                59.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                590
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                40.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,473
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                293
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                19.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                20.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                897
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                57.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                652
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                41.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,555
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                245
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                15.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                25.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                4.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                94.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                35
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                45.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                52.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                40.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4.9%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BALDWIN
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,913
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,913
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,574
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                51.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,159
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                48.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                18,733
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                415
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                2.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                9.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,903
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                48.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,140
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                50.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                208
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                18,251
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                237
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                1.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                39.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                3.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                102.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                665
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                48.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                51.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                40.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.3%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BANKS
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,720
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                4,720
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                9,358
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                89.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,136
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10,494
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                8,222
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                78.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                79.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7,795
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                88.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                932
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                74
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,801
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                6,863
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                78.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                49.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                0.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                119.2%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                995
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                29.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                86.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                7.1%
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            data-state="false"
+          >
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <a>
+                BARROW
+              </a>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                16,911
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                16,911
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                30,681
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                70.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                12,927
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                29.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                43,608
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                17,754
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                40.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                40.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                26,804
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                70.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                10,453
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                27.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                664
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                37,921
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                16,351
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                43.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                7.1%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(102, 134, 181);"
+                >
+                   D + 
+                </span>
+                 
+                2.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                115.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                537
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                33.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                69.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                11.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                5.6%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                2.7%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8.8%
               </div>
             </td>
           </tr>
@@ -3338,7 +5689,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                NaN
+                0.00
               </div>
             </td>
             <td
@@ -3392,7 +5743,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                31,528
+                43,240
               </div>
             </td>
             <td
@@ -3401,7 +5752,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                78.8%
+                75.6%
               </div>
             </td>
             <td
@@ -3410,7 +5761,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                8,137
+                13,929
               </div>
             </td>
             <td
@@ -3419,7 +5770,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                20.3%
+                24.4%
               </div>
             </td>
             <td
@@ -3428,7 +5779,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                332
+                NaN
               </div>
             </td>
             <td
@@ -3437,7 +5788,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.8%
+                0.0%
               </div>
             </td>
             <td
@@ -3446,22 +5797,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                39,997
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                23,391
+                57,169
               </div>
             </td>
             <td
@@ -3476,7 +5812,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                58.5%
+                29,311
               </div>
             </td>
             <td
@@ -3491,7 +5827,22 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                51.1%
+                51.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                50.6%
               </div>
             </td>
             <td
@@ -3614,7 +5965,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                7.8%
+                0.6%
               </div>
             </td>
             <td
@@ -3623,22 +5974,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                79.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                3,049
+                113.3%
               </div>
             </td>
             <td
@@ -3653,7 +5989,22 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                36.8%
+                2,374
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                36.4%
               </div>
             </td>
             <td
@@ -3710,7 +6061,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                PEACH
+                BEN HILL
               </a>
             </td>
             <td
@@ -3728,7 +6079,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -3737,6 +6088,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+<<<<<<< HEAD
                 1
               </div>
             </td>
@@ -4100,6 +6452,8 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+=======
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
                 NaN
               </div>
             </td>
@@ -4109,7 +6463,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -4118,7 +6472,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                3,738
               </div>
             </td>
             <td
@@ -4127,7 +6481,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1
+                3,738
               </div>
             </td>
             <td
@@ -4136,7 +6490,11 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+<<<<<<< HEAD
                 43,751
+=======
+                4,281
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
               </div>
             </td>
             <td
@@ -4145,7 +6503,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                43,751
+                66.1%
               </div>
             </td>
             <td
@@ -4154,7 +6512,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                43,992
+                2,198
               </div>
             </td>
             <td
@@ -4163,7 +6521,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                65.7%
+                33.9%
               </div>
             </td>
             <td
@@ -4172,7 +6530,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                22,427
+                NaN
               </div>
             </td>
             <td
@@ -4181,7 +6539,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                33.5%
+                0.0%
               </div>
             </td>
             <td
@@ -4190,25 +6548,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                585
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                67,004
+                6,479
               </div>
             </td>
             <td
@@ -4223,7 +6563,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                21,565
+                2,083
               </div>
             </td>
             <td
@@ -4253,7 +6593,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                27.7%
+                35.4%
               </div>
             </td>
             <td
@@ -4262,7 +6602,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                54,525
+                4,110
               </div>
             </td>
             <td
@@ -4271,7 +6611,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                63.9%
+                62.7%
               </div>
             </td>
             <td
@@ -4280,7 +6620,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                29,704
+                2,392
               </div>
             </td>
             <td
@@ -4289,7 +6629,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                34.8%
+                36.5%
               </div>
             </td>
             <td
@@ -4298,7 +6638,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,156
+                58
               </div>
             </td>
             <td
@@ -4307,7 +6647,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1.4%
+                0.9%
               </div>
             </td>
             <td
@@ -4316,22 +6656,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                85,385
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                24,821
+                6,560
               </div>
             </td>
             <td
@@ -4346,7 +6671,22 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                29.1%
+                1,718
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                26.2%
               </div>
             </td>
             <td
@@ -4361,7 +6701,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                    D + 
                 </span>
                  
-                4.7%
+                15.0%
               </div>
             </td>
             <td
@@ -4376,7 +6716,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                3.1%
+                6.0%
               </div>
             </td>
             <td
@@ -4385,22 +6725,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                78.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                1,828
+                98.8%
               </div>
             </td>
             <td
@@ -4415,7 +6740,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                32.4%
+                274
               </div>
             </td>
             <td
@@ -4424,7 +6749,13 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                66.3%
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                50.4%
               </div>
             </td>
             <td
@@ -4433,6 +6764,16 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
+                58.3%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+<<<<<<< HEAD
                 19.4%
               </div>
             </td>
@@ -4815,6 +7156,9 @@ exports[`no crashes! > renders table without crashing 1`] = `
                 class="w-[80px] text-right"
               >
                 14.5%
+=======
+                34.4%
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
               </div>
             </td>
             <td
@@ -4832,7 +7176,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.8%
+                0.5%
               </div>
             </td>
             <td
@@ -4841,7 +7185,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                6.3%
+                4.1%
               </div>
             </td>
           </tr>
@@ -4853,7 +7197,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
             >
               <a>
-                MILLER
+                BERRIEN
               </a>
             </td>
             <td
@@ -4871,7 +7215,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                0.00
+                NaN
               </div>
             </td>
             <td
@@ -4880,7 +7224,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                4
+                NaN
               </div>
             </td>
             <td
@@ -4889,7 +7233,155 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                4
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+<<<<<<< HEAD
+                1,269
+=======
+                3,248
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                3,248
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6,838
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                85.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                1,209
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                15.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                NaN
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                0.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                8,047
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                5,629
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                70.0%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                71.8%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                6,419
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                82.9%
+>>>>>>> 9fa09cb6e201bd462a32d4631f9f244a454fcab8
               </div>
             </td>
             <td
@@ -4907,7 +7399,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,269
+                16.4%
               </div>
             </td>
             <td
@@ -4916,151 +7408,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,689
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                78.0%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                462
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                21.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                13
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2,164
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                1,227
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                56.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                57.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2,066
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                72.9%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                749
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                26.4%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                20
+                55
               </div>
             </td>
             <td
@@ -5078,7 +7426,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,835
+                7,743
               </div>
             </td>
             <td
@@ -5093,7 +7441,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                1,317
+                5,150
               </div>
             </td>
             <td
@@ -5108,7 +7456,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                46.5%
+                66.5%
               </div>
             </td>
             <td
@@ -5123,7 +7471,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
-                8.9%
+                34.2%
               </div>
             </td>
             <td
@@ -5138,6 +7486,63 @@ exports[`no crashes! > renders table without crashing 1`] = `
                   R+
                 </span>
                  
+                3.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                103.9%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                206
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                <span
+                  style="color: rgb(208, 152, 151);"
+                >
+                  R+
+                </span>
+                 
+                37.5%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
+                82.4%
+              </div>
+            </td>
+            <td
+              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            >
+              <div
+                class="w-[80px] text-right"
+              >
                 10.2%
               </div>
             </td>
@@ -5147,7 +7552,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                76.3%
+                1.6%
               </div>
             </td>
             <td
@@ -5156,13 +7561,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                180
+                0.4%
               </div>
             </td>
             <td
@@ -5171,58 +7570,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                <span
-                  style="color: rgb(208, 152, 151);"
-                >
-                  R+
-                </span>
-                 
-                48.6%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                69.5%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                26.3%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.7%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                0.1%
-              </div>
-            </td>
-            <td
-              class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-            >
-              <div
-                class="w-[80px] text-right"
-              >
-                2.9%
+                4.4%
               </div>
             </td>
           </tr>
@@ -5249,7 +7597,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
         </p>
         <button
           aria-autocomplete="none"
-          aria-controls="radix-:rln:"
+          aria-controls="radix-:rkv:"
           aria-expanded="false"
           class="flex items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-8 w-[70px]"
           data-state="closed"

@@ -3,7 +3,10 @@
     "name": "2024_general",
     "label": "2024 General",
     "date": "2024-11-05",
-    "isCurrentElection": true
+    "isCurrentElection": false,
+    "races": [
+      { "name": "President", "republican": "Trump", "democratic": "Harris" }
+    ]
   },
   {
     "name": "2022_runoff",

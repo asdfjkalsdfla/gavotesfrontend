@@ -55,7 +55,7 @@ const absenteeComparisonColumnsBuilder = () => {
       id: "turnoutAbsenteeBallotsSameDay",
       meta: { title: "Ratio on Same Day" },
       header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta.title} />,
-      accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.absenteeVotesAsOfCurrentDate,
+      accessorFn: (originalRow) => originalRow?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormatRatio.format(getValue())}</DataTableCellNumeric>,
     },
     {
