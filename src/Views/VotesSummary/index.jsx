@@ -1,13 +1,14 @@
 import React, { useMemo, lazy, Suspense } from "react";
 // import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
-import { useElectionData } from "./context/ElectionDataProvider.jsx";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DataTable } from "./Views/VotesTable/DataTable.tsx";
-import { DataTableColumnHeader } from "./Views/VotesTable/DataTableColumnHeader.tsx";
-import { DataTableCellNumeric } from "./Views/VotesTable/DataTableCellNumeric.tsx";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
+import { DataTable } from "../VotesTable/DataTable.tsx";
+import { DataTableColumnHeader } from "../VotesTable/DataTableColumnHeader.tsx";
+import { DataTableCellNumeric } from "../VotesTable/DataTableCellNumeric.tsx";
+import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useSummaryPreferences  } from "./PreferenceContext.tsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
 const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
@@ -25,12 +26,10 @@ export default function VoteSummary({
   isCountyLevel,
   updateIsCountyLevel,
   updateUserHasSetLevel,
-  showVoteMode,
-  showDemographics,
-  showAbsentee,
 }) {
   const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
     useElectionData();
+  const { showVoteMode, showAbsentee, showDemographics } = useSummaryPreferences();
   const resultSummary = useMemo(() => {
     const source = activeHover || activeSelection; // use the hover value o/w use the selection
     if (source && source.properties) return source.properties; // if we have the actual object use it

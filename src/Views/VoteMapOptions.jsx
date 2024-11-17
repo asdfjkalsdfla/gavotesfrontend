@@ -8,17 +8,9 @@ import { useElectionSelection } from "../context/ElectionSelectionContext.tsx";
 import { useElectionData } from "../context/ElectionDataProvider.jsx";
 import { useMapPreference } from "./VotesMap/PreferenceContext.tsx";
 import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
+import { useSummaryPreferences  } from "./VotesSummary/PreferenceContext.tsx";
 
-export default function VoteMapSelectItems({
-  updateShowOptions,
-  showVoteMode,
-  updateShowVoteMode,
-  showDemographics,
-  updateShowDemographics,
-  showAbsentee,
-  updateShowAbsentee,
-  displayType,
-}) {
+export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   const {
     absenteeElectionBaseID,
     updateAbsenteeElectionBaseID,
@@ -29,6 +21,7 @@ export default function VoteMapSelectItems({
   } = useElectionSelection();
   const { elevationApproach, updateElevationApproach, colorApproach, updateColorApproach } = useMapPreference();
   const { scatterXAxis, updateScatterXAxis, scatterYAxis, updateScatterYAxis } = useScatterPreference();
+  const { showVoteMode, updateShowVoteMode, showDemographics, updateShowDemographics, showAbsentee, updateShowAbsentee } = useSummaryPreferences();
   const { elections } = useElectionData();
 
   return (
