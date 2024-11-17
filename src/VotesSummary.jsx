@@ -4,9 +4,9 @@ import { ZoomOut, ZoomIn, X } from "lucide-react";
 import { useElectionData } from "./context/ElectionDataProvider.jsx";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DataTable } from "./table/DataTable.tsx";
-import { DataTableColumnHeader } from "./table/DataTableColumnHeader.tsx";
-import { DataTableCellNumeric } from "./table/DataTableCellNumeric.tsx";
+import { DataTable } from "./Views/VotesTable/DataTable.tsx";
+import { DataTableColumnHeader } from "./Views/VotesTable/DataTableColumnHeader.tsx";
+import { DataTableCellNumeric } from "./Views/VotesTable/DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "./Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
