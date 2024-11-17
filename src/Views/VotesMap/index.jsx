@@ -14,6 +14,7 @@ import { scaleLinear } from "d3-scale";
 import { quantile } from "../../Utils.jsx";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import MapScale from "./MapScale.jsx";
+import { useMapPreference } from "./PreferenceContext.tsx";
 import { numberFormat, numberFormatPercent, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 
@@ -50,8 +51,6 @@ const convertD3ColorToArray = (color) =>
 
 export default function VotesMap({
   mapStyle = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-  elevationApproach,
-  colorApproach,
   updateActiveSelection,
   updateActiveHover,
   isCountyLevel = false,
@@ -62,6 +61,7 @@ export default function VotesMap({
 }) {
   const mapRef = useRef();
   const { locationResults } = useElectionData();
+  const { elevationApproach, colorApproach } = useMapPreference();
 
   // ************************************************
   // Manage the map data

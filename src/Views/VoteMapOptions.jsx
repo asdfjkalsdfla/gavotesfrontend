@@ -6,14 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { useElectionSelection } from "../context/ElectionSelectionContext.tsx";
 import { useElectionData } from "../context/ElectionDataProvider.jsx";
+import { useMapPreference } from "./VotesMap/PreferenceContext.tsx";
 import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
 
 export default function VoteMapSelectItems({
-  updateElevationApproach,
   updateShowOptions,
-  elevationApproach,
-  updateColorApproach,
-  colorApproach,
   showVoteMode,
   updateShowVoteMode,
   showDemographics,
@@ -30,6 +27,7 @@ export default function VoteMapSelectItems({
     resultsElectionRacePerviousID,
     updateResultsElectionRacePerviousID,
   } = useElectionSelection();
+  const { elevationApproach, updateElevationApproach, colorApproach, updateColorApproach } = useMapPreference();
   const { scatterXAxis, updateScatterXAxis, scatterYAxis, updateScatterYAxis } = useScatterPreference();
   const { elections } = useElectionData();
 
