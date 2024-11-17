@@ -1,8 +1,8 @@
 import React, { useState, useMemo, startTransition } from "react";
 import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import { SimpleLinearRegression } from "ml-regression-simple-linear";
-import { useElectionData } from "./ElectionDataProvider.jsx";
-import { quantile } from "./Utils.jsx";
+import { useElectionData } from "../../ElectionDataProvider.jsx";
+import { quantile } from "../..//Utils.jsx";
 import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data

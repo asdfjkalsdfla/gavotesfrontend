@@ -5,7 +5,7 @@ import ErrorBoundary from "./ErrorBoundary.jsx";
 
 import Navigation from "./Navigation.jsx";
 import WelcomeText from "./WelcomeText.jsx";
-import VoteMapOptions from "./VoteMapOptions.jsx";
+import VoteMapOptions from "./Views/VoteMapOptions.jsx";
 import "./VotesRoot.css";
 
 // import VotesMap from "./VotesMap.jsx";
@@ -14,7 +14,7 @@ import "./VotesRoot.css";
 // import VotesTable from "./VotesTable.jsx";
 const VotesSummary = lazy(() => import("./VotesSummary.jsx"));
 const VotesMap = lazy(() => import("./Views/VotesMap/index.jsx"));
-const VotesScatterPlot = lazy(() => import("./VotesScatterPlot.jsx"));
+const VotesScatterPlot = lazy(() => import("./Views/VotesScatter/index.jsx"));
 const VotesTable = lazy(() => import("./table/VotesTable.jsx"));
 
 // ************************************************
@@ -64,7 +64,7 @@ export default function VotesRoot() {
   // Active Data Point
   // **************************************************
   const [activeHover, updateActiveHover] = useState(null);
-  const [activeSelection, updateActiveSelectionState] = useState(countyParam);
+  const [activeSelection, updateActiveSelectionState] = useState(countyFilter);
 
   const updateActiveSelection = (activeSelection) => {
     updateActiveSelectionState(activeSelection);
