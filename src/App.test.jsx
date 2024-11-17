@@ -15,16 +15,16 @@ vi.mock("recharts", async () => {
 
 describe("no crashes!", () => {
   it("renders main load without crashing", async () => {
-    const { getByText, findAllByText } = render(<App />);
-    await findAllByText("Georgia Votes", undefined, { timeout: 5000 });
-    await getByText("Georgia Votes");
+    render(<App />);
+    await screen.findAllByText("Georgia Votes", undefined, { timeout: 5000 });
+    await screen.getByText("Georgia Votes");
   });
   it("renders scatter plot without crashing", async () => {
-    const { getByText, findAllByText, findByTestId } = render(<App />);
-    await findAllByText("Georgia Votes", undefined, { timeout: 5000 });
-    const button = getByText("Scatter Plot");
+    render(<App />);
+    await screen.findAllByText("Georgia Votes", undefined, { timeout: 5000 });
+    const button = screen.getByText("Scatter Plot");
     fireEvent.click(button);
-    await findByTestId("scatterPlot", undefined, { timeout: 5000 });
+    await screen.findByTestId("scatterPlot", undefined, { timeout: 5000 });
   });
   it("renders table without crashing", async ({ expect }) => {
     render(<App />);
