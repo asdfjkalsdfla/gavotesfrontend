@@ -1469,7 +1469,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                1,266
+                3,632
               </div>
             </td>
             <td
@@ -1850,7 +1850,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                8,043
+                22,734
               </div>
             </td>
             <td
@@ -2231,7 +2231,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                103,771
+                302,559
               </div>
             </td>
             <td
@@ -2612,7 +2612,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                69,617
+                210,924
               </div>
             </td>
             <td
@@ -2993,7 +2993,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                16,210
+                40,565
               </div>
             </td>
             <td
@@ -3374,7 +3374,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                6,609
+                22,395
               </div>
             </td>
             <td
@@ -3755,7 +3755,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                2,841
+                7,053
               </div>
             </td>
             <td
@@ -4136,7 +4136,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                13,876
+                43,751
               </div>
             </td>
             <td
@@ -4517,7 +4517,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                3,064
+                8,617
               </div>
             </td>
             <td
@@ -4898,7 +4898,7 @@ exports[`no crashes! > renders table without crashing 1`] = `
               <div
                 class="w-[80px] text-right"
               >
-                448
+                1,269
               </div>
             </td>
             <td
