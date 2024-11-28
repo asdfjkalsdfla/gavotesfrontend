@@ -32,7 +32,7 @@ export default defineConfig(
       outDir: "build",
     },
     test: {
-      // pool: "vmForks",
+      pool: "vmForks",
       base: "https://georgiavotesvisual.com/",
       globals: true,
       exclude: ["**/node_modules/**", "**/dist/**"],

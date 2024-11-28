@@ -7,22 +7,27 @@ import { server } from "./mocks/server.mjs";
 // ###########################
 
 // Establish API mocking before all tests.
-beforeAll(() =>
-  server.listen({
-    onUnhandledRequest: (request, print) => {
-      // console.log(request);
-      if (request.url.toString().startsWith("https://georgiavotesvisual.com/static/absentee/")) {
-        print.error();
-      }
-    },
-  }),
-);
+beforeAll(() => {
+  // server.listen({
+  //   onUnhandledRequest: (request, print) => {
+  //     // console.log(request);
+  //     if (request.url.toString().startsWith("https://georgiavotesvisual.com/static/absentee/")) {
+  //       print.error();
+  //     }
+  //   },
+  // });
+  server.listen();
+});
 
 // so they don't affect other tests.
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+});
 
 // Clean up after the tests are finished.
-afterAll(() => server.close());
+afterAll(() => {
+  server.close();
+});
 
 // ###########################
 // Mock items note in jsdom
