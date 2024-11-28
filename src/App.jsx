@@ -1,7 +1,6 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VotesRoot from "./VotesRoot.jsx";
-import VotesRootAlt from "./VotesRootAlt.jsx";
 
 import "./App.css";
 
