@@ -32,12 +32,19 @@ export default defineConfig(
       outDir: "build",
     },
     test: {
-      pool: "vmForks",
+      // pool: "vmForks",
       base: "https://georgiavotesvisual.com/",
       globals: true,
       exclude: ["**/node_modules/**", "**/dist/**"],
       setupFiles: ["./src/setupTests.js"],
       testTimeout: 20000,
+      server: {
+        deps: {
+          inline: [
+            "react-router"
+          ]
+        }
+      }
       // alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
     }
   });
