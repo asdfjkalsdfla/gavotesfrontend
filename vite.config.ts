@@ -1,6 +1,6 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react-swc";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -32,12 +32,19 @@ export default defineConfig(
       outDir: "build",
     },
     test: {
-      pool: "vmForks",
+      // pool: "vmForks",
       base: "https://georgiavotesvisual.com/",
       globals: true,
       exclude: ["**/node_modules/**", "**/dist/**"],
       setupFiles: ["./src/setupTests.js"],
       testTimeout: 20000,
+      server: {
+        deps: {
+          inline: [
+            "react-router"
+          ]
+        }
+      }
       // alias: [{ find: /^@deck.gl\/layers$/, replacement: "@deck.gl/layers/dist/esm" }],
     }
   });
