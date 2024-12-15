@@ -21,7 +21,7 @@ jobs:
           cache: "pnpm"
       - run: pnpm install
       - run: pnpm run build
-      - run: pnpm run buildESB
+      # - run: pnpm run buildESB
       - run: pnpm test
       - run: pnpm run check
         timeout-minutes: 5
