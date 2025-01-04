@@ -23,7 +23,7 @@
     "d3-scale-chromatic": "^3.1.0",
     "deck.gl": "^9.0.38",
     "lucide-react": "^0.469.0",
-    "maplibre-gl": "^4.7.1",
+    "maplibre-gl": "^5.0.0",
     "ml-regression-simple-linear": "^3.0.1",
     "papaparse": "^5.4.1",
     "react": "^19.0.0",
