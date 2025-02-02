@@ -12,13 +12,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Enable Corepack
-        run: corepack enable
       - name: Use Node.js 22.x and cache
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-          cache: "pnpm"
+      - name: Enable Corepack
+        run: corepack enable
+      - run: corepack use pnpm@9.15.4+sha1.ffa0b5c573381e8035b354028ccff97c8e452047
       - run: pnpm install
       - run: pnpm run build
       # - run: pnpm run buildESB
