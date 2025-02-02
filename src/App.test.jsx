@@ -18,6 +18,7 @@ describe("no crashes!", () => {
     render(<App />);
     await screen.findAllByText("Georgia Votes", undefined, { timeout: 5000 });
     await screen.getByText("Georgia Votes");
+    await screen.getByText("2020 General - President of the United States");
   });
   // it("renders scatter plot without crashing", async () => {
   //   render(<App />);
