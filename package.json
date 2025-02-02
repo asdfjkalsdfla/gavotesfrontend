@@ -49,7 +49,6 @@
     "check": "eslint src"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.0.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.13.0",
