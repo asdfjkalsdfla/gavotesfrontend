@@ -18,7 +18,7 @@ jobs:
           node-version: "22.x"
       - name: Enable Corepack
         run: corepack enable
-      - run: corepack use pnpm@9.15.4+sha1.ffa0b5c573381e8035b354028ccff97c8e452047
+      - run: corepack install -g pnpm@9.15.5+sha1.cb1f6372ef64e2ba352f2f46325adead1c99ff8f
       - run: pnpm install
       - run: pnpm run build
       # - run: pnpm run buildESB
