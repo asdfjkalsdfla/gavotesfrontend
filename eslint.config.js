@@ -1,4 +1,4 @@
-import eslint from '@eslint/js';
+import eslint from "@eslint/js"
 import tseslint from 'typescript-eslint';
 import esPrettier from "eslint-plugin-prettier";
 import esReact from "eslint-plugin-react";
@@ -11,7 +11,7 @@ export default tseslint.config(
   // esPrettier.configs.recommended,
   // esTsRules.configs.react,
   {
-    files: ["src/**/*.js","src/**/*.jsx","src/**/*.ts"],
+    files: ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts"],
     plugins: {
       prettier: esPrettier,
       react: esReact,
@@ -28,7 +28,7 @@ export default tseslint.config(
       }
     },
     // extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "prettier"],
-    
+
     rules: {
       "prettier/prettier": "error",
       "linebreak-style": ["error", "unix"],
