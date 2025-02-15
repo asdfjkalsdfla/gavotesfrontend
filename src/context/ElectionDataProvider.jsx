@@ -175,7 +175,7 @@ const loadAndCombineElectionDataFiles = async (
   if (electionResultBaseFileLocation) {
     filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
       electionDataForRow.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
-      electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race === currentElectionRace.name);
+      electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race == previousElectionRace.name);
       rdStateVotesTotalBase += electionDataForRow?.electionResultsBase?.totalVotesRD || 0;
     });
   }
