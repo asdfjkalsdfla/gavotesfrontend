@@ -28,8 +28,9 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
     const load = async (level, updateFunctions) => {
       const absenteeCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionCurrent.name}-${level}.json`;
       const absenteeBaseFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionBase.name}-${level}.json`;
-      const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRaceCurrent.election.name
-        }-${level}.json`;
+      const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${
+        resultsElectionRaceCurrent.election.name
+      }-${level}.json`;
       const electionResultBaseFileLocation = resultsElectionRacePervious
         ? `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRacePervious.election.name}-${level}.json`
         : null;
@@ -110,14 +111,14 @@ const loadAndCombineElectionDataFiles = async (
 ) => {
   const fetchPromises = [];
   const fileLocations = [
-    { url: absenteeCurrentFileLocation, description: 'Absentee Current' },
-    { url: absenteeBaseFileLocation, description: 'Absentee Base' },
-    { url: electionResultsCurrentFileLocation, description: 'Election Results Current' },
-    { url: demographicsFileLocation, description: 'Demographics' },
+    { url: absenteeCurrentFileLocation, description: "Absentee Current" },
+    { url: absenteeBaseFileLocation, description: "Absentee Base" },
+    { url: electionResultsCurrentFileLocation, description: "Election Results Current" },
+    { url: demographicsFileLocation, description: "Demographics" },
   ];
 
   if (electionResultBaseFileLocation) {
-    fileLocations.push({ url: electionResultBaseFileLocation, description: 'Election Result Base' });
+    fileLocations.push({ url: electionResultBaseFileLocation, description: "Election Result Base" });
   }
 
   fileLocations.forEach(({ url }) => fetchPromises.push(fetch(url)));
@@ -125,7 +126,7 @@ const loadAndCombineElectionDataFiles = async (
   const response = await Promise.all(fetchPromises);
 
   const jsonPromises = [];
-  fileLocations.forEach(({ url, description }, index) => {
+  fileLocations.forEach(({ description }, index) => {
     if (index < response.length) {
       const responseObject = response[index];
       if (!responseObject.ok) {
@@ -135,7 +136,7 @@ const loadAndCombineElectionDataFiles = async (
       jsonPromises.push(responseObject.json());
     } else {
       // Handle cases where electionResultBaseFileLocation is not provided
-      console.log('No election result base data to load');
+      console.log("No election result base data to load");
     }
   });
 
@@ -148,9 +149,7 @@ const loadAndCombineElectionDataFiles = async (
       .filter((row) => row.county !== "FAKECOUNTY")
       .forEach((row) => {
         const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-        const electionDataForRow = combinedElectionData.has(id)
-          ? combinedElectionData.get(id)
-          : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+        const electionDataForRow = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
 
         callback(electionDataForRow, row);
         combinedElectionData.set(id, electionDataForRow);
@@ -175,11 +174,11 @@ const loadAndCombineElectionDataFiles = async (
   if (electionResultBaseFileLocation) {
     filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
       electionDataForRow.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
-      electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race == previousElectionRace.name);
+      electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race === previousElectionRace.name);
       rdStateVotesTotalBase += electionDataForRow?.electionResultsBase?.totalVotesRD || 0;
     });
   }
-  
+
   const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
 
   // Set the comparisons between the results
