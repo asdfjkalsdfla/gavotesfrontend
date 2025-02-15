@@ -110,45 +110,40 @@ const loadAndCombineElectionDataFiles = async (
   previousElectionRace,
 ) => {
   const fetchPromises = [];
-  fetchPromises.push(fetch(absenteeCurrentFileLocation));
-  fetchPromises.push(fetch(absenteeBaseFileLocation));
-  fetchPromises.push(fetch(electionResultsCurrentFileLocation));
-  fetchPromises.push(fetch(demographicsFileLocation));
-  if (electionResultBaseFileLocation) fetchPromises.push(fetch(electionResultBaseFileLocation));
+  const fileLocations = [
+    { url: absenteeCurrentFileLocation, description: 'Absentee Current' },
+    { url: absenteeBaseFileLocation, description: 'Absentee Base' },
+    { url: electionResultsCurrentFileLocation, description: 'Election Results Current' },
+    { url: demographicsFileLocation, description: 'Demographics' },
+  ];
 
-  const [responseAbsenteeCurrent, responseAbsenteeBase, responseElectionResultsCurrent, responseDemographics, electionResultBase] =
-    await Promise.all(fetchPromises);
-
-  if (!responseAbsenteeCurrent.ok) {
-    console.log("ERROR loading absentee current");
-    return new Map();
-  }
-  if (!responseAbsenteeBase.ok) {
-    console.log("ERROR loading absentee base");
-    return new Map();
-  }
-  if (!responseElectionResultsCurrent.ok) {
-    console.log("ERROR loading election result current");
-    return new Map();
-  }
-  if (!responseDemographics.ok) {
-    console.log("ERROR loading demographics");
-    return new Map();
-  }
-
-  if (electionResultBaseFileLocation && !electionResultBase.ok) {
-    console.log("ERROR loading election result base");
-    return new Map();
-  }
-
-  const jsonPromises = [responseAbsenteeCurrent.json(), responseAbsenteeBase.json(), responseElectionResultsCurrent.json(), responseDemographics.json()];
   if (electionResultBaseFileLocation) {
-    jsonPromises.push(electionResultBase.json());
+    fileLocations.push({ url: electionResultBaseFileLocation, description: 'Election Result Base' });
   }
-  const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = await Promise.all(jsonPromises);
 
+  fileLocations.forEach(({ url }) => fetchPromises.push(fetch(url)));
+
+  const response = await Promise.all(fetchPromises);
+
+  const jsonPromises = [];
+  fileLocations.forEach(({ url, description }, index) => {
+    if (index < response.length) {
+      const responseObject = response[index];
+      if (!responseObject.ok) {
+        console.log(`ERROR loading ${description}`);
+        return new Map();
+      }
+      jsonPromises.push(responseObject.json());
+    } else {
+      // Handle cases where electionResultBaseFileLocation is not provided
+      console.log('No election result base data to load');
+    }
+  });
+
+  const jsonDone = await Promise.all(jsonPromises);
   const combinedElectionData = new Map();
 
+  const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = jsonDone;
   absenteeCurrentJSON
     .filter((row) => row.county !== "FAKECOUNTY")
     .forEach((row) => {

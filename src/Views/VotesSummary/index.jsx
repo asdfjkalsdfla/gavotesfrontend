@@ -200,7 +200,7 @@ function ElectionResultSummary({ race, raceResult, raceComparison, showVoteMode 
   return (
     <div>
       <div className="text-lg font-bold pt-6">
-        {race.election?.label} - {race?.name}
+        {race?.election?.label} - {race?.name}
       </div>
       <div className="grid grid-cols-[6fr_4fr] items-center gap-1.5 p-2">
         <div>{race?.republican} (R)</div>
