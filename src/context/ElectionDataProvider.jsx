@@ -28,9 +28,8 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
     const load = async (level, updateFunctions) => {
       const absenteeCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionCurrent.name}-${level}.json`;
       const absenteeBaseFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionBase.name}-${level}.json`;
-      const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${
-        resultsElectionRaceCurrent.election.name
-      }-${level}.json`;
+      const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRaceCurrent.election.name
+        }-${level}.json`;
       const electionResultBaseFileLocation = resultsElectionRacePervious
         ? `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRacePervious.election.name}-${level}.json`
         : null;
@@ -141,54 +140,46 @@ const loadAndCombineElectionDataFiles = async (
   });
 
   const jsonDone = await Promise.all(jsonPromises);
-  const combinedElectionData = new Map();
-
   const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = jsonDone;
-  absenteeCurrentJSON
-    .filter((row) => row.county !== "FAKECOUNTY")
-    .forEach((row) => {
-      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-      properties.absenteeCurrent = new AbsenteeBallots(row);
-      combinedElectionData.set(id, properties);
-    });
-  absenteeBaseJSON
-    .filter((row) => row.county !== "FAKECOUNTY")
-    .forEach((row) => {
-      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-      properties.absenteeBase = new AbsenteeBallots(row);
-      combinedElectionData.set(id, properties);
-    });
 
-  let rdStateVotesTotalCurrent = 0;
-  electionResultsCurrentJSON
-    .filter((row) => row.county !== "FAKECOUNTY")
-    .forEach((row) => {
-      const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-      const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-      properties.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
-      // Find the current race
-      properties.electionResultsCurrent = properties.electionResultsAllCurrent?.filter((election) => election.race === currentElectionRace.name)[0];
-      combinedElectionData.set(id, properties);
-      rdStateVotesTotalCurrent += properties?.electionResultsCurrent?.totalVotesRD || 0;
-    });
-  let rdStateVotesTotalBase = 0;
-  if (electionResultBaseFileLocation) {
-    electionResultBaseJSON
+  const combinedElectionData = new Map();
+  const filterResultAndAddToCombinedData = (dataJSON, callback) => {
+    return dataJSON
       .filter((row) => row.county !== "FAKECOUNTY")
       .forEach((row) => {
         const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
+        const electionDataForRow = combinedElectionData.has(id)
+          ? combinedElectionData.get(id)
+          : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
 
-        const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-        properties.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
-
-        properties.electionResultsBase = properties.electionResultsAllBase.filter((election) => election.race === previousElectionRace.name)[0];
-        combinedElectionData.set(id, properties);
-        rdStateVotesTotalBase += properties?.electionResultsBase?.totalVotesRD || 0;
+        callback(electionDataForRow, row);
+        combinedElectionData.set(id, electionDataForRow);
       });
-  }
+  };
 
+  // Apply the function to each relevant data source
+  filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
+    electionDataForRow.absenteeCurrent = new AbsenteeBallots(row);
+  });
+  filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow, row) => {
+    electionDataForRow.absenteeBase = new AbsenteeBallots(row);
+  });
+
+  let rdStateVotesTotalCurrent = 0;
+  filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
+    electionDataForRow.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
+    electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find((election) => election.race === currentElectionRace.name);
+    rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
+  });
+  let rdStateVotesTotalBase = 0;
+  if (electionResultBaseFileLocation) {
+    filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
+      electionDataForRow.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
+      electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race === currentElectionRace.name);
+      rdStateVotesTotalBase += electionDataForRow?.electionResultsBase?.totalVotesRD || 0;
+    });
+  }
+  
   const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
 
   // Set the comparisons between the results
