@@ -1,13 +1,14 @@
 import { Temporal } from "temporal-polyfill";
 
-const electionDate = Temporal.PlainDateTime.from({
+const electionDate = Temporal.ZonedDateTime.from({
+  timeZone: "America/New_York",
   year: 2024,
   month: 11,
   day: 5,
   hour: 19,
 });
 
-const currentDate = Temporal.Now.plainDateISO();
+const currentDate = Temporal.Now.zonedDateTimeISO("America/New_York");
 const daysToElection = electionDate.until(currentDate).days;
 
 export default class AbsenteeBallots {
