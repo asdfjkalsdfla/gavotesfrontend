@@ -4,12 +4,18 @@ import ElectionResult from "../Models/ElectionResult";
 import ElectionResultComparison from "../Models/ElectionResultComparison";
 import AbsenteeBallots from "../Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
-import Demographics from "..//Models/Demographics";
+import Demographics from "../Models/Demographics";
 import { useElectionSelection } from "./ElectionSelectionContext.tsx";
 
 import elections from "../elections.json";
 
 export const ElectionDataContext = createContext(null);
+
+// Helper function to build API URLs
+const buildApiUrl = (category, prefix, name, level) => {
+  if (!name) return null;
+  return `${import.meta.env.VITE_API_URL_BASE}static/${category}/${prefix}-${name}-${level}.json`;
+};
 
 export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) {
   const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = useElectionSelection();
@@ -26,13 +32,11 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
   // Load all levels of election data
   useEffect(() => {
     const load = async (level, updateFunctions) => {
-      const absenteeCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionCurrent.name}-${level}.json`;
-      const absenteeBaseFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/absentee/absenteeSummary-${absenteeElectionBase.name}-${level}.json`;
-      const electionResultsCurrentFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${
-        resultsElectionRaceCurrent.election.name
-      }-${level}.json`;
+      const absenteeCurrentFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionCurrent?.name, level);
+      const absenteeBaseFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionBase?.name, level);
+      const electionResultsCurrentFileLocation = buildApiUrl("electionResults", "electionResultsSummary", resultsElectionRaceCurrent?.election?.name, level);
       const electionResultBaseFileLocation = resultsElectionRacePervious
-        ? `${import.meta.env.VITE_API_URL_BASE}static/electionResults/electionResultsSummary-${resultsElectionRacePervious.election.name}-${level}.json`
+        ? buildApiUrl("electionResults", "electionResultsSummary", resultsElectionRacePervious?.election?.name, level)
         : null;
       const demographicsFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/demographics/demographics-${level}-2020.json`;
 
@@ -48,14 +52,19 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
       );
       updateFunctions.forEach((updateFunction) => {
         if (level === "state") {
-          updateFunction([...updatedElectionData.values()][0]);
-          return;
+          const stateData = updatedElectionData instanceof Map && updatedElectionData.size > 0 ? [...updatedElectionData.values()][0] : {};
+          updateFunction(stateData);
+        } else {
+          updateFunction(updatedElectionData);
         }
-        updateFunction(updatedElectionData);
       });
     };
 
-    if (!absenteeElectionBase || !absenteeElectionCurrent || !resultsElectionRaceCurrent) return; // fail if we don't have the required info
+    if (!absenteeElectionBase || !absenteeElectionCurrent || !resultsElectionRaceCurrent) {
+      console.warn("Required election selection data is missing. Skipping data load.");
+      return;
+    }
+
     const levels = [
       { name: "state", updateFunctions: [updateStatewideTotals] },
       { name: "county", updateFunctions: isCountyLevel ? [updateCountyElectionData, updateLocationElectionData] : [updateCountyElectionData] },
@@ -74,7 +83,6 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
     const activeResults = new Map();
     locationElectionData.forEach((value, key) => {
       if (value.CTYNAME === countyFilter) activeResults.set(key, value);
-      // if (value?.electionResultsComparison?.totalVotesPercent > 0.80) activeResults.set(key, value);
     });
     return activeResults;
   }, [isCountyLevel, countyFilter, locationElectionData]);
@@ -103,60 +111,90 @@ const loadAndCombineElectionDataFiles = async (
   absenteeCurrentFileLocation,
   absenteeBaseFileLocation,
   electionResultsCurrentFileLocation,
-  electionResultBaseFileLocation,
+  electionResultBaseFileLocation, // Can be null
   demographicsFileLocation,
   isCountyLevel,
   currentElectionRace,
   previousElectionRace,
 ) => {
-  const fetchPromises = [];
-  const fileLocations = [
-    { url: absenteeCurrentFileLocation, description: "Absentee Current" },
-    { url: absenteeBaseFileLocation, description: "Absentee Base" },
-    { url: electionResultsCurrentFileLocation, description: "Election Results Current" },
-    { url: demographicsFileLocation, description: "Demographics" },
+  const filesToFetchConfig = [
+    { url: absenteeCurrentFileLocation, description: "Absentee Current", key: "absenteeCurrentJSON", critical: true },
+    { url: absenteeBaseFileLocation, description: "Absentee Base", key: "absenteeBaseJSON", critical: true },
+    { url: electionResultsCurrentFileLocation, description: "Election Results Current", key: "electionResultsCurrentJSON", critical: true },
+    { url: demographicsFileLocation, description: "Demographics", key: "demographicsJSON", critical: true },
   ];
 
   if (electionResultBaseFileLocation) {
-    fileLocations.push({ url: electionResultBaseFileLocation, description: "Election Result Base" });
+    filesToFetchConfig.push({ url: electionResultBaseFileLocation, description: "Election Result Base", key: "electionResultBaseJSON", critical: false });
   }
 
-  fileLocations.forEach(({ url }) => fetchPromises.push(fetch(url)));
+  const fetchPromises = filesToFetchConfig
+    .filter((file) => file.url)
+    .map((file) =>
+      fetch(file.url)
+        .then((response) => {
+          if (!response.ok) {
+            console.error(`ERROR loading ${file.description} from ${file.url}: ${response.statusText}`);
+            return { key: file.key, error: true, status: response.status, critical: file.critical, description: file.description };
+          }
+          return response.json().then((data) => ({ key: file.key, data, error: false, critical: file.critical, description: file.description }));
+        })
+        .catch((error) => {
+          console.error(`Network error loading ${file.description} from ${file.url}: ${error.message}`);
+          return { key: file.key, error: true, critical: file.critical, description: file.description };
+        }),
+    );
 
-  const response = await Promise.all(fetchPromises);
+  const fetchedResults = await Promise.all(fetchPromises);
 
-  const jsonPromises = [];
-  fileLocations.forEach(({ description }, index) => {
-    if (index < response.length) {
-      const responseObject = response[index];
-      if (!responseObject.ok) {
-        console.log(`ERROR loading ${description}`);
-        return new Map();
+  const jsonData = {};
+  let hasCriticalError = false;
+  fetchedResults.forEach((result) => {
+    if (result.error) {
+      jsonData[result.key] = null;
+      if (result.critical) {
+        hasCriticalError = true;
+        console.error(`Critical file ${result.description} failed to load.`);
       }
-      jsonPromises.push(responseObject.json());
     } else {
-      // Handle cases where electionResultBaseFileLocation is not provided
-      console.log("No election result base data to load");
+      jsonData[result.key] = result.data;
     }
   });
 
-  const jsonDone = await Promise.all(jsonPromises);
-  const [absenteeCurrentJSON, absenteeBaseJSON, electionResultsCurrentJSON, demographicsJSON, electionResultBaseJSON] = jsonDone;
+  if (hasCriticalError) {
+    console.error("One or more critical data files failed to load. Returning empty data.");
+    return new Map();
+  }
+
+  const {
+    absenteeCurrentJSON,
+    absenteeBaseJSON,
+    electionResultsCurrentJSON,
+    demographicsJSON,
+    electionResultBaseJSON, // Will be null if not fetched or if fetch failed (and not critical)
+  } = jsonData;
+
+  if (!absenteeCurrentJSON || !absenteeBaseJSON || !electionResultsCurrentJSON || !demographicsJSON) {
+    console.error("Essential JSON data is missing after fetch. Aborting data combination.");
+    return new Map();
+  }
 
   const combinedElectionData = new Map();
   const filterResultAndAddToCombinedData = (dataJSON, callback) => {
-    return dataJSON
+    if (!dataJSON || !Array.isArray(dataJSON)) {
+      console.warn("Skipping data processing due to missing or invalid dataJSON.");
+      return;
+    }
+    dataJSON
       .filter((row) => row.county !== "FAKECOUNTY")
       .forEach((row) => {
         const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-        const electionDataForRow = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-
+        const electionDataForRow = combinedElectionData.get(id) || { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
         callback(electionDataForRow, row);
         combinedElectionData.set(id, electionDataForRow);
       });
   };
 
-  // Apply the function to each relevant data source
   filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
     electionDataForRow.absenteeCurrent = new AbsenteeBallots(row);
   });
@@ -165,13 +203,18 @@ const loadAndCombineElectionDataFiles = async (
   });
 
   let rdStateVotesTotalCurrent = 0;
-  filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
-    electionDataForRow.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
-    electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find((election) => election.race === currentElectionRace.name);
-    rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
-  });
+  if (currentElectionRace) {
+    // Ensure currentElectionRace is defined
+    filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
+      electionDataForRow.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
+      electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find((election) => election.race === currentElectionRace.name);
+      rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
+    });
+  }
+
   let rdStateVotesTotalBase = 0;
-  if (electionResultBaseFileLocation) {
+  if (electionResultBaseJSON && previousElectionRace) {
+    // Ensure data and race info are available
     filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
       electionDataForRow.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
       electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find((election) => election.race === previousElectionRace.name);
@@ -179,44 +222,54 @@ const loadAndCombineElectionDataFiles = async (
     });
   }
 
-  const scaleFactor = rdStateVotesTotalCurrent / rdStateVotesTotalBase;
+  const scaleFactor = rdStateVotesTotalBase !== 0 && rdStateVotesTotalCurrent !== 0 ? rdStateVotesTotalCurrent / rdStateVotesTotalBase : 1;
 
-  // Set the comparisons between the results
   [...combinedElectionData.values()].forEach((result) => {
     result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
-
     result.absenteeBallotComparison =
       result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
   });
 
-  demographicsJSON.forEach((row) => {
-    const { id } = row;
-    const properties = combinedElectionData.has(id) ? combinedElectionData.get(id) : { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-    properties.demographics = new Demographics(row);
-    combinedElectionData.set(id, properties);
-  });
+  if (demographicsJSON && Array.isArray(demographicsJSON)) {
+    demographicsJSON.forEach((row) => {
+      const id = row.id; // Use 'id' from demographics data as the key
+      if (!id) {
+        console.warn("Skipping demographics row due to missing id:", row);
+        return;
+      }
+      const properties = combinedElectionData.get(id) || { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+      properties.demographics = new Demographics(row);
+      combinedElectionData.set(id, properties);
+    });
+  } else {
+    console.warn("Demographics data is missing or not an array. Skipping demographics processing.");
+  }
 
   return combinedElectionData;
 };
 
-const convertElectionRaceIDToObject = (electionRaceID) => {
-  const splitToIDs = electionRaceID && electionRaceID.includes("||") && electionRaceID.split("||");
-  if (!splitToIDs || splitToIDs.length !== 2) return;
-  const electionID = splitToIDs[0];
-  const raceID = splitToIDs[1];
+const findElectionByName = (electionID) => {
+  if (!electionID) return undefined;
   const electionMatches = elections.filter((election) => election.name === electionID);
-  if (!electionMatches || electionMatches.length !== 1) return;
-  const election = electionMatches[0];
+  return electionMatches.length === 1 ? electionMatches[0] : undefined;
+};
+
+const convertElectionRaceIDToObject = (electionRaceID) => {
+  if (!electionRaceID || !electionRaceID.includes("||")) return undefined;
+  const [electionID, raceID] = electionRaceID.split("||");
+  if (!electionID || !raceID) return undefined;
+
+  const election = findElectionByName(electionID);
+  if (!election) return undefined;
+
   const raceMatches = election.races.filter((race) => race.name === raceID);
-  if (!raceMatches || raceMatches.length !== 1) return;
+  if (raceMatches.length !== 1) return undefined;
+
   const race = raceMatches[0];
-  race.election = election; // linking the values back to each other
+  race.election = election;
   return race;
 };
 
 const convertElectionIDToObject = (electionID) => {
-  const electionMatches = elections.filter((election) => election.name === electionID);
-  if (!electionMatches || electionMatches.length !== 1) return;
-  const election = electionMatches[0];
-  return election;
+  return findElectionByName(electionID);
 };
