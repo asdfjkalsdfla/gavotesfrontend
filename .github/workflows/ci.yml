@@ -15,7 +15,7 @@ jobs:
       - name: Use Node.js 22.x and cache
         uses: actions/setup-node@v4
         with:
-          node-version: "22.15.0"
+          node-version: "22.15.1"
       - name: Enable Corepack
         run: corepack enable
       - run: corepack install -g pnpm@9.15.5+sha1.cb1f6372ef64e2ba352f2f46325adead1c99ff8f
