@@ -27,7 +27,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   return (
     <Card className="mb-5">
       <CardHeader className="pb-3">
-        <CardTitle>
+        <CardTitle className="text-2xl">
           Options
           <span style={{ float: "right" }}>
             <Button

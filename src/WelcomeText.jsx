@@ -7,7 +7,7 @@ export default function WelcomeText({ updateShowWelcome }) {
   return (
     <Card className="mb-5">
       <CardHeader className="pb-3">
-        <CardTitle>
+        <CardTitle className="text-2xl">
           Welcome!
           <span style={{ float: "right" }}>
             <Button

@@ -46,7 +46,7 @@ export default function VoteSummary({
   return (
     <Card id="regionSummaryName">
       <CardHeader className="pb-3">
-        <CardTitle>
+        <CardTitle className="text-2xl">
           {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
           {activeSelection && activeSelection === resultSummary.id && (
             <span style={{ float: "right" }}>
