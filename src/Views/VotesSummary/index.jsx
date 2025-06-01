@@ -45,7 +45,7 @@ export default function VoteSummary({
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
   return (
     <Card id="regionSummaryName">
-      <CardHeader className="pb-3">
+      <CardHeader>
         <CardTitle className="text-2xl">
           {resultSummary.CTYNAME ? resultSummary.CTYNAME : "The State of Georgia"} {resultSummary.PRECINCT_N || ""}{" "}
           {activeSelection && activeSelection === resultSummary.id && (
@@ -68,7 +68,7 @@ export default function VoteSummary({
       </CardHeader>
       <CardContent className="grid gap-1">
         {!resultSummary.PRECINCT_N && (
-          <div className="pt-3  ">
+          <div>
             {isCountyLevel ? (
               <div>
                 <Button
@@ -79,10 +79,9 @@ export default function VoteSummary({
                     updateUserHasSetLevel(true);
                     if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
                   }}
-                  className="p-0.3"
                 >
-                  <ZoomIn className="ml-2 mr-2 h-3 w-3" />
-                  <span className="mr-3">Precinct Level</span>
+                  <ZoomIn className="ml-2 mr-2 h-2 w-2" />
+                  <span className="mr-2">Precinct Level</span>
                 </Button>
               </div>
             ) : (
@@ -94,10 +93,9 @@ export default function VoteSummary({
                   updateUserHasSetLevel(true);
                   updateCountyFilter(null);
                 }}
-                className="p-0.3"
               >
-                <ZoomOut className="ml-2 mr-2 h-3 w-3" />
-                <span className="mr-3">County Level</span>
+                <ZoomOut className="ml-2 mr-2 h-2 w-2" />
+                <span className="mr-2">County Level</span>
               </Button>
             )}
           </div>
