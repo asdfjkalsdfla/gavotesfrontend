@@ -134,7 +134,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                     }}
                     value={elevationApproach}
                   >
-                    <SelectTrigger id="elevationApproach"  className="w-full">
+                    <SelectTrigger id="elevationApproach" className="w-full">
                       <SelectValue placeholder="Elevation Based On" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -159,7 +159,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                 updateResultsElectionRaceCurrentID(value);
               }}
             >
-              <SelectTrigger id="currentElection"  className="w-full">
+              <SelectTrigger id="currentElection" className="w-full">
                 <SelectValue placeholder="Current Race" />
               </SelectTrigger>
               <SelectContent position="popper">
