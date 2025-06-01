@@ -21,7 +21,7 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [sorting, setSorting] = React.useState<SortingState>([{id: initialSortColumn, desc: false}]);
+  const [sorting, setSorting] = React.useState<SortingState>([{ id: initialSortColumn, desc: false }]);
 
   const table = useReactTable({
     data,
@@ -36,13 +36,15 @@ export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: D
       columnVisibility,
     },
   });
-  
+
   return (
-    <div className="space-y-4"  data-testid="electionResultTable">
-      <span data-testid="dataElementSettings"><DataTableViewOptions table={table} /></span>
+    <div className="space-y-4" data-testid="electionResultTable">
+      <div className="items-right justify-between px-4 lg:px-6">
+        <span data-testid="dataElementSettings"><DataTableViewOptions table={table} /></span>
+      </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-muted sticky top-0 z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
