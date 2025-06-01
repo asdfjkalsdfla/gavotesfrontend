@@ -58,7 +58,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                     }}
                     value={scatterXAxis}
                   >
-                    <SelectTrigger id="xaxis">
+                    <SelectTrigger id="xaxis" className="w-full">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -79,11 +79,10 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                     onValueChange={(value) => {
                       updateScatterYAxis(value);
                     }}
-                    style={{ width: 300 }}
                     value={scatterYAxis}
                     virtual={false}
                   >
-                    <SelectTrigger id="yaxis">
+                    <SelectTrigger id="yaxis" className="w-full">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -110,7 +109,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                     }}
                     value={colorApproach}
                   >
-                    <SelectTrigger id="colorApproach">
+                    <SelectTrigger id="colorApproach" className="w-full">
                       <SelectValue placeholder="Color Based On" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -135,7 +134,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                     }}
                     value={elevationApproach}
                   >
-                    <SelectTrigger id="elevationApproach">
+                    <SelectTrigger id="elevationApproach"  className="w-full">
                       <SelectValue placeholder="Elevation Based On" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -160,7 +159,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                 updateResultsElectionRaceCurrentID(value);
               }}
             >
-              <SelectTrigger id="currentElection">
+              <SelectTrigger id="currentElection"  className="w-full">
                 <SelectValue placeholder="Current Race" />
               </SelectTrigger>
               <SelectContent position="popper">
@@ -187,7 +186,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                 updateResultsElectionRacePerviousID(value);
               }}
             >
-              <SelectTrigger id="prevElection">
+              <SelectTrigger id="prevElection" className="w-full">
                 <SelectValue placeholder="Previous Race" />
               </SelectTrigger>
               <SelectContent position="popper">
@@ -220,7 +219,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                   updateAbsenteeElectionBaseID(value);
                 }}
               >
-                <SelectTrigger id="comparedTo">
+                <SelectTrigger id="comparedTo" className="w-full">
                   <SelectValue placeholder="Previous Race" />
                 </SelectTrigger>
                 <SelectContent position="popper">
