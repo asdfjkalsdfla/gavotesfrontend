@@ -27,8 +27,18 @@ export default function VoteSummary({
   updateIsCountyLevel,
   updateUserHasSetLevel,
 }) {
-  const { locationResults, countyResults, statewideResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } =
-    useElectionData();
+  const {
+    locationResults,
+    countyResults,
+    statewideResults,
+    currentElectionRace,
+    previousElectionRace,
+    currentAbsenteeElection,
+    baseAbsenteeElection,
+    isLoading,
+    isError,
+    error,
+  } = useElectionData();
   const { showVoteMode, showAbsentee, showDemographics } = useSummaryPreferences();
   const resultSummary = useMemo(() => {
     const source = activeHover || activeSelection; // use the hover value o/w use the selection
@@ -39,7 +49,9 @@ export default function VoteSummary({
     return statewideResults; // if no selection and no filter, use the statewide total
   }, [activeHover, activeSelection, countyFilter, locationResults, countyResults, statewideResults]);
 
-  if (!resultSummary) return <span>Loading...</span>;
+  if (isLoading) return <span>Loading...</span>;
+  if (isError) return <span>Error loading data: {error?.message}</span>;
+  if (!resultSummary) return <span>No data available</span>;
 
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;

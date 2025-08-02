@@ -6,7 +6,16 @@ import { DataTable } from "./DataTable.tsx";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 
 export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateCountyFilter, updateActiveSelection }) {
-  const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection } = useElectionData();
+  const {
+    locationResults,
+    currentElectionRace,
+    previousElectionRace,
+    currentAbsenteeElection,
+    baseAbsenteeElection,
+    isLoading,
+    isError,
+    error,
+  } = useElectionData();
   const [rows, updateRows] = useState([]);
 
   const idColumns = useMemo(
@@ -61,6 +70,9 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
       updateRows(newRows);
     });
   }, [locationResults]);
+
+  if (isLoading) return <div className="p-4">Loading...</div>;
+  if (isError) return <div className="p-4">Error loading data: {error?.message}</div>;
 
   return (
     <div className="p-4" style={{ width: "10fr", height: "1fr" }} data-testid="electionResultTableWrapper">
