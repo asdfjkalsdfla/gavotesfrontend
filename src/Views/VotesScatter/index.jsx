@@ -4,6 +4,7 @@ import { SimpleLinearRegression } from "ml-regression-simple-linear";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import { useScatterPreference } from "./PreferenceContext.tsx";
 import { quantile } from "../..//Utils.jsx";
+import { DATA_PROPERTY_ACCESSORS } from "../../utils/dataTransformers.js";
 import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data
@@ -21,65 +22,13 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
   const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
 
   const data = useMemo(() => {
-    // console.log("in update data function");
     const pointsOnChart = [];
     let maxX = -500;
     let minX = 500;
 
-    let xProp;
-    switch (scatterXAxis) {
-      case "perRBase":
-        xProp = (dataPoint) => dataPoint.electionResultsBase?.perRepublican * 100;
-        break;
-      case "perShiftRepublican":
-        xProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublican * 100;
-        break;
-      case "perShiftRepublicanEarly":
-        xProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublicanEarly * 100;
-        break;
-      case "totalVotesRepublicanPercent":
-        xProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRepublicanPercent * 100;
-        break;
-      case "whitePer":
-        xProp = (dataPoint) => dataPoint?.demographics?.whitePer * 100;
-        break;
-      case "blackPer":
-        xProp = (dataPoint) => dataPoint?.demographics?.blackPer * 100;
-        break;
-      case "hispanicPer":
-        xProp = (dataPoint) => dataPoint?.demographics?.hispanicPer * 100;
-        break;
-      default:
-        xProp = (dataPoint) => dataPoint.electionResultsCurrent?.perRepublican * 100;
-    }
-
-    let yProp;
-    switch (scatterYAxis) {
-      case "perRBase":
-        yProp = (dataPoint) => dataPoint.electionResultsBase?.perRepublican * 100;
-        break;
-      case "turnoutAbsSameDay":
-        // yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100 -  dataPoint.electionResultsComparison?.perShiftRepublican * 100 * 0.85;
-        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay * 100;
-        break;
-      case "turnoutAbsenteeBallots":
-        yProp = (dataPoint) => dataPoint?.absenteeBallotComparison?.turnoutAbsenteeBallots * 100;
-        break;
-      case "perShiftRepublican":
-        yProp = (dataPoint) => dataPoint.electionResultsComparison?.perShiftRepublican * 100;
-        break;
-      case "totalVotesRepublicanPercent":
-        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRepublicanPercent * 100;
-        break;
-      case "totalVotesDemocraticPercent":
-        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesDemocraticPercent * 100;
-        break;
-      case "totalVotesPercent":
-        yProp = (dataPoint) => dataPoint.electionResultsComparison?.totalVotesRDPercent * 100;
-        break;
-      default:
-        yProp = (dataPoint) => dataPoint?.electionResultsCurrent?.perRepublican * 100;
-    }
+    // Use the centralized property accessors
+    const xProp = DATA_PROPERTY_ACCESSORS[scatterXAxis] || DATA_PROPERTY_ACCESSORS.perRepublican;
+    const yProp = DATA_PROPERTY_ACCESSORS[scatterYAxis] || DATA_PROPERTY_ACCESSORS.perRepublican;
 
     locationResults.forEach((point, key) => {
       const x = xProp(point);
@@ -101,10 +50,8 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
       { x: maxX, y: regression.predict(maxX) },
       { x: minX, y: regression.predict(minX) },
     ];
-    // const regressionLineData = Array.from(Array(200).keys()).map(i => ({ x: i, y: regression.predict(i) }));
     const regIntercept = regression.intercept;
     const regSlope = regression.slope;
-    // setFilteredData(pointsOnChart);
     updateDomainX(DEFAULT_DOMAIN_X);
 
     const [yMin, yMax] = quantile(
@@ -112,7 +59,6 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
       isCountyLevel ? [0, 1] : [0.01, 0.99],
     );
     updateDomainY([yMin - 1, yMax + 1]);
-    // updateDomainY([20, 100]);
     return { pointsOnChart, regressionLineData, regIntercept, regSlope };
   }, [locationResults, isCountyLevel, scatterXAxis, scatterYAxis]);
 
@@ -120,18 +66,9 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
   const [zoomArea, setZoomArea] = useState(DEFAULT_ZOOM);
   // flag if currently zooming (press and drag)
   const [isZooming, setIsZooming] = useState(false);
-  // flag if zoomed in
-  // const isZoomed = filteredData?.length !== data?.length;
 
   // flag to show the zooming area (ReferenceArea)
   const showZoomBox = isZooming && !(Math.abs(zoomArea.x1 - zoomArea.x2) < MIN_ZOOM) && !(Math.abs(zoomArea.y1 - zoomArea.y2) < MIN_ZOOM);
-
-  // // reset the states on zoom out
-  // function handleZoomOut() {
-  //   updateDomainX(DEFAULT_DOMAIN_X);
-  //   updateDomainY(DEFAULT_DOMAIN_Y);
-  //   setZoomArea(DEFAULT_ZOOM);
-  // }
 
   /**
    * Two possible events:
@@ -148,7 +85,6 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
     if (clickedPoint) {
       return;
     }
-    // console.log("zoom start");
     startTransition(() => {
       setZoomArea({ x1: xValue, x2: xValue, y1: yValue, y2: yValue });
     });
@@ -156,12 +92,9 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
 
   // Update zoom end coordinates
   function handleMouseMove(e) {
-    // console.log(e);
-    // console.log(all);
     const xValue = e?.activePayload[0].payload.x;
     const yValue = e?.activePayload[0].payload.y;
     if (isZooming) {
-      // console.log("zoom selecting");
       startTransition(() => {
         setZoomArea((prev) => ({ ...prev, x2: xValue, y2: yValue }));
       });
@@ -179,14 +112,9 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
       if (x1 > x2) [x1, x2] = [x2, x1];
       if (y1 > y2) [y1, y2] = [y2, y1];
 
-      // const  pointsOnMap = data.pointsOnChart.filter(point => point.x < x2 && point.x > x1).map(point => point.y);
-      // const y1 = Math.min(...pointsOnMap);
-      // const y2 = Math.max(...pointsOnMap);
-
       if (x2 - x1 < MIN_ZOOM) {
         console.log("zoom cancel");
       } else {
-        // console.log("zoom stop");
         updateDomainX([x1 - 2.5, x2 + 2.5]);
         updateDomainY([y1 - 2.5, y2 + 2.5]);
         setZoomArea(DEFAULT_ZOOM);
@@ -221,10 +149,6 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
 
   const range = useMemo(() => [0, isCountyLevel ? 500 : 200], [isCountyLevel]);
 
-  // let seg = [data?.regressionLineData[0], data?.regressionLineData[99]];
-  // seg = [{ x: 0, y: 0 }, { x: 1000, y: 1000 }];
-  // console.log(seg);
-
   return (
     <div style={{ width: "100%", height: "100%" }} data-testid="scatterPlot">
       <div style={{ width: "100%", height: "100%" }}>
@@ -234,7 +158,6 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
             <XAxis dataKey="x" type="number" domain={domainX} allowDataOverflow={true} name="shift" unit="%" tickFormatter={tickFormatter} />
             <YAxis dataKey="y" type="number" domain={domainY} allowDataOverflow={true} name="2022 turnout" unit="%" tickFormatter={tickFormatter} />
             <ZAxis dataKey="z" type="number" range={range} name="votes" />
-            {/* <Tooltip content={<CustomTooltip />} dataKey="id" cursor={{ strokeDasharray: '3 3' }} /> */}
             <Scatter
               isAnimationActive={false}
               name="2022 Absentee"
@@ -247,9 +170,7 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
             />
 
             {showZoomBox && <ReferenceArea x1={zoomArea?.x1} x2={zoomArea?.x2} y1={zoomArea?.y1} y2={zoomArea?.y2} stroke="red" strokeOpacity={0.3} />}
-            {/* <Brush dataKey="x" height={30} width={100} x={100} y={100} data={data.pointsOnChart} stroke="#8884d8" /> */}
             <Line name="fit" type="linear" dataKey="y" stroke="#8884d8" dot={false} data={data?.regressionLineData} strokeWidth={2} isAnimationActive={false} />
-            {/* <ReferenceLine name="fit"  stroke="#8884d8" segment={data.regressionLineData} strokeWidth={2} /> */}
           </ComposedChart>
         </ResponsiveContainer>
       </div>
