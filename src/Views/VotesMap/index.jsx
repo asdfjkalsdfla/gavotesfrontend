@@ -8,7 +8,6 @@ import { Map as MapGL, useControl } from "react-map-gl/maplibre";
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
 import { MapboxOverlay } from "@deck.gl/mapbox";
-import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import { useGeoJSON } from "../../hooks/useGeoJSON.js";
 import MapScale from "./MapScale.jsx";
@@ -16,6 +15,7 @@ import { useMapPreference } from "./PreferenceContext.tsx";
 import { numberFormat, numberFormatPercent } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 import { createElevationFunction, createColorFunction, processGeoJSONData, extractSimpleData } from "./mapUtils.js";
+import { createMapLayers } from "./layerUtils.js";
 
 function DeckGLOverlay(props) {
   const overlay = useControl(() => new MapboxOverlay(props));
@@ -149,158 +149,49 @@ export default function VotesMap({
   // ************************************************
   // Layers on the Map
   // ************************************************
-  const layers = [];
-  if (colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteMargin" || colorApproach === "electionResultVoteShiftNormalized") {
-    let attributeForComparison = null;
-    switch (colorApproach) {
-      case "electionResultVoteShift":
-        attributeForComparison = "voteShiftDemocratic";
-        break;
-      case "electionResultVoteShiftNormalized":
-        attributeForComparison = "voteShiftDemocraticNormalized";
-        break;
-      default:
-        attributeForComparison = "marginDemocratic";
-        break;
-    }
-
-    const showSecondaryColor = false;
-    const circleOpacity = showSecondaryColor ? 255 : 128;
-
-    const layerDot = new ScatterplotLayer({
-      id: `scatter_${colorApproach}`,
-      data: dataPropsOnly,
-      pickable: false,
-      opacity: 1,
-      stroked: true,
-      filled: true,
-      radiusScale: 6,
-      radiusMinPixels: 1,
-      radiusMaxPixels: 10000,
-      lineWidthMinPixels: isCountyLevel ? 2 : 1,
-      getPosition: (f) => f.centroid,
-      getRadius: (f) =>
-        Math.sqrt(
-          Math.abs(
-            colorApproach === "electionResultVoteMargin"
-              ? f?.electionResultsCurrent
-                ? f?.electionResultsCurrent[attributeForComparison]
-                : 0
-              : f?.electionResultsComparison
-                ? f?.electionResultsComparison[attributeForComparison]
-                : 0,
-          ),
-        ) *
-        (isCountyLevel ? 4 : 1.5) *
-        (colorApproach === "electionResultVoteMargin" ? 1 : 2),
-      getFillColor: (f) =>
-        (colorApproach === "electionResultVoteMargin"
-          ? f?.electionResultsCurrent
-            ? f?.electionResultsCurrent[attributeForComparison]
-            : 0
-          : f?.electionResultsComparison
-            ? f?.electionResultsComparison[attributeForComparison]
-            : 0) < 0
-          ? [170, 57, 57, circleOpacity]
-          : [17, 62, 103, circleOpacity],
-      getLineColor: (f) =>
-        (colorApproach === "electionResultVoteMargin"
-          ? f?.electionResultsCurrent
-            ? f?.electionResultsCurrent[attributeForComparison]
-            : 0
-          : f?.electionResultsComparison
-            ? f?.electionResultsComparison[attributeForComparison]
-            : 0) < 0
-          ? [170, 57, 57, circleOpacity + 120]
-          : [17, 62, 103, circleOpacity + 120],
-      lineWidthPixels: isCountyLevel ? 5 : 1,
+  const layers = useMemo(() => {
+    return createMapLayers({
+      colorApproach,
+      elevationApproach,
+      currentZoomLevel,
+      dataGeoJSON,
+      dataPropsOnly,
+      updateActiveSelection,
+      elevationFunction,
+      colorFunction,
+      isCountyLevel,
     });
-
-    // if (dataGeoJSON && showSecondaryColor) {
-    //   const [secondaryScaleMin, secondaryScaleMax] = quantile(
-    //     [...locationResults.values()].map((datapoint) => datapoint?.demographics?.blackPer),
-    //     isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
-    //   );
-    //   const secondaryColorFunction = (f) => {
-    //     const value = normalizeZeroOne(f.properties?.demographics?.blackPer, secondaryScaleMin, secondaryScaleMax);
-    //     const color = d3ScaleChromatic.interpolateGreens(value);
-    //     return convertD3ColorToArray(color);
-    //   };
-    // }
-
-    const layerGEO = new GeoJsonLayer({
-      id: `geojson_${colorApproach}`,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [227, 197, 102],
-      data: dataGeoJSON,
-      opacity: showSecondaryColor ? 0.2 : 1,
-      stroked: true,
-      filled: true,
-      onClick: (info) => {
-        updateActiveSelection(info.object.properties.id);
-      },
-      getFillColor: showSecondaryColor ? colorFunction : [158, 158, 158, 0],
-      getLineColor: [40, 40, 40],
-      getLineWidth: 1,
-      lineWidthMinPixels: isCountyLevel ? 1 : 1,
-    });
-    layers.push(layerGEO);
-    layers.push(layerDot);
-  } else {
-    // only needed when using shadows - a plane for shadows to drop on
-    const layer = new GeoJsonLayer({
-      id: `geojson_${elevationApproach}_${colorApproach}_${currentZoomLevel}`,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [227, 197, 102],
-      data: dataGeoJSON,
-      opacity: 0.6,
-      stroked: true,
-      filled: true,
-      onClick: (info) => {
-        updateActiveSelection(info.object.properties.id);
-      },
-      extruded: true,
-      wireframe: true,
-      getElevation: elevationFunction,
-      getFillColor: colorFunction,
-      getLineColor: [0, 0, 0, 255],
-      lineWidthUnits: "pixels",
-      getLineWidth: 5,
-      lineWidthMinPixels: 5,
-      // material : {
-      //   ambient: 0.35,
-      //   diffuse: 0.6,
-      //   shininess: 32,
-      //   specularColor: [30, 30, 30]
-      // }
-    });
-    layers.push(layer);
-  }
+  }, [colorApproach, elevationApproach, currentZoomLevel, dataGeoJSON, dataPropsOnly, updateActiveSelection, elevationFunction, colorFunction, isCountyLevel]);
 
   const getTooltip = ({ object }) => {
     if (!object) {
       updateActiveHover(object);
       return;
     }
-    if (object.properties) updateActiveHover(object.properties.id);
+
+    if (object.properties) {
+      updateActiveHover(object.properties.id);
+    }
+
     const lookup = object.properties ? object.properties : object;
-    if (lookup[colorApproach] || lookup[elevationApproach])
-      return {
-        html: `\
-      <div>Color: ${
-        colorApproach === "electionResultVoteShift" ? numberFormat.format(lookup[colorApproach]) : numberFormatPercent.format(lookup[colorApproach])
-      }</div>
-      ${
-        elevationApproach !== "none" && lookup[elevationApproach]
-          ? `<div>Height: 
-        ${numberFormat.format(lookup[elevationApproach])}
-      </div>`
-          : "<span></span>"
-      }
-  `,
-      };
+    const hasColorData = lookup[colorApproach];
+    const hasElevationData = elevationApproach !== "none" && lookup[elevationApproach];
+
+    if (!hasColorData && !hasElevationData) {
+      return;
+    }
+
+    const formatColorValue = (value) => {
+      return colorApproach === "electionResultVoteShift" ? numberFormat.format(value) : numberFormatPercent.format(value);
+    };
+
+    const colorHtml = hasColorData ? `<div>Color: ${formatColorValue(lookup[colorApproach])}</div>` : "";
+
+    const elevationHtml = hasElevationData ? `<div>Height: ${numberFormat.format(lookup[elevationApproach])}</div>` : "";
+
+    return {
+      html: `${colorHtml}${elevationHtml}`,
+    };
   };
 
   // Show loading state
