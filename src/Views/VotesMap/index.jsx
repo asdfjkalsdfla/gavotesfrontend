@@ -1,6 +1,6 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Map, useControl } from "react-map-gl/maplibre";
+import { Map as MapGL, useControl } from "react-map-gl/maplibre";
 // import {
 //   LightingEffect,
 //   AmbientLight,
@@ -10,6 +10,7 @@ import { Map, useControl } from "react-map-gl/maplibre";
 import { MapboxOverlay } from "@deck.gl/mapbox";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useGeoJSON } from "../../hooks/useGeoJSON.js";
 import MapScale from "./MapScale.jsx";
 import { useMapPreference } from "./PreferenceContext.tsx";
 import { numberFormat, numberFormatPercent } from "../../Utils";
@@ -54,19 +55,8 @@ export default function VotesMap({
       ? "static/shapeFiles/GA_counties_simple.json"
       : "static/shapeFiles/GA_precincts_simple_2022.json";
 
-  const [dataGeoJSONBase, updateDataGeoJSONBase] = useState();
-  useEffect(() => {
-    const load = async () => {
-      const responseGeo = await fetch(`${import.meta.env.VITE_API_URL_BASE}${geoJSONFile}`);
-      if (!responseGeo.ok) {
-        console.log("ERROR loading GEO JSON file");
-        return;
-      }
-      const geoJSONBase = await responseGeo.json();
-      updateDataGeoJSONBase(geoJSONBase);
-    };
-    load();
-  }, [geoJSONFile]);
+  // Use React Query to fetch and cache GeoJSON data
+  const { data: dataGeoJSONBase, isLoading: isLoadingGeoJSON, error: geoJSONError } = useGeoJSON(geoJSONFile);
 
   const [dataGeoJSON, updateDataGeoJSON] = useState();
   const [dataPropsOnly, updateDataPropsOnly] = useState();
@@ -313,9 +303,28 @@ export default function VotesMap({
       };
   };
 
+  // Show loading state
+  if (isLoadingGeoJSON) {
+    return (
+      <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div>Loading map data...</div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (geoJSONError) {
+    const errorMessage = geoJSONError?.message || geoJSONError?.toString() || "Unknown error occurred";
+    return (
+      <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div>Error loading map data: {errorMessage}</div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
-      <Map
+      <MapGL
         initialViewState={INITIAL_VIEW_STATE}
         reuseMap
         mapStyle={mapStyle}
@@ -331,7 +340,7 @@ export default function VotesMap({
           <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
           {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
         </DeckGLOverlay>
-      </Map>
+      </MapGL>
     </div>
   );
 }
