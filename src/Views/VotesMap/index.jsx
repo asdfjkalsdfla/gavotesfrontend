@@ -12,10 +12,10 @@ import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 import { useGeoJSON } from "../../hooks/useGeoJSON.js";
 import MapScale from "./MapScale.jsx";
 import { useMapPreference } from "./PreferenceContext.tsx";
-import { numberFormat, numberFormatPercent } from "../../Utils";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 import { createElevationFunction, createColorFunction, processGeoJSONData, extractSimpleData } from "./mapUtils.js";
 import { createMapLayers } from "./layerUtils.js";
+import { createMapTooltip } from "./tooltipUtils.js";
 
 function DeckGLOverlay(props) {
   const overlay = useControl(() => new MapboxOverlay(props));
@@ -164,34 +164,12 @@ export default function VotesMap({
   }, [colorApproach, elevationApproach, currentZoomLevel, dataGeoJSON, dataPropsOnly, updateActiveSelection, elevationFunction, colorFunction, isCountyLevel]);
 
   const getTooltip = ({ object }) => {
-    if (!object) {
-      updateActiveHover(object);
-      return;
-    }
-
-    if (object.properties) {
-      updateActiveHover(object.properties.id);
-    }
-
-    const lookup = object.properties ? object.properties : object;
-    const hasColorData = lookup[colorApproach];
-    const hasElevationData = elevationApproach !== "none" && lookup[elevationApproach];
-
-    if (!hasColorData && !hasElevationData) {
-      return;
-    }
-
-    const formatColorValue = (value) => {
-      return colorApproach === "electionResultVoteShift" ? numberFormat.format(value) : numberFormatPercent.format(value);
-    };
-
-    const colorHtml = hasColorData ? `<div>Color: ${formatColorValue(lookup[colorApproach])}</div>` : "";
-
-    const elevationHtml = hasElevationData ? `<div>Height: ${numberFormat.format(lookup[elevationApproach])}</div>` : "";
-
-    return {
-      html: `${colorHtml}${elevationHtml}`,
-    };
+    return createMapTooltip({
+      object,
+      colorApproach,
+      elevationApproach,
+      updateActiveHover,
+    });
   };
 
   // Show loading state
