@@ -11,11 +11,7 @@ const LAYER_STYLES = {
 };
 
 // Election result color approaches that use scatter plot visualization
-const SCATTER_PLOT_APPROACHES = [
-  "electionResultVoteShift",
-  "electionResultVoteMargin", 
-  "electionResultVoteShiftNormalized"
-];
+const SCATTER_PLOT_APPROACHES = ["electionResultVoteShift", "electionResultVoteMargin", "electionResultVoteShiftNormalized"];
 
 // Attribute mapping for different color approaches
 const ATTRIBUTE_MAPPING = {
@@ -27,15 +23,10 @@ const ATTRIBUTE_MAPPING = {
 /**
  * Creates a scatter plot layer for election result visualizations
  */
-export const createScatterPlotLayer = ({
-  colorApproach,
-  dataPropsOnly,
-  isCountyLevel,
-  circleOpacity = 128
-}) => {
+export const createScatterPlotLayer = ({ colorApproach, dataPropsOnly, isCountyLevel, circleOpacity = 128 }) => {
   const attributeForComparison = ATTRIBUTE_MAPPING[colorApproach];
   const isVoteMargin = colorApproach === "electionResultVoteMargin";
-  
+
   const getValue = (f) => {
     if (isVoteMargin) {
       return f?.electionResultsCurrent?.[attributeForComparison] || 0;
@@ -44,15 +35,11 @@ export const createScatterPlotLayer = ({
   };
 
   const getColor = (value) => {
-    return value < 0 
-      ? [...LAYER_STYLES.REPUBLICAN_COLOR, circleOpacity]
-      : [...LAYER_STYLES.DEMOCRATIC_COLOR, circleOpacity];
+    return value < 0 ? [...LAYER_STYLES.REPUBLICAN_COLOR, circleOpacity] : [...LAYER_STYLES.DEMOCRATIC_COLOR, circleOpacity];
   };
 
   const getLineColor = (value) => {
-    return value < 0 
-      ? [...LAYER_STYLES.REPUBLICAN_COLOR, circleOpacity + 120]
-      : [...LAYER_STYLES.DEMOCRATIC_COLOR, circleOpacity + 120];
+    return value < 0 ? [...LAYER_STYLES.REPUBLICAN_COLOR, circleOpacity + 120] : [...LAYER_STYLES.DEMOCRATIC_COLOR, circleOpacity + 120];
   };
 
   return new ScatterplotLayer({
@@ -89,7 +76,7 @@ export const createElectionResultGeoLayer = ({
   updateActiveSelection,
   showSecondaryColor = false,
   colorFunction,
-  isCountyLevel
+  isCountyLevel,
 }) => {
   return new GeoJsonLayer({
     id: `geojson_${colorApproach}`,
@@ -121,7 +108,6 @@ export const createStandardGeoLayer = ({
   updateActiveSelection,
   elevationFunction,
   colorFunction,
-  isCountyLevel
 }) => {
   return new GeoJsonLayer({
     id: `geojson_${elevationApproach}_${colorApproach}_${currentZoomLevel}`,
@@ -165,7 +151,7 @@ export const createMapLayers = ({
   updateActiveSelection,
   elevationFunction,
   colorFunction,
-  isCountyLevel
+  isCountyLevel,
 }) => {
   const layers = [];
 
@@ -174,7 +160,7 @@ export const createMapLayers = ({
     const scatterLayer = createScatterPlotLayer({
       colorApproach,
       dataPropsOnly,
-      isCountyLevel
+      isCountyLevel,
     });
 
     const geoLayer = createElectionResultGeoLayer({
@@ -182,7 +168,7 @@ export const createMapLayers = ({
       dataGeoJSON,
       updateActiveSelection,
       colorFunction,
-      isCountyLevel
+      isCountyLevel,
     });
 
     layers.push(geoLayer, scatterLayer);
@@ -196,11 +182,11 @@ export const createMapLayers = ({
       updateActiveSelection,
       elevationFunction,
       colorFunction,
-      isCountyLevel
+      isCountyLevel,
     });
 
     layers.push(standardLayer);
   }
 
   return layers;
-}; 
+};

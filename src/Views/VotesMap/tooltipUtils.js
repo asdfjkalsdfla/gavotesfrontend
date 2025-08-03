@@ -64,4 +64,4 @@ export const shouldShowTooltip = (object, colorApproach, elevationApproach) => {
  */
 export const formatTooltipValue = (value, colorApproach) => {
   return colorApproach === "electionResultVoteShift" ? numberFormat.format(value) : numberFormatPercent.format(value);
-}; 
+};
