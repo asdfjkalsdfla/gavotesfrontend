@@ -32,11 +32,13 @@
     "react-csv": "^2.2.2",
     "react-dom": "^19.1.1",
     "react-map-gl": "^8.0.4",
-    "react-router-dom": "^7.9.1",
+    "@tanstack/react-router": "^1.87.1",
+    "@tanstack/router-devtools": "^1.87.1",
     "recharts": "^3.2.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "temporal-polyfill": "^0.3.0"
+    "temporal-polyfill": "^0.3.0",
+    "zod": "^3.24.1"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/assets/*.js'",
@@ -56,6 +58,7 @@
     "@types/node": "^22.18.3",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@tanstack/router-cli": "^1.87.1",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "@vitejs/plugin-basic-ssl": "^2.1.0",

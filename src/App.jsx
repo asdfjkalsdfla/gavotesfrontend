@@ -1,23 +1,19 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import VotesRoot from "./VotesRoot.jsx";
+import { router } from "./routes.tsx";
 
 import "./App.css";
 
-const PrecinctsResultToShapeMatch = React.lazy(() => import("./PrecinctsResultToShapeMatch.jsx"));
-// import PrecinctsResultToShapeMatch from "./PrecinctsResultToShapeMatch";
-
-const router = createBrowserRouter([
-  {
-    path: "/precincts/match",
-    element: <PrecinctsResultToShapeMatch />,
-  },
-  {
-    path: "/",
-    element: <VotesRoot />,
-  },
-]);
+// Import dev tools conditionally
+const TanStackRouterDevtools =
+  process.env.NODE_ENV === "production"
+    ? () => null
+    : React.lazy(() =>
+        import("@tanstack/router-devtools").then((res) => ({
+          default: res.TanStackRouterDevtools,
+        })),
+      );
 
 // Create a client
 const queryClient = new QueryClient({
@@ -33,6 +29,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <React.Suspense>
+        <TanStackRouterDevtools router={router} />
+      </React.Suspense>
     </QueryClientProvider>
   );
 }

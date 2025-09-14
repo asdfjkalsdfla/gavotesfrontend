@@ -1,4 +1,5 @@
 import React, { useState, lazy, Suspense } from "react";
+import { useSearch } from "@tanstack/react-router";
 import { ElectionSelectionContextProvider } from "./context/ElectionSelectionContext.tsx";
 import { ElectionDataProvider } from "./context/ElectionDataProvider.jsx";
 import { MapsPreferenceContextProvider } from "./Views/VotesMap/PreferenceContext.tsx";
@@ -23,32 +24,29 @@ const VotesTable = lazy(() => import("./Views/VotesTable/index.jsx"));
 // ************************************************
 // Pull the initial values from the URL params
 // ************************************************
-const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-
-// What data to show
-const countyParam = params.get("CTYNAME");
-const levelParam = params.get("level");
-const isCountyLevelInitial = levelParam ? levelParam === "county" : !countyParam;
-
-// only show welcome when it's not been shown before
-const welcomeMessageShown = localStorage.getItem("welcomeShown");
-const hideWelcomeParam = params.get("hideWelcome");
-const showWelcomeOnLoad = !(hideWelcomeParam === "true" || welcomeMessageShown);
-
-// hide the options parameter?
-const hideOptionsParam = params.get("hideOptions");
-const showOptionsOnLoad = hideOptionsParam !== "true";
-
-// scatter plot
-const scatterParam = params.get("scatter");
-let displayModeInitial = scatterParam ? "scatter" : "map";
-
-const displayModeParam = params.get("displayMode");
-if (displayModeParam) displayModeInitial = displayModeParam;
-
-// TODO - move the parameter keeping to the context API
 export default function VotesRoot() {
+  const search = useSearch({ from: "/" });
+
+  // Extract search params
+  const countyParam = search?.CTYNAME;
+  const levelParam = search?.level;
+  const isCountyLevelInitial = levelParam ? levelParam === "county" : !countyParam;
+
+  // only show welcome when it's not been shown before
+  const welcomeMessageShown = localStorage.getItem("welcomeShown");
+  const hideWelcomeParam = search?.hideWelcome;
+  const showWelcomeOnLoad = !(hideWelcomeParam === "true" || welcomeMessageShown);
+
+  // hide the options parameter?
+  const hideOptionsParam = search?.hideOptions;
+  const showOptionsOnLoad = hideOptionsParam !== "true";
+
+  // scatter plot
+  const scatterParam = search?.scatter;
+  let displayModeInitial = scatterParam ? "scatter" : "map";
+
+  const displayModeParam = search?.displayMode;
+  if (displayModeParam) displayModeInitial = displayModeParam;
   // ************************************************
   // Determine the Data To Show
   // ************************************************
@@ -83,7 +81,7 @@ export default function VotesRoot() {
           <div className="flex lg:flex-1">
             <span className="headerLogoArea">
               <span className="pr-3">
-                <img src="peach.webp" height="20px" width="20px" />
+                <img src="peach.webp" height="20px" width="20px" alt="Georgia peach logo" />
               </span>
               Georgia Votes <span className="uppercase font-bold">Visual</span>
             </span>

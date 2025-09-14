@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
+import { useSearch } from "@tanstack/react-router";
 
 interface ElectionSelection {
   absenteeElectionBaseID: string;
@@ -11,17 +12,6 @@ interface ElectionSelection {
   updateResultsElectionRacePerviousID: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// ************************************************
-// Pull the initial values from the URL params
-// ************************************************
-const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-// races
-const resultsElectionRaceCurrentIDParam: string | null = params.get("resultsElectionRaceCurrentID");
-const resultsElectionRaceCurrentIDInitial: string = resultsElectionRaceCurrentIDParam || "2024_general||President";
-const resultsElectionRacePerviousIDParam: string | null = params.get("resultsElectionRacePerviousID");
-const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
-
 export const ElectionSelectionContext = createContext<ElectionSelection | null>(null);
 
 interface IProps {
@@ -29,6 +19,17 @@ interface IProps {
 }
 
 export function ElectionSelectionContextProvider({ children }: IProps): React.ReactNode {
+  const search = useSearch({ from: "/" });
+
+  // ************************************************
+  // Pull the initial values from the URL params
+  // ************************************************
+  // races
+  const resultsElectionRaceCurrentIDParam: string | undefined = search?.resultsElectionRaceCurrentID;
+  const resultsElectionRaceCurrentIDInitial: string = resultsElectionRaceCurrentIDParam || "2024_general||President";
+  const resultsElectionRacePerviousIDParam: string | undefined = search?.resultsElectionRacePerviousID;
+  const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
+
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>("2024_general");
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState<string>(resultsElectionRaceCurrentIDInitial);

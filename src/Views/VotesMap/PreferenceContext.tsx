@@ -1,15 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-
-const url = new URL(window.location.href);
-const params = new URLSearchParams(url.search);
-
-// elevation approach
-const elevationApproachParam = params.get("elevationApproach");
-const elevationApproachInitial = elevationApproachParam || "none";
-
-// color approach
-const colorApproachParam = params.get("colorApproach");
-const colorApproachInitial = colorApproachParam || "electionResultPerRepublicanPer";
+import { useSearch } from "@tanstack/react-router";
 
 interface IMapPreferenceContext {
   elevationApproach: string;
@@ -25,6 +15,16 @@ interface IProps {
 }
 
 export function MapsPreferenceContextProvider({ children }: IProps): React.ReactNode {
+  const search = useSearch({ from: "/" });
+
+  // elevation approach
+  const elevationApproachParam = search?.elevationApproach;
+  const elevationApproachInitial = elevationApproachParam || "none";
+
+  // color approach
+  const colorApproachParam = search?.colorApproach;
+  const colorApproachInitial = colorApproachParam || "electionResultPerRepublicanPer";
+
   const [elevationApproach, updateElevationApproach] = useState(elevationApproachInitial);
   const [colorApproach, updateColorApproach] = useState(colorApproachInitial);
 
