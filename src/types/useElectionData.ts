@@ -1,3 +1,9 @@
+import type AbsenteeBallots from "../Models/AbsenteeBallots";
+import type AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
+import type ElectionResult from "../Models/ElectionResult";
+import type ElectionResultComparison from "../Models/ElectionResultComparison";
+import type Demographics from "../Models/Demographics";
+
 export interface ElectionInfo {
   name?: string;
   election?: {
@@ -27,15 +33,15 @@ export interface ElectionDataEntry {
   id: string;
   CTYNAME: string;
   PRECINCT_N?: string;
-  absenteeCurrent?: unknown;
-  absenteeBase?: unknown;
-  electionResultsAllCurrent?: unknown[];
-  electionResultsCurrent?: unknown;
-  electionResultsAllBase?: unknown[];
-  electionResultsBase?: unknown;
-  electionResultsComparison?: unknown;
-  absenteeBallotComparison?: unknown;
-  demographics?: unknown;
+  absenteeCurrent?: AbsenteeBallots;
+  absenteeBase?: AbsenteeBallots;
+  electionResultsAllCurrent?: ElectionResult[];
+  electionResultsCurrent?: ElectionResult;
+  electionResultsAllBase?: ElectionResult[];
+  electionResultsBase?: ElectionResult;
+  electionResultsComparison?: ElectionResultComparison;
+  absenteeBallotComparison?: AbsenteeBallotsComparison | null;
+  demographics?: Demographics;
 }
 
 export interface UseElectionDataReturn {

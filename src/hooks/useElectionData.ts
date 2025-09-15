@@ -7,6 +7,20 @@ import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
 import Demographics from "../Models/Demographics";
 import type { ElectionInfo, RaceInfo, UseElectionDataReturn, ElectionDataEntry } from "../types/useElectionData";
 
+// Raw data interfaces for API responses
+interface RawDataRow {
+  county: string;
+  precinct?: string;
+  id?: string;
+  races?: RawElectionData[];
+  [key: string]: unknown;
+}
+
+interface RawElectionData {
+  race: string;
+  [key: string]: unknown;
+}
+
 // Helper function to build API URLs
 const buildApiUrl = (category: string, prefix: string, name: string | undefined, level: string): string | null => {
   if (!name) return null;
@@ -82,72 +96,72 @@ export const useElectionData = (
 
     const combinedElectionData = new Map<string, ElectionDataEntry>();
 
-    const filterResultAndAddToCombinedData = (dataJSON: unknown, callback: (electionDataForRow: ElectionDataEntry, row: unknown) => void): void => {
+    const filterResultAndAddToCombinedData = (dataJSON: unknown, callback: (electionDataForRow: ElectionDataEntry, row: RawDataRow) => void): void => {
       if (!dataJSON || !Array.isArray(dataJSON)) {
         console.warn("Skipping data processing due to missing or invalid dataJSON.");
         return;
       }
       dataJSON
-        .filter((row: unknown) => (row as any).county !== "FAKECOUNTY")
+        .filter((row: unknown) => (row as RawDataRow).county !== "FAKECOUNTY")
         .forEach((row: unknown) => {
-          const rowData = row as any;
+          const rowData = row as RawDataRow;
           const id = isCountyLevel ? rowData.county : `${rowData.county}##${rowData.precinct}`;
           const electionDataForRow = combinedElectionData.get(id) || { id, CTYNAME: rowData.county, PRECINCT_N: rowData.precinct };
-          callback(electionDataForRow, row);
+          callback(electionDataForRow, rowData);
           combinedElectionData.set(id, electionDataForRow);
         });
     };
 
-    filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow: ElectionDataEntry, row: unknown) => {
-      electionDataForRow.absenteeCurrent = new AbsenteeBallots(row);
+    filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow: ElectionDataEntry, row: RawDataRow) => {
+      electionDataForRow.absenteeCurrent = new AbsenteeBallots(row as Record<string, unknown>);
     });
 
-    filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow: ElectionDataEntry, row: unknown) => {
-      electionDataForRow.absenteeBase = new AbsenteeBallots(row);
+    filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow: ElectionDataEntry, row: RawDataRow) => {
+      electionDataForRow.absenteeBase = new AbsenteeBallots(row as Record<string, unknown>);
     });
 
     let rdStateVotesTotalCurrent = 0;
     if (resultsElectionRaceCurrent) {
       filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
-        const rowData = row as any;
-        electionDataForRow.electionResultsAllCurrent = rowData.races.map((race: unknown) => new ElectionResult(race));
+        electionDataForRow.electionResultsAllCurrent = row.races?.map((race: RawElectionData) => new ElectionResult(race as Record<string, unknown>));
         electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find(
-          (election: unknown) => (election as any).race === resultsElectionRaceCurrent.name,
+          (election: ElectionResult) => (election as unknown as RawElectionData).race === resultsElectionRaceCurrent.name,
         );
-        rdStateVotesTotalCurrent += (electionDataForRow?.electionResultsCurrent as any)?.totalVotesRD || 0;
+        rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
       });
     }
 
     let rdStateVotesTotalBase = 0;
     if (electionResultBaseJSON && resultsElectionRacePervious) {
       filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
-        const rowData = row as any;
-        electionDataForRow.electionResultsAllBase = rowData.races.map((race: unknown) => new ElectionResult(race));
+        electionDataForRow.electionResultsAllBase = row.races?.map((race: RawElectionData) => new ElectionResult(race as Record<string, unknown>));
         electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find(
-          (election: unknown) => (election as any).race === resultsElectionRacePervious.name,
+          (election: ElectionResult) => (election as unknown as RawElectionData).race === resultsElectionRacePervious.name,
         );
-        rdStateVotesTotalBase += (electionDataForRow?.electionResultsBase as any)?.totalVotesRD || 0;
+        rdStateVotesTotalBase += electionDataForRow?.electionResultsBase?.totalVotesRD || 0;
       });
     }
 
     const scaleFactor = rdStateVotesTotalBase !== 0 && rdStateVotesTotalCurrent !== 0 ? rdStateVotesTotalCurrent / rdStateVotesTotalBase : 1;
 
     [...combinedElectionData.values()].forEach((result) => {
-      result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
+      if (result.electionResultsCurrent && result.electionResultsBase) {
+        result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
+      }
       result.absenteeBallotComparison =
         result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
     });
 
     if (demographicsJSON && Array.isArray(demographicsJSON)) {
       demographicsJSON.forEach((row: unknown) => {
-        const rowData = row as any;
+        const rowData = row as RawDataRow;
         const id = rowData.id; // Use 'id' from demographics data as the key
         if (!id) {
           console.warn("Skipping demographics row due to missing id:", row);
           return;
         }
         const properties = combinedElectionData.get(id) || { id, CTYNAME: rowData.county, PRECINCT_N: rowData.precinct };
-        (properties as any).demographics = new Demographics(row);
+        properties.demographics = new Demographics(row as Record<string, unknown>);
         combinedElectionData.set(id, properties);
       });
     } else {

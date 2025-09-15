@@ -1,25 +1,31 @@
+import type ElectionResult from "./ElectionResult.ts";
+
 export default class ElectionResultComparison {
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
-  #voteShiftRepublican;
-  #voteShiftDemocratic;
-  #voteShiftRepublicanNormalized;
-  #voteShiftDemocraticNormalized;
-  #perShiftRepublican;
-  #perShiftDemocratic;
-  #totalVotesPercent;
-  #totalVotesRDPercent;
-  #totalVotesRepublicanPercent;
-  #totalVotesDemocraticPercent;
-  #perShiftRepublicanEarly;
+  #voteShiftRepublican: number | undefined;
+  #voteShiftDemocratic: number | undefined;
+  #voteShiftRepublicanNormalized: number | undefined;
+  #voteShiftDemocraticNormalized: number | undefined;
+  #perShiftRepublican: number | undefined;
+  #perShiftDemocratic: number | undefined;
+  #totalVotesPercent: number | undefined;
+  #totalVotesRDPercent: number | undefined;
+  #totalVotesRepublicanPercent: number | undefined;
+  #totalVotesDemocraticPercent: number | undefined;
+  #perShiftRepublicanEarly: number | undefined;
 
-  constructor(baseElection, previousElection, statewideTurnoutFactor) {
+  baseElection: ElectionResult;
+  previousElection: ElectionResult;
+  statewideTurnoutFactor: number;
+
+  constructor(baseElection: ElectionResult, previousElection: ElectionResult, statewideTurnoutFactor: number) {
     this.baseElection = baseElection;
     this.previousElection = previousElection;
     this.statewideTurnoutFactor = statewideTurnoutFactor;
   }
 
   // # of votes gained by republican
-  get voteShiftRepublican() {
+  get voteShiftRepublican(): number {
     if (this.#voteShiftRepublican) return this.#voteShiftRepublican;
     const value = this.baseElection?.marginRepublican - this.previousElection?.marginRepublican;
     this.#voteShiftRepublican = value;
@@ -27,7 +33,7 @@ export default class ElectionResultComparison {
   }
 
   // # of votes gained by democrats
-  get voteShiftDemocratic() {
+  get voteShiftDemocratic(): number {
     if (this.#voteShiftDemocratic) return this.#voteShiftDemocratic;
     const value = -1 * this.voteShiftRepublican;
     this.#voteShiftDemocratic = value;
@@ -36,7 +42,7 @@ export default class ElectionResultComparison {
 
   // normalized # of votes gained by republican
   // adjusts for differences in the statewide R/D turnout
-  get voteShiftRepublicanNormalized() {
+  get voteShiftRepublicanNormalized(): number {
     if (this.#voteShiftRepublicanNormalized) return this.#voteShiftRepublicanNormalized;
     const value = this.baseElection?.marginRepublican - this.statewideTurnoutFactor * this.previousElection?.marginRepublican;
     this.#voteShiftRepublicanNormalized = value;
@@ -45,7 +51,7 @@ export default class ElectionResultComparison {
 
   // normalized # of votes gained by democrats
   // adjusts for differences in the statewide R/D turnout
-  get voteShiftDemocraticNormalized() {
+  get voteShiftDemocraticNormalized(): number {
     if (this.#voteShiftDemocraticNormalized) return this.#voteShiftDemocraticNormalized;
     const value = -1 * this.voteShiftRepublicanNormalized;
     this.#voteShiftDemocraticNormalized = value;
@@ -53,57 +59,71 @@ export default class ElectionResultComparison {
   }
 
   // % shift to republicans
-  get perShiftRepublican() {
+  get perShiftRepublican(): number | undefined {
     if (this.#perShiftRepublican) return this.#perShiftRepublican;
-    const value = this.baseElection?.marginPerRepublican - this.previousElection?.marginPerRepublican;
+    const baseValue = this.baseElection?.marginPerRepublican;
+    const previousValue = this.previousElection?.marginPerRepublican;
+    const value = baseValue !== undefined && previousValue !== undefined ? baseValue - previousValue : undefined;
     this.#perShiftRepublican = value;
     return value;
   }
 
   // % shift to democrats
-  get perShiftDemocratic() {
+  get perShiftDemocratic(): number | undefined {
     if (this.#perShiftDemocratic) return this.#perShiftDemocratic;
-    const value = this.baseElection?.marginPerPerDemocratic - this.previousElection?.marginPerPerDemocratic;
+    const baseValue = this.baseElection?.marginPerPerDemocratic;
+    const previousValue = this.previousElection?.marginPerPerDemocratic;
+    const value = baseValue !== undefined && previousValue !== undefined ? baseValue - previousValue : undefined;
     this.#perShiftDemocratic = value;
     return value;
   }
 
   // % change in total votes
-  get totalVotesPercent() {
+  get totalVotesPercent(): number | undefined {
     if (this.#totalVotesPercent) return this.#totalVotesPercent;
-    const value = this.baseElection?.totalVotes / this.previousElection?.totalVotes;
+    const baseValue = this.baseElection?.totalVotes;
+    const previousValue = this.previousElection?.totalVotes;
+    const value = baseValue !== undefined && previousValue !== undefined && previousValue > 0 ? baseValue / previousValue : undefined;
     this.#totalVotesPercent = value;
     return value;
   }
 
   // % change in total R/D votes
-  get totalVotesRDPercent() {
+  get totalVotesRDPercent(): number | undefined {
     if (this.#totalVotesRDPercent) return this.#totalVotesRDPercent;
-    const value = this.baseElection?.totalVotesRD / this.previousElection?.totalVotesRD;
+    const baseValue = this.baseElection?.totalVotesRD;
+    const previousValue = this.previousElection?.totalVotesRD;
+    const value = baseValue !== undefined && previousValue !== undefined && previousValue > 0 ? baseValue / previousValue : undefined;
     this.#totalVotesRDPercent = value;
     return value;
   }
 
   // % change in republican votes
-  get totalVotesRepublicanPercent() {
+  get totalVotesRepublicanPercent(): number | undefined {
     if (this.#totalVotesRepublicanPercent) return this.#totalVotesRepublicanPercent;
-    const value = this.baseElection?.republican / this.previousElection?.republican;
+    const baseValue = this.baseElection?.republican;
+    const previousValue = this.previousElection?.republican;
+    const value = baseValue !== undefined && previousValue !== undefined && previousValue > 0 ? baseValue / previousValue : undefined;
     this.#totalVotesRepublicanPercent = value;
     return value;
   }
 
   // % change in democratic votes
-  get totalVotesDemocraticPercent() {
+  get totalVotesDemocraticPercent(): number | undefined {
     if (this.#totalVotesDemocraticPercent) return this.#totalVotesDemocraticPercent;
-    const value = this.baseElection?.democratic / this.previousElection?.democratic;
+    const baseValue = this.baseElection?.democratic;
+    const previousValue = this.previousElection?.democratic;
+    const value = baseValue !== undefined && previousValue !== undefined && previousValue > 0 ? baseValue / previousValue : undefined;
     this.#totalVotesDemocraticPercent = value;
     return value;
   }
 
   // % shift to republicans
-  get perShiftRepublicanEarly() {
+  get perShiftRepublicanEarly(): number | undefined {
     if (this.#perShiftRepublicanEarly) return this.#perShiftRepublicanEarly;
-    const value = this.baseElection?.marginEarlyPerRepublican - this.previousElection?.marginEarlyPerRepublican;
+    const baseValue = this.baseElection?.marginEarlyPerRepublican;
+    const previousValue = this.previousElection?.marginEarlyPerRepublican;
+    const value = baseValue !== undefined && previousValue !== undefined ? baseValue - previousValue : undefined;
     this.#perShiftRepublicanEarly = value;
     return value;
   }
