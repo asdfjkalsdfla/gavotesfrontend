@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useSearch } from "@tanstack/react-router";
 import { ElectionSelectionContextProvider } from "./context/ElectionSelectionContext.tsx";
 import { ElectionDataProvider } from "./context/ElectionDataProvider.tsx";
@@ -10,6 +10,7 @@ import ErrorBoundary from "./ErrorBoundary.tsx";
 import Navigation from "./Navigation.tsx";
 import WelcomeText from "./WelcomeText.tsx";
 import VoteMapOptions from "./Views/VoteMapOptions.tsx";
+import { DisplayType, VotesRootSearchParams } from "./types/VotesRoot";
 import "./VotesRoot.css";
 
 // import VotesMap from "./VotesMap.jsx";
@@ -59,8 +60,8 @@ export default function VotesRoot() {
   const [activeHover, updateActiveHover] = useState(null);
   const [activeSelection, updateActiveSelectionState] = useState(countyFilter);
 
-  const updateActiveSelection = (activeSelection) => {
-    updateActiveSelectionState(activeSelection);
+  const updateActiveSelection = (activeSelection: string | null | undefined) => {
+    updateActiveSelectionState(activeSelection || undefined);
     const elementRegionSummary = document.getElementById("regionSummaryName");
     if (elementRegionSummary) elementRegionSummary.scrollIntoView(true);
   };
@@ -111,6 +112,7 @@ export default function VotesRoot() {
                             updateActiveHover={updateActiveHover}
                             userHasSetLevel={userHasSetLevel}
                             updateIsCountyLevel={updateIsCountyLevel}
+                            initialZoom={8}
                           />
                         )}
                         {displayType === "table" && (

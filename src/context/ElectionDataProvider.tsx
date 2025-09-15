@@ -1,14 +1,41 @@
-import React, { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 import { useElectionSelection } from "./ElectionSelectionContext.tsx";
-import { useElectionData as useElectionDataQuery } from "../hooks/useElectionData.js";
+import { useElectionData as useElectionDataQuery } from "../hooks/useElectionData";
+import type { ElectionInfo, RaceInfo, ElectionDataEntry } from "../types/useElectionData";
 
 import elections from "../elections.json";
 
-export const ElectionDataContext = createContext(null);
+interface ElectionDataContextType {
+  currentAbsenteeElection: ElectionInfo | undefined;
+  baseAbsenteeElection: ElectionInfo | undefined;
+  currentElectionRace: RaceInfo | undefined;
+  previousElectionRace: RaceInfo | undefined;
+  elections: unknown;
+  statewideResults: ElectionDataEntry | Record<string, never>;
+  locationResults: Map<string, ElectionDataEntry>;
+  countyResults: Map<string, ElectionDataEntry>;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+}
 
-export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) {
-  const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = useElectionSelection();
+interface ElectionDataProviderProps {
+  isCountyLevel: boolean;
+  countyFilter: string | undefined;
+  children: React.ReactNode;
+}
+
+export const ElectionDataContext = createContext<ElectionDataContextType | null>(null);
+
+export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: ElectionDataProviderProps): React.JSX.Element {
+  const electionSelection = useElectionSelection();
+  
+  if (!electionSelection) {
+    throw new Error("ElectionDataProvider must be used within ElectionSelectionContextProvider");
+  }
+  
+  const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = electionSelection;
   const absenteeElectionCurrent = useMemo(() => convertElectionIDToObject(absenteeElectionCurrentID), [absenteeElectionCurrentID]);
   const absenteeElectionBase = useMemo(() => convertElectionIDToObject(absenteeElectionBaseID), [absenteeElectionBaseID]);
   const resultsElectionRaceCurrent = useMemo(() => convertElectionRaceIDToObject(resultsElectionRaceCurrentID), [resultsElectionRaceCurrentID]);
@@ -97,13 +124,13 @@ export function useElectionData() {
   return useContext(ElectionDataContext);
 }
 
-const findElectionByName = (electionID) => {
+const findElectionByName = (electionID: string | undefined): ElectionInfo | undefined => {
   if (!electionID) return undefined;
-  const electionMatches = elections.filter((election) => election.name === electionID);
+  const electionMatches = elections.filter((election: unknown) => (election as any).name === electionID);
   return electionMatches.length === 1 ? electionMatches[0] : undefined;
 };
 
-const convertElectionRaceIDToObject = (electionRaceID) => {
+const convertElectionRaceIDToObject = (electionRaceID: string | undefined): RaceInfo | undefined => {
   if (!electionRaceID || !electionRaceID.includes("||")) return undefined;
   const [electionID, raceID] = electionRaceID.split("||");
   if (!electionID || !raceID) return undefined;
@@ -111,14 +138,16 @@ const convertElectionRaceIDToObject = (electionRaceID) => {
   const election = findElectionByName(electionID);
   if (!election) return undefined;
 
-  const raceMatches = election.races.filter((race) => race.name === raceID);
+  const raceMatches = (election as unknown as { races: unknown[] }).races.filter((race: unknown) => (race as any).name === raceID);
   if (raceMatches.length !== 1) return undefined;
 
   const race = raceMatches[0];
-  race.election = election;
-  return race;
+  return {
+    ...(race as RaceInfo),
+    election: election as unknown as { name: string },
+  };
 };
 
-const convertElectionIDToObject = (electionID) => {
+const convertElectionIDToObject = (electionID: string | undefined): ElectionInfo | undefined => {
   return findElectionByName(electionID);
 };

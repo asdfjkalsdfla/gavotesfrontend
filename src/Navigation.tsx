@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import {
   SlidersHorizontal as SettingOutlined,
@@ -9,10 +9,16 @@ import {
 } from "lucide-react";
 import "./Navigation.css";
 
-export default function Navigation({ updateDisplayType, updateShowOptions, showOptions }) {
+interface NavigationProps {
+  updateDisplayType: (displayType: string) => void;
+  updateShowOptions: (showOptions: boolean) => void;
+  showOptions: boolean;
+}
+
+export default function Navigation({ updateDisplayType, updateShowOptions, showOptions }: NavigationProps): React.JSX.Element {
   const [showMenuOnMobile, updateShowMenu] = useState(false);
 
-  const toggleMenuShown = () => {
+  const toggleMenuShown = (): void => {
     updateShowMenu(!showMenuOnMobile);
   };
 
@@ -37,7 +43,7 @@ export default function Navigation({ updateDisplayType, updateShowOptions, showO
   );
 }
 
-function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
+function NavMenu({ updateDisplayType, updateShowOptions, showOptions }: NavigationProps): React.JSX.Element {
   return (
     <div className="navigationMenu">
       <ul>

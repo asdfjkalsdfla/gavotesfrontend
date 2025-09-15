@@ -5,15 +5,16 @@ import ElectionResultComparison from "../Models/ElectionResultComparison";
 import AbsenteeBallots from "../Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
 import Demographics from "../Models/Demographics";
+import type { ElectionInfo, RaceInfo, UseElectionDataReturn, ElectionDataEntry } from "../types/useElectionData";
 
 // Helper function to build API URLs
-const buildApiUrl = (category, prefix, name, level) => {
+const buildApiUrl = (category: string, prefix: string, name: string | undefined, level: string): string | null => {
   if (!name) return null;
   return `${import.meta.env.VITE_API_URL_BASE}static/${category}/${prefix}-${name}-${level}.json`;
 };
 
 // Helper function to fetch data with error handling
-const fetchData = async (url, description) => {
+const fetchData = async (url: string, description: string): Promise<unknown> => {
   if (!url) return null;
 
   const response = await fetch(url);
@@ -25,10 +26,10 @@ const fetchData = async (url, description) => {
 };
 
 // Custom hook for fetching a single data file
-const useDataFile = (url, description, enabled = true) => {
+const useDataFile = (url: string | null, description: string, enabled = true) => {
   return useQuery({
     queryKey: ["dataFile", url],
-    queryFn: () => fetchData(url, description),
+    queryFn: () => (url ? fetchData(url, description) : null),
     enabled: enabled && !!url,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
@@ -37,13 +38,13 @@ const useDataFile = (url, description, enabled = true) => {
 
 // Custom hook for fetching and combining election data
 export const useElectionData = (
-  absenteeElectionCurrent,
-  absenteeElectionBase,
-  resultsElectionRaceCurrent,
-  resultsElectionRacePervious,
-  level,
-  isCountyLevel,
-) => {
+  absenteeElectionCurrent: ElectionInfo | null | undefined,
+  absenteeElectionBase: ElectionInfo | null | undefined,
+  resultsElectionRaceCurrent: RaceInfo | null | undefined,
+  resultsElectionRacePervious: RaceInfo | null | undefined,
+  level: string,
+  isCountyLevel: boolean,
+): UseElectionDataReturn => {
   const absenteeCurrentFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionCurrent?.name, level);
   const absenteeBaseFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionBase?.name, level);
   const electionResultsCurrentFileLocation = buildApiUrl("electionResults", "electionResultsSummary", resultsElectionRaceCurrent?.election?.name, level);
@@ -79,50 +80,53 @@ export const useElectionData = (
       return new Map();
     }
 
-    const combinedElectionData = new Map();
+    const combinedElectionData = new Map<string, ElectionDataEntry>();
 
-    const filterResultAndAddToCombinedData = (dataJSON, callback) => {
+    const filterResultAndAddToCombinedData = (dataJSON: unknown, callback: (electionDataForRow: ElectionDataEntry, row: unknown) => void): void => {
       if (!dataJSON || !Array.isArray(dataJSON)) {
         console.warn("Skipping data processing due to missing or invalid dataJSON.");
         return;
       }
       dataJSON
-        .filter((row) => row.county !== "FAKECOUNTY")
-        .forEach((row) => {
-          const id = isCountyLevel ? row.county : `${row.county}##${row.precinct}`;
-          const electionDataForRow = combinedElectionData.get(id) || { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
+        .filter((row: unknown) => (row as any).county !== "FAKECOUNTY")
+        .forEach((row: unknown) => {
+          const rowData = row as any;
+          const id = isCountyLevel ? rowData.county : `${rowData.county}##${rowData.precinct}`;
+          const electionDataForRow = combinedElectionData.get(id) || { id, CTYNAME: rowData.county, PRECINCT_N: rowData.precinct };
           callback(electionDataForRow, row);
           combinedElectionData.set(id, electionDataForRow);
         });
     };
 
-    filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
+    filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow: ElectionDataEntry, row: unknown) => {
       electionDataForRow.absenteeCurrent = new AbsenteeBallots(row);
     });
 
-    filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow, row) => {
+    filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow: ElectionDataEntry, row: unknown) => {
       electionDataForRow.absenteeBase = new AbsenteeBallots(row);
     });
 
     let rdStateVotesTotalCurrent = 0;
     if (resultsElectionRaceCurrent) {
       filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
-        electionDataForRow.electionResultsAllCurrent = row.races.map((race) => new ElectionResult(race));
+        const rowData = row as any;
+        electionDataForRow.electionResultsAllCurrent = rowData.races.map((race: unknown) => new ElectionResult(race));
         electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find(
-          (election) => election.race === resultsElectionRaceCurrent.name,
+          (election: unknown) => (election as any).race === resultsElectionRaceCurrent.name,
         );
-        rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
+        rdStateVotesTotalCurrent += (electionDataForRow?.electionResultsCurrent as any)?.totalVotesRD || 0;
       });
     }
 
     let rdStateVotesTotalBase = 0;
     if (electionResultBaseJSON && resultsElectionRacePervious) {
       filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
-        electionDataForRow.electionResultsAllBase = row.races.map((race) => new ElectionResult(race));
+        const rowData = row as any;
+        electionDataForRow.electionResultsAllBase = rowData.races.map((race: unknown) => new ElectionResult(race));
         electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find(
-          (election) => election.race === resultsElectionRacePervious.name,
+          (election: unknown) => (election as any).race === resultsElectionRacePervious.name,
         );
-        rdStateVotesTotalBase += electionDataForRow?.electionResultsBase?.totalVotesRD || 0;
+        rdStateVotesTotalBase += (electionDataForRow?.electionResultsBase as any)?.totalVotesRD || 0;
       });
     }
 
@@ -135,14 +139,15 @@ export const useElectionData = (
     });
 
     if (demographicsJSON && Array.isArray(demographicsJSON)) {
-      demographicsJSON.forEach((row) => {
-        const id = row.id; // Use 'id' from demographics data as the key
+      demographicsJSON.forEach((row: unknown) => {
+        const rowData = row as any;
+        const id = rowData.id; // Use 'id' from demographics data as the key
         if (!id) {
           console.warn("Skipping demographics row due to missing id:", row);
           return;
         }
-        const properties = combinedElectionData.get(id) || { id, CTYNAME: row.county, PRECINCT_N: row.precinct };
-        properties.demographics = new Demographics(row);
+        const properties = combinedElectionData.get(id) || { id, CTYNAME: rowData.county, PRECINCT_N: rowData.precinct };
+        (properties as any).demographics = new Demographics(row);
         combinedElectionData.set(id, properties);
       });
     } else {

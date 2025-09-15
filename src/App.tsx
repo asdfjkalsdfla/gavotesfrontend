@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function App() {
+export default function App(): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
