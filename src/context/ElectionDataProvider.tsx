@@ -126,7 +126,7 @@ export function useElectionData() {
 
 const findElectionByName = (electionID: string | undefined): ElectionInfo | undefined => {
   if (!electionID) return undefined;
-  const electionMatches = elections.filter((election: unknown) => (election as any).name === electionID);
+  const electionMatches = elections.filter((election: unknown) => (election as ElectionInfo).name === electionID);
   return electionMatches.length === 1 ? electionMatches[0] : undefined;
 };
 
@@ -138,7 +138,7 @@ const convertElectionRaceIDToObject = (electionRaceID: string | undefined): Race
   const election = findElectionByName(electionID);
   if (!election) return undefined;
 
-  const raceMatches = (election as unknown as { races: unknown[] }).races.filter((race: unknown) => (race as any).name === raceID);
+  const raceMatches = (election as unknown as { races: unknown[] }).races.filter((race: unknown) => (race as RaceInfo).name === raceID);
   if (raceMatches.length !== 1) return undefined;
 
   const race = raceMatches[0];

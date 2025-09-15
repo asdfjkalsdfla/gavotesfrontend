@@ -10,7 +10,6 @@ import ErrorBoundary from "./ErrorBoundary.tsx";
 import Navigation from "./Navigation.tsx";
 import WelcomeText from "./WelcomeText.tsx";
 import VoteMapOptions from "./Views/VoteMapOptions.tsx";
-import { DisplayType, VotesRootSearchParams } from "./types/VotesRoot";
 import "./VotesRoot.css";
 
 // import VotesMap from "./VotesMap.jsx";
