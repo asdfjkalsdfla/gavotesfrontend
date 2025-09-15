@@ -7,12 +7,12 @@ import "./App.css";
 
 // Import dev tools conditionally
 const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
+  import.meta.env.MODE === "production"
     ? () => null
     : React.lazy(() =>
         import("@tanstack/router-devtools").then((res) => ({
           default: res.TanStackRouterDevtools,
-        })),
+        }))
       );
 
 // Create a client
