@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 // import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import {
   SlidersHorizontal as SettingOutlined,
@@ -9,7 +10,7 @@ import {
 } from "lucide-react";
 import "./Navigation.css";
 
-export default function Navigation({ updateDisplayType, updateShowOptions, showOptions }) {
+export default function Navigation({ updateShowOptions, showOptions }) {
   const [showMenuOnMobile, updateShowMenu] = useState(false);
 
   const toggleMenuShown = () => {
@@ -26,41 +27,86 @@ export default function Navigation({ updateDisplayType, updateShowOptions, showO
       <div className="md:hidden" role="dialog" aria-modal="true">
         {showMenuOnMobile && (
           <div className="p-2">
-            <NavMenu updateDisplayType={updateDisplayType} updateShowOptions={updateShowOptions} showOptions={showOptions} />
+            <NavMenu updateShowOptions={updateShowOptions} showOptions={showOptions} />
           </div>
         )}
       </div>
       <div className="hidden md:flex md:flex-1 md:justify-end">
-        <NavMenu updateDisplayType={updateDisplayType} updateShowOptions={updateShowOptions} showOptions={showOptions} />
+        <NavMenu updateShowOptions={updateShowOptions} showOptions={showOptions} />
       </div>
     </>
   );
 }
 
-function NavMenu({ updateDisplayType, updateShowOptions, showOptions }) {
+function NavMenu({ updateShowOptions, showOptions }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract current county from the path if it exists
+  const getCurrentCounty = () => {
+    const pathname = location.pathname;
+    if (pathname.includes("/counties/")) {
+      const pathParts = pathname.split("/");
+      const countyIndex = pathParts.indexOf("counties");
+      if (countyIndex !== -1 && pathParts[countyIndex + 1]) {
+        return pathParts[countyIndex + 1];
+      }
+    }
+    return null;
+  };
+
+  const navigateToDisplayMode = (urlPath) => {
+    const currentCounty = getCurrentCounty();
+    const basePath = currentCounty ? `/counties/${currentCounty}` : "";
+    const newPath = `${basePath}/${urlPath}`;
+    
+    navigate({ to: newPath });
+  };
+
   return (
     <div className="navigationMenu">
       <ul>
-        <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("map")}>
-          <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
-          Map
+        <li>
+          <button
+            type="button"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
+            onClick={() => navigateToDisplayMode("maps")}
+          >
+            <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
+            Map
+          </button>
         </li>
-        <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("scatter")}>
-          <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
-          Scatter Plot
+        <li>
+          <button
+            type="button"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
+            onClick={() => navigateToDisplayMode("scatter")}
+          >
+            <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
+            Scatter Plot
+          </button>
         </li>
-        <li className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onClick={() => updateDisplayType("table")}>
-          <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />
-          Table
+        <li>
+          <button
+            type="button"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
+            onClick={() => navigateToDisplayMode("table")}
+          >
+            <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />
+            Table
+          </button>
         </li>
-        <li
-          className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-          onClick={() => {
-            updateShowOptions(!showOptions);
-          }}
-        >
-          <SettingOutlined className="mr-2 md:mr-1 h-4 w-4" />
-          Settings
+        <li>
+          <button
+            type="button"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
+            onClick={() => {
+              updateShowOptions(!showOptions);
+            }}
+          >
+            <SettingOutlined className="mr-2 md:mr-1 h-4 w-4" />
+            Settings
+          </button>
         </li>
       </ul>
     </div>

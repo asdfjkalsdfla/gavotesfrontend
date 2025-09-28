@@ -1,6 +1,7 @@
 import React, { useMemo, lazy, Suspense } from "react";
 // import { Table } from "antd";
 import { ZoomOut, ZoomIn, X } from "lucide-react";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "../VotesTable/DataTable.tsx";
@@ -27,6 +28,9 @@ export default function VoteSummary({
   updateIsCountyLevel,
   updateUserHasSetLevel,
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const {
     locationResults,
     countyResults,
@@ -40,6 +44,14 @@ export default function VoteSummary({
     error,
   } = useElectionData();
   const { showVoteMode, showAbsentee, showDemographics } = useSummaryPreferences();
+
+  // Determine current display mode from URL path
+  const getCurrentDisplayMode = () => {
+    const pathname = location.pathname;
+    if (pathname.endsWith("/scatter")) return "scatter";
+    if (pathname.endsWith("/table")) return "table";
+    return "maps"; // default to maps
+  };
   const resultSummary = useMemo(() => {
     const source = activeHover || activeSelection; // use the hover value o/w use the selection
     if (source && source.properties) return source.properties; // if we have the actual object use it
@@ -87,9 +99,15 @@ export default function VoteSummary({
                   variant="outline"
                   size="xs"
                   onClick={() => {
+                    const displayMode = getCurrentDisplayMode();
+                    if (resultSummary.CTYNAME) {
+                      // Navigate to county-specific route
+                      const countyPath = `/counties/${encodeURIComponent(resultSummary.CTYNAME)}/${displayMode}`;
+                      navigate({ to: countyPath });
+                      updateCountyFilter(resultSummary.CTYNAME);
+                    }
                     updateIsCountyLevel(false);
                     updateUserHasSetLevel(true);
-                    if (resultSummary.CTYNAME) updateCountyFilter(resultSummary.CTYNAME);
                   }}
                 >
                   <ZoomIn className="ml-2 mr-2 h-2 w-2" />
@@ -101,6 +119,9 @@ export default function VoteSummary({
                 variant="outline"
                 size="xs"
                 onClick={() => {
+                  const displayMode = getCurrentDisplayMode();
+                  // Navigate to state-level route
+                  navigate({ to: `/${displayMode}` });
                   updateIsCountyLevel(true);
                   updateUserHasSetLevel(true);
                   updateCountyFilter(null);
