@@ -9,7 +9,7 @@ import { ElectionDataProvider } from "../context/ElectionDataProvider.jsx";
 import { ScatterPlotPreferenceContextProvider } from "../Views/VotesScatter/PreferenceContext.tsx";
 import { MapsPreferenceContextProvider } from "../Views/VotesMap/PreferenceContext.tsx";
 import { SummaryPreferenceContextProvider } from "../Views/VotesSummary/PreferenceContext.tsx";
-import { PageProvider } from "../context/PageContext.tsx";
+import { VoterSelectionProvider } from "../context/VoterSelectionContext.tsx";
 import "../VotesRoot.css";
 
 export default function AppLayout({ children }) {
@@ -78,9 +78,8 @@ export default function AppLayout({ children }) {
 				activeSelection={activeSelection}
 				updateActiveSelection={updateActiveSelection}
 				activeHover={activeHover}
-				countyFilter={countyFilter}
-				updateCountyFilter={() => {}} // Navigation handles this now
 				isCountyLevel={isCountyLevel}
+				countyFilter={countyFilter}
 				updateUserHasSetLevel={updateUserHasSetLevel}
 				updateIsCountyLevel={updateIsCountyLevel}
 			/>
@@ -129,9 +128,8 @@ export default function AppLayout({ children }) {
 											displayType === "table" && !showOptions ? "full" : "one"
 										}
 									>
-										<PageProvider value={{
+										<VoterSelectionProvider value={{
 											isCountyLevel,
-											countyFilter,
 											updateActiveSelection,
 											updateActiveHover,
 											activeHover,
@@ -140,7 +138,7 @@ export default function AppLayout({ children }) {
 											updateIsCountyLevel,
 										}}>
 											{children}
-										</PageProvider>
+										</VoterSelectionProvider>
 									</div>
 									{(displayType !== "table" || showOptions) && (
 										<div className="two p-4">

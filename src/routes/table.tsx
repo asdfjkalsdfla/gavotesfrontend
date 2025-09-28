@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import TablePage from '../pages/TablePage.jsx'
-import { usePageContext } from '../context/PageContext'
+import VotesTable from '../Views/VotesTable/index.jsx'
+import { useVoterSelectionContext } from '../context/VoterSelectionContext'
 
 function TablePageWrapper() {
-  const pageProps = usePageContext()
-  return <TablePage {...pageProps} />
+  const { isCountyLevel, updateIsCountyLevel, updateActiveSelection } = useVoterSelectionContext()
+  return <VotesTable isCountyLevel={isCountyLevel} countyFilter={null} updateIsCountyLevel={updateIsCountyLevel} updateActiveSelection={updateActiveSelection} />
 }
 
 export const Route = createFileRoute('/table')({

@@ -6,7 +6,7 @@ import { DataTable } from "./DataTable.tsx";
 // import { CSVLink } from "react-csv";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 
-export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateCountyFilter, updateActiveSelection }) {
+export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateActiveSelection }) {
   const navigate = useNavigate();
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection, isLoading, isError, error } =
     useElectionData();
@@ -15,8 +15,8 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
   const currentDisplayMode = "table";
 
   const idColumns = useMemo(
-    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection, navigate, currentDisplayMode),
-    [isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection, navigate],
+    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection, currentDisplayMode),
+    [isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection],
   );
 
   const dataColumns = useMemo(
@@ -80,7 +80,6 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
               className="text-left underline hover:no-underline"
               onClick={() => {
                 navigate({ to: `/${currentDisplayMode}` });
-                updateCountyFilter(null);
                 updateActiveSelection(null);
                 updateIsCountyLevel(true);
               }}

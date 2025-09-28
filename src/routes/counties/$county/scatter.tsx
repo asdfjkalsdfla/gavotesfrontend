@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import ScatterPage from '../../../pages/ScatterPage.jsx'
-import { usePageContext } from '../../../context/PageContext'
+import VotesScatterPlot from '../../../Views/VotesScatter/index.jsx'
+import { useVoterSelectionContext } from '../../../context/VoterSelectionContext'
 
 function CountyScatterPage() {
-  const pageProps = usePageContext()
-  return <ScatterPage {...pageProps} />
+  const { isCountyLevel, updateActiveHover, updateActiveSelection } = useVoterSelectionContext()
+  return <VotesScatterPlot isCountyLevel={isCountyLevel} updateActiveHover={updateActiveHover} updateActiveSelection={updateActiveSelection} />
 }
 
 export const Route = createFileRoute('/counties/$county/scatter')({

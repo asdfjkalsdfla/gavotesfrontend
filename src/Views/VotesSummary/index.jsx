@@ -21,10 +21,9 @@ const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
 export default function VoteSummary({
   activeSelection,
   activeHover,
-  countyFilter,
-  updateCountyFilter,
   updateActiveSelection,
   isCountyLevel,
+  countyFilter,
   updateIsCountyLevel,
   updateUserHasSetLevel,
 }) {
@@ -79,8 +78,16 @@ export default function VoteSummary({
                 variant="none"
                 size="icon"
                 onClick={() => {
-                  updateCountyFilter(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
-                  updateActiveSelection(resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null);
+                  const newSelection = resultSummary.PRECINCT_N && countyFilter ? resultSummary.CTYNAME : null;
+                  updateActiveSelection(newSelection);
+                  // Navigate based on the selection level
+                  if (resultSummary.PRECINCT_N && countyFilter) {
+                    // Going from precinct to county level
+                    navigate({ to: `/counties/${encodeURIComponent(resultSummary.CTYNAME)}/${location.pathname.split('/').pop()}` });
+                  } else {
+                    // Going to state level
+                    navigate({ to: `/${location.pathname.split('/').pop() || 'maps'}` });
+                  }
                 }}
               >
                 <X />
@@ -104,7 +111,6 @@ export default function VoteSummary({
                       // Navigate to county-specific route
                       const countyPath = `/counties/${encodeURIComponent(resultSummary.CTYNAME)}/${displayMode}`;
                       navigate({ to: countyPath });
-                      updateCountyFilter(resultSummary.CTYNAME);
                     }
                     updateIsCountyLevel(false);
                     updateUserHasSetLevel(true);
@@ -124,7 +130,6 @@ export default function VoteSummary({
                   navigate({ to: `/${displayMode}` });
                   updateIsCountyLevel(true);
                   updateUserHasSetLevel(true);
-                  updateCountyFilter(null);
                 }}
               >
                 <ZoomOut className="ml-2 mr-2 h-2 w-2" />

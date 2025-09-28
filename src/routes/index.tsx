@@ -1,14 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import MapsPage from '../pages/MapsPage.jsx' 
-import { usePageContext } from '../context/PageContext'
+import VotesMap from '../Views/VotesMap/index.jsx'
+import { useVoterSelectionContext } from '../context/VoterSelectionContext'
 
 // Wrapper component that gets props from context
 function IndexPage() {
-  const pageProps = usePageContext()
-  return <MapsPage {...pageProps} />
+  const pageProps = useVoterSelectionContext()
+  return <VotesMap {...pageProps} countyFilter={null} initialZoom={6.7} />
 }
 
-// @ts-expect-error - TanStack Router file-based routing type issue
 export const Route = createFileRoute('/')({
   component: IndexPage,
 })

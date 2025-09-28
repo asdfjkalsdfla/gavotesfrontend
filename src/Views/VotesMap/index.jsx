@@ -34,8 +34,8 @@ export default function VotesMap({
   updateActiveSelection,
   updateActiveHover,
   isCountyLevel = false,
-  updateIsCountyLevel,
   countyFilter,
+  updateIsCountyLevel,
   initialZoom,
   userHasSetLevel,
 }) {

@@ -1,9 +1,8 @@
 import type React from 'react'
 import { createContext, useContext } from 'react'
 
-export interface PageContextType {
+export interface VoterSelectionContextType {
   isCountyLevel: boolean
-  countyFilter: string | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateActiveSelection: (selection: any) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,16 +18,16 @@ export interface PageContextType {
   updateIsCountyLevel: (isCounty: boolean) => void
 }
 
-export const PageContext = createContext<PageContextType | null>(null)
+export const VoterSelectionContext = createContext<VoterSelectionContextType | null>(null)
 
-export function usePageContext() {
-  const context = useContext(PageContext)
+export function useVoterSelectionContext() {
+  const context = useContext(VoterSelectionContext)
   if (!context) {
-    throw new Error('usePageContext must be used within a PageProvider')
+    throw new Error('useVoterSelectionContext must be used within a VoterSelectionProvider')
   }
   return context
 }
 
-export function PageProvider({ children, value }: { children: React.ReactNode; value: PageContextType }) {
-  return <PageContext.Provider value={value}>{children}</PageContext.Provider>
+export function VoterSelectionProvider({ children, value }: { children: React.ReactNode; value: VoterSelectionContextType }) {
+  return <VoterSelectionContext.Provider value={value}>{children}</VoterSelectionContext.Provider>
 }
