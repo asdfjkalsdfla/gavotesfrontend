@@ -208,7 +208,7 @@ importers:
         specifier: ^8.44.1
         version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       vite:
-        specifier: npm:rolldown-vite@^7.1.13
+        specifier: npm:rolldown-vite@latest
         version: rolldown-vite@7.1.13(@types/node@22.18.6)(esbuild@0.25.10)(jiti@2.6.0)(tsx@4.20.6)
       vitest:
         specifier: ^3.2.4
