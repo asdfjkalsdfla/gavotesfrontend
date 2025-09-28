@@ -5,11 +5,13 @@ import react from "@vitejs/plugin-react";
 // import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 // import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig(
   {
     plugins: [
+      tanstackRouter(),
       react(),
       tailwindcss(),
       basicSsl(),
