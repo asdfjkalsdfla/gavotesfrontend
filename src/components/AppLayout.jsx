@@ -9,6 +9,7 @@ import { ElectionDataProvider } from "../context/ElectionDataProvider.jsx";
 import { ScatterPlotPreferenceContextProvider } from "../Views/VotesScatter/PreferenceContext.tsx";
 import { MapsPreferenceContextProvider } from "../Views/VotesMap/PreferenceContext.tsx";
 import { SummaryPreferenceContextProvider } from "../Views/VotesSummary/PreferenceContext.tsx";
+import { PageProvider } from "../context/PageContext.tsx";
 import "../VotesRoot.css";
 
 export default function AppLayout({ children }) {
@@ -128,7 +129,7 @@ export default function AppLayout({ children }) {
 											displayType === "table" && !showOptions ? "full" : "one"
 										}
 									>
-										{React.cloneElement(children, {
+										<PageProvider value={{
 											isCountyLevel,
 											countyFilter,
 											updateActiveSelection,
@@ -137,7 +138,9 @@ export default function AppLayout({ children }) {
 											activeSelection,
 											userHasSetLevel,
 											updateIsCountyLevel,
-										})}
+										}}>
+											{children}
+										</PageProvider>
 									</div>
 									{(displayType !== "table" || showOptions) && (
 										<div className="two p-4">

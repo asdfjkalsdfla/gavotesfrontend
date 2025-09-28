@@ -1,9 +1,14 @@
 import React from "react";
-import { RouterProvider } from "@tanstack/react-router";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { router } from "./routes.tsx";
 
 import "./App.css";
+
+// Import the generated route tree
+import { routeTree } from "./routeTree.gen.ts";
+
+// Create a new router instance with file-based routes
+const router = createRouter({ routeTree });
 
 // Import dev tools conditionally
 const TanStackRouterDevtools =

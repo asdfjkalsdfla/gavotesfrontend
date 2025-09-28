@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "@tanstack/react-router";
+import { useLocation, Link } from "@tanstack/react-router";
 // import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import {
   SlidersHorizontal as SettingOutlined,
@@ -39,7 +39,6 @@ export default function Navigation({ updateShowOptions, showOptions }) {
 }
 
 function NavMenu({ updateShowOptions, showOptions }) {
-  const navigate = useNavigate();
   const location = useLocation();
 
   // Extract current county from the path if it exists
@@ -55,46 +54,35 @@ function NavMenu({ updateShowOptions, showOptions }) {
     return null;
   };
 
-  const navigateToDisplayMode = (urlPath) => {
-    const currentCounty = getCurrentCounty();
-    const basePath = currentCounty ? `/counties/${currentCounty}` : "";
-    const newPath = `${basePath}/${urlPath}`;
-    
-    navigate({ to: newPath });
-  };
-
   return (
     <div className="navigationMenu">
       <ul>
         <li>
-          <button
-            type="button"
+          <Link
+            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/maps` : "/maps"}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
-            onClick={() => navigateToDisplayMode("maps")}
           >
             <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
             Map
-          </button>
+          </Link>
         </li>
         <li>
-          <button
-            type="button"
+          <Link
+            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/scatter` : "/scatter"}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
-            onClick={() => navigateToDisplayMode("scatter")}
           >
             <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
             Scatter Plot
-          </button>
+          </Link>
         </li>
         <li>
-          <button
-            type="button"
+          <Link
+            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/table` : "/table"}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
-            onClick={() => navigateToDisplayMode("table")}
           >
             <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />
             Table
-          </button>
+          </Link>
         </li>
         <li>
           <button
