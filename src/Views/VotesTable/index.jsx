@@ -12,10 +12,8 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
     useElectionData();
   const [rows, updateRows] = useState([]);
 
-  const currentDisplayMode = "table";
-
   const idColumns = useMemo(
-    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection, currentDisplayMode),
+    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection),
     [isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection],
   );
 
@@ -79,7 +77,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
               type="button"
               className="text-left underline hover:no-underline"
               onClick={() => {
-                navigate({ to: `/${currentDisplayMode}` });
+                navigate({ to: "/table" });
                 updateActiveSelection(null);
                 updateIsCountyLevel(true);
               }}

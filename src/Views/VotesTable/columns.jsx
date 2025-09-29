@@ -14,7 +14,7 @@ export function dataColumnBuilder(currentAbsenteeElection, baseAbsenteeElection,
   ];
 }
 
-export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection, currentDisplayMode) {
+export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection) {
   const idColumnsParent = [
     {
       id: "county",
@@ -28,7 +28,7 @@ export function idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, up
             className="text-left underline hover:no-underline"
             onClick={() => {
               const countyName = getValue();
-              navigate({ to: `/counties/${encodeURIComponent(countyName)}/${currentDisplayMode}` });
+              navigate({ to: `/counties/${encodeURIComponent(countyName)}/table` });
               updateIsCountyLevel(false);
               updateActiveSelection(countyName);
             }}
