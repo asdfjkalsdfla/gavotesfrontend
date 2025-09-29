@@ -5,7 +5,7 @@ import ElectionResultComparison from "../Models/ElectionResultComparison";
 import AbsenteeBallots from "../Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
 import Demographics from "../Models/Demographics";
-import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace } from "../Models/types";
+import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace, VotesByDay } from "../Models/types";
 import type CombinedElectionRow from "../Models/CombinedElectionRow";
 
 // Extend ImportMeta for Vite environment variables
@@ -23,8 +23,8 @@ interface ImportMetaEnv {
 interface RawDataRow {
   county: string;
   precinct?: string;
-  races?: unknown[];
-  votesByDay?: unknown[];
+  races?: ElectionResultData[];
+  votesByDay?: VotesByDay[];
   id?: string;
   [key: string]: unknown;
 }
@@ -36,8 +36,8 @@ const buildApiUrl = (category: string, prefix: string, name: string, level: stri
 };
 
 // Helper function to fetch data with error handling
-const fetchData = async (url: string, description: string): Promise<unknown> => {
-  if (!url) return null;
+const fetchData = async <T = unknown>(url: string, description: string): Promise<T> => {
+  if (!url) return null as T;
 
   const response = await fetch(url);
   if (!response.ok) {
@@ -48,12 +48,12 @@ const fetchData = async (url: string, description: string): Promise<unknown> => 
 };
 
 // Custom hook for fetching a single data file
-const useDataFile = (url: string | null, description: string, enabled = true) => {
+const useDataFile = <T = RawDataRow[]>(url: string | null, description: string, enabled = true) => {
   return useQuery({
     queryKey: ["dataFile", url],
     queryFn: () => {
       if (!url) throw new Error("URL is required");
-      return fetchData(url, description);
+      return fetchData<T | null>(url, description);
     },
     enabled: enabled && !!url,
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -79,11 +79,11 @@ export const useElectionData = (
   const demographicsFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/demographics/demographics-${level}-2020.json`;
 
   // Fetch all data files
-  const absenteeCurrentQuery = useDataFile(absenteeCurrentFileLocation, "Absentee Current");
-  const absenteeBaseQuery = useDataFile(absenteeBaseFileLocation, "Absentee Base");
-  const electionResultsCurrentQuery = useDataFile(electionResultsCurrentFileLocation, "Election Results Current");
-  const electionResultBaseQuery = useDataFile(electionResultBaseFileLocation, "Election Result Base", !!electionResultBaseFileLocation);
-  const demographicsQuery = useDataFile(demographicsFileLocation, "Demographics");
+  const absenteeCurrentQuery = useDataFile<RawDataRow[]>(absenteeCurrentFileLocation, "Absentee Current");
+  const absenteeBaseQuery = useDataFile<RawDataRow[]>(absenteeBaseFileLocation, "Absentee Base");
+  const electionResultsCurrentQuery = useDataFile<RawDataRow[]>(electionResultsCurrentFileLocation, "Election Results Current");
+  const electionResultBaseQuery = useDataFile<RawDataRow[]>(electionResultBaseFileLocation, "Election Result Base", !!electionResultBaseFileLocation);
+  const demographicsQuery = useDataFile<RawDataRow[]>(demographicsFileLocation, "Demographics");
 
   // Check if any critical queries are loading or have errors
   const isLoading = absenteeCurrentQuery.isLoading || absenteeBaseQuery.isLoading || electionResultsCurrentQuery.isLoading || demographicsQuery.isLoading;
@@ -94,11 +94,11 @@ export const useElectionData = (
   const combinedData = useMemo((): Map<string, CombinedElectionRow> => {
     if (isLoading || isError) return new Map();
 
-    const absenteeCurrentJSON = absenteeCurrentQuery.data as RawDataRow[] | null;
-    const absenteeBaseJSON = absenteeBaseQuery.data as RawDataRow[] | null;
-    const electionResultsCurrentJSON = electionResultsCurrentQuery.data as RawDataRow[] | null;
-    const electionResultBaseJSON = electionResultBaseQuery.data as RawDataRow[] | null;
-    const demographicsJSON = demographicsQuery.data as RawDataRow[] | null;
+    const absenteeCurrentJSON = absenteeCurrentQuery.data;
+    const absenteeBaseJSON = absenteeBaseQuery.data;
+    const electionResultsCurrentJSON = electionResultsCurrentQuery.data;
+    const electionResultBaseJSON = electionResultBaseQuery.data;
+    const demographicsJSON = demographicsQuery.data;
 
     if (!absenteeCurrentJSON || !absenteeBaseJSON || !electionResultsCurrentJSON || !demographicsJSON) {
       console.error("Essential JSON data is missing after fetch. Aborting data combination.");
@@ -140,7 +140,7 @@ export const useElectionData = (
     let rdStateVotesTotalCurrent = 0;
     if (resultsElectionRaceCurrent) {
       filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
-        electionDataForRow.electionResultsAllCurrent = (row.races as unknown[])?.map((race) => new ElectionResult(race as ElectionResultData)) || [];
+        electionDataForRow.electionResultsAllCurrent = row.races?.map((race) => new ElectionResult(race)) || [];
         electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find(
           (election) => election.race === resultsElectionRaceCurrent.name,
         );
@@ -151,7 +151,7 @@ export const useElectionData = (
     let rdStateVotesTotalBase = 0;
     if (electionResultBaseJSON && resultsElectionRacePervious) {
       filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
-        electionDataForRow.electionResultsAllBase = (row.races as unknown[])?.map((race) => new ElectionResult(race as ElectionResultData)) || [];
+        electionDataForRow.electionResultsAllBase = row.races?.map((race) => new ElectionResult(race)) || [];
         electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find(
           (election) => election.race === resultsElectionRacePervious.name,
         );

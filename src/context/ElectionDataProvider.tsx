@@ -68,11 +68,11 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
   );
 
   // Extract data from queries
-  const statewideElectionData = stateQuery.data instanceof Map && stateQuery.data.size > 0 
+  const statewideElectionData: CombinedElectionRow = stateQuery.data instanceof Map && stateQuery.data.size > 0 
     ? [...stateQuery.data.values()][0] 
-    : { id: '', CTYNAME: '' } as CombinedElectionRow;
-  const countyElectionData = (countyQuery.data || new Map()) as unknown as Map<string, CombinedElectionRow>;
-  const locationElectionData = (locationQuery.data || new Map()) as unknown as Map<string, CombinedElectionRow>;
+    : { id: '', CTYNAME: '' };
+  const countyElectionData = countyQuery.data || new Map<string, CombinedElectionRow>();
+  const locationElectionData = locationQuery.data || new Map<string, CombinedElectionRow>();
 
   const activeLocationResults = useMemo(() => {
     if (isCountyLevel || !countyFilter) return locationElectionData; // at county level, we don't filter or when using all precincts
@@ -130,8 +130,8 @@ export function useElectionData(): ElectionDataContextValue {
 
 const findElectionByName = (electionID: string | undefined): Election | undefined => {
   if (!electionID) return undefined;
-  const electionMatches = elections.filter((election) => election.name === electionID);
-  return electionMatches.length === 1 ? electionMatches[0] as Election : undefined;
+  const electionMatches = (elections as Election[]).filter((election) => election.name === electionID);
+  return electionMatches.length === 1 ? electionMatches[0] : undefined;
 };
 
 const convertElectionRaceIDToObject = (electionRaceID: string | undefined): ElectionRace | undefined => {
