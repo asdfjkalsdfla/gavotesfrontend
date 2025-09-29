@@ -29,7 +29,7 @@ export default function VoteSummary({
 }) {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const {
     locationResults,
     countyResults,
@@ -83,10 +83,10 @@ export default function VoteSummary({
                   // Navigate based on the selection level
                   if (resultSummary.PRECINCT_N && countyFilter) {
                     // Going from precinct to county level
-                    navigate({ to: `/counties/${encodeURIComponent(resultSummary.CTYNAME)}/${location.pathname.split('/').pop()}` });
+                    navigate({ to: `/counties/${encodeURIComponent(resultSummary.CTYNAME)}/${location.pathname.split("/").pop()}` });
                   } else {
                     // Going to state level
-                    navigate({ to: `/${location.pathname.split('/').pop() || 'maps'}` });
+                    navigate({ to: `/${location.pathname.split("/").pop() || "maps"}` });
                   }
                 }}
               >

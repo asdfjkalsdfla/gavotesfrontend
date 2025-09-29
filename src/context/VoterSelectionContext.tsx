@@ -5,13 +5,13 @@ export interface VoterSelectionContextType {
   isCountyLevel: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateActiveSelection: (selection: any) => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateActiveHover: (hover: any) => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeHover: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeSelection: any
   userHasSetLevel: boolean

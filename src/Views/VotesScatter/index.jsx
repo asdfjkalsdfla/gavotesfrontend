@@ -17,7 +17,7 @@ const tickFormatter = (value) => value.toFixed(2);
 export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, updateActiveSelection }) {
   const { locationResults } = useElectionData();
   const { scatterXAxis, scatterYAxis } = useScatterPreference();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   // x axis domain
   const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
   const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
