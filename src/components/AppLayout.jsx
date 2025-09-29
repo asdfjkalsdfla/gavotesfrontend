@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from "react";
-import { useLocation, useParams } from "@tanstack/react-router";
+import { useLocation, useParams, Link } from "@tanstack/react-router";
 import Navigation from "../Navigation.jsx";
 import WelcomeText from "../WelcomeText.jsx";
 import VoteMapOptions from "../Views/VoteMapOptions.jsx";
@@ -102,7 +102,7 @@ export default function AppLayout({ children }) {
 										aria-label="Global"
 									>
 										<div className="flex lg:flex-1">
-											<span className="headerLogoArea">
+											<Link to="/" className="headerLogoArea">
 												<span className="pr-3">
 													<img
 														src="peach.webp"
@@ -113,7 +113,7 @@ export default function AppLayout({ children }) {
 												</span>
 												Georgia Votes{" "}
 												<span className="uppercase font-bold">Visual</span>
-											</span>
+											</Link>
 										</div>
 
 										<Navigation
