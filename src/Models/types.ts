@@ -1,5 +1,14 @@
 // Type definitions for the Election Models
 
+export interface Election {
+  name: string;
+}
+
+export interface ElectionRace {
+  name: string;
+  election: Election;
+}
+
 export interface ElectionResultData {
   race?: string;
   democratic?: number;
