@@ -41,25 +41,13 @@ export default function Navigation({ updateShowOptions, showOptions }) {
 function NavMenu({ updateShowOptions, showOptions }) {
   const location = useLocation();
 
-  // Extract current county from the path if it exists
-  const getCurrentCounty = () => {
-    const pathname = location.pathname;
-    if (pathname.includes("/counties/")) {
-      const pathParts = pathname.split("/");
-      const countyIndex = pathParts.indexOf("counties");
-      if (countyIndex !== -1 && pathParts[countyIndex + 1]) {
-        return pathParts[countyIndex + 1];
-      }
-    }
-    return null;
-  };
-
   return (
     <div className="navigationMenu">
       <ul>
         <li>
           <Link
-            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/maps` : "/maps"}
+            to="../maps"
+            search={location.search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
@@ -68,7 +56,8 @@ function NavMenu({ updateShowOptions, showOptions }) {
         </li>
         <li>
           <Link
-            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/scatter` : "/scatter"}
+            to="../scatter"
+            search={location.search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
@@ -77,7 +66,8 @@ function NavMenu({ updateShowOptions, showOptions }) {
         </li>
         <li>
           <Link
-            to={getCurrentCounty() ? `/counties/${getCurrentCounty()}/table` : "/table"}
+            to="../table"
+            search={location.search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />
