@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from "react";
-import { useLocation, useParams, Link } from "@tanstack/react-router";
+import { useParams, useSearch, useLocation, Link } from "@tanstack/react-router";
 import Navigation from "../Navigation.jsx";
 import WelcomeText from "../WelcomeText.jsx";
 import VoteMapOptions from "../Views/VoteMapOptions.jsx";
@@ -15,10 +15,7 @@ import "../VotesRoot.css";
 export default function AppLayout({ children }) {
 	const location = useLocation();
 	const params = useParams({ strict: false });
-
-	// Parse search params manually to avoid route matching issues
-	const urlParams = new URLSearchParams(location.search);
-	const search = Object.fromEntries(urlParams.entries());
+	const search = useSearch({ strict: false });
 
 	// Get county from URL params if it exists
 	const countyFilter = params.county ? decodeURIComponent(params.county) : null;

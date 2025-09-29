@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { useLocation } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
 
 interface ElectionSelection {
   absenteeElectionBaseID: string;
@@ -19,9 +19,7 @@ interface IProps {
 }
 
 export function ElectionSelectionContextProvider({ children }: IProps) {
-  const location = useLocation();
-  const urlParams = new URLSearchParams(location.search);
-  const search = Object.fromEntries(urlParams.entries());
+  const search = useSearch({ strict: false });
 
   // ************************************************
   // Pull the initial values from the URL params

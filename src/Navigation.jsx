@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, Link } from "@tanstack/react-router";
+import { useSearch, Link } from "@tanstack/react-router";
 // import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import {
   SlidersHorizontal as SettingOutlined,
@@ -39,7 +39,7 @@ export default function Navigation({ updateShowOptions, showOptions }) {
 }
 
 function NavMenu({ updateShowOptions, showOptions }) {
-  const location = useLocation();
+  const search = useSearch({ strict: false });
 
   return (
     <div className="navigationMenu">
@@ -47,7 +47,7 @@ function NavMenu({ updateShowOptions, showOptions }) {
         <li>
           <Link
             to="../maps"
-            search={location.search}
+            search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <GlobalOutlined className="mr-2 md:mr-1 h-4 w-4" />
@@ -57,7 +57,7 @@ function NavMenu({ updateShowOptions, showOptions }) {
         <li>
           <Link
             to="../scatter"
-            search={location.search}
+            search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <DotChartOutlined className="mr-2 md:mr-1 h-4 w-4" />
@@ -67,7 +67,7 @@ function NavMenu({ updateShowOptions, showOptions }) {
         <li>
           <Link
             to="../table"
-            search={location.search}
+            search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
             <TableOutlined className="mr-2 md:mr-1 h-4 w-4" />

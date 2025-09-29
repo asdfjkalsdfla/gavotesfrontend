@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import { useLocation } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
 
 interface IMapPreferenceContext {
   elevationApproach: string;
@@ -15,9 +15,7 @@ interface IProps {
 }
 
 export function MapsPreferenceContextProvider({ children }: IProps): React.ReactNode {
-  const location = useLocation();
-  const urlParams = new URLSearchParams(location.search);
-  const search = Object.fromEntries(urlParams.entries());
+  const search = useSearch({ strict: false });
 
   // elevation approach
   const elevationApproachParam = search?.elevationApproach;
