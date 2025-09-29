@@ -11,7 +11,7 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
   const currentElectionMap = new Map();
   if (resultSummary.absenteeCurrent?.votesByDay)
     resultSummary.absenteeCurrent.votesByDay.map((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
-  
+
   // Create new objects with the additional property instead of mutating existing ones
   const chartData = chartPoints.map((point) => ({
     ...point,
