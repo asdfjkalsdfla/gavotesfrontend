@@ -24,6 +24,8 @@ jobs:
       - run: pnpm test
       - run: pnpm run check
         timeout-minutes: 5
+      - run: pnpm run type-check
+        timeout-minutes: 5
       - name: Archive Build Outputs
         uses: actions/upload-artifact@v4
         with:
