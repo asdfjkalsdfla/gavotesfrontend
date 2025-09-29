@@ -4,7 +4,7 @@ import { SimpleLinearRegression } from "ml-regression-simple-linear";
 import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 import { useScatterPreference } from "./PreferenceContext.tsx";
 import { quantile } from "../..//Utils.jsx";
-import { DATA_PROPERTY_ACCESSORS } from "../../utils/dataTransformers.js";
+import { DATA_PROPERTY_ACCESSORS } from "./dataTransformers.ts";
 import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data
