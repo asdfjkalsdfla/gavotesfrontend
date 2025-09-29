@@ -1,18 +1,20 @@
-import React, { useMemo, useState, useTransition } from "react";
+import React, { useMemo, useState, useTransition, useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { idColumnBuilder, dataColumnBuilder } from "./columns.jsx";
 import { DataTable } from "./DataTable.tsx";
 // import { Download } from "lucide-react";
 // import { CSVLink } from "react-csv";
 import { useElectionData } from "../../context/ElectionDataProvider.jsx";
 
-export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateCountyFilter, updateActiveSelection }) {
+export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateActiveSelection }) {
+  const navigate = useNavigate();
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection, isLoading, isError, error } =
     useElectionData();
   const [rows, updateRows] = useState([]);
 
   const idColumns = useMemo(
-    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection),
-    [isCountyLevel, updateIsCountyLevel, updateCountyFilter, updateActiveSelection],
+    () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection),
+    [isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection],
   );
 
   const dataColumns = useMemo(
@@ -41,7 +43,7 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
 
   const [isPending, startTransition] = useTransition();
 
-  useMemo(() => {
+  useEffect(() => {
     startTransition(() => {
       const newRows = [...locationResults.values()].filter((row) => row.CTYNAME).map((row) => ({ key: row.id, ...row }));
       // // Force calculation of new values
@@ -71,15 +73,17 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
       <div className="mx-auto flex items-center justify-between">
         <div className="flex lg:flex-1">
           <div className="text-2xl font-bold">
-            <a
+            <button
+              type="button"
+              className="text-left underline hover:no-underline"
               onClick={() => {
-                updateCountyFilter(null);
+                navigate({ to: "/table" });
                 updateActiveSelection(null);
                 updateIsCountyLevel(true);
               }}
             >
               State of Georgia
-            </a>
+            </button>
             {countyFilter && <> - {countyFilter} </>}
           </div>
         </div>

@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export function MapsPreferenceContextProvider({ children }: IProps): React.ReactNode {
-  const search = useSearch({ from: "/" });
+  const search = useSearch({ strict: false });
 
   // elevation approach
   const elevationApproachParam = search?.elevationApproach;

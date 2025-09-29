@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { useSearch } from "@tanstack/react-router";
 
 interface ElectionSelection {
@@ -12,14 +12,14 @@ interface ElectionSelection {
   updateResultsElectionRacePerviousID: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ElectionSelectionContext = createContext<ElectionSelection | null>(null);
+export const ElectionSelectionContext = createContext<ElectionSelection | undefined>(undefined);
 
 interface IProps {
   children: React.ReactNode;
 }
 
-export function ElectionSelectionContextProvider({ children }: IProps): React.ReactNode {
-  const search = useSearch({ from: "/" });
+export function ElectionSelectionContextProvider({ children }: IProps) {
+  const search = useSearch({ strict: false });
 
   // ************************************************
   // Pull the initial values from the URL params
@@ -52,6 +52,10 @@ export function ElectionSelectionContextProvider({ children }: IProps): React.Re
   return <ElectionSelectionContext.Provider value={contextValue}>{children}</ElectionSelectionContext.Provider>;
 }
 
-export function useElectionSelection(): ElectionSelection | null {
-  return useContext(ElectionSelectionContext);
+export function useElectionSelection(): ElectionSelection {
+  const context = useContext(ElectionSelectionContext);
+  if (!context) {
+    throw new Error('useElectionSelection must be used within an ElectionSelectionContextProvider');
+  }
+  return context;
 }
