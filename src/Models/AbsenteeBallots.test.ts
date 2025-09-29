@@ -3,7 +3,7 @@ import { vi, describe, it, expect, beforeAll } from "vitest";
 import AbsenteeBallots from "./AbsenteeBallots";
 
 describe.concurrent("Absentee Ballot Test", () => {
-  let absTest;
+  let absTest: AbsenteeBallots;
   beforeAll(() => {
     absTest = new AbsenteeBallots({
       votesByDay: [

@@ -1,4 +1,5 @@
 import { Temporal } from "temporal-polyfill";
+import type { AbsenteeBallotsData, VotesByDay } from "./types";
 
 const electionDate = Temporal.ZonedDateTime.from({
   timeZone: "America/New_York",
@@ -12,32 +13,35 @@ const currentDate = Temporal.Now.zonedDateTimeISO("America/New_York");
 const daysToElection = electionDate.until(currentDate).days;
 
 export default class AbsenteeBallots {
+  // Public properties from the template
+  votesByDay: VotesByDay[] = [];
+
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
-  #totalAbsenteeVotes;
-  #absenteeVotesAsOfCurrentDate;
+  #totalAbsenteeVotes?: number;
+  #absenteeVotesAsOfCurrentDate?: number;
 
   // Dumb assignment constructor, but it works for this very simple app
-  constructor(template) {
+  constructor(template?: AbsenteeBallotsData) {
     if (template) Object.assign(this, template);
   }
 
   // total # of absentee votes cast
-  get totalAbsenteeVotes() {
-    if (this.#totalAbsenteeVotes) return this.#totalAbsenteeVotes;
-    const value = this.votesByDay[this.votesByDay.length - 1].votesToDate;
+  get totalAbsenteeVotes(): number {
+    if (this.#totalAbsenteeVotes !== undefined) return this.#totalAbsenteeVotes;
+    const value = this.votesByDay[this.votesByDay.length - 1]?.votesToDate || 0;
     this.#totalAbsenteeVotes = value;
     return value;
   }
 
   // total # of absentee votes cast as of same date
-  get absenteeVotesAsOfCurrentDate() {
-    if (this.#absenteeVotesAsOfCurrentDate) return this.#absenteeVotesAsOfCurrentDate;
+  get absenteeVotesAsOfCurrentDate(): number {
+    if (this.#absenteeVotesAsOfCurrentDate !== undefined) return this.#absenteeVotesAsOfCurrentDate;
     const value = this.absenteeVotesAsOfDaysOut(daysToElection);
     this.#absenteeVotesAsOfCurrentDate = value;
     return value;
   }
 
-  absenteeVotesAsOfDaysOut(daysOut) {
+  absenteeVotesAsOfDaysOut(daysOut: number): number {
     const absenteeDatesPrior = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection < daysOut);
     if (absenteeDatesPrior.length === 0) return 0;
     const lastDate = absenteeDatesPrior.reduce(
@@ -46,6 +50,6 @@ export default class AbsenteeBallots {
     );
     if (lastDate === -9000) return 0;
     const daysOutAsOfDate = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection === lastDate)[0];
-    return daysOutAsOfDate.votesToDate;
+    return daysOutAsOfDate?.votesToDate || 0;
   }
 }

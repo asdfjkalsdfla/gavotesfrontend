@@ -10,7 +10,7 @@ import Demographics from "./Demographics";
 // const __dirname = path.dirname(__filename);
 
 describe.concurrent("Demographics", () => {
-  let demographic;
+  let demographic: Demographics;
   beforeAll(() => {
     // const fileName = path.resolve(__dirname, "../../public/static/demographics-county-2020.json");
     // const fileData = fs.readFileSync(fileName);

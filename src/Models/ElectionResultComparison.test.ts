@@ -4,9 +4,9 @@ import ElectionResult from "./ElectionResult";
 import ElectionResultComparison from "./ElectionResultComparison";
 
 describe.concurrent("Election Result Comparison Basic Test", () => {
-  let electionCurrent;
-  let electionPrevious;
-  let electionResultComparison;
+  let electionCurrent: ElectionResult;
+  let electionPrevious: ElectionResult;
+  let electionResultComparison: ElectionResultComparison;
   beforeAll(() => {
     electionCurrent = new ElectionResult({
       race: "US Senate Runoff",
@@ -49,9 +49,9 @@ describe.concurrent("Election Result Comparison Basic Test", () => {
 });
 
 describe.concurrent("Election Result Same Result Test", () => {
-  let electionCurrent;
-  let electionPrevious;
-  let electionResultComparison;
+  let electionCurrent: ElectionResult;
+  let electionPrevious: ElectionResult;
+  let electionResultComparison: ElectionResultComparison;
   beforeAll(() => {
     electionCurrent = new ElectionResult({
       race: "US Senate Runoff",

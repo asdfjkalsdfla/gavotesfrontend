@@ -3,7 +3,7 @@ import { describe, it, expect, beforeAll } from "vitest";
 import ElectionResult from "./ElectionResult";
 
 describe.concurrent("Election Result Basic Test", () => {
-  let electionResult;
+  let electionResult: ElectionResult;
   beforeAll(() => {
     electionResult = new ElectionResult({
       race: "US Senate",
@@ -39,7 +39,7 @@ describe.concurrent("Election Result Basic Test", () => {
 });
 
 describe.concurrent("Election Result Only Ds Test", () => {
-  let electionResult;
+  let electionResult: ElectionResult;
   beforeAll(() => {
     electionResult = new ElectionResult({
       race: "US Senate",
@@ -73,7 +73,7 @@ describe.concurrent("Election Result Only Ds Test", () => {
 });
 
 describe.concurrent("Election Result Only Rs Test", () => {
-  let electionResult;
+  let electionResult: ElectionResult;
   beforeAll(() => {
     electionResult = new ElectionResult({
       race: "US Senate",
@@ -107,7 +107,7 @@ describe.concurrent("Election Result Only Rs Test", () => {
 });
 
 describe.concurrent("Election Result Test By Mode", () => {
-  let electionResult;
+  let electionResult: ElectionResult;
   beforeAll(() => {
     electionResult = new ElectionResult({
       race: "US Senate",
@@ -123,32 +123,32 @@ describe.concurrent("Election Result Test By Mode", () => {
   });
   it("check total votes", async () => {
     // check when it's way past the date but we have a higher value in past
-    expect(electionResult.resultsByMode[0].totalVotes).toBeCloseTo(3935924, 1);
+    expect(electionResult.resultsByMode?.[0]?.totalVotes).toBeCloseTo(3935924, 1);
   });
   it("check RD voters", async () => {
     // check when it's way past the date but we have a higher value in past
-    expect(electionResult.resultsByMode[0].totalVotesRD).toBeCloseTo(3854559, 1);
+    expect(electionResult.resultsByMode?.[0]?.totalVotesRD).toBeCloseTo(3854559, 1);
   });
   it("check vote share", async () => {
     // check when it's way past the date but we have a higher value in past
-    expect(electionResult.resultsByMode[0].perRepublican).toBeCloseTo(0.484877, 5);
-    expect(electionResult.resultsByMode[0].perDemocratic).toBeCloseTo(0.494449, 5);
-    expect(electionResult.resultsByMode[0].perOther).toBeCloseTo(0.020672, 5);
+    expect(electionResult.resultsByMode?.[0]?.perRepublican).toBeCloseTo(0.484877, 5);
+    expect(electionResult.resultsByMode?.[0]?.perDemocratic).toBeCloseTo(0.494449, 5);
+    expect(electionResult.resultsByMode?.[0]?.perOther).toBeCloseTo(0.020672, 5);
   });
   it("check margins", async () => {
     // check when it's way past the date but we have a higher value in past
-    expect(electionResult.resultsByMode[0].marginDemocratic).toBeCloseTo(37675, 1);
-    expect(electionResult.resultsByMode[0].marginRepublican).toBeCloseTo(-37675, 1);
+    expect(electionResult.resultsByMode?.[0]?.marginDemocratic).toBeCloseTo(37675, 1);
+    expect(electionResult.resultsByMode?.[0]?.marginRepublican).toBeCloseTo(-37675, 1);
   });
   it("check margin per", async () => {
     // check when it's way past the date but we have a higher value in past
-    expect(electionResult.resultsByMode[0].marginPerPerDemocratic).toBeCloseTo(0.009572, 5);
-    expect(electionResult.resultsByMode[0].marginPerRepublican).toBeCloseTo(-0.009572, 5);
+    expect(electionResult.resultsByMode?.[0]?.marginPerPerDemocratic).toBeCloseTo(0.009572, 5);
+    expect(electionResult.resultsByMode?.[0]?.marginPerRepublican).toBeCloseTo(-0.009572, 5);
   });
 });
 
 describe.concurrent("Election Result Test Early Only", () => {
-  let electionResult;
+  let electionResult: ElectionResult;
   beforeAll(() => {
     electionResult = new ElectionResult({
       race: "US Senate",
