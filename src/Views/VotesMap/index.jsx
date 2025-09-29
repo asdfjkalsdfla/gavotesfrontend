@@ -8,7 +8,7 @@ import { Map as MapGL, useControl } from "react-map-gl/maplibre";
 //   _SunLight as SunLight,
 // } from "@deck.gl/core";
 import { MapboxOverlay } from "@deck.gl/mapbox";
-import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 import { useGeoJSON } from "../../hooks/useGeoJSON.js";
 import MapScale from "./MapScale.jsx";
 import { useMapPreference } from "./PreferenceContext.tsx";

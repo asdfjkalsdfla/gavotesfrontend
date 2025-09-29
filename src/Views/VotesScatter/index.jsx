@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useTransition } from "react";
 import { Scatter, XAxis, YAxis, CartesianGrid, ZAxis, Line, ComposedChart, ResponsiveContainer, ReferenceArea } from "recharts";
 import { SimpleLinearRegression } from "ml-regression-simple-linear";
-import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 import { useScatterPreference } from "./PreferenceContext.tsx";
 import { quantile } from "../..//Utils.jsx";
 import { DATA_PROPERTY_ACCESSORS } from "../../utils/dataTransformers.js";

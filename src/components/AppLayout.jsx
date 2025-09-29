@@ -5,7 +5,7 @@ import WelcomeText from "../WelcomeText.jsx";
 import VoteMapOptions from "../Views/VoteMapOptions.jsx";
 import VotesSummary from "../Views/VotesSummary/index.jsx";
 import { ElectionSelectionContextProvider } from "../context/ElectionSelectionContext.tsx";
-import { ElectionDataProvider } from "../context/ElectionDataProvider.jsx";
+import { ElectionDataProvider } from "../context/ElectionDataProvider.tsx";
 import { ScatterPlotPreferenceContextProvider } from "../Views/VotesScatter/PreferenceContext.tsx";
 import { MapsPreferenceContextProvider } from "../Views/VotesMap/PreferenceContext.tsx";
 import { SummaryPreferenceContextProvider } from "../Views/VotesSummary/PreferenceContext.tsx";

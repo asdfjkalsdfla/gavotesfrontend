@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { DataTable } from "../VotesTable/DataTable.tsx";
 import { DataTableColumnHeader } from "../VotesTable/DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "../VotesTable/DataTableCellNumeric.tsx";
-import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 import { useSummaryPreferences } from "./PreferenceContext.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
 

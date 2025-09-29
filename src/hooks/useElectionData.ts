@@ -6,6 +6,7 @@ import AbsenteeBallots from "../Models/AbsenteeBallots";
 import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
 import Demographics from "../Models/Demographics";
 import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace } from "../Models/types";
+import type CombinedElectionRow from "../Models/CombinedElectionRow";
 
 // Extend ImportMeta for Vite environment variables
 declare global {
@@ -17,21 +18,6 @@ declare global {
 interface ImportMetaEnv {
   readonly VITE_API_URL_BASE: string;
   [key: string]: unknown;
-}
-
-interface CombinedElectionRow {
-  id: string;
-  CTYNAME: string;
-  PRECINCT_N?: string;
-  absenteeCurrent?: AbsenteeBallots;
-  absenteeBase?: AbsenteeBallots;
-  electionResultsAllCurrent?: ElectionResult[];
-  electionResultsCurrent?: ElectionResult;
-  electionResultsAllBase?: ElectionResult[];
-  electionResultsBase?: ElectionResult;
-  electionResultsComparison?: ElectionResultComparison;
-  absenteeBallotComparison?: AbsenteeBallotsComparison | null;
-  demographics?: Demographics;
 }
 
 interface RawDataRow {

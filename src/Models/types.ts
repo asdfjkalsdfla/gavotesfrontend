@@ -2,10 +2,16 @@
 
 export interface Election {
   name: string;
+  label: string;
+  date: string;
+  isCurrentElection?: boolean;
+  races: ElectionRace[];
 }
 
 export interface ElectionRace {
   name: string;
+  republican: string;
+  democratic: string;
   election: Election;
 }
 
@@ -49,4 +55,21 @@ export interface DemographicsData {
   UKNMALEREG?: number;
   UKNFMREG20?: number;
   UKNOWNREG2?: number;
+}
+
+// Combined election data row interface - used for processed election data
+// Note: Uses 'unknown' to avoid circular imports with model classes
+export interface CombinedElectionRow {
+  id: string;
+  CTYNAME: string;
+  PRECINCT_N?: string;
+  absenteeCurrent?: unknown; // AbsenteeBallots instance
+  absenteeBase?: unknown; // AbsenteeBallots instance
+  electionResultsAllCurrent?: unknown[]; // ElectionResult[] instances
+  electionResultsCurrent?: unknown; // ElectionResult instance
+  electionResultsAllBase?: unknown[]; // ElectionResult[] instances
+  electionResultsBase?: unknown; // ElectionResult instance
+  electionResultsComparison?: unknown; // ElectionResultComparison instance
+  absenteeBallotComparison?: unknown | null; // AbsenteeBallotsComparison instance
+  demographics?: unknown; // Demographics instance
 }

@@ -1,13 +1,38 @@
-import React, { createContext, useContext, useMemo } from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 import { useElectionSelection } from "./ElectionSelectionContext.tsx";
-import { useElectionData as useElectionDataQuery } from "../hooks/useElectionData.js";
+import { useElectionData as useElectionDataQuery } from "../hooks/useElectionData.ts";
+import type { Election, ElectionRace } from "../Models/types.ts";
+import type CombinedElectionRow from "../Models/CombinedElectionRow";
 
 import elections from "../elections.json";
 
-export const ElectionDataContext = createContext(null);
+// Define the shape of our election data context
+interface ElectionDataContextValue {
+  currentAbsenteeElection?: Election;
+  baseAbsenteeElection?: Election;
+  currentElectionRace?: ElectionRace;
+  previousElectionRace?: ElectionRace;
+  elections: Election[];
+  statewideResults: CombinedElectionRow;
+  locationResults: Map<string, CombinedElectionRow>;
+  countyResults: Map<string, CombinedElectionRow>;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+}
 
-export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) {
+// Define props for the provider component
+interface ElectionDataProviderProps {
+  isCountyLevel: boolean;
+  countyFilter?: string;
+  children: ReactNode;
+}
+
+export const ElectionDataContext = createContext<ElectionDataContextValue | null>(null);
+
+export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: ElectionDataProviderProps) {
   const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = useElectionSelection();
   const absenteeElectionCurrent = useMemo(() => convertElectionIDToObject(absenteeElectionCurrentID), [absenteeElectionCurrentID]);
   const absenteeElectionBase = useMemo(() => convertElectionIDToObject(absenteeElectionBaseID), [absenteeElectionBaseID]);
@@ -16,54 +41,56 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
 
   // Use TanStack Query hooks for data fetching
   const stateQuery = useElectionDataQuery(
-    absenteeElectionCurrent,
-    absenteeElectionBase,
-    resultsElectionRaceCurrent,
-    resultsElectionRacePervious,
+    absenteeElectionCurrent || null,
+    absenteeElectionBase || null,
+    resultsElectionRaceCurrent || null,
+    resultsElectionRacePervious || null,
     "state",
     false,
   );
 
   const countyQuery = useElectionDataQuery(
-    absenteeElectionCurrent,
-    absenteeElectionBase,
-    resultsElectionRaceCurrent,
-    resultsElectionRacePervious,
+    absenteeElectionCurrent || null,
+    absenteeElectionBase || null,
+    resultsElectionRaceCurrent || null,
+    resultsElectionRacePervious || null,
     "county",
     true,
   );
 
   const locationQuery = useElectionDataQuery(
-    absenteeElectionCurrent,
-    absenteeElectionBase,
-    resultsElectionRaceCurrent,
-    resultsElectionRacePervious,
+    absenteeElectionCurrent || null,
+    absenteeElectionBase || null,
+    resultsElectionRaceCurrent || null,
+    resultsElectionRacePervious || null,
     isCountyLevel ? "county" : "precinct",
     isCountyLevel,
   );
 
   // Extract data from queries
-  const statewideElectionData = stateQuery.data instanceof Map && stateQuery.data.size > 0 ? [...stateQuery.data.values()][0] : {};
-  const countyElectionData = countyQuery.data || new Map();
-  const locationElectionData = locationQuery.data || new Map();
+  const statewideElectionData = stateQuery.data instanceof Map && stateQuery.data.size > 0 
+    ? [...stateQuery.data.values()][0] 
+    : { id: '', CTYNAME: '' } as CombinedElectionRow;
+  const countyElectionData = (countyQuery.data || new Map()) as unknown as Map<string, CombinedElectionRow>;
+  const locationElectionData = (locationQuery.data || new Map()) as unknown as Map<string, CombinedElectionRow>;
 
   const activeLocationResults = useMemo(() => {
     if (isCountyLevel || !countyFilter) return locationElectionData; // at county level, we don't filter or when using all precincts
     // filter the precincts
-    const activeResults = new Map();
+    const activeResults = new Map<string, CombinedElectionRow>();
     locationElectionData.forEach((value, key) => {
       if (value.CTYNAME === countyFilter) activeResults.set(key, value);
     });
     return activeResults;
   }, [isCountyLevel, countyFilter, locationElectionData]);
 
-  const electionData = useMemo(() => {
+  const electionData: ElectionDataContextValue = useMemo(() => {
     return {
       currentAbsenteeElection: absenteeElectionCurrent,
       baseAbsenteeElection: absenteeElectionBase,
       currentElectionRace: resultsElectionRaceCurrent,
       previousElectionRace: resultsElectionRacePervious,
-      elections,
+      elections: elections as Election[],
       statewideResults: statewideElectionData,
       locationResults: activeLocationResults,
       countyResults: countyElectionData,
@@ -93,17 +120,21 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }) 
   return <ElectionDataContext.Provider value={electionData}>{children}</ElectionDataContext.Provider>;
 }
 
-export function useElectionData() {
-  return useContext(ElectionDataContext);
+export function useElectionData(): ElectionDataContextValue {
+  const context = useContext(ElectionDataContext);
+  if (!context) {
+    throw new Error("useElectionData must be used within an ElectionDataProvider");
+  }
+  return context;
 }
 
-const findElectionByName = (electionID) => {
+const findElectionByName = (electionID: string | undefined): Election | undefined => {
   if (!electionID) return undefined;
   const electionMatches = elections.filter((election) => election.name === electionID);
-  return electionMatches.length === 1 ? electionMatches[0] : undefined;
+  return electionMatches.length === 1 ? electionMatches[0] as Election : undefined;
 };
 
-const convertElectionRaceIDToObject = (electionRaceID) => {
+const convertElectionRaceIDToObject = (electionRaceID: string | undefined): ElectionRace | undefined => {
   if (!electionRaceID || !electionRaceID.includes("||")) return undefined;
   const [electionID, raceID] = electionRaceID.split("||");
   if (!electionID || !raceID) return undefined;
@@ -114,11 +145,16 @@ const convertElectionRaceIDToObject = (electionRaceID) => {
   const raceMatches = election.races.filter((race) => race.name === raceID);
   if (raceMatches.length !== 1) return undefined;
 
-  const race = raceMatches[0];
-  race.election = election;
+  const raceData = raceMatches[0];
+  const race: ElectionRace = {
+    name: raceData.name,
+    republican: raceData.republican,
+    democratic: raceData.democratic,
+    election: election,
+  };
   return race;
 };
 
-const convertElectionIDToObject = (electionID) => {
+const convertElectionIDToObject = (electionID: string | undefined): Election | undefined => {
   return findElectionByName(electionID);
 };

@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useElectionSelection } from "../context/ElectionSelectionContext.tsx";
-import { useElectionData } from "../context/ElectionDataProvider.jsx";
+import { useElectionData } from "../context/ElectionDataProvider.tsx";
 import { useMapPreference } from "./VotesMap/PreferenceContext.tsx";
 import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
 import { useSummaryPreferences } from "./VotesSummary/PreferenceContext.tsx";

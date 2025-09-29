@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import "@testing-library/jest-dom";
 import VotesTable from "./index.jsx";
 import { ElectionSelectionContext } from "../../context/ElectionSelectionContext.tsx";
-import { ElectionDataProvider } from "../../context/ElectionDataProvider.jsx";
+import { ElectionDataProvider } from "../../context/ElectionDataProvider.tsx";
 
 // Create a QueryClient for testing
 const queryClient = new QueryClient({

@@ -4,7 +4,7 @@ import { idColumnBuilder, dataColumnBuilder } from "./columns.jsx";
 import { DataTable } from "./DataTable.tsx";
 // import { Download } from "lucide-react";
 // import { CSVLink } from "react-csv";
-import { useElectionData } from "../../context/ElectionDataProvider.jsx";
+import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 
 export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateActiveSelection }) {
   const navigate = useNavigate();
