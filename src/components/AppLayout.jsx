@@ -2,13 +2,13 @@ import React, { useState, Suspense } from "react";
 import { useParams, useSearch, useLocation, Link } from "@tanstack/react-router";
 import Navigation from "../Navigation.jsx";
 import WelcomeText from "../WelcomeText.jsx";
-import VoteMapOptions from "../Views/VoteMapOptions.jsx";
-import VotesSummary from "../Views/VotesSummary/index.jsx";
+import VoteMapOptions from "../views/VoteMapOptions.jsx";
+import VotesSummary from "../views/VotesSummary/index.jsx";
 import { ElectionSelectionContextProvider } from "../context/ElectionSelectionContext.tsx";
 import { ElectionDataProvider } from "../context/ElectionDataProvider.tsx";
-import { ScatterPlotPreferenceContextProvider } from "../Views/VotesScatter/PreferenceContext.tsx";
-import { MapsPreferenceContextProvider } from "../Views/VotesMap/PreferenceContext.tsx";
-import { SummaryPreferenceContextProvider } from "../Views/VotesSummary/PreferenceContext.tsx";
+import { ScatterPlotPreferenceContextProvider } from "../views/VotesScatter/PreferenceContext.tsx";
+import { MapsPreferenceContextProvider } from "../views/VotesMap/PreferenceContext.tsx";
+import { SummaryPreferenceContextProvider } from "../views/VotesSummary/PreferenceContext.tsx";
 import { VoterSelectionProvider } from "../context/VoterSelectionContext.tsx";
 import "../VotesRoot.css";
 

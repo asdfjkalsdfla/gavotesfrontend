@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import VotesMap from '../../../Views/VotesMap/index.jsx'
+import VotesMap from '../../../views/VotesMap/index.jsx'
 import { useVoterSelectionContext } from '../../../context/VoterSelectionContext'
 
 function CountyMapsPage() {

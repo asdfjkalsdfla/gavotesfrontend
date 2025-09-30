@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import VotesScatterPlot from '../../../Views/VotesScatter/index.jsx'
+import VotesScatterPlot from '../../../views/VotesScatter/index.jsx'
 import { useVoterSelectionContext } from '../../../context/VoterSelectionContext'
 
 function CountyScatterPage() {

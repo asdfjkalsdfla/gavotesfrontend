@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import VotesTable from '../Views/VotesTable/index.jsx'
+import VotesTable from '../views/VotesTable/index.jsx'
 import { useVoterSelectionContext } from '../context/VoterSelectionContext'
 
 function TablePageWrapper() {
