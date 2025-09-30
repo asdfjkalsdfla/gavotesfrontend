@@ -1,4 +1,4 @@
-import type CombinedElectionRow from "../../Models/CombinedElectionRow";
+import type CombinedElectionRow from "../../lib/electionResults/CombinedElectionRow";
 
 // Data property accessors for different metrics - used by VotesScatter and other components
 export const DATA_PROPERTY_ACCESSORS = {

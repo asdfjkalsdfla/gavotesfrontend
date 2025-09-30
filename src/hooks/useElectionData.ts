@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import ElectionResult from "../Models/ElectionResult";
-import ElectionResultComparison from "../Models/ElectionResultComparison";
-import AbsenteeBallots from "../Models/AbsenteeBallots";
-import AbsenteeBallotsComparison from "../Models/AbsenteeBallotsComparison";
-import Demographics from "../Models/Demographics";
-import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace, VotesByDay } from "../Models/types";
-import type CombinedElectionRow from "../Models/CombinedElectionRow";
+import ElectionResult from "../lib/electionResults/ElectionResult";
+import ElectionResultComparison from "../lib/electionResults/ElectionResultComparison";
+import AbsenteeBallots from "../lib/electionResults/AbsenteeBallots";
+import AbsenteeBallotsComparison from "../lib/electionResults/AbsenteeBallotsComparison";
+import Demographics from "../lib/electionResults/Demographics";
+import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace, VotesByDay } from "../lib/electionResults/types";
+import type CombinedElectionRow from "../lib/electionResults/CombinedElectionRow";
 
 // Extend ImportMeta for Vite environment variables
 declare global {

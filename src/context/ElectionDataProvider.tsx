@@ -3,8 +3,8 @@ import { createContext, useContext, useMemo } from "react";
 
 import { useElectionSelection } from "./ElectionSelectionContext.tsx";
 import { useElectionData as useElectionDataQuery } from "../hooks/useElectionData.ts";
-import type { Election, ElectionRace } from "../Models/types.ts";
-import type CombinedElectionRow from "../Models/CombinedElectionRow";
+import type { Election, ElectionRace } from "../lib/electionResults/types.ts";
+import type CombinedElectionRow from "../lib/electionResults/CombinedElectionRow.ts";
 
 import elections from "../elections.json";
 
