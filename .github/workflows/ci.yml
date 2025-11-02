@@ -17,7 +17,7 @@ jobs:
       - name: Use Node.js 22.x and cache
         uses: actions/setup-node@v6
         with:
-          node-version: "24.10.0"
+          node-version: "24.11.0"
       - run: pnpm install
       - run: pnpm run build
       # - run: pnpm run buildESB
