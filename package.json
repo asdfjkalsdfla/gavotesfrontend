@@ -17,10 +17,10 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@tabler/icons-react": "^3.36.0",
     "@tailwindcss/vite": "^4.1.18",
-    "@tanstack/react-query": "^5.90.12",
-    "@tanstack/react-router": "^1.142.11",
+    "@tanstack/react-query": "^5.90.13",
+    "@tanstack/react-router": "^1.144.0",
     "@tanstack/react-table": "^8.21.3",
-    "@tanstack/router-devtools": "^1.142.11",
+    "@tanstack/router-devtools": "^1.144.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@tanstack/router-cli": "^1.142.11",
-    "@tanstack/router-plugin": "^1.142.11",
+    "@tanstack/router-cli": "^1.144.0",
+    "@tanstack/router-plugin": "^1.144.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.1",
     "@types/node": "^24.10.4",
@@ -76,8 +76,8 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^16.5.0",
-    "jsdom": "^27.3.0",
-    "msw": "^2.12.4",
+    "jsdom": "^27.4.0",
+    "msw": "^2.12.7",
     "prettier": "^3.7.4",
     "rollup-plugin-visualizer": "^6.0.5",
     "simplify-geojson": "^1.0.5",
@@ -93,5 +93,5 @@
       "vite": "npm:rolldown-vite@latest"
     }
   },
-  "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa"
+  "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6"
 }
