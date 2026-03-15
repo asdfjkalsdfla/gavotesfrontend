@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "react-hooks", "typescript"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-var": "error",
+    "eqeqeq": "error",
+    "react/prop-types": "off",
+    "typescript/no-explicit-any": "off"
+  },
+  "ignorePatterns": ["build/", "coverage/", "node_modules/"]
+}
