@@ -55,7 +55,7 @@ export function ElectionSelectionContextProvider({ children }: IProps) {
 export function useElectionSelection(): ElectionSelection {
   const context = useContext(ElectionSelectionContext);
   if (!context) {
-    throw new Error('useElectionSelection must be used within an ElectionSelectionContextProvider');
+    throw new Error("useElectionSelection must be used within an ElectionSelectionContextProvider");
   }
   return context;
 }

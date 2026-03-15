@@ -68,9 +68,8 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
   );
 
   // Extract data from queries
-  const statewideElectionData: CombinedElectionRow = stateQuery.data instanceof Map && stateQuery.data.size > 0 
-    ? [...stateQuery.data.values()][0] 
-    : { id: '', CTYNAME: '' };
+  const statewideElectionData: CombinedElectionRow =
+    stateQuery.data instanceof Map && stateQuery.data.size > 0 ? [...stateQuery.data.values()][0] : { id: "", CTYNAME: "" };
   const countyElectionData = countyQuery.data || new Map<string, CombinedElectionRow>();
   const locationElectionData = locationQuery.data || new Map<string, CombinedElectionRow>();
 

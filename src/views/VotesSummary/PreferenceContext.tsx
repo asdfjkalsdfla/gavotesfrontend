@@ -27,14 +27,14 @@ export function SummaryPreferenceContextProvider({ children }: IProps): React.Re
       showAbsentee,
       updateShowAbsentee,
       showDemographics,
-      updateShowDemographics
+      updateShowDemographics,
     };
     return value;
-  }, [showVoteMode, showAbsentee,showDemographics]);
+  }, [showVoteMode, showAbsentee, showDemographics]);
 
   return <SummaryPreferenceContext.Provider value={contextValue}>{children}</SummaryPreferenceContext.Provider>;
 }
 
-export function useSummaryPreferences (): ISummaryPreferenceContext | null {
+export function useSummaryPreferences(): ISummaryPreferenceContext | null {
   return useContext(SummaryPreferenceContext);
 }

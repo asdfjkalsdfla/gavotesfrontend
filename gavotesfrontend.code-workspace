@@ -1,20 +1,18 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/build": true,
-			"**/dist": true,
-            "**/node_modules": true,
-			"**/coverage": true,
-			"./buildAnalysis.html": true,
-			"./buildMeta.json": true,
-		},
-		"cSpell.words": [
-			"testid"
-		]
-	}
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/build": true,
+      "**/dist": true,
+      "**/node_modules": true,
+      "**/coverage": true,
+      "./buildAnalysis.html": true,
+      "./buildMeta.json": true,
+    },
+    "cSpell.words": ["testid"],
+  },
 }

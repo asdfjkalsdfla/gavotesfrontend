@@ -17,7 +17,8 @@
   /* display: inline; */
 }
 
-.header img, .header svg {
+.header img,
+.header svg {
   display: inline;
 }
 

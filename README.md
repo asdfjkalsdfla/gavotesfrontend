@@ -9,16 +9,17 @@
 </p>
 
 # Georgia Votes Visual
-<br/>
-This project enables visualizing election results and early voting in the State of Georgia. 
 
+<br/>
+This project enables visualizing election results and early voting in the State of Georgia.
 
 ## License
 
 [MIT](LICENSE).<br/>
 
 ## Data Sources
-- Shape Files from  Legislative and Congressional Reapportionment Office (http://www.legis.ga.gov/Joint/reapportionment/en-US/default.aspx)
+
+- Shape Files from Legislative and Congressional Reapportionment Office (http://www.legis.ga.gov/Joint/reapportionment/en-US/default.aspx)
 - Voter Absentee File from GA SOS (https://elections.sos.ga.gov/Elections/voterabsenteefile.do)
 - Election Results from MIT Election Data and Science Lab (https://github.com/MEDSL)
 - Census Data
@@ -26,6 +27,7 @@ This project enables visualizing election results and early voting in the State 
 ## Development
 
 ### Libraries Utilized
+
 - React
 - deck.gl
 - recharts

@@ -36,8 +36,7 @@ jobs:
         with:
           name: esBuild
           path: dist/
-      
-      
+
   deploy:
     needs: build
     if: success() && github.ref == 'refs/heads/main'

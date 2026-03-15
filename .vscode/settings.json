@@ -1,16 +1,5 @@
 {
-  "cSpell.words": [
-    "antd",
-    "Combobox",
-    "CTYNAME",
-    "datapoint",
-    "mapbox",
-    "papaparse",
-    "pickable",
-    "Scatterplot",
-    "tabler",
-    "wireframe"
-  ],
+  "cSpell.words": ["antd", "Combobox", "CTYNAME", "datapoint", "mapbox", "papaparse", "pickable", "Scatterplot", "tabler", "wireframe"],
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative"
 }

@@ -16,7 +16,7 @@ import { DataTablePagination } from "./DataTablePagination.tsx";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  initialSortColumn: string,
+  initialSortColumn: string;
 }
 
 export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: DataTableProps<TData, TValue>) {
@@ -40,7 +40,9 @@ export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: D
   return (
     <div className="space-y-4" data-testid="electionResultTable">
       <div className="items-right justify-between px-4 lg:px-6">
-        <span data-testid="dataElementSettings"><DataTableViewOptions table={table} /></span>
+        <span data-testid="dataElementSettings">
+          <DataTableViewOptions table={table} />
+        </span>
       </div>
       <div className="rounded-md border">
         <Table>

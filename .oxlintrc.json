@@ -1,8 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript"
-  ],
+  "plugins": ["typescript"],
   "categories": {
     "correctness": "off"
   },
@@ -88,12 +86,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.ts",
-        "**/*.tsx",
-        "**/*.mts",
-        "**/*.cts"
-      ],
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "rules": {
         "constructor-super": "off",
         "no-class-assign": "off",
@@ -116,31 +109,15 @@
       }
     },
     {
-      "files": [
-        "src/**/*.js",
-        "src/**/*.jsx",
-        "src/**/*.ts"
-      ],
+      "files": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts"],
       "rules": {
-        "prettier/prettier": "error",
-        "no-var": [
-          "error"
-        ],
-        "eqeqeq": [
-          "error"
-        ],
-        "class-methods-use-this": [
-          "off"
-        ],
-        "max-classes-per-file": [
-          "off"
-        ],
+        "no-var": ["error"],
+        "eqeqeq": ["error"],
+        "class-methods-use-this": ["off"],
+        "max-classes-per-file": ["off"],
         "no-nested-ternary": "off",
         "@typescript-eslint/no-explicit-any": "off"
       },
-      "jsPlugins": [
-        "eslint-plugin-prettier"
-      ],
       "env": {
         "es2022": true,
         "browser": true
