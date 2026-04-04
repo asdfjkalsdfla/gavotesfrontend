@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSearch, Link } from "@tanstack/react-router";
+import { useSearch, useParams, Link } from "@tanstack/react-router";
 // import { SettingOutlined, MenuOutlined, TableOutlined, DotChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import {
   SlidersHorizontal as SettingOutlined,
@@ -40,13 +40,15 @@ export default function Navigation({ updateShowOptions, showOptions }) {
 
 function NavMenu({ updateShowOptions, showOptions }) {
   const search = useSearch({ strict: false });
+  const params = useParams({ strict: false });
+  const countyPrefix = params.county ? `/counties/${params.county}` : "";
 
   return (
     <div className="navigationMenu">
       <ul>
         <li>
           <Link
-            to="../maps"
+            to={`${countyPrefix}/maps`}
             search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
@@ -56,7 +58,7 @@ function NavMenu({ updateShowOptions, showOptions }) {
         </li>
         <li>
           <Link
-            to="../scatter"
+            to={`${countyPrefix}/scatter`}
             search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
@@ -66,7 +68,7 @@ function NavMenu({ updateShowOptions, showOptions }) {
         </li>
         <li>
           <Link
-            to="../table"
+            to={`${countyPrefix}/table`}
             search={search}
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer w-full text-left flex items-center"
           >
