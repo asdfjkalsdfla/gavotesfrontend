@@ -1,0 +1,28 @@
+{
+  "name": "gavotes-infra",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+
+    "cdk": "cdk",
+    "synth": "pnpm cdk synth",
+    "diff": "pnpm cdk diff",
+    "deploy:dns": "pnpm cdk deploy GaVotesDns",
+    "deploy:cert": "pnpm cdk deploy GaVotesCertificate",
+    "deploy:prod": "pnpm cdk deploy GaVotesProd",
+    "deploy:latest": "pnpm cdk deploy GaVotesLatest",
+    "deploy:github": "pnpm cdk deploy GaVotesGithubActions",
+    "deploy:all": "pnpm cdk deploy --all --require-approval never"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "aws-cdk": "^2.252.0",
+    "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.252.0",
+    "constructs": "^10.6.0"
+  }
+}
