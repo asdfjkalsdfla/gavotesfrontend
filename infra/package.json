@@ -17,12 +17,12 @@
     "deploy:all": "pnpm cdk deploy --all --require-approval never"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
-    "aws-cdk": "^2.252.0",
+    "@types/node": "^24.12.3",
+    "aws-cdk": "^2.1121.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.252.0",
+    "aws-cdk-lib": "^2.253.1",
     "constructs": "^10.6.0"
   }
 }
