@@ -325,12 +325,14 @@ export function Combobox({ value, onValueChange, options }) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-          {value ? options.find((option) => option.value === value)?.label : "Select option..."}
-          <ChevronsUpDown className="opacity-50" />
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
+            {value ? options.find((option) => option.value === value)?.label : "Select option..."}
+            <ChevronsUpDown className="opacity-50" />
+          </Button>
+        }
+      />
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Search option..." className="h-9" />

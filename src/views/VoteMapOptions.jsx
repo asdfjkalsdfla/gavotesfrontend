@@ -10,6 +10,44 @@ import { useMapPreference } from "./VotesMap/PreferenceContext.tsx";
 import { useScatterPreference } from "./VotesScatter/PreferenceContext.tsx";
 import { useSummaryPreferences } from "./VotesSummary/PreferenceContext.tsx";
 
+const SCATTER_X_AXIS_OPTIONS = {
+  electionResultPerRepublicanPer: "Current Election Vote Share",
+  perRBase: "Previous Election Vote Share",
+  perShiftRepublican: "Vote Swing (Shift in R/D %)",
+  whitePer: "White %",
+  blackPer: "Black %",
+  hispanicPer: "Hispanic %",
+};
+
+const SCATTER_Y_AXIS_OPTIONS = {
+  electionResultPerRepublicanPer: "Current Election Vote Share",
+  perRBase: "Previous Election Vote Share",
+  perShiftRepublican: "Vote Swing (Shift in R/D %)",
+  totalVotesPercent: "% of Previous Turnout",
+  totalVotesRepublicanPercent: "Change in R Turnout",
+  totalVotesDemocraticPercent: "Change in D Turnout",
+  turnoutAbsSameDay: "Absentee Votes @ Same Day",
+  turnoutAbsenteeBallots: "% of Absentee Votes",
+};
+
+const COLOR_APPROACH_OPTIONS = {
+  electionResultPerRepublicanPer: "Vote Share",
+  electionResultVoteMargin: "Vote Margin",
+  electionResultPerRepublicanPerShift: "Vote Swing (Shift in R/D %)",
+  totalVotesPercent: "% of Previous Turnout",
+  electionResultVoteShiftNormalized: "Shift in Vote Margin (normalized)",
+  blackPer: "Black %",
+  hispanicPer: "Hispanic %",
+  turnoutAbsSameDay: "Absentee Votes @ Same Day",
+};
+
+const ELEVATION_APPROACH_OPTIONS = {
+  turnoutAbsSameDay: "Absentee Votes @ Same Day",
+  turnoutAbs: "% of Total Votes",
+  votes: "Current Votes",
+  none: "None",
+};
+
 export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   const {
     absenteeElectionBaseID,
@@ -23,6 +61,19 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   const { scatterXAxis, updateScatterXAxis, scatterYAxis, updateScatterYAxis } = useScatterPreference();
   const { showVoteMode, updateShowVoteMode, showDemographics, updateShowDemographics, showAbsentee, updateShowAbsentee } = useSummaryPreferences();
   const { elections } = useElectionData();
+
+  const electionRaceOptions = elections
+    .filter((election) => !election.isCurrentElection)
+    .flatMap((election) =>
+      (election.races || []).map((race) => ({
+        value: `${election.name}||${race.name}`,
+        label: `${election.label} - ${race.name}`,
+      })),
+    );
+
+  const electionOptions = elections
+    .filter((election) => !election.isCurrentElection)
+    .map((election) => ({ value: election.name, label: election.label }));
 
   return (
     <Card className="mb-5">
@@ -57,11 +108,12 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                       updateScatterXAxis(value);
                     }}
                     value={scatterXAxis}
+                    items={SCATTER_X_AXIS_OPTIONS}
                   >
                     <SelectTrigger id="xaxis" className="w-full">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent position="popper">
+                    <SelectContent>
                       <SelectItem value="electionResultPerRepublicanPer">Current Election Vote Share</SelectItem>
                       <SelectItem value="perRBase">Previous Election Vote Share</SelectItem>
                       <SelectItem value="perShiftRepublican">Vote Swing (Shift in R/D %)</SelectItem>
@@ -80,12 +132,12 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                       updateScatterYAxis(value);
                     }}
                     value={scatterYAxis}
-                    virtual={false}
+                    items={SCATTER_Y_AXIS_OPTIONS}
                   >
                     <SelectTrigger id="yaxis" className="w-full">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent position="popper">
+                    <SelectContent>
                       <SelectItem value="electionResultPerRepublicanPer">Current Election Vote Share</SelectItem>
                       <SelectItem value="perRBase">Previous Election Vote Share</SelectItem>
                       <SelectItem value="perShiftRepublican">Vote Swing (Shift in R/D %)</SelectItem>
@@ -108,11 +160,12 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                       updateColorApproach(value);
                     }}
                     value={colorApproach}
+                    items={COLOR_APPROACH_OPTIONS}
                   >
                     <SelectTrigger id="colorApproach" className="w-full">
                       <SelectValue placeholder="Color Based On" />
                     </SelectTrigger>
-                    <SelectContent position="popper">
+                    <SelectContent>
                       <SelectItem value="electionResultPerRepublicanPer">Vote Share</SelectItem>
                       <SelectItem value="electionResultVoteMargin">Vote Margin</SelectItem>
                       <SelectItem value="electionResultPerRepublicanPerShift">Vote Swing (Shift in R/D %)</SelectItem>
@@ -133,11 +186,12 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                       updateElevationApproach(value);
                     }}
                     value={elevationApproach}
+                    items={ELEVATION_APPROACH_OPTIONS}
                   >
                     <SelectTrigger id="elevationApproach" className="w-full">
                       <SelectValue placeholder="Elevation Based On" />
                     </SelectTrigger>
-                    <SelectContent position="popper">
+                    <SelectContent>
                       <SelectItem value="turnoutAbsSameDay">Absentee Votes @ Same Day</SelectItem>
                       <SelectItem value="turnoutAbs">% of Total Votes</SelectItem>
                       <SelectItem value="votes">Current Votes</SelectItem>
@@ -158,23 +212,17 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
               onValueChange={(value) => {
                 updateResultsElectionRaceCurrentID(value);
               }}
+              items={electionRaceOptions}
             >
               <SelectTrigger id="currentElection" className="w-full">
                 <SelectValue placeholder="Current Race" />
               </SelectTrigger>
-              <SelectContent position="popper">
-                {elections
-                  .filter((election) => !election.isCurrentElection)
-                  .map(
-                    (election) =>
-                      election.races &&
-                      election.races.map((race) => (
-                        <SelectItem
-                          key={`${election.name}||${race.name}`}
-                          value={`${election.name}||${race.name}`}
-                        >{`${election.label} - ${race.name}`}</SelectItem>
-                      )),
-                  )}
+              <SelectContent>
+                {electionRaceOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -185,23 +233,17 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
               onValueChange={(value) => {
                 updateResultsElectionRacePerviousID(value);
               }}
+              items={electionRaceOptions}
             >
               <SelectTrigger id="prevElection" className="w-full">
                 <SelectValue placeholder="Previous Race" />
               </SelectTrigger>
-              <SelectContent position="popper">
-                {elections
-                  .filter((election) => !election.isCurrentElection)
-                  .map(
-                    (election) =>
-                      election.races &&
-                      election.races.map((race) => (
-                        <SelectItem
-                          key={`${election.name}||${race.name}`}
-                          value={`${election.name}||${race.name}`}
-                        >{`${election.label} - ${race.name}`}</SelectItem>
-                      )),
-                  )}
+              <SelectContent>
+                {electionRaceOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -218,18 +260,17 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                 onValueChange={(value) => {
                   updateAbsenteeElectionBaseID(value);
                 }}
+                items={electionOptions}
               >
                 <SelectTrigger id="comparedTo" className="w-full">
                   <SelectValue placeholder="Previous Race" />
                 </SelectTrigger>
-                <SelectContent position="popper">
-                  {elections
-                    .filter((election) => !election.isCurrentElection)
-                    .map((election) => (
-                      <SelectItem key={election.name} value={election.name}>
-                        {election.label}
-                      </SelectItem>
-                    ))}
+                <SelectContent>
+                  {electionOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
