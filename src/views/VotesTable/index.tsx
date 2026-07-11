@@ -1,16 +1,24 @@
-import React, { useMemo, useState, useTransition, useEffect } from "react";
+import { useMemo, useState, useTransition, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { idColumnBuilder, dataColumnBuilder } from "./columns.jsx";
+import { idColumnBuilder, dataColumnBuilder } from "./columns.tsx";
 import { DataTable } from "./DataTable.tsx";
 // import { Download } from "lucide-react";
 // import { CSVLink } from "react-csv";
 import { useElectionData } from "../../context/ElectionDataProvider.tsx";
+import type CombinedElectionRow from "../../lib/electionResults/CombinedElectionRow.ts";
 
-export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateActiveSelection }) {
+interface VotesTableProps {
+  isCountyLevel: boolean;
+  countyFilter?: string | null;
+  updateIsCountyLevel: (value: boolean) => void;
+  updateActiveSelection: (value: string | null) => void;
+}
+
+export default function VotesTable({ isCountyLevel, countyFilter, updateIsCountyLevel, updateActiveSelection }: VotesTableProps) {
   const navigate = useNavigate();
   const { locationResults, currentElectionRace, previousElectionRace, currentAbsenteeElection, baseAbsenteeElection, isLoading, isError, error } =
     useElectionData();
-  const [rows, updateRows] = useState([]);
+  const [rows, updateRows] = useState<CombinedElectionRow[]>([]);
 
   const idColumns = useMemo(
     () => idColumnBuilder(isCountyLevel, updateIsCountyLevel, navigate, updateActiveSelection),
@@ -26,41 +34,11 @@ export default function VotesTable({ isCountyLevel, countyFilter, updateIsCounty
     return [...idColumns, ...dataColumns];
   }, [idColumns, dataColumns]);
 
-  const csvFileHeaders = [];
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  columns.length &&
-    columns.forEach((column) => {
-      if (column.columns) {
-        column.columns.forEach((childColumn) => {
-          csvFileHeaders.push({
-            label: childColumn.meta.title,
-            //  key: childColumn?.dataIndex.join(".")
-            // TODO - figure out way to not use the accessor function
-          });
-        });
-      }
-    });
-
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     startTransition(() => {
-      const newRows = [...locationResults.values()].filter((row) => row.CTYNAME).map((row) => ({ key: row.id, ...row }));
-      // // Force calculation of new values
-      // newRows.forEach((row) => {
-      //   columns.forEach((parentColumn) => {
-      //     if (!parentColumn.children) return;
-      //     parentColumn?.children.forEach((column) => {
-      //       const dataIndexes = Array.isArray(column.dataIndex) ? column.dataIndex : [column.dataIndex];
-      //       let prevValue = row;
-      //       if (!prevValue) return;
-      //       dataIndexes.forEach((index) => {
-      //         prevValue = prevValue?.[index];
-      //         console.log(prevValue);
-      //       });
-      //     });
-      //   });
-      // });
+      const newRows = [...locationResults.values()].filter((row) => row.CTYNAME);
       updateRows(newRows);
     });
   }, [locationResults]);

@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 
-import React from "react";
 import { it, describe } from "vitest";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import "@testing-library/jest-dom";
-import VotesTable from "./index.jsx";
+import type { ReactElement } from "react";
+import VotesTable from "./index.tsx";
 import { ElectionSelectionContext } from "../../context/ElectionSelectionContext.tsx";
 import { ElectionDataProvider } from "../../context/ElectionDataProvider.tsx";
 
@@ -20,23 +20,27 @@ const queryClient = new QueryClient({
 });
 
 // Helper function to render with all necessary providers
-const renderWithProviders = (component) => {
+const renderWithProviders = (component: ReactElement) => {
   return render(<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>);
+};
+
+const electionSelectionValue = {
+  absenteeElectionCurrentID: "2022_general",
+  absenteeElectionBaseID: "2022_general",
+  updateAbsenteeElectionCurrentID: () => {},
+  updateAbsenteeElectionBaseID: () => {},
+  resultsElectionRaceCurrentID: "2022_general||US Senate",
+  resultsElectionRacePerviousID: "2020_general||President of the United States",
+  updateResultsElectionRaceCurrentID: () => {},
+  updateResultsElectionRacePerviousID: () => {},
 };
 
 describe("Votes Table", () => {
   it("renders without crashing", async () => {
     renderWithProviders(
-      <ElectionSelectionContext.Provider
-        value={{
-          absenteeElectionCurrentID: "2022_general",
-          absenteeElectionBaseID: "2022_general",
-          resultsElectionRaceCurrentID: "2022_general||US Senate",
-          resultsElectionRacePerviousID: "2020_general||President of the United States",
-        }}
-      >
-        <ElectionDataProvider isCountyLevel={true} countyFilter={null}>
-          <VotesTable />
+      <ElectionSelectionContext.Provider value={electionSelectionValue}>
+        <ElectionDataProvider isCountyLevel={true} countyFilter={undefined}>
+          <VotesTable isCountyLevel={true} countyFilter={null} updateIsCountyLevel={() => {}} updateActiveSelection={() => {}} />
         </ElectionDataProvider>
       </ElectionSelectionContext.Provider>,
     );
@@ -45,16 +49,9 @@ describe("Votes Table", () => {
 
   it("Show columns displayed", async () => {
     renderWithProviders(
-      <ElectionSelectionContext.Provider
-        value={{
-          absenteeElectionCurrentID: "2022_general",
-          absenteeElectionBaseID: "2022_general",
-          resultsElectionRaceCurrentID: "2022_general||US Senate",
-          resultsElectionRacePerviousID: "2020_general||President of the United States",
-        }}
-      >
-        <ElectionDataProvider isCountyLevel={true} countyFilter={null}>
-          <VotesTable />
+      <ElectionSelectionContext.Provider value={electionSelectionValue}>
+        <ElectionDataProvider isCountyLevel={true} countyFilter={undefined}>
+          <VotesTable isCountyLevel={true} countyFilter={null} updateIsCountyLevel={() => {}} updateActiveSelection={() => {}} />
         </ElectionDataProvider>
       </ElectionSelectionContext.Provider>,
     );
