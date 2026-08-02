@@ -9,23 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TableRouteImport } from './routes/table'
-import { Route as ScatterRouteImport } from './routes/scatter'
-import { Route as MapsRouteImport } from './routes/maps'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MapsRouteImport } from './routes/maps'
+import { Route as ScatterRouteImport } from './routes/scatter'
+import { Route as TableRouteImport } from './routes/table'
 import { Route as PrecinctsMatchRouteImport } from './routes/precincts/match'
-import { Route as CountiesCountyTableRouteImport } from './routes/counties/$county/table'
-import { Route as CountiesCountyScatterRouteImport } from './routes/counties/$county/scatter'
 import { Route as CountiesCountyMapsRouteImport } from './routes/counties/$county/maps'
+import { Route as CountiesCountyScatterRouteImport } from './routes/counties/$county/scatter'
+import { Route as CountiesCountyTableRouteImport } from './routes/counties/$county/table'
 
-const TableRoute = TableRouteImport.update({
-  id: '/table',
-  path: '/table',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ScatterRoute = ScatterRouteImport.update({
-  id: '/scatter',
-  path: '/scatter',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapsRoute = MapsRouteImport.update({
@@ -33,9 +28,14 @@ const MapsRoute = MapsRouteImport.update({
   path: '/maps',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ScatterRoute = ScatterRouteImport.update({
+  id: '/scatter',
+  path: '/scatter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TableRoute = TableRouteImport.update({
+  id: '/table',
+  path: '/table',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrecinctsMatchRoute = PrecinctsMatchRouteImport.update({
@@ -43,9 +43,9 @@ const PrecinctsMatchRoute = PrecinctsMatchRouteImport.update({
   path: '/precincts/match',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CountiesCountyTableRoute = CountiesCountyTableRouteImport.update({
-  id: '/counties/$county/table',
-  path: '/counties/$county/table',
+const CountiesCountyMapsRoute = CountiesCountyMapsRouteImport.update({
+  id: '/counties/$county/maps',
+  path: '/counties/$county/maps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CountiesCountyScatterRoute = CountiesCountyScatterRouteImport.update({
@@ -53,9 +53,9 @@ const CountiesCountyScatterRoute = CountiesCountyScatterRouteImport.update({
   path: '/counties/$county/scatter',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CountiesCountyMapsRoute = CountiesCountyMapsRouteImport.update({
-  id: '/counties/$county/maps',
-  path: '/counties/$county/maps',
+const CountiesCountyTableRoute = CountiesCountyTableRouteImport.update({
+  id: '/counties/$county/table',
+  path: '/counties/$county/table',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -136,18 +136,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/table': {
-      id: '/table'
-      path: '/table'
-      fullPath: '/table'
-      preLoaderRoute: typeof TableRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/scatter': {
-      id: '/scatter'
-      path: '/scatter'
-      fullPath: '/scatter'
-      preLoaderRoute: typeof ScatterRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/maps': {
@@ -157,11 +150,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/scatter': {
+      id: '/scatter'
+      path: '/scatter'
+      fullPath: '/scatter'
+      preLoaderRoute: typeof ScatterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/table': {
+      id: '/table'
+      path: '/table'
+      fullPath: '/table'
+      preLoaderRoute: typeof TableRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/precincts/match': {
@@ -171,11 +171,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrecinctsMatchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/counties/$county/table': {
-      id: '/counties/$county/table'
-      path: '/counties/$county/table'
-      fullPath: '/counties/$county/table'
-      preLoaderRoute: typeof CountiesCountyTableRouteImport
+    '/counties/$county/maps': {
+      id: '/counties/$county/maps'
+      path: '/counties/$county/maps'
+      fullPath: '/counties/$county/maps'
+      preLoaderRoute: typeof CountiesCountyMapsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/counties/$county/scatter': {
@@ -185,11 +185,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CountiesCountyScatterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/counties/$county/maps': {
-      id: '/counties/$county/maps'
-      path: '/counties/$county/maps'
-      fullPath: '/counties/$county/maps'
-      preLoaderRoute: typeof CountiesCountyMapsRouteImport
+    '/counties/$county/table': {
+      id: '/counties/$county/table'
+      path: '/counties/$county/table'
+      fullPath: '/counties/$county/table'
+      preLoaderRoute: typeof CountiesCountyTableRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

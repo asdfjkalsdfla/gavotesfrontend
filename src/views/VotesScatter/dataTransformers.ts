@@ -21,3 +21,20 @@ export const DATA_PROPERTY_ACCESSORS = {
   blackPer: (dataPoint: CombinedElectionRow): number => (dataPoint?.demographics?.blackPer ?? 0) * 100,
   hispanicPer: (dataPoint: CombinedElectionRow): number => (dataPoint?.demographics?.hispanicPer ?? 0) * 100,
 };
+
+// Human-readable axis labels, keyed the same as the VoteMapOptions axis selects and DATA_PROPERTY_ACCESSORS
+export const AXIS_LABELS: Record<string, string> = {
+  perRepublican: "Current Election Vote Share",
+  electionResultPerRepublicanPer: "Current Election Vote Share",
+  perRBase: "Previous Election Vote Share",
+  perShiftRepublican: "Vote Swing (Shift in R/D %)",
+  perShiftRepublicanEarly: "Shift in Early Vote R/D %",
+  totalVotesRepublicanPercent: "Change in R Turnout",
+  totalVotesDemocraticPercent: "Change in D Turnout",
+  totalVotesPercent: "% of Previous Turnout",
+  turnoutAbsSameDay: "Absentee Votes @ Same Day",
+  turnoutAbsenteeBallots: "% of Absentee Votes",
+  whitePer: "White %",
+  blackPer: "Black %",
+  hispanicPer: "Hispanic %",
+};
