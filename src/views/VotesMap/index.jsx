@@ -1,6 +1,7 @@
-import "maplibre-gl/dist/maplibre-gl.css";
+import 'maplibre-gl/dist/maplibre-gl.css';
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Map as MapGL, useControl } from "react-map-gl/maplibre";
+import { Map, useControl } from "react-map-gl/maplibre";
+import * as maplibregl from 'maplibre-gl';
 // import {
 //   LightingEffect,
 //   AmbientLight,
@@ -193,7 +194,7 @@ export default function VotesMap({
 
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
-      <MapGL
+      <Map
         initialViewState={INITIAL_VIEW_STATE}
         reuseMap
         mapStyle={mapStyle}
@@ -209,7 +210,7 @@ export default function VotesMap({
           <div style={NAVIGATION_CONTROL_STYLES}>{/* <NavigationControl /> */}</div>
           {scaleToColorFunction && <MapScale scaleToColorFunction={scaleToColorFunction} scaleMin={scaleMin} scaleMax={scaleMax} />}
         </DeckGLOverlay>
-      </MapGL>
+      </Map>
     </div>
   );
 }
