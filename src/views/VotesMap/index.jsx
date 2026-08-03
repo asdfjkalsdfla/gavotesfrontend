@@ -1,7 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Map, useControl } from "react-map-gl/maplibre";
-import * as maplibregl from 'maplibre-gl';
 // import {
 //   LightingEffect,
 //   AmbientLight,
