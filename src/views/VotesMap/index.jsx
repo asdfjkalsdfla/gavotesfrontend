@@ -1,6 +1,8 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Map, useControl } from "react-map-gl/maplibre";
+import { setWorkerUrl} from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 // import {
 //   LightingEffect,
 //   AmbientLight,
@@ -16,6 +18,8 @@ import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
 import { createElevationFunction, createColorFunction, processGeoJSONData, extractSimpleData } from "./mapUtils.js";
 import { createMapLayers } from "./layerUtils.js";
 import { createMapTooltip } from "./tooltipUtils.js";
+
+setWorkerUrl(workerUrl);
 
 function DeckGLOverlay(props) {
   const overlay = useControl(() => new MapboxOverlay(props));

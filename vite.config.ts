@@ -34,7 +34,7 @@ export default defineConfig({
     // maplibre-gl resolves its worker via `import.meta.url` relative to its own dist
     // folder at runtime; pre-bundling it moves that URL into .vite/deps and the
     // sibling maplibre-gl-worker.mjs never gets copied there, causing a 404.
-    exclude: ["maplibre-gl"],
+    // exclude: ["maplibre-gl"],
   },
   server: {
     open: "/",
