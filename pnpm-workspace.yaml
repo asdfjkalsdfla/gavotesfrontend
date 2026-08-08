@@ -2,3 +2,6 @@ allowBuilds:
   '@swc/core': false
   esbuild: false
   msw: false
+minimumReleaseAgeExclude:
+  - '@tanstack/react-table@9.1.0'
+  - '@tanstack/table-core@9.1.0'

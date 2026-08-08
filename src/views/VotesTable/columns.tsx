@@ -5,6 +5,7 @@ import { DataTableCellNumeric } from "./DataTableCellNumeric.tsx";
 import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
 import type CombinedElectionRow from "../../lib/electionResults/CombinedElectionRow.ts";
 import type { Election, ElectionRace } from "../../lib/electionResults/types.ts";
+import type { DataTableFeatures } from "./data-table-features.ts";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
 
@@ -13,7 +14,7 @@ export function dataColumnBuilder(
   baseAbsenteeElection: Election | undefined,
   currentElectionRace: ElectionRace | undefined,
   previousElectionRace: ElectionRace | undefined,
-): ColumnDef<CombinedElectionRow>[] {
+): ColumnDef<DataTableFeatures, CombinedElectionRow>[] {
   return [
     absenteeComparisonColumnsBuilder(),
     absenteeColumnsBuilder(currentAbsenteeElection, "absenteeCurrent"),
@@ -30,8 +31,8 @@ export function idColumnBuilder(
   updateIsCountyLevel: (value: boolean) => void,
   navigate: NavigateFn,
   updateActiveSelection: (value: string | null) => void,
-): ColumnDef<CombinedElectionRow>[] {
-  const idColumnsParent: ColumnDef<CombinedElectionRow>[] = [
+): ColumnDef<DataTableFeatures, CombinedElectionRow>[] {
+  const idColumnsParent: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: "county",
       accessorKey: "CTYNAME",
@@ -68,8 +69,8 @@ export function idColumnBuilder(
   return idColumnsParent;
 }
 
-const absenteeComparisonColumnsBuilder = (): ColumnDef<CombinedElectionRow> => {
-  const children: ColumnDef<CombinedElectionRow>[] = [
+const absenteeComparisonColumnsBuilder = (): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+  const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: "turnoutAbsenteeBallotsSameDay",
       meta: { title: "Ratio on Same Day" },
@@ -93,8 +94,8 @@ const absenteeComparisonColumnsBuilder = (): ColumnDef<CombinedElectionRow> => {
   };
 };
 
-const absenteeColumnsBuilder = (electionInfo: Election | undefined, absenteeElectionColumn: "absenteeCurrent" | "absenteeBase"): ColumnDef<CombinedElectionRow> => {
-  const children: ColumnDef<CombinedElectionRow>[] = [
+const absenteeColumnsBuilder = (electionInfo: Election | undefined, absenteeElectionColumn: "absenteeCurrent" | "absenteeBase"): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+  const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
       meta: { title: "At Same Days to Election" },
@@ -118,8 +119,8 @@ const absenteeColumnsBuilder = (electionInfo: Election | undefined, absenteeElec
   };
 };
 
-const electionResultColumnsBuilder = (raceInfo: ElectionRace | undefined, raceColumn: "electionResultsCurrent" | "electionResultsBase"): ColumnDef<CombinedElectionRow> => {
-  const children: ColumnDef<CombinedElectionRow>[] = [
+const electionResultColumnsBuilder = (raceInfo: ElectionRace | undefined, raceColumn: "electionResultsCurrent" | "electionResultsBase"): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+  const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: `${raceColumn}##republican`,
       meta: { title: `${raceInfo?.republican} (R)` },
@@ -222,8 +223,8 @@ const electionResultColumnsBuilder = (raceInfo: ElectionRace | undefined, raceCo
   };
 };
 
-const electionResultComparisonColumnsBuilder = (): ColumnDef<CombinedElectionRow> => {
-  const children: ColumnDef<CombinedElectionRow>[] = [
+const electionResultComparisonColumnsBuilder = (): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+  const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: "perShiftDemocratic",
       meta: { title: "Swing (Shift in R/D %)" },
@@ -282,8 +283,8 @@ const electionResultComparisonColumnsBuilder = (): ColumnDef<CombinedElectionRow
   };
 };
 
-const demographicColumnBuilder = (): ColumnDef<CombinedElectionRow> => {
-  const children: ColumnDef<CombinedElectionRow>[] = [
+const demographicColumnBuilder = (): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+  const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: "demographics##whitePer",
       meta: { title: "White %" },

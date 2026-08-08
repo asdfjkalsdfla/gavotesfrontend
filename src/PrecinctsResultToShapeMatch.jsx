@@ -8,7 +8,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import { tableFeatures, useTable, rowSortingFeature, createSortedRowModel } from "@tanstack/react-table";
+
+const features = tableFeatures({
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+});
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
@@ -161,8 +166,6 @@ export default function PrecinctsResultToShapeMatch() {
           );
         },
         accessorKey: "electionResultsPrecinctName",
-        sorter: (a, b) => a.electionResultsPrecinctName > b.electionResultsPrecinctName,
-        defaultSortOrder: "ascend",
       },
       {
         header: ({ column }) => {
@@ -174,7 +177,6 @@ export default function PrecinctsResultToShapeMatch() {
           );
         },
         accessorKey: "score",
-        sorter: (a, b) => a.score - b.score,
       },
       {
         header: ({ column }) => {
@@ -234,12 +236,11 @@ export default function PrecinctsResultToShapeMatch() {
 
   const [sorting, setSorting] = React.useState([]);
 
-  const table = useReactTable({
+  const table = useTable({
     data: electionPrecinctsInSelectedCounty,
     columns,
-    getCoreRowModel: getCoreRowModel(),
+    features,
     onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
     },
@@ -290,7 +291,7 @@ export default function PrecinctsResultToShapeMatch() {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
-                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
+                  return <TableHead key={header.id}>{header.isPlaceholder ? null : <table.FlexRender header={header} />}</TableHead>;
                 })}
               </TableRow>
             ))}
@@ -298,9 +299,11 @@ export default function PrecinctsResultToShapeMatch() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id}>
+                      <table.FlexRender cell={cell} />
+                    </TableCell>
                   ))}
                 </TableRow>
               ))

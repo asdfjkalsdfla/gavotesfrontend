@@ -1,35 +1,26 @@
 import * as React from "react";
-import {
-  ColumnDef,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import type { ColumnDef, ColumnVisibilityState, RowData, SortingState } from "@tanstack/react-table";
+import { useTable } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DataTableViewOptions } from "./DataTableViewOptions.tsx";
 import { DataTablePagination } from "./DataTablePagination.tsx";
+import { features, type DataTableFeatures } from "./data-table-features.ts";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableProps<TData extends RowData> {
+  columns: ColumnDef<DataTableFeatures, TData, unknown>[];
   data: TData[];
   initialSortColumn: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: DataTableProps<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+export function DataTable<TData extends RowData>({ columns, data, initialSortColumn }: DataTableProps<TData>) {
+  const [columnVisibility, setColumnVisibility] = React.useState<ColumnVisibilityState>({});
   const [sorting, setSorting] = React.useState<SortingState>([{ id: initialSortColumn, desc: false }]);
 
-  const table = useReactTable({
+  const table = useTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    features,
     onSortingChange: setSorting,
-    getPaginationRowModel: getPaginationRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
@@ -52,7 +43,7 @@ export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: D
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead colSpan={header.colSpan} key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder ? null : <table.FlexRender header={header} />}
                     </TableHead>
                   );
                 })}
@@ -62,9 +53,11 @@ export function DataTable<TData, TValue>({ columns, data, initialSortColumn }: D
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id}>
+                      <table.FlexRender cell={cell} />
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
