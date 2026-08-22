@@ -32,3 +32,6 @@ buildMeta.json
 # ai
 .agents/*
 .migration/
+
+cert.pem
+key.pem
