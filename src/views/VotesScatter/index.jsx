@@ -50,6 +50,16 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
       }
     });
 
+    if (pointsOnChart.length === 0) {
+      return {
+        pointsOnChart: [],
+        regressionLineData: [],
+        regIntercept: 0,
+        regSlope: 0,
+        defaultDomainY: [0, 100],
+      };
+    }
+
     const regression = new SimpleLinearRegression(
       pointsOnChart.map((point) => point.x),
       pointsOnChart.map((point) => point.y),
@@ -69,11 +79,21 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
     return { pointsOnChart, regressionLineData, regIntercept, regSlope, defaultDomainY };
   }, [locationResults, isCountyLevel, scatterXAxis, scatterYAxis]);
 
-  const [prevData, setPrevData] = useState(null);
+  const [prevDataParams, setPrevDataParams] = useState({
+    scatterXAxis,
+    scatterYAxis,
+    isCountyLevel,
+    locationResults,
+  });
   const [customZoom, setCustomZoom] = useState(null);
 
-  if (prevData !== data) {
-    setPrevData(data);
+  if (
+    prevDataParams.scatterXAxis !== scatterXAxis ||
+    prevDataParams.scatterYAxis !== scatterYAxis ||
+    prevDataParams.isCountyLevel !== isCountyLevel ||
+    prevDataParams.locationResults !== locationResults
+  ) {
+    setPrevDataParams({ scatterXAxis, scatterYAxis, isCountyLevel, locationResults });
     setCustomZoom(null);
   }
 
