@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "type-check": "tsc --noEmit",
-
     "cdk": "cdk",
     "synth": "pnpm cdk synth",
     "diff": "pnpm cdk diff",

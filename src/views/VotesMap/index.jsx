@@ -1,8 +1,8 @@
-import 'maplibre-gl/dist/maplibre-gl.css';
+import "maplibre-gl/dist/maplibre-gl.css";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Map, useControl } from "react-map-gl/maplibre";
-import { setWorkerUrl} from 'maplibre-gl';
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+import { setWorkerUrl } from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 // import {
 //   LightingEffect,
 //   AmbientLight,
@@ -62,18 +62,14 @@ export default function VotesMap({
   // Use React Query to fetch and cache GeoJSON data
   const { data: dataGeoJSONBase, isLoading: isLoadingGeoJSON, error: geoJSONError } = useGeoJSON(geoJSONFile);
 
-  const [dataGeoJSON, updateDataGeoJSON] = useState();
-  const [dataPropsOnly, updateDataPropsOnly] = useState();
+  const dataGeoJSON = useMemo(() => {
+    if (!dataGeoJSONBase || !locationResults) return undefined;
+    return processGeoJSONData(dataGeoJSONBase, locationResults);
+  }, [dataGeoJSONBase, locationResults]);
 
-  useEffect(() => {
-    if (!dataGeoJSONBase || !locationResults) return;
-
-    const processedData = processGeoJSONData(dataGeoJSONBase, locationResults);
-    if (processedData) {
-      updateDataGeoJSON(processedData);
-      const simpleData = extractSimpleData(dataGeoJSONBase);
-      updateDataPropsOnly(simpleData);
-    }
+  const dataPropsOnly = useMemo(() => {
+    if (!dataGeoJSONBase || !locationResults) return undefined;
+    return extractSimpleData(dataGeoJSONBase);
   }, [dataGeoJSONBase, locationResults]);
 
   // ************************************************

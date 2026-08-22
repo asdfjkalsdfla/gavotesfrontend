@@ -17,7 +17,6 @@ const features = tableFeatures({
 
 export default function PrecinctsResultToShapeMatch() {
   const [counties, updateCounties] = useState([]);
-  const [countyOptions, updateCountyOptions] = useState([]);
   const [countiesNoMatch, updateCountiesNoMatch] = useState([]);
   const [shapePrecincts, updateShapesPrecincts] = useState(new Map());
   const [electionResultsPrecinctsToShapeMap, updateElectionResultsPrecinctsToShapeMap] = useState(new Map());
@@ -94,33 +93,29 @@ export default function PrecinctsResultToShapeMatch() {
   }, []);
 
   const [showAllCounties, updateShowAllCounties] = useState(false);
-
-  useEffect(() => {
+  const countyOptions = useMemo(() => {
     const countiesToUses = showAllCounties ? counties : countiesNoMatch;
-    const countyOptions = countiesToUses.map((county) => ({ value: county, label: county }));
-    updateCountyOptions(countyOptions);
+    return countiesToUses.map((county) => ({ value: county, label: county }));
   }, [counties, countiesNoMatch, showAllCounties]);
 
   const [selectedCounty, updateSelectedCounty] = useState("APPLING");
-  const [electionPrecinctsInSelectedCounty, updateElectionPrecinctsInSelectedCounty] = useState([]);
-  const [mapPrecinctsInSelectedCounty, updatePrecinctsMapInSelectedCounty] = useState([]);
 
-  useEffect(() => {
-    if (!selectedCounty) return;
-    const tmpPrecinctsInSelectedCounty = [...electionResultsPrecinctsToShapeMap.values()]
+  const electionPrecinctsInSelectedCounty = useMemo(() => {
+    if (!selectedCounty || !electionResultsPrecinctsToShapeMap) return [];
+    return [...electionResultsPrecinctsToShapeMap.values()]
       .filter((precinct) => precinct.county.toUpperCase() === selectedCounty.toUpperCase())
       .sort((a, b) => (a.electionResultsPrecinctName > b.electionResultsPrecinctName ? 1 : -1));
-    updateElectionPrecinctsInSelectedCounty(tmpPrecinctsInSelectedCounty);
-    const tmpPrecinctsMapInSelectedCounty = [...shapePrecincts.values()]
+  }, [electionResultsPrecinctsToShapeMap, selectedCounty]);
+
+  const mapPrecinctsInSelectedCounty = useMemo(() => {
+    if (!selectedCounty || !shapePrecincts) return [];
+    return [...shapePrecincts.values()]
       .filter((precinct) => precinct.properties.CTYNAME === selectedCounty.toUpperCase())
       .map((precinct) => precinct.properties)
       .sort((a, b) => (a.PRECINCT_N > b.PRECINCT_N ? 1 : -1));
-    updatePrecinctsMapInSelectedCounty(tmpPrecinctsMapInSelectedCounty);
-  }, [manualElectionResultsPrecinctsToShapeMap, selectedCounty]);
+  }, [selectedCounty, shapePrecincts]);
 
-  const [mapPrecinctsNotSelectedInCounty, updateMapPrecinctsNotSelectedInCounty] = useState([]);
-  const [mapPrecinctsSelectedMultipleTimesInCounty, updateMapPrecinctsSelectedMultipleTimesInCounty] = useState([]);
-  useEffect(() => {
+  const { mapPrecinctsNotSelectedInCounty, mapPrecinctsSelectedMultipleTimesInCounty } = useMemo(() => {
     const tmpPrecinctsMapNotUsed = [];
     const tmpPrecinctsMapUsedMulti = [];
     mapPrecinctsInSelectedCounty.forEach((shapePrecinct) => {
@@ -130,8 +125,10 @@ export default function PrecinctsResultToShapeMatch() {
       if (shapesInElectionMap.length === 0) tmpPrecinctsMapNotUsed.push(shapePrecinct);
       if (shapesInElectionMap.length > 1) tmpPrecinctsMapUsedMulti.push(shapePrecinct);
     });
-    updateMapPrecinctsNotSelectedInCounty(tmpPrecinctsMapNotUsed);
-    updateMapPrecinctsSelectedMultipleTimesInCounty(tmpPrecinctsMapUsedMulti);
+    return {
+      mapPrecinctsNotSelectedInCounty: tmpPrecinctsMapNotUsed,
+      mapPrecinctsSelectedMultipleTimesInCounty: tmpPrecinctsMapUsedMulti,
+    };
   }, [electionPrecinctsInSelectedCounty, mapPrecinctsInSelectedCounty]);
 
   const [showCSVOutputs] = useState(true);
@@ -231,7 +228,7 @@ export default function PrecinctsResultToShapeMatch() {
         },
       },
     ],
-    [selectedCounty, mapPrecinctsInSelectedCounty, precinctOptions],
+    [manualElectionResultsPrecinctsToShapeMap, electionResultsPrecinctsToShapeMap, precinctOptions],
   );
 
   const [sorting, setSorting] = React.useState([]);

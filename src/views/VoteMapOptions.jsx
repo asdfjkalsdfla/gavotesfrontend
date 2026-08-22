@@ -71,9 +71,7 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
       })),
     );
 
-  const electionOptions = elections
-    .filter((election) => !election.isCurrentElection)
-    .map((election) => ({ value: election.name, label: election.label }));
+  const electionOptions = elections.filter((election) => !election.isCurrentElection).map((election) => ({ value: election.name, label: election.label }));
 
   return (
     <Card className="mb-5">

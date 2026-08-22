@@ -16,7 +16,11 @@ function DropdownMenuTrigger({ ...props }: DropdownMenuPrimitive.Trigger.Props) 
   return <DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
 
-function DropdownMenuContent({ className, sideOffset = 4, ...props }: DropdownMenuPrimitive.Popup.Props & Pick<DropdownMenuPrimitive.Positioner.Props, "sideOffset" | "align" | "alignOffset" | "side">) {
+function DropdownMenuContent({
+  className,
+  sideOffset = 4,
+  ...props
+}: DropdownMenuPrimitive.Popup.Props & Pick<DropdownMenuPrimitive.Positioner.Props, "sideOffset" | "align" | "alignOffset" | "side">) {
   const { align, alignOffset, side, ...popupProps } = props;
   return (
     <DropdownMenuPrimitive.Portal>

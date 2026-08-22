@@ -3,5 +3,5 @@
   "printWidth": 160,
   "tabWidth": 2,
   "sortPackageJson": false,
-  "ignorePatterns": []
+  "ignorePatterns": ["src/routeTree.gen.ts", "build/", "dist/", "coverage/"]
 }

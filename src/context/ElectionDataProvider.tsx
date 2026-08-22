@@ -32,6 +32,9 @@ interface ElectionDataProviderProps {
 
 export const ElectionDataContext = createContext<ElectionDataContextValue | null>(null);
 
+const EMPTY_ELECTION_MAP = new Map<string, CombinedElectionRow>();
+const EMPTY_ELECTION_ROW: CombinedElectionRow = { id: "", CTYNAME: "" };
+
 export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: ElectionDataProviderProps) {
   const { absenteeElectionBaseID, absenteeElectionCurrentID, resultsElectionRaceCurrentID, resultsElectionRacePerviousID } = useElectionSelection();
   const absenteeElectionCurrent = useMemo(() => convertElectionIDToObject(absenteeElectionCurrentID), [absenteeElectionCurrentID]);
@@ -68,10 +71,14 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
   );
 
   // Extract data from queries
-  const statewideElectionData: CombinedElectionRow =
-    stateQuery.data instanceof Map && stateQuery.data.size > 0 ? [...stateQuery.data.values()][0] : { id: "", CTYNAME: "" };
-  const countyElectionData = countyQuery.data || new Map<string, CombinedElectionRow>();
-  const locationElectionData = locationQuery.data || new Map<string, CombinedElectionRow>();
+  const statewideElectionData: CombinedElectionRow = useMemo(() => {
+    if (stateQuery.data instanceof Map && stateQuery.data.size > 0) {
+      return stateQuery.data.values().next().value ?? EMPTY_ELECTION_ROW;
+    }
+    return EMPTY_ELECTION_ROW;
+  }, [stateQuery.data]);
+  const countyElectionData = countyQuery.data || EMPTY_ELECTION_MAP;
+  const locationElectionData = locationQuery.data || EMPTY_ELECTION_MAP;
 
   const activeLocationResults = useMemo(() => {
     if (isCountyLevel || !countyFilter) return locationElectionData; // at county level, we don't filter or when using all precincts

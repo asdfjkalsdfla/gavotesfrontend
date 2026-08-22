@@ -52,4 +52,3 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
 
   return <Chart definition={definition} height={200} ariaLabel="Votes by day" />;
 }
-

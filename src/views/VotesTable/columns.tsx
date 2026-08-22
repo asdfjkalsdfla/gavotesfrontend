@@ -94,7 +94,10 @@ const absenteeComparisonColumnsBuilder = (): ColumnDef<DataTableFeatures, Combin
   };
 };
 
-const absenteeColumnsBuilder = (electionInfo: Election | undefined, absenteeElectionColumn: "absenteeCurrent" | "absenteeBase"): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+const absenteeColumnsBuilder = (
+  electionInfo: Election | undefined,
+  absenteeElectionColumn: "absenteeCurrent" | "absenteeBase",
+): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
   const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
@@ -119,7 +122,10 @@ const absenteeColumnsBuilder = (electionInfo: Election | undefined, absenteeElec
   };
 };
 
-const electionResultColumnsBuilder = (raceInfo: ElectionRace | undefined, raceColumn: "electionResultsCurrent" | "electionResultsBase"): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
+const electionResultColumnsBuilder = (
+  raceInfo: ElectionRace | undefined,
+  raceColumn: "electionResultsCurrent" | "electionResultsBase",
+): ColumnDef<DataTableFeatures, CombinedElectionRow> => {
   const children: ColumnDef<DataTableFeatures, CombinedElectionRow>[] = [
     {
       id: `${raceColumn}##republican`,

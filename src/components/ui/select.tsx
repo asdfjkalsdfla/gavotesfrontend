@@ -51,13 +51,7 @@ function SelectContent({
   const { side, align, alignOffset, ...popupProps } = props;
   return (
     <SelectPrimitive.Portal>
-      <SelectPrimitive.Positioner
-        alignItemWithTrigger={alignItemWithTrigger}
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-      >
+      <SelectPrimitive.Positioner alignItemWithTrigger={alignItemWithTrigger} side={side} sideOffset={sideOffset} align={align} alignOffset={alignOffset}>
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cn(

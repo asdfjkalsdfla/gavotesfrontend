@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useCallback, useEffect, useLayoutEffect, useTransition } from "react";
+import React, { useState, useMemo, useRef, useCallback, useLayoutEffect, useTransition } from "react";
 import { scaleLinear, scaleSqrt } from "d3-scale";
 import { defineChart, dot, lineY } from "@tanstack/charts";
 import { findNearestPoint } from "@tanstack/charts/scene";
@@ -13,7 +13,6 @@ import "./VotesScatter.css";
 
 const MIN_ZOOM = 5; // adjust based on your data
 const DEFAULT_DOMAIN_X = null; // null means "infer domain from data"
-const DEFAULT_DOMAIN_Y = [0, 150];
 const HOVER_HIT_DISTANCE = 12; // scene pixels considered "on a dot"
 const MIN_DRAG_PX = 5; // minimum on-screen drag before a zoom box is shown
 
@@ -25,9 +24,6 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
   const { locationResults } = useElectionData();
   const { scatterXAxis, scatterYAxis } = useScatterPreference();
   const [, startTransition] = useTransition();
-  // x/y axis domains; null x domain means "let the chart infer it from the data"
-  const [domainX, updateDomainX] = useState(DEFAULT_DOMAIN_X);
-  const [domainY, updateDomainY] = useState(DEFAULT_DOMAIN_Y);
 
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -73,17 +69,20 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
     return { pointsOnChart, regressionLineData, regIntercept, regSlope, defaultDomainY };
   }, [locationResults, isCountyLevel, scatterXAxis, scatterYAxis]);
 
-  // reset the zoom whenever the underlying data or selected axes change
-  useEffect(() => {
-    updateDomainX(DEFAULT_DOMAIN_X);
-    updateDomainY(data.defaultDomainY);
-  }, [data]);
+  const [prevData, setPrevData] = useState(null);
+  const [customZoom, setCustomZoom] = useState(null);
 
-  const isZoomed = domainX !== null;
+  if (prevData !== data) {
+    setPrevData(data);
+    setCustomZoom(null);
+  }
+
+  const domainX = customZoom ? customZoom.x : DEFAULT_DOMAIN_X;
+  const domainY = customZoom ? customZoom.y : data.defaultDomainY;
+  const isZoomed = customZoom !== null;
   const resetZoom = useCallback(() => {
-    updateDomainX(DEFAULT_DOMAIN_X);
-    updateDomainY(data.defaultDomainY);
-  }, [data]);
+    setCustomZoom(null);
+  }, []);
 
   // measure the container so the chart can fill all available vertical space
   const [chartHeight, setChartHeight] = useState(FALLBACK_CHART_HEIGHT);
@@ -209,8 +208,10 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
           console.log("zoom cancel");
         } else {
           startTransition(() => {
-            updateDomainX([x1 - 2.5, x2 + 2.5]);
-            updateDomainY([y1 - 2.5, y2 + 2.5]);
+            setCustomZoom({
+              x: [x1 - 2.5, x2 + 2.5],
+              y: [y1 - 2.5, y2 + 2.5],
+            });
           });
         }
       }
