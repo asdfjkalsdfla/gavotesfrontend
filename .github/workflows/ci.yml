@@ -12,13 +12,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-      - name: Use Node.js 22.x and cache
-        uses: actions/setup-node@v7
+      - name: Setup pnpm and Node.js
+        uses: pnpm/setup@v2
         with:
-          node-version: "24.19.0"
-      - run: pnpm install
+          runtime: "node@24.19.0"
       - run: pnpm run build
       # - run: pnpm run buildESB
       - run: pnpm test
