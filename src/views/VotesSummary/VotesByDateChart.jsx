@@ -38,8 +38,10 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
             color: "series",
           }),
         ],
-        x: { scale: scaleLinear, grid: true },
-        y: { scale: scaleLinear, nice: true, grid: true },
+        scales: {
+          x: { scale: scaleLinear, grid: true },
+          y: { scale: scaleLinear, nice: true, grid: true },
+        },
         color: {
           scale: scaleOrdinal().domain([currentSeriesLabel, baseSeriesLabel]).range(["#8884d8", "#82ca9d"]),
           legend: colorLegend({}),

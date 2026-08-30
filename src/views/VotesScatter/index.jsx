@@ -263,15 +263,17 @@ export default function VotesScatterPlot({ isCountyLevel, updateActiveHover, upd
           strokeWidth: 2,
         }),
       ],
-      x: {
-        scale: domainX ? scaleLinear().domain(domainX) : scaleLinear,
-        grid: true,
-        axis: { label: xAxisLabel, ticks: { format: tickFormatter } },
-      },
-      y: {
-        scale: scaleLinear().domain(domainY),
-        grid: true,
-        axis: { label: yAxisLabel, ticks: { format: tickFormatter } },
+      scales: {
+        x: {
+          scale: domainX ? scaleLinear().domain(domainX) : scaleLinear,
+          grid: true,
+          axis: { label: xAxisLabel, ticks: { format: tickFormatter } },
+        },
+        y: {
+          scale: scaleLinear().domain(domainY),
+          grid: true,
+          axis: { label: yAxisLabel, ticks: { format: tickFormatter } },
+        },
       },
       maxFocusDistance: HOVER_HIT_DISTANCE,
       animate: false,
