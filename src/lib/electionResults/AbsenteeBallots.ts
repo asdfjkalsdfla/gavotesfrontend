@@ -1,16 +1,4 @@
-import { Temporal } from "temporal-polyfill";
 import type { AbsenteeBallotsData, VotesByDay } from "./types";
-
-const electionDate = Temporal.ZonedDateTime.from({
-  timeZone: "America/New_York",
-  year: 2026,
-  month: 11,
-  day: 3,
-  hour: 20,
-});
-
-const currentDate = Temporal.Now.zonedDateTimeISO("America/New_York");
-const daysToElection = electionDate.until(currentDate).days;
 
 export default class AbsenteeBallots {
   // Public properties from the template
@@ -26,6 +14,12 @@ export default class AbsenteeBallots {
     if (template) Object.assign(this, template);
   }
 
+  // latest reported day relative to election in dataset (e.g. -14)
+  get latestDaysFromElection(): number | undefined {
+    if (!this.votesByDay || this.votesByDay.length === 0) return undefined;
+    return this.votesByDay[this.votesByDay.length - 1]?.DaysFromElection;
+  }
+
   // total # of absentee votes cast
   get totalAbsenteeVotes(): number {
     if (this.#totalAbsenteeVotes !== undefined) return this.#totalAbsenteeVotes;
@@ -34,16 +28,19 @@ export default class AbsenteeBallots {
     return value;
   }
 
-  // total # of absentee votes cast as of same date
+  // total # of absentee votes cast as of latest reported date
   get absenteeVotesAsOfCurrentDate(): number {
     if (this.#absenteeVotesAsOfCurrentDate !== undefined) return this.#absenteeVotesAsOfCurrentDate;
-    const value = this.absenteeVotesAsOfDaysOut(daysToElection);
+    const targetDay = this.latestDaysFromElection;
+    const value = targetDay !== undefined ? this.absenteeVotesAsOfDaysOut(targetDay, true) : this.totalAbsenteeVotes;
     this.#absenteeVotesAsOfCurrentDate = value;
     return value;
   }
 
-  absenteeVotesAsOfDaysOut(daysOut: number): number {
-    const absenteeDatesPrior = this.votesByDay.filter((ballotDay) => ballotDay.DaysFromElection < daysOut);
+  absenteeVotesAsOfDaysOut(daysOut: number, inclusive = false): number {
+    const absenteeDatesPrior = this.votesByDay.filter((ballotDay) =>
+      inclusive ? ballotDay.DaysFromElection <= daysOut : ballotDay.DaysFromElection < daysOut,
+    );
     if (absenteeDatesPrior.length === 0) return 0;
     const lastDate = absenteeDatesPrior.reduce(
       (previousValue, nextValue) => (previousValue > nextValue.DaysFromElection ? previousValue : nextValue.DaysFromElection),

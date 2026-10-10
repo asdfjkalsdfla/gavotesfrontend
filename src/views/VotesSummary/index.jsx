@@ -151,7 +151,12 @@ export default function VoteSummary({
               <div>Accepted {absenteeElectionCurrentLabel}</div>
               <div className="text-right">{numberFormat.format(resultSummary?.absenteeCurrent?.totalAbsenteeVotes)}</div>
               <div>Accepted at Same Date in {absenteeElectionBaseLabel}</div>
-              <div className="text-right">{numberFormat.format(resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate)}</div>
+              <div className="text-right">
+                {numberFormat.format(
+                  resultSummary?.absenteeBallotComparison?.previousVotesSameDay ??
+                    resultSummary?.absenteeBase?.absenteeVotesAsOfCurrentDate,
+                )}
+              </div>
               <div>vs. Same Day</div>
               <div className="text-right">{numberFormatRatio.format(resultSummary?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)}</div>
               <div>Total Accepted in {absenteeElectionBaseLabel}</div>

@@ -102,8 +102,10 @@ const absenteeColumnsBuilder = (
     {
       id: `${absenteeElectionColumn}##absenteeVotesAsOfCurrentDate`,
       meta: { title: "At Same Days to Election" },
-      header: ({ column }) => <DataTableColumnHeader column={column} title={column.columnDef.meta?.title ?? ""} />,
-      accessorFn: (originalRow) => originalRow[absenteeElectionColumn]?.absenteeVotesAsOfCurrentDate,
+      accessorFn: (originalRow) =>
+        absenteeElectionColumn === "absenteeBase"
+          ? (originalRow.absenteeBallotComparison?.previousVotesSameDay ?? originalRow.absenteeBase?.absenteeVotesAsOfCurrentDate)
+          : originalRow.absenteeCurrent?.totalAbsenteeVotes,
       cell: ({ getValue }) => <DataTableCellNumeric>{numberFormat.format(getValue<number | undefined>() ?? 0)}</DataTableCellNumeric>,
     },
     {

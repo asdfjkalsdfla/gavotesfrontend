@@ -13,13 +13,25 @@ export default class AbsenteeBallotsComparison {
     this.previousElection = previousElectionBallots;
   }
 
+  // Raw votes cast in the baseline election on or before the current election's latest day out
+  get previousVotesSameDay(): number | undefined {
+    const targetDaysOut = this.baseElection?.latestDaysFromElection;
+    if (targetDaysOut === undefined) return undefined;
+    return this.previousElection.absenteeVotesAsOfDaysOut(targetDaysOut, true);
+  }
+
   // % change in absentee votes on the same day
   get turnoutAbsenteeBallotsSameDay(): number | undefined {
     if (this.#turnoutAbsenteeBallotsSameDay !== undefined) return this.#turnoutAbsenteeBallotsSameDay;
+
+    const prevVotesSameDay = this.previousVotesSameDay ?? this.previousElection.absenteeVotesAsOfCurrentDate ?? 0;
+    const currentVotes = this.baseElection?.totalAbsenteeVotes || 0;
+
     const value =
-      this.previousElection.absenteeVotesAsOfCurrentDate && this.previousElection.absenteeVotesAsOfCurrentDate > 25
-        ? this.baseElection.absenteeVotesAsOfCurrentDate / this.previousElection.absenteeVotesAsOfCurrentDate
+      prevVotesSameDay > 25
+        ? currentVotes / prevVotesSameDay
         : undefined;
+
     this.#turnoutAbsenteeBallotsSameDay = value;
     return value;
   }

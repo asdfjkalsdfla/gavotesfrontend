@@ -15,16 +15,32 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
       ? resultSummary.absenteeBase.votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection >= -30)
       : [];
 
-    // match up the dates
+    const currentPoints = resultSummary.absenteeCurrent?.votesByDay
+      ? resultSummary.absenteeCurrent.votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection >= -30)
+      : [];
+
+    // Match up the dates
     const currentElectionMap = new Map();
-    if (resultSummary.absenteeCurrent?.votesByDay)
-      resultSummary.absenteeCurrent.votesByDay.map((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
+    currentPoints.forEach((point) => currentElectionMap.set(point.DaysFromElection, point.votesOnDate));
+
+    // Determine latest reported day in the current election so we don't plot false 0s into the future
+    const latestCurrentDay =
+      currentPoints.length > 0 ? currentPoints[currentPoints.length - 1].DaysFromElection : undefined;
 
     // long-format rows so both series share one lineY mark
-    return chartPoints.flatMap((point) => [
-      { DaysFromElection: point.DaysFromElection, series: currentSeriesLabel, votes: currentElectionMap.get(point.DaysFromElection) || 0 },
-      { DaysFromElection: point.DaysFromElection, series: baseSeriesLabel, votes: point.votesOnDate },
-    ]);
+    return chartPoints.flatMap((point) => {
+      const entries = [{ DaysFromElection: point.DaysFromElection, series: baseSeriesLabel, votes: point.votesOnDate }];
+
+      if (latestCurrentDay !== undefined && point.DaysFromElection <= latestCurrentDay && currentElectionMap.has(point.DaysFromElection)) {
+        entries.unshift({
+          DaysFromElection: point.DaysFromElection,
+          series: currentSeriesLabel,
+          votes: currentElectionMap.get(point.DaysFromElection) || 0,
+        });
+      }
+
+      return entries;
+    });
   }, [resultSummary, currentSeriesLabel, baseSeriesLabel]);
 
   const definition = useMemo(

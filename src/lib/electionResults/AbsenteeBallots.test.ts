@@ -47,12 +47,7 @@ describe.concurrent("Absentee Ballot Test", () => {
   });
 
   it("check the current value to use", async () => {
-    // set hour within business hours
-    const date = new Date(2022, 11, 5, 13);
-    vi.setSystemTime(date);
-    // expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1871252);
-    // Commented out because temporal isn't working for mock
-    expect(absTest.absenteeVotesAsOfCurrentDate).toBeTypeOf("number");
+    expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1889763);
   });
 
   it("check total absentee ballots", async () => {
@@ -65,5 +60,20 @@ describe.concurrent("Absentee Ballot Test", () => {
       lastUpdated: "2026-10-10T22:09:47Z",
     });
     expect(withDate.lastUpdated).toBe("2026-10-10T22:09:47Z");
+  });
+
+  it("check latestDaysFromElection", async () => {
+    expect(absTest.latestDaysFromElection).toBe(22);
+    const emptyAbs = new AbsenteeBallots({ votesByDay: [] });
+    expect(emptyAbs.latestDaysFromElection).toBeUndefined();
+  });
+
+  it("check inclusive days out matching", async () => {
+    // When inclusive is true, -3 includes day -3
+    expect(absTest.absenteeVotesAsOfDaysOut(-3, true)).toBe(1871252);
+    // Day 0 includes day 0
+    expect(absTest.absenteeVotesAsOfDaysOut(0, true)).toBe(1889746);
+    // When date is before any votes, returns 0
+    expect(absTest.absenteeVotesAsOfDaysOut(-10, true)).toBe(0);
   });
 });
