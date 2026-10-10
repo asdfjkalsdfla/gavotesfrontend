@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { useSearch } from "@tanstack/react-router";
+import elections from "../elections.json";
 
 interface ElectionSelection {
   absenteeElectionBaseID: string;
@@ -30,7 +31,8 @@ export function ElectionSelectionContextProvider({ children }: IProps) {
   const resultsElectionRacePerviousIDParam: string | undefined = search?.resultsElectionRacePerviousID;
   const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
 
-  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>("2024_general");
+  const currentElection = elections.find((e) => e.isCurrentElection);
+  const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>(currentElection?.name || "2026_general");
   const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>("2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState<string>(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState<string>(resultsElectionRacePerviousIDInitial);

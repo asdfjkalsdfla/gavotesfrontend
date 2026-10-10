@@ -17,7 +17,7 @@ interface IProps {
 
 export function SummaryPreferenceContextProvider({ children }: IProps): React.ReactNode {
   const [showVoteMode, updateShowVoteMode] = useState(false);
-  const [showAbsentee, updateShowAbsentee] = useState(false);
+  const [showAbsentee, updateShowAbsentee] = useState(true);
   const [showDemographics, updateShowDemographics] = useState(false);
 
   const contextValue = useMemo(() => {
