@@ -37,12 +37,17 @@ const buildApiUrl = (category: string, prefix: string, name: string, level: stri
   return `${import.meta.env.VITE_API_URL_BASE}static/${category}/${prefix}-${name}-${level}.json`;
 };
 
-// Helper function to fetch data with error handling
-const fetchData = async <T = unknown>(url: string, description: string): Promise<T> => {
-  if (!url) return null as T;
+// Helper function to fetch data with graceful 404 handling
+const fetchData = async <T = unknown>(url: string, description: string): Promise<T | null> => {
+  if (!url) return null;
 
   const response = await fetch(url);
   if (!response.ok) {
+    // If a dataset (such as future election results) is not yet available, handle gracefully
+    if (response.status === 404) {
+      console.warn(`Data file not available for ${description} (${url}). Skipping.`);
+      return null;
+    }
     console.error(`ERROR loading ${description} from ${url}: ${response.statusText}`);
     throw new Error(`Failed to load ${description}: ${response.statusText}`);
   }
@@ -54,12 +59,16 @@ const useDataFile = <T = RawDataRow[]>(url: string | null, description: string, 
   return useQuery({
     queryKey: ["dataFile", url],
     queryFn: () => {
-      if (!url) throw new Error("URL is required");
+      if (!url) return null;
       return fetchData<T | null>(url, description);
     },
     enabled: enabled && !!url,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
+    retry: (failureCount, error) => {
+      if (error instanceof Error && error.message.includes("404")) return false;
+      return failureCount < 2;
+    },
   });
 };
 
@@ -71,30 +80,47 @@ export const useElectionData = (
   resultsElectionRacePervious: ElectionRace | null,
   level: string,
   isCountyLevel: boolean,
+  enabled = true,
 ) => {
   const absenteeCurrentFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionCurrent?.name || "", level);
   const absenteeBaseFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionBase?.name || "", level);
-  const electionResultsCurrentFileLocation = buildApiUrl("electionResults", "electionResultsSummary", resultsElectionRaceCurrent?.election?.name || "", level);
+  const electionResultsCurrentFileLocation = buildApiUrl(
+    "electionResults",
+    "electionResultsSummary",
+    resultsElectionRaceCurrent?.election?.name || "",
+    level,
+  );
   const electionResultBaseFileLocation = resultsElectionRacePervious
     ? buildApiUrl("electionResults", "electionResultsSummary", resultsElectionRacePervious?.election?.name || "", level)
     : null;
   const demographicsFileLocation = `${import.meta.env.VITE_API_URL_BASE}static/demographics/demographics-${level}-2020.json`;
 
-  // Fetch all data files
-  const absenteeCurrentQuery = useDataFile<RawDataRow[]>(absenteeCurrentFileLocation, "Absentee Current");
-  const absenteeBaseQuery = useDataFile<RawDataRow[]>(absenteeBaseFileLocation, "Absentee Base");
-  const electionResultsCurrentQuery = useDataFile<RawDataRow[]>(electionResultsCurrentFileLocation, "Election Results Current");
-  const electionResultBaseQuery = useDataFile<RawDataRow[]>(electionResultBaseFileLocation, "Election Result Base", !!electionResultBaseFileLocation);
-  const demographicsQuery = useDataFile<RawDataRow[]>(demographicsFileLocation, "Demographics");
+  // Fetch all data files independently
+  const absenteeCurrentQuery = useDataFile<RawDataRow[]>(absenteeCurrentFileLocation, "Absentee Current", enabled);
+  const absenteeBaseQuery = useDataFile<RawDataRow[]>(absenteeBaseFileLocation, "Absentee Base", enabled);
+  const electionResultsCurrentQuery = useDataFile<RawDataRow[]>(
+    electionResultsCurrentFileLocation,
+    "Election Results Current",
+    enabled,
+  );
+  const electionResultBaseQuery = useDataFile<RawDataRow[]>(
+    electionResultBaseFileLocation,
+    "Election Result Base",
+    enabled && !!electionResultBaseFileLocation,
+  );
+  const demographicsQuery = useDataFile<RawDataRow[]>(demographicsFileLocation, "Demographics", enabled);
 
-  // Check if any critical queries are loading or have errors
-  const isLoading = absenteeCurrentQuery.isLoading || absenteeBaseQuery.isLoading || electionResultsCurrentQuery.isLoading || demographicsQuery.isLoading;
+  // Critical loading: only consider active primary queries
+  const isPrimaryAbsenteeLoading = !!absenteeCurrentFileLocation && absenteeCurrentQuery.isLoading;
+  const isPrimaryResultsLoading = !!electionResultsCurrentFileLocation && electionResultsCurrentQuery.isLoading;
+  const isLoading = enabled && (isPrimaryAbsenteeLoading || isPrimaryResultsLoading);
 
-  const isError = absenteeCurrentQuery.isError || absenteeBaseQuery.isError || electionResultsCurrentQuery.isError || demographicsQuery.isError;
+  const isError = enabled && (absenteeCurrentQuery.isError || electionResultsCurrentQuery.isError);
+  const error = absenteeCurrentQuery.error || electionResultsCurrentQuery.error || demographicsQuery.error || null;
 
-  // Combine the data when all queries are successful
+  // Combine data progressively as domains arrive
   const combinedData = useMemo((): Map<string, CombinedElectionRow> => {
-    if (isLoading || isError) return new Map();
+    if (!enabled) return new Map();
 
     const absenteeCurrentJSON = absenteeCurrentQuery.data;
     const absenteeBaseJSON = absenteeBaseQuery.data;
@@ -102,19 +128,23 @@ export const useElectionData = (
     const electionResultBaseJSON = electionResultBaseQuery.data;
     const demographicsJSON = demographicsQuery.data;
 
-    if (!absenteeCurrentJSON || !absenteeBaseJSON || !electionResultsCurrentJSON || !demographicsJSON) {
-      console.error("Essential JSON data is missing after fetch. Aborting data combination.");
+    // As long as any dataset has arrived, construct the combined map
+    const hasAnyData =
+      (absenteeCurrentJSON && absenteeCurrentJSON.length > 0) ||
+      (electionResultsCurrentJSON && electionResultsCurrentJSON.length > 0) ||
+      (demographicsJSON && demographicsJSON.length > 0);
+
+    if (!hasAnyData) {
       return new Map();
     }
 
     const combinedElectionData = new Map<string, CombinedElectionRow>();
 
     const filterResultAndAddToCombinedData = (
-      dataJSON: RawDataRow[] | null,
+      dataJSON: RawDataRow[] | null | undefined,
       callback: (electionDataForRow: CombinedElectionRow, row: RawDataRow) => void,
     ): void => {
       if (!dataJSON || !Array.isArray(dataJSON)) {
-        console.warn("Skipping data processing due to missing or invalid dataJSON.");
         return;
       }
       dataJSON
@@ -131,19 +161,26 @@ export const useElectionData = (
         });
     };
 
-    filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
-      electionDataForRow.absenteeCurrent = new AbsenteeBallots(row as AbsenteeBallotsData);
-      if (row.lastUpdated) {
-        electionDataForRow.absenteeLastUpdated = row.lastUpdated;
-      }
-    });
+    // 1. Process Current Absentee
+    if (absenteeCurrentJSON) {
+      filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
+        electionDataForRow.absenteeCurrent = new AbsenteeBallots(row as AbsenteeBallotsData);
+        if (row.lastUpdated) {
+          electionDataForRow.absenteeLastUpdated = row.lastUpdated;
+        }
+      });
+    }
 
-    filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow, row) => {
-      electionDataForRow.absenteeBase = new AbsenteeBallots(row as AbsenteeBallotsData);
-    });
+    // 2. Process Baseline Absentee
+    if (absenteeBaseJSON) {
+      filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow, row) => {
+        electionDataForRow.absenteeBase = new AbsenteeBallots(row as AbsenteeBallotsData);
+      });
+    }
 
+    // 3. Process Current Election Results
     let rdStateVotesTotalCurrent = 0;
-    if (resultsElectionRaceCurrent) {
+    if (resultsElectionRaceCurrent && electionResultsCurrentJSON) {
       filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
         electionDataForRow.electionResultsAllCurrent =
           row.races?.map((race) => {
@@ -163,8 +200,9 @@ export const useElectionData = (
       });
     }
 
+    // 4. Process Baseline Election Results
     let rdStateVotesTotalBase = 0;
-    if (electionResultBaseJSON && resultsElectionRacePervious) {
+    if (resultsElectionRacePervious && electionResultBaseJSON) {
       filterResultAndAddToCombinedData(electionResultBaseJSON, (electionDataForRow, row) => {
         electionDataForRow.electionResultsAllBase = row.races?.map((race) => new ElectionResult(race)) || [];
         electionDataForRow.electionResultsBase = electionDataForRow.electionResultsAllBase?.find(
@@ -174,25 +212,37 @@ export const useElectionData = (
       });
     }
 
-    const scaleFactor = rdStateVotesTotalBase !== 0 && rdStateVotesTotalCurrent !== 0 ? rdStateVotesTotalCurrent / rdStateVotesTotalBase : 1;
+    // 5. Compute Comparisons when paired data exists
+    const scaleFactor =
+      rdStateVotesTotalBase !== 0 && rdStateVotesTotalCurrent !== 0 ? rdStateVotesTotalCurrent / rdStateVotesTotalBase : 1;
 
-    [...combinedElectionData.values()].forEach((result) => {
+    combinedElectionData.forEach((result) => {
       if (result.electionResultsCurrent && result.electionResultsBase) {
-        result.electionResultsComparison = new ElectionResultComparison(result.electionResultsCurrent, result.electionResultsBase, scaleFactor);
+        result.electionResultsComparison = new ElectionResultComparison(
+          result.electionResultsCurrent,
+          result.electionResultsBase,
+          scaleFactor,
+        );
+      } else {
+        result.electionResultsComparison = undefined;
       }
-      result.absenteeBallotComparison =
-        result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
+
+      if (result.absenteeCurrent && result.absenteeBase) {
+        result.absenteeBallotComparison = new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase);
+      } else {
+        result.absenteeBallotComparison = null;
+      }
 
       const absenteeDate = result.absenteeLastUpdated || (result.absenteeCurrent as AbsenteeBallots)?.lastUpdated;
       const resultsDate = result.electionResultsLastUpdated || (result.electionResultsCurrent as ElectionResult)?.lastUpdated;
       result.lastUpdated = getMostRecentDate(absenteeDate, resultsDate);
     });
 
+    // 6. Process Demographics
     if (demographicsJSON && Array.isArray(demographicsJSON)) {
       demographicsJSON.forEach((row) => {
-        const id = row.id; // Use 'id' from demographics data as the key
+        const id = row.id;
         if (!id) {
-          console.warn("Skipping demographics row due to missing id:", row);
           return;
         }
         const properties = combinedElectionData.get(id) || {
@@ -203,14 +253,11 @@ export const useElectionData = (
         properties.demographics = new Demographics(row as DemographicsData);
         combinedElectionData.set(id, properties);
       });
-    } else {
-      console.warn("Demographics data is missing or not an array. Skipping demographics processing.");
     }
 
     return combinedElectionData;
   }, [
-    isLoading,
-    isError,
+    enabled,
     absenteeCurrentQuery.data,
     absenteeBaseQuery.data,
     electionResultsCurrentQuery.data,
@@ -225,6 +272,6 @@ export const useElectionData = (
     data: combinedData,
     isLoading,
     isError,
-    error: absenteeCurrentQuery.error || absenteeBaseQuery.error || electionResultsCurrentQuery.error || demographicsQuery.error,
+    error,
   };
 };

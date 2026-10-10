@@ -61,14 +61,17 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
     true,
   );
 
-  const locationQuery = useElectionDataQuery(
+  const precinctQuery = useElectionDataQuery(
     absenteeElectionCurrent || null,
     absenteeElectionBase || null,
     resultsElectionRaceCurrent || null,
     resultsElectionRacePervious || null,
-    isCountyLevel ? "county" : "precinct",
-    isCountyLevel,
+    "precinct",
+    false,
+    !isCountyLevel,
   );
+
+  const locationQuery = isCountyLevel ? countyQuery : precinctQuery;
 
   // Extract data from queries
   const statewideElectionData: CombinedElectionRow = useMemo(() => {
