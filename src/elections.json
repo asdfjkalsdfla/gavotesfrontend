@@ -1,5 +1,11 @@
 [
   {
+    "name": "2026_general",
+    "label": "2026 General",
+    "date": "2026-11-03",
+    "isCurrentElection": true
+  },
+  {
     "name": "2024_general",
     "label": "2024 General",
     "date": "2024-11-05",
