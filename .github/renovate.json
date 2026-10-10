@@ -11,6 +11,10 @@
       "matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
       "automerge": true,
       "schedule": "before 5am on sunday"
+    },
+    {
+      "groupName": "TanStack Charts",
+      "matchPackageNames": ["@tanstack/charts", "@tanstack/react-charts"]
     }
   ],
   "lockFileMaintenance": {
