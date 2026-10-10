@@ -3,7 +3,11 @@
     "name": "2026_general",
     "label": "2026 General",
     "date": "2026-11-03",
-    "isCurrentElection": true
+    "isCurrentElection": true,
+    "races": [
+      { "name": "Governor", "republican": "Jackson", "democratic": "Lance Bottoms" },
+      { "name": "US Senate", "republican": "Collins", "democratic": "Ossoff" }
+    ]
   },
   {
     "name": "2024_general",
