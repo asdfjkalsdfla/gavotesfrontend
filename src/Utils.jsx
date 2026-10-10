@@ -49,3 +49,31 @@ export const normalizeZeroCenterToZeroOne = (value, min, max, scale = 1.0) => {
   const absMax = Math.max(Math.abs(min), Math.abs(max));
   return Math.max(0, Math.min(1, (value / absMax) * 0.5 + 0.5)) * scale;
 };
+
+export const formatLastUpdated = (dateStr) => {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+    timeZone: "America/New_York",
+  }).format(d);
+};
+
+export const getMostRecentDate = (d1, d2) => {
+  if (!d1 && !d2) return undefined;
+  if (!d1) return d2;
+  if (!d2) return d1;
+  const t1 = new Date(d1).getTime();
+  const t2 = new Date(d2).getTime();
+  if (isNaN(t1) && isNaN(t2)) return d1;
+  if (isNaN(t1)) return d2;
+  if (isNaN(t2)) return d1;
+  return t1 >= t2 ? d1 : d2;
+};
+

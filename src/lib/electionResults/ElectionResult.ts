@@ -8,6 +8,7 @@ export default class ElectionResult {
   other?: number;
   mode?: string;
   resultsByMode?: ElectionResult[];
+  lastUpdated?: string;
 
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
   #totalVotes?: number;

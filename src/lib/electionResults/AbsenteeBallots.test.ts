@@ -58,4 +58,12 @@ describe.concurrent("Absentee Ballot Test", () => {
   it("check total absentee ballots", async () => {
     expect(absTest.totalAbsenteeVotes).toBe(1889763);
   });
+
+  it("check lastUpdated property", async () => {
+    const withDate = new AbsenteeBallots({
+      votesByDay: [],
+      lastUpdated: "2026-10-10T22:09:47Z",
+    });
+    expect(withDate.lastUpdated).toBe("2026-10-10T22:09:47Z");
+  });
 });

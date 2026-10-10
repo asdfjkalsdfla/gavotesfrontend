@@ -17,6 +17,9 @@ interface CombinedElectionRow {
   electionResultsComparison?: ElectionResultComparison;
   absenteeBallotComparison?: AbsenteeBallotsComparison | null;
   demographics?: Demographics;
+  absenteeLastUpdated?: string;
+  electionResultsLastUpdated?: string;
+  lastUpdated?: string;
 }
 
 export default CombinedElectionRow;

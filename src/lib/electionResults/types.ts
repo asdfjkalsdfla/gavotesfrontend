@@ -22,6 +22,7 @@ export interface ElectionResultData {
   other?: number;
   mode?: string;
   resultsByMode?: ElectionResultData[];
+  lastUpdated?: string;
 }
 
 export interface VotesByDay {
@@ -33,6 +34,7 @@ export interface VotesByDay {
 
 export interface AbsenteeBallotsData {
   votesByDay: VotesByDay[];
+  lastUpdated?: string;
 }
 
 export interface DemographicsData {
@@ -72,4 +74,7 @@ export interface CombinedElectionRow {
   electionResultsComparison?: unknown; // ElectionResultComparison instance
   absenteeBallotComparison?: unknown | null; // AbsenteeBallotsComparison instance
   demographics?: unknown; // Demographics instance
+  absenteeLastUpdated?: string;
+  electionResultsLastUpdated?: string;
+  lastUpdated?: string;
 }

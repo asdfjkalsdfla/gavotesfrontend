@@ -178,4 +178,14 @@ describe.concurrent("Election Result Test Early Only", () => {
     // check when it's way past the date but we have a higher value in past
     expect(electionResult.marginEarlyPerRepublican).toBeCloseTo(-0.00977, 5);
   });
+
+  it("check lastUpdated property", async () => {
+    const withDate = new ElectionResult({
+      race: "President",
+      republican: 100,
+      democratic: 100,
+      lastUpdated: "2026-10-10T22:12:16Z",
+    });
+    expect(withDate.lastUpdated).toBe("2026-10-10T22:12:16Z");
+  });
 });

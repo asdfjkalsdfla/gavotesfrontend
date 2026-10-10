@@ -15,6 +15,7 @@ const daysToElection = electionDate.until(currentDate).days;
 export default class AbsenteeBallots {
   // Public properties from the template
   votesByDay: VotesByDay[] = [];
+  lastUpdated?: string;
 
   // These are used to store pre-computed values of the property; basically, a minor efficiency item
   #totalAbsenteeVotes?: number;

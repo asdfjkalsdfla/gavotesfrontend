@@ -9,7 +9,7 @@ import { DataTableColumnHeader } from "../VotesTable/DataTableColumnHeader.tsx";
 import { DataTableCellNumeric } from "../VotesTable/DataTableCellNumeric.tsx";
 import { useElectionData } from "../../context/ElectionDataProvider.tsx";
 import { useSummaryPreferences } from "./PreferenceContext.tsx";
-import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator } from "../../Utils.jsx";
+import { numberFormat, numberFormatPercent, numberFormatRatio, RDIndicator, formatLastUpdated, getMostRecentDate } from "../../Utils.jsx";
 
 // import VotesByDateChart from "./VotesByDateChart.jsx";
 const VotesByDateChart = lazy(() => import("./VotesByDateChart.jsx"));
@@ -66,6 +66,12 @@ export default function VoteSummary({
 
   const absenteeElectionBaseLabel = baseAbsenteeElection.label;
   const absenteeElectionCurrentLabel = currentAbsenteeElection.label;
+
+  const lastUpdatedDisplay = useMemo(() => {
+    const rawDate = getMostRecentDate(resultSummary?.lastUpdated, statewideResults?.lastUpdated);
+    return rawDate ? formatLastUpdated(rawDate) : null;
+  }, [resultSummary.lastUpdated, statewideResults.lastUpdated]);
+
   return (
     <Card id="regionSummaryName">
       <CardHeader>
@@ -191,11 +197,13 @@ export default function VoteSummary({
             />
           </Suspense>
         )}
-        <div className="text-right">
-          <small>
-            <i>Last Updated:</i> {import.meta?.env?.VITE_REACT_APP_UPDATE_DATE}
-          </small>
-        </div>
+        {lastUpdatedDisplay && (
+          <div className="text-right">
+            <small>
+              <i>Last Updated:</i> {lastUpdatedDisplay}
+            </small>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

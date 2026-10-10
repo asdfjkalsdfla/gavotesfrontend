@@ -7,6 +7,7 @@ import AbsenteeBallotsComparison from "../lib/electionResults/AbsenteeBallotsCom
 import Demographics from "../lib/electionResults/Demographics";
 import type { AbsenteeBallotsData, ElectionResultData, DemographicsData, Election, ElectionRace, VotesByDay } from "../lib/electionResults/types";
 import type CombinedElectionRow from "../lib/electionResults/CombinedElectionRow";
+import { getMostRecentDate } from "../Utils.jsx";
 
 // Extend ImportMeta for Vite environment variables
 declare global {
@@ -26,6 +27,7 @@ interface RawDataRow {
   races?: ElectionResultData[];
   votesByDay?: VotesByDay[];
   id?: string;
+  lastUpdated?: string;
   [key: string]: unknown;
 }
 
@@ -131,6 +133,9 @@ export const useElectionData = (
 
     filterResultAndAddToCombinedData(absenteeCurrentJSON, (electionDataForRow, row) => {
       electionDataForRow.absenteeCurrent = new AbsenteeBallots(row as AbsenteeBallotsData);
+      if (row.lastUpdated) {
+        electionDataForRow.absenteeLastUpdated = row.lastUpdated;
+      }
     });
 
     filterResultAndAddToCombinedData(absenteeBaseJSON, (electionDataForRow, row) => {
@@ -140,11 +145,21 @@ export const useElectionData = (
     let rdStateVotesTotalCurrent = 0;
     if (resultsElectionRaceCurrent) {
       filterResultAndAddToCombinedData(electionResultsCurrentJSON, (electionDataForRow, row) => {
-        electionDataForRow.electionResultsAllCurrent = row.races?.map((race) => new ElectionResult(race)) || [];
+        electionDataForRow.electionResultsAllCurrent =
+          row.races?.map((race) => {
+            const res = new ElectionResult(race);
+            if (row.lastUpdated && !res.lastUpdated) {
+              res.lastUpdated = row.lastUpdated;
+            }
+            return res;
+          }) || [];
         electionDataForRow.electionResultsCurrent = electionDataForRow.electionResultsAllCurrent?.find(
           (election) => election.race === resultsElectionRaceCurrent.name,
         );
         rdStateVotesTotalCurrent += electionDataForRow?.electionResultsCurrent?.totalVotesRD || 0;
+        if (row.lastUpdated) {
+          electionDataForRow.electionResultsLastUpdated = row.lastUpdated;
+        }
       });
     }
 
@@ -167,6 +182,10 @@ export const useElectionData = (
       }
       result.absenteeBallotComparison =
         result.absenteeCurrent && result.absenteeBase ? new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase) : null;
+
+      const absenteeDate = result.absenteeLastUpdated || (result.absenteeCurrent as AbsenteeBallots)?.lastUpdated;
+      const resultsDate = result.electionResultsLastUpdated || (result.electionResultsCurrent as ElectionResult)?.lastUpdated;
+      result.lastUpdated = getMostRecentDate(absenteeDate, resultsDate);
     });
 
     if (demographicsJSON && Array.isArray(demographicsJSON)) {
