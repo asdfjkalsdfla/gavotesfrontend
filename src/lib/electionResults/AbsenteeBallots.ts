@@ -3,10 +3,10 @@ import type { AbsenteeBallotsData, VotesByDay } from "./types";
 
 const electionDate = Temporal.ZonedDateTime.from({
   timeZone: "America/New_York",
-  year: 2024,
+  year: 2026,
   month: 11,
-  day: 5,
-  hour: 19,
+  day: 3,
+  hour: 20,
 });
 
 const currentDate = Temporal.Now.zonedDateTimeISO("America/New_York");
