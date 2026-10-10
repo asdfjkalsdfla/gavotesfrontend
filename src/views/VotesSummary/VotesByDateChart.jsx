@@ -12,7 +12,7 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
   const rows = useMemo(() => {
     // Filter out bad data points from SOS data
     const chartPoints = resultSummary.absenteeBase?.votesByDay
-      ? resultSummary.absenteeBase.votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection > -42)
+      ? resultSummary.absenteeBase.votesByDay.filter((date) => date.DaysFromElection <= 0 && date.DaysFromElection >= -30)
       : [];
 
     // match up the dates
