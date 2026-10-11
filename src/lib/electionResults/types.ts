@@ -12,7 +12,7 @@ export interface ElectionRace {
   name: string;
   republican: string;
   democratic: string;
-  election: Election;
+  election?: Election;
 }
 
 export interface ElectionResultData {
