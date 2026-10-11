@@ -81,6 +81,7 @@ export const useElectionData = (
   level: string,
   isCountyLevel: boolean,
   enabled = true,
+  targetDaysOut?: number,
 ) => {
   const absenteeCurrentFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionCurrent?.name || "", level);
   const absenteeBaseFileLocation = buildApiUrl("absentee", "absenteeSummary", absenteeElectionBase?.name || "", level);
@@ -216,6 +217,21 @@ export const useElectionData = (
     const scaleFactor =
       rdStateVotesTotalBase !== 0 && rdStateVotesTotalCurrent !== 0 ? rdStateVotesTotalCurrent / rdStateVotesTotalBase : 1;
 
+    // Determine target days out for absentee comparison (use provided statewide days out, or compute max from current absentee dataset)
+    let effectiveDaysOut = targetDaysOut;
+    if (effectiveDaysOut === undefined && absenteeCurrentJSON && Array.isArray(absenteeCurrentJSON)) {
+      let maxDay = -9000;
+      combinedElectionData.forEach((result) => {
+        const day = result.absenteeCurrent?.latestDaysFromElection;
+        if (day !== undefined && day > maxDay) {
+          maxDay = day;
+        }
+      });
+      if (maxDay !== -9000) {
+        effectiveDaysOut = maxDay;
+      }
+    }
+
     combinedElectionData.forEach((result) => {
       if (result.electionResultsCurrent && result.electionResultsBase) {
         result.electionResultsComparison = new ElectionResultComparison(
@@ -227,8 +243,13 @@ export const useElectionData = (
         result.electionResultsComparison = undefined;
       }
 
-      if (result.absenteeCurrent && result.absenteeBase) {
-        result.absenteeBallotComparison = new AbsenteeBallotsComparison(result.absenteeCurrent, result.absenteeBase);
+      if (result.absenteeBase && (result.absenteeCurrent || (absenteeCurrentJSON && absenteeCurrentJSON.length > 0))) {
+        const currentBallots = result.absenteeCurrent ?? new AbsenteeBallots({ votesByDay: [] });
+        result.absenteeBallotComparison = new AbsenteeBallotsComparison(
+          currentBallots,
+          result.absenteeBase,
+          effectiveDaysOut,
+        );
       } else {
         result.absenteeBallotComparison = null;
       }
@@ -266,6 +287,7 @@ export const useElectionData = (
     isCountyLevel,
     resultsElectionRaceCurrent,
     resultsElectionRacePervious,
+    targetDaysOut,
   ]);
 
   return {

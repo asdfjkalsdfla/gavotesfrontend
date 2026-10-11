@@ -25,7 +25,8 @@ export default function VotesByDateChart({ resultSummary, absenteeElectionCurren
 
     // Determine latest reported day in the current election so we don't plot false 0s into the future
     const latestCurrentDay =
-      currentPoints.length > 0 ? currentPoints[currentPoints.length - 1].DaysFromElection : undefined;
+      resultSummary?.absenteeBallotComparison?.targetDaysOut ??
+      (currentPoints.length > 0 ? currentPoints[currentPoints.length - 1].DaysFromElection : undefined);
 
     // long-format rows so both series share one lineY mark
     return chartPoints.flatMap((point) => {

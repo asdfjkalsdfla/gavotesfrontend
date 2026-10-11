@@ -47,7 +47,8 @@ describe.concurrent("Absentee Ballot Test", () => {
   });
 
   it("check the current value to use", async () => {
-    expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1889763);
+    // Current early voting value aligns to the latest pre-election day (Day 0)
+    expect(absTest.absenteeVotesAsOfCurrentDate).toBe(1889746);
   });
 
   it("check total absentee ballots", async () => {
@@ -63,9 +64,22 @@ describe.concurrent("Absentee Ballot Test", () => {
   });
 
   it("check latestDaysFromElection", async () => {
-    expect(absTest.latestDaysFromElection).toBe(22);
+    // Limits early voting pace to <= 0 (Election Day is Day 0)
+    expect(absTest.latestDaysFromElection).toBe(0);
     const emptyAbs = new AbsenteeBallots({ votesByDay: [] });
     expect(emptyAbs.latestDaysFromElection).toBeUndefined();
+  });
+
+  it("ignores rogue future or post-election dates (e.g. Day 35 typo in 2026 data)", async () => {
+    const ballotsWithFutureError = new AbsenteeBallots({
+      votesByDay: [
+        { DaysFromElection: -25, DateDT: "2026-10-09", votesToDate: 8150, votesOnDate: 2740 },
+        { DaysFromElection: 35, DateDT: "2026-12-08", votesToDate: 8152, votesOnDate: 2 },
+      ],
+    });
+    expect(ballotsWithFutureError.latestDaysFromElection).toBe(-25);
+    expect(ballotsWithFutureError.absenteeVotesAsOfCurrentDate).toBe(8150);
+    expect(ballotsWithFutureError.totalAbsenteeVotes).toBe(8152);
   });
 
   it("check inclusive days out matching", async () => {

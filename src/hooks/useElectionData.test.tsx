@@ -146,4 +146,64 @@ describe("useElectionData Hook", () => {
     expect(result.current.isLoading).toBe(false);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
+
+  it("applies targetDaysOut to comparison for precincts missing latest day data", async () => {
+    const mockAbsenteeData = [
+      {
+        county: "FULTON",
+        precinct: "01A",
+        // Precinct only reported up to Day -28
+        votesByDay: [{ DaysFromElection: -28, DateDT: "2026-10-06", votesToDate: 100, votesOnDate: 100 }],
+        lastUpdated: "2026-10-06T12:00:00Z",
+      },
+    ];
+
+    const mockBaseAbsenteeData = [
+      {
+        county: "FULTON",
+        precinct: "01A",
+        // Baseline has 80 votes on Day -28 and 150 votes on Day -25
+        votesByDay: [
+          { DaysFromElection: -28, DateDT: "2022-10-11", votesToDate: 80, votesOnDate: 80 },
+          { DaysFromElection: -25, DateDT: "2022-10-14", votesToDate: 150, votesOnDate: 70 },
+        ],
+        lastUpdated: "2022-10-14T12:00:00Z",
+      },
+    ];
+
+    vi.spyOn(global, "fetch").mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes("absenteeSummary-2026_general-precinct.json")) {
+        return new Response(JSON.stringify(mockAbsenteeData), { status: 200 });
+      }
+      if (url.includes("absenteeSummary-2022_general-precinct.json")) {
+        return new Response(JSON.stringify(mockBaseAbsenteeData), { status: 200 });
+      }
+      return new Response("Not Found", { status: 404 });
+    });
+
+    const { result } = renderHook(
+      () =>
+        useElectionData(
+          mockElectionCurrent,
+          mockElectionBase,
+          null,
+          null,
+          "precinct",
+          false,
+          true,
+          -25, // targetDaysOut = -25 (statewide date)
+        ),
+      { wrapper: createWrapper() },
+    );
+
+    await waitFor(() => {
+      expect(result.current.data.size).toBeGreaterThan(0);
+    });
+
+    const precinctRow = result.current.data.get("FULTON##01A");
+    expect(precinctRow).toBeDefined();
+    // Baseline votes should be queried as of Day -25 (150 votes, not Day -28's 80 votes)
+    expect(precinctRow?.absenteeBallotComparison?.previousVotesSameDay).toBe(150);
+  });
 });

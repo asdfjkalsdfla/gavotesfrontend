@@ -29,11 +29,12 @@ export function ElectionSelectionContextProvider({ children }: IProps) {
   const resultsElectionRaceCurrentIDParam: string | undefined = search?.resultsElectionRaceCurrentID;
   const resultsElectionRaceCurrentIDInitial: string = resultsElectionRaceCurrentIDParam || "2024_general||President";
   const resultsElectionRacePerviousIDParam: string | undefined = search?.resultsElectionRacePerviousID;
-  const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2020_general||President of the United States";
+  const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2022_runoff||US Senate";
 
   const currentElection = elections.find((e) => e.isCurrentElection);
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>(currentElection?.name || "2026_general");
-  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>("2022_general");
+  const absenteeElectionBaseIDParam: string | undefined = search?.absenteeElectionBaseID;
+  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>(absenteeElectionBaseIDParam || "2024_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState<string>(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState<string>(resultsElectionRacePerviousIDInitial);
 

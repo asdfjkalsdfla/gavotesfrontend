@@ -52,6 +52,16 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
     false,
   );
 
+  // Extract statewide data first to provide unified statewide target day to county/precinct comparisons
+  const statewideElectionData: CombinedElectionRow = useMemo(() => {
+    if (stateQuery.data instanceof Map && stateQuery.data.size > 0) {
+      return stateQuery.data.values().next().value ?? EMPTY_ELECTION_ROW;
+    }
+    return EMPTY_ELECTION_ROW;
+  }, [stateQuery.data]);
+
+  const statewideTargetDaysOut = statewideElectionData?.absenteeCurrent?.latestDaysFromElection;
+
   const countyQuery = useElectionDataQuery(
     absenteeElectionCurrent || null,
     absenteeElectionBase || null,
@@ -59,6 +69,8 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
     resultsElectionRacePervious || null,
     "county",
     true,
+    true,
+    statewideTargetDaysOut,
   );
 
   const precinctQuery = useElectionDataQuery(
@@ -69,17 +81,11 @@ export function ElectionDataProvider({ isCountyLevel, countyFilter, children }: 
     "precinct",
     false,
     !isCountyLevel,
+    statewideTargetDaysOut,
   );
 
   const locationQuery = isCountyLevel ? countyQuery : precinctQuery;
 
-  // Extract data from queries
-  const statewideElectionData: CombinedElectionRow = useMemo(() => {
-    if (stateQuery.data instanceof Map && stateQuery.data.size > 0) {
-      return stateQuery.data.values().next().value ?? EMPTY_ELECTION_ROW;
-    }
-    return EMPTY_ELECTION_ROW;
-  }, [stateQuery.data]);
   const countyElectionData = countyQuery.data || EMPTY_ELECTION_MAP;
   const locationElectionData = locationQuery.data || EMPTY_ELECTION_MAP;
 

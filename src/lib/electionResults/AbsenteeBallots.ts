@@ -17,6 +17,12 @@ export default class AbsenteeBallots {
   // latest reported day relative to election in dataset (e.g. -14)
   get latestDaysFromElection(): number | undefined {
     if (!this.votesByDay || this.votesByDay.length === 0) return undefined;
+    const preElectionDays = this.votesByDay
+      .filter((d) => typeof d.DaysFromElection === "number" && !isNaN(d.DaysFromElection) && d.DaysFromElection <= 0)
+      .map((d) => d.DaysFromElection);
+    if (preElectionDays.length > 0) {
+      return Math.max(...preElectionDays);
+    }
     return this.votesByDay[this.votesByDay.length - 1]?.DaysFromElection;
   }
 
