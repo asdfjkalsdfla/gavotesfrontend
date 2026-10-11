@@ -59,7 +59,16 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
   } = useElectionSelection();
   const { elevationApproach, updateElevationApproach, colorApproach, updateColorApproach } = useMapPreference();
   const { scatterXAxis, updateScatterXAxis, scatterYAxis, updateScatterYAxis } = useScatterPreference();
-  const { showVoteMode, updateShowVoteMode, showDemographics, updateShowDemographics, showAbsentee, updateShowAbsentee } = useSummaryPreferences();
+  const {
+    showVoteMode,
+    updateShowVoteMode,
+    showDemographics,
+    updateShowDemographics,
+    showAbsentee,
+    updateShowAbsentee,
+    showCumulativeVotes,
+    updateShowCumulativeVotes,
+  } = useSummaryPreferences();
   const { elections } = useElectionData();
 
   const electionRaceOptions = elections
@@ -291,6 +300,22 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
               </label>
             </div>
           </div>
+          {showAbsentee && (
+            <div className="items-top flex space-x-2 ml-4">
+              <Checkbox
+                id="showCumulativeVotes"
+                onCheckedChange={(checked) => {
+                  updateShowCumulativeVotes(checked);
+                }}
+                checked={showCumulativeVotes}
+              />
+              <div className="grid gap-1.5 leading-none">
+                <label htmlFor="showCumulativeVotes" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Cumulative Votes vs. Exact
+                </label>
+              </div>
+            </div>
+          )}
           <div className="items-top flex space-x-2">
             <Checkbox
               id="showVoteMode"

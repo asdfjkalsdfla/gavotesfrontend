@@ -7,6 +7,8 @@ interface ISummaryPreferenceContext {
   updateShowAbsentee: React.Dispatch<React.SetStateAction<boolean>>;
   showDemographics: boolean;
   updateShowDemographics: React.Dispatch<React.SetStateAction<boolean>>;
+  showCumulativeVotes: boolean;
+  updateShowCumulativeVotes: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const SummaryPreferenceContext = createContext<ISummaryPreferenceContext | null>(null);
@@ -19,6 +21,7 @@ export function SummaryPreferenceContextProvider({ children }: IProps): React.Re
   const [showVoteMode, updateShowVoteMode] = useState(false);
   const [showAbsentee, updateShowAbsentee] = useState(true);
   const [showDemographics, updateShowDemographics] = useState(false);
+  const [showCumulativeVotes, updateShowCumulativeVotes] = useState(false);
 
   const contextValue = useMemo(() => {
     const value: ISummaryPreferenceContext = {
@@ -28,9 +31,11 @@ export function SummaryPreferenceContextProvider({ children }: IProps): React.Re
       updateShowAbsentee,
       showDemographics,
       updateShowDemographics,
+      showCumulativeVotes,
+      updateShowCumulativeVotes,
     };
     return value;
-  }, [showVoteMode, showAbsentee, showDemographics]);
+  }, [showVoteMode, showAbsentee, showDemographics, showCumulativeVotes]);
 
   return <SummaryPreferenceContext.Provider value={contextValue}>{children}</SummaryPreferenceContext.Provider>;
 }
