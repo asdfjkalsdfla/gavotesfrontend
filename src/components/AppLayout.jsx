@@ -28,8 +28,8 @@ export default function AppLayout({ children }) {
   const showWelcomeOnLoad = !(hideWelcomeParam === "true" || welcomeMessageShown);
 
   // hide the options parameter?
-  const hideOptionsParam = search?.hideOptions;
-  const showOptionsOnLoad = hideOptionsParam !== "true";
+  // const hideOptionsParam = search?.hideOptions;
+  const showOptionsOnLoad = false;
 
   // Determine display type from current route
   const getDisplayType = () => {
