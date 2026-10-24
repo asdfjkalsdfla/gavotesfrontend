@@ -34,7 +34,7 @@ export function ElectionSelectionContextProvider({ children }: IProps) {
   const currentElection = elections.find((e) => e.isCurrentElection);
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>(currentElection?.name || "2026_general");
   const absenteeElectionBaseIDParam: string | undefined = search?.absenteeElectionBaseID;
-  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>(absenteeElectionBaseIDParam || "2024_general");
+  const [absenteeElectionBaseID, updateAbsenteeElectionBaseID] = useState<string>(absenteeElectionBaseIDParam || "2022_general");
   const [resultsElectionRaceCurrentID, updateResultsElectionRaceCurrentID] = useState<string>(resultsElectionRaceCurrentIDInitial);
   const [resultsElectionRacePerviousID, updateResultsElectionRacePerviousID] = useState<string>(resultsElectionRacePerviousIDInitial);
 
