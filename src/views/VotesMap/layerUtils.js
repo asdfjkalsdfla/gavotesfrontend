@@ -64,6 +64,11 @@ export const createScatterPlotLayer = ({ colorApproach, dataPropsOnly, isCountyL
     getFillColor: (f) => getColor(getValue(f)),
     getLineColor: (f) => getLineColor(getValue(f)),
     lineWidthPixels: isCountyLevel ? 5 : 1,
+    updateTriggers: {
+      getRadius: [colorApproach, dataPropsOnly, isCountyLevel],
+      getFillColor: [colorApproach, dataPropsOnly],
+      getLineColor: [colorApproach, dataPropsOnly],
+    },
   });
 };
 
@@ -108,27 +113,42 @@ export const createStandardGeoLayer = ({
   updateActiveSelection,
   elevationFunction,
   colorFunction,
+  is3DMode = true,
 }) => {
+  const isExtruded = Boolean(is3DMode && elevationApproach !== "none");
+
   return new GeoJsonLayer({
-    id: `geojson_${elevationApproach}_${colorApproach}_${currentZoomLevel}`,
+    id: `geojson_${elevationApproach}_${colorApproach}_${currentZoomLevel}_${isExtruded ? "3d" : "2d"}`,
     pickable: true,
     autoHighlight: true,
     highlightColor: LAYER_STYLES.HIGHLIGHT_COLOR,
     data: dataGeoJSON,
-    opacity: 0.6,
+    opacity: is3DMode ? 0.78 : 0.65,
     stroked: true,
     filled: true,
     onClick: (info) => {
       updateActiveSelection(info.object.properties.id);
     },
-    extruded: true,
-    wireframe: true,
-    getElevation: elevationFunction,
+    extruded: isExtruded,
+    wireframe: isExtruded,
+    material: isExtruded
+      ? {
+          ambient: 0.48,
+          diffuse: 0.65,
+          shininess: 24,
+          specularColor: [32, 32, 32],
+        }
+      : null,
+    getElevation: isExtruded ? elevationFunction : 0,
     getFillColor: colorFunction,
-    getLineColor: LAYER_STYLES.BLACK_BORDER,
+    getLineColor: isExtruded ? [20, 20, 20, 220] : [60, 60, 60, 160],
     lineWidthUnits: "pixels",
-    getLineWidth: 5,
-    lineWidthMinPixels: 5,
+    getLineWidth: isExtruded ? 1.5 : 1,
+    lineWidthMinPixels: isExtruded ? 1.5 : 1,
+    updateTriggers: {
+      getElevation: [isExtruded, elevationFunction, elevationApproach, dataGeoJSON],
+      getFillColor: [colorFunction, colorApproach, dataGeoJSON],
+    },
   });
 };
 
@@ -152,6 +172,7 @@ export const createMapLayers = ({
   elevationFunction,
   colorFunction,
   isCountyLevel,
+  is3DMode = true,
 }) => {
   const layers = [];
 
@@ -183,6 +204,7 @@ export const createMapLayers = ({
       elevationFunction,
       colorFunction,
       isCountyLevel,
+      is3DMode,
     });
 
     layers.push(standardLayer);

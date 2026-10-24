@@ -2,17 +2,25 @@ import { quantile, normalizeZeroOne, normalizeZeroCenterToZeroOne } from "../../
 import * as d3ScaleChromatic from "d3-scale-chromatic";
 import { scaleLinear } from "d3-scale";
 
-// Color scale constants
+// Color scale constants - high-contrast election cartography palette
+// Carefully calibrated for Georgia's county distribution to eliminate washed-out pinks
+// and maximize perceptual distinction between solid, moderate, lean, and competitive counties.
 const COLOR_SCALE_DEM_V_REP = scaleLinear()
-  .domain([0, 0.3, 0.48, 0.5, 0.52, 0.75, 1])
+  .domain([0.0, 0.20, 0.30, 0.38, 0.45, 0.49, 0.50, 0.51, 0.55, 0.62, 0.70, 0.80, 1.0])
   .range([
-    [125, 7, 7],
-    [170, 57, 57],
-    [200, 161, 161],
-    [255, 255, 255],
-    [184, 215, 255],
-    [17, 62, 103],
-    [0, 20, 56],
+    [115, 10, 16],   // 0.00: Deep Burgundy
+    [150, 24, 28],   // 0.20 (>80% R): Rich Crimson
+    [185, 48, 50],   // 0.30 (70-80% R): Classic Brick Red
+    [212, 88, 88],   // 0.38 (62-70% R): Warm Medium Red
+    [232, 158, 158], // 0.45 (55-62% R): Soft Dusty Rose
+    [242, 206, 206], // 0.49 (51-55% R): Subtle Blush
+    [246, 246, 248], // 0.50 (Tie): Clean Crisp Neutral Off-White
+    [206, 222, 244], // 0.51 (51-55% D): Subtle Ice
+    [158, 192, 232], // 0.55 (55-62% D): Soft Slate Blue
+    [88, 148, 212],  // 0.62 (62-70% D): Vibrant Steel Blue
+    [36, 100, 180],  // 0.70 (70-80% D): Classic Election Blue
+    [16, 56, 136],   // 0.80 (>80% D): Deep Navy Blue
+    [8, 28, 88],     // 1.00: Midnight Navy
   ]);
 
 // Utility function to convert D3 color to array
@@ -25,36 +33,77 @@ export const convertD3ColorToArray = (color) =>
 
 // Elevation function factory
 export const createElevationFunction = (elevationApproach, isCountyLevel, locationResults) => {
+  const baseElevation = isCountyLevel ? 600 : 200;
+  const heightScale = isCountyLevel ? 34000 : 8000;
+  let elevationMin = 0;
+  let elevationMax = 1;
+
   switch (elevationApproach) {
     case "none":
-      return null;
-    case "votes":
-      return (f) => f.properties.absenteeCurrent.totalAbsenteeVotes * (isCountyLevel ? 0.2 : 2) || 0;
-    case "turnoutAbsSameDay": {
-      const [elevationMin, elevationMax] = quantile(
-        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay),
-        isCountyLevel ? [0.0, 1] : [0.05, 0.95],
-      );
-      return (f) => {
-        const value =
-          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, elevationMin, elevationMax) * (isCountyLevel ? 20000 : 5000) +
-            0 || 0;
-        return value;
+      return { elevationFunction: null, elevationMin: 0, elevationMax: 0 };
+    case "votes": {
+      const values = [...locationResults.values()]
+        .map((datapoint) => datapoint?.absenteeCurrent?.totalAbsenteeVotes)
+        .filter((v) => typeof v === "number" && Number.isFinite(v));
+      elevationMin = values.length > 0 ? Math.min(...values) : 0;
+      elevationMax = values.length > 0 ? Math.max(...values) : 1;
+      const elevationFunction = (f) => {
+        const votes = f.properties?.absenteeCurrent?.totalAbsenteeVotes;
+        return votes ? baseElevation + votes * (isCountyLevel ? 0.25 : 1.5) : 0;
       };
+      return { elevationFunction, elevationMin, elevationMax };
+    }
+    case "turnoutAbsSameDay": {
+      const values = [...locationResults.values()]
+        .map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay)
+        .filter((v) => typeof v === "number" && Number.isFinite(v));
+
+      if (values.length > 0) {
+        [elevationMin, elevationMax] = quantile(
+          values,
+          isCountyLevel ? [0.0, 1.0] : [0.02, 0.98],
+        );
+      }
+
+      const elevationFunction = (f) => {
+        const rawVal = f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay;
+        if (rawVal === undefined || rawVal === null) return 0;
+        // When all counties have identical values (e.g. comparing year to itself)
+        if (elevationMax <= elevationMin) {
+          return baseElevation + heightScale * 0.4;
+        }
+        const normalized = normalizeZeroOne(rawVal, elevationMin, elevationMax);
+        return normalized !== undefined ? baseElevation + normalized * heightScale : 0;
+      };
+      return { elevationFunction, elevationMin, elevationMax };
     }
     default: {
-      const [defaultMin, defaultMax] = quantile(
-        [...locationResults.values()].map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots),
-        isCountyLevel ? [0.0, 1] : [0.05, 0.95],
-      );
-      return (f) => {
-        const value =
-          normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots, defaultMin, defaultMax) * (isCountyLevel ? 20000 : 5000) + 0 || 0;
-        return value;
+      const values = [...locationResults.values()]
+        .map((datapoint) => datapoint?.absenteeBallotComparison?.turnoutAbsenteeBallots)
+        .filter((v) => typeof v === "number" && Number.isFinite(v));
+
+      if (values.length > 0) {
+        [elevationMin, elevationMax] = quantile(
+          values,
+          isCountyLevel ? [0.0, 1.0] : [0.02, 0.98],
+        );
+      }
+
+      const elevationFunction = (f) => {
+        const rawVal = f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots;
+        if (rawVal === undefined || rawVal === null) return 0;
+        if (elevationMax <= elevationMin) {
+          return baseElevation + heightScale * 0.4;
+        }
+        const normalized = normalizeZeroOne(rawVal, elevationMin, elevationMax);
+        return normalized !== undefined ? baseElevation + normalized * heightScale : 0;
       };
+      return { elevationFunction, elevationMin, elevationMax };
     }
   }
 };
+
+const MISSING_DATA_COLOR = [200, 204, 202, 180];
 
 // Color function factory
 export const createColorFunction = (colorApproach, isCountyLevel, locationResults) => {
@@ -71,9 +120,11 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.electionResultsComparison?.totalVotesPercent, scaleMin, scaleMax);
-        const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
+        const rawVal = f.properties?.electionResultsComparison?.totalVotesPercent;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
       };
       break;
     case "turnoutAbs":
@@ -83,9 +134,11 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots, scaleMin, scaleMax);
-        const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
+        const rawVal = f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallots;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
       };
       break;
     case "turnoutAbsSameDay":
@@ -95,9 +148,25 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay, scaleMin, scaleMax);
-        const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
+        const rawVal = f.properties?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
+      };
+      break;
+    case "votes":
+      [scaleMin, scaleMax] = quantile(
+        [...locationResults.values()].map((datapoint) => datapoint?.absenteeCurrent?.totalAbsenteeVotes),
+        isCountyLevel ? [0.01, 0.99] : [0.02, 0.98],
+      );
+      scaleToColorFunction = d3ScaleChromatic.interpolateBlues;
+      colorFunction = (f) => {
+        const rawVal = f.properties?.absenteeCurrent?.totalAbsenteeVotes;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
       };
       break;
     case "electionResultPerRepublicanPerShift": {
@@ -123,9 +192,11 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.demographics?.hispanicPer, scaleMin, scaleMax);
-        const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
+        const rawVal = f.properties?.demographics?.hispanicPer;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
       };
       break;
     case "blackPer":
@@ -135,18 +206,34 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
       );
       scaleToColorFunction = d3ScaleChromatic.interpolateGreens;
       colorFunction = (f) => {
-        const value = normalizeZeroOne(f.properties?.demographics?.blackPer, scaleMin, scaleMax);
-        const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : convertD3ColorToArray(color);
+        const rawVal = f.properties?.demographics?.blackPer;
+        if (rawVal === undefined || rawVal === null) return MISSING_DATA_COLOR;
+        const value = normalizeZeroOne(rawVal, scaleMin, scaleMax);
+        const color = scaleToColorFunction(value ?? 0);
+        return convertD3ColorToArray(color);
       };
       break;
+    case "electionResultVoteMargin":
+    case "electionResultVoteShift":
+    case "electionResultVoteShiftNormalized":
+      // Scatter plot approaches use proportional circles instead of continuous color ramp
+      scaleToColorFunction = null;
+      colorFunction = null;
+      scaleMin = 0;
+      scaleMax = 0;
+      break;
+    case "electionResultPerRepublicanPer":
     default:
+      scaleMin = 0;
+      scaleMax = 1;
       scaleToColorFunction = COLOR_SCALE_DEM_V_REP;
       colorFunction = (f) => {
         const value = f.properties?.electionResultsCurrent?.perDemocratic;
+        if (value === undefined || value === null) return MISSING_DATA_COLOR;
         const color = scaleToColorFunction(value);
-        return !value && value !== 0 ? [0, 0, 0, 255] : color;
+        return color;
       };
+      break;
   }
 
   return { colorFunction, scaleToColorFunction, scaleMin, scaleMax };
@@ -156,14 +243,16 @@ export const createColorFunction = (colorApproach, isCountyLevel, locationResult
 export const processGeoJSONData = (dataGeoJSONBase, locationResults) => {
   if (!dataGeoJSONBase || !locationResults) return null;
 
-  // Merge the values together into a single file
-  dataGeoJSONBase.features.forEach((feature) => {
+  const features = dataGeoJSONBase.features.map((feature) => {
     const votingResultRaw = feature.properties;
-    const properties = locationResults.has(votingResultRaw.id) ? locationResults.get(votingResultRaw.id) : {};
-    feature.properties = { ...feature.properties, ...properties };
+    const properties = locationResults.has(votingResultRaw?.id) ? locationResults.get(votingResultRaw.id) : {};
+    return {
+      ...feature,
+      properties: { ...feature.properties, ...properties },
+    };
   });
 
-  return { ...dataGeoJSONBase };
+  return { ...dataGeoJSONBase, features };
 };
 
 export const extractSimpleData = (dataGeoJSONBase) => {

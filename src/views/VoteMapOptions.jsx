@@ -39,6 +39,8 @@ const COLOR_APPROACH_OPTIONS = {
   blackPer: "Black %",
   hispanicPer: "Hispanic %",
   turnoutAbsSameDay: "Absentee Votes @ Same Day",
+  turnoutAbs: "% of Total Votes",
+  votes: "Current Votes",
 };
 
 const ELEVATION_APPROACH_OPTIONS = {
@@ -182,7 +184,8 @@ export default function VoteMapSelectItems({ updateShowOptions, displayType }) {
                       <SelectItem value="blackPer">Black %</SelectItem>
                       <SelectItem value="hispanicPer">Hispanic %</SelectItem>
                       <SelectItem value="turnoutAbsSameDay">Absentee Votes @ Same Day</SelectItem>
-                      {/* <SelectItem value="turnoutAbs">% of Total Votes</SelectItem> */}
+                      <SelectItem value="turnoutAbs">% of Total Votes</SelectItem>
+                      <SelectItem value="votes">Current Votes</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

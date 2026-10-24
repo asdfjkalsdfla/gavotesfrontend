@@ -1,13 +1,47 @@
-import { numberFormat, numberFormatPercent } from "../../Utils";
+import { numberFormat, numberFormatPercent, numberFormatRatio } from "../../Utils";
+
+const getColorValue = (lookup, colorApproach) => {
+  if (lookup[colorApproach] !== undefined) return lookup[colorApproach];
+  switch (colorApproach) {
+    case "electionResultVoteMargin":
+      return lookup.electionResultsCurrent?.marginDemocratic;
+    case "electionResultVoteShift":
+      return lookup.electionResultsComparison?.voteShiftDemocratic;
+    case "electionResultVoteShiftNormalized":
+      return lookup.electionResultsComparison?.voteShiftDemocraticNormalized;
+    case "electionResultPerRepublicanPerShift":
+      return lookup.electionResultsComparison?.perShiftDemocratic;
+    case "turnoutAbsSameDay":
+      return lookup.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay;
+    case "turnoutAbs":
+      return lookup.absenteeBallotComparison?.turnoutAbsenteeBallots;
+    case "totalVotesPercent":
+      return lookup.electionResultsComparison?.totalVotesPercent;
+    case "hispanicPer":
+      return lookup.demographics?.hispanicPer;
+    case "blackPer":
+      return lookup.demographics?.blackPer;
+    default:
+      return lookup.electionResultsCurrent?.perDemocratic;
+  }
+};
+
+const getElevationValue = (lookup, elevationApproach) => {
+  if (lookup[elevationApproach] !== undefined) return lookup[elevationApproach];
+  switch (elevationApproach) {
+    case "turnoutAbsSameDay":
+      return lookup.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay;
+    case "turnoutAbs":
+      return lookup.absenteeBallotComparison?.turnoutAbsenteeBallots;
+    case "votes":
+      return lookup.absenteeCurrent?.totalAbsenteeVotes;
+    default:
+      return undefined;
+  }
+};
 
 /**
  * Creates a tooltip for map features based on color and elevation data
- * @param {Object} params - Tooltip parameters
- * @param {Object} params.object - The map object/feature
- * @param {string} params.colorApproach - Current color visualization approach
- * @param {string} params.elevationApproach - Current elevation visualization approach
- * @param {Function} params.updateActiveHover - Function to update hover state
- * @returns {Object|null} Tooltip HTML object or null
  */
 export const createMapTooltip = ({ object, colorApproach, elevationApproach, updateActiveHover }) => {
   if (!object) {
@@ -20,47 +54,72 @@ export const createMapTooltip = ({ object, colorApproach, elevationApproach, upd
   }
 
   const lookup = object.properties ? object.properties : object;
-  const hasColorData = lookup[colorApproach];
-  const hasElevationData = elevationApproach !== "none" && lookup[elevationApproach];
+  const colorVal = getColorValue(lookup, colorApproach);
+  const elevationVal = elevationApproach !== "none" ? getElevationValue(lookup, elevationApproach) : undefined;
+
+  const hasColorData = colorVal !== undefined && colorVal !== null;
+  const hasElevationData = elevationVal !== undefined && elevationVal !== null;
 
   if (!hasColorData && !hasElevationData) {
     return null;
   }
 
+  const name = lookup.CTYNAME || lookup.county || lookup.NAME || lookup.id;
+  const titleHtml = name ? `<div style="font-weight: bold; margin-bottom: 2px;">${name}</div>` : "";
+
   const formatColorValue = (value) => {
-    return colorApproach === "electionResultVoteShift" ? numberFormat.format(value) : numberFormatPercent.format(value);
+    if (colorApproach === "electionResultVoteMargin" || colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteShiftNormalized") {
+      const party = value > 0 ? "D+" : value < 0 ? "R+" : "";
+      return `${party}${numberFormat.format(Math.abs(value))}`;
+    }
+    if (colorApproach === "turnoutAbsSameDay" || colorApproach === "turnoutAbs") {
+      return `${numberFormatRatio.format(value)}×`;
+    }
+    if (colorApproach === "votes") {
+      return numberFormat.format(value);
+    }
+    if (colorApproach === "electionResultPerRepublicanPer") {
+      if (value > 0.5) {
+        return `D ${numberFormatPercent.format(value)}`;
+      }
+      if (value < 0.5) {
+        return `R ${numberFormatPercent.format(1 - value)}`;
+      }
+      return `Tie (${numberFormatPercent.format(value)})`;
+    }
+    return numberFormatPercent.format(value);
   };
 
-  const colorHtml = hasColorData ? `<div>Color: ${formatColorValue(lookup[colorApproach])}</div>` : "";
-  const elevationHtml = hasElevationData ? `<div>Height: ${numberFormat.format(lookup[elevationApproach])}</div>` : "";
+  const formatElevationValue = (value) => {
+    if (elevationApproach === "turnoutAbsSameDay" || elevationApproach === "turnoutAbs") {
+      return `${numberFormatRatio.format(value)}×`;
+    }
+    return numberFormat.format(value);
+  };
+
+  const colorHtml = hasColorData ? `<div>Color: ${formatColorValue(colorVal)}</div>` : "";
+  const elevationHtml = hasElevationData ? `<div>Height: ${formatElevationValue(elevationVal)}</div>` : "";
 
   return {
-    html: `${colorHtml}${elevationHtml}`,
+    html: `${titleHtml}${colorHtml}${elevationHtml}`,
   };
 };
 
 /**
  * Determines if a feature should show a tooltip based on available data
- * @param {Object} object - The map object/feature
- * @param {string} colorApproach - Current color visualization approach
- * @param {string} elevationApproach - Current elevation visualization approach
- * @returns {boolean} Whether tooltip should be shown
  */
 export const shouldShowTooltip = (object, colorApproach, elevationApproach) => {
   if (!object) return false;
 
   const lookup = object.properties ? object.properties : object;
-  const hasColorData = lookup[colorApproach];
-  const hasElevationData = elevationApproach !== "none" && lookup[elevationApproach];
+  const colorVal = getColorValue(lookup, colorApproach);
+  const elevationVal = elevationApproach !== "none" ? getElevationValue(lookup, elevationApproach) : undefined;
 
-  return hasColorData || hasElevationData;
+  return (colorVal !== undefined && colorVal !== null) || (elevationVal !== undefined && elevationVal !== null);
 };
 
 /**
  * Formats a value based on the color approach type
- * @param {number} value - The value to format
- * @param {string} colorApproach - Current color visualization approach
- * @returns {string} Formatted value string
  */
 export const formatTooltipValue = (value, colorApproach) => {
   return colorApproach === "electionResultVoteShift" ? numberFormat.format(value) : numberFormatPercent.format(value);
