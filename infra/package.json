@@ -16,7 +16,7 @@
     "deploy:all": "pnpm cdk deploy --all --require-approval never"
   },
   "devDependencies": {
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "aws-cdk": "^2.1146.1",
     "typescript": "^7.0.2"
   },
