@@ -15,7 +15,7 @@ jobs:
       - name: Setup pnpm and Node.js
         uses: pnpm/setup@v3
         with:
-          runtime: "node@24.22.1"
+          runtime: "node@26.13.0"
       - run: pnpm run build
       # - run: pnpm run buildESB
       - run: pnpm test
