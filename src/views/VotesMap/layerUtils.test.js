@@ -122,7 +122,6 @@ describe("layerUtils - createStandardGeoLayer (3D vs 2D modes)", () => {
     const layer = createStandardGeoLayer({
       elevationApproach: "turnoutAbsSameDay",
       colorApproach: "electionResultPerRepublicanPer",
-      currentZoomLevel: 7,
       dataGeoJSON: { type: "FeatureCollection", features: [] },
       updateActiveSelection: () => {},
       elevationFunction: () => 1000,
@@ -144,7 +143,6 @@ describe("layerUtils - createStandardGeoLayer (3D vs 2D modes)", () => {
     const layer = createStandardGeoLayer({
       elevationApproach: "turnoutAbsSameDay",
       colorApproach: "turnoutAbsSameDay",
-      currentZoomLevel: 7,
       dataGeoJSON: { type: "FeatureCollection", features: [] },
       updateActiveSelection: () => {},
       elevationFunction: () => 1000,
@@ -165,7 +163,6 @@ describe("layerUtils - createMapLayers", () => {
     const layers = createMapLayers({
       colorApproach: "electionResultVoteMargin",
       elevationApproach: "none",
-      currentZoomLevel: 7,
       dataGeoJSON: { type: "FeatureCollection", features: [] },
       dataPropsOnly: [],
       updateActiveSelection: () => {},
@@ -183,7 +180,6 @@ describe("layerUtils - createMapLayers", () => {
     const layers = createMapLayers({
       colorApproach: "electionResultPerRepublicanPer",
       elevationApproach: "turnoutAbsSameDay",
-      currentZoomLevel: 7,
       dataGeoJSON: { type: "FeatureCollection", features: [] },
       dataPropsOnly: [],
       updateActiveSelection: () => {},
@@ -201,7 +197,6 @@ describe("layerUtils - createMapLayers", () => {
     const layers = createMapLayers({
       colorApproach: "electionResultPerRepublicanPer",
       elevationApproach: "turnoutAbsSameDay",
-      currentZoomLevel: 7,
       dataGeoJSON: {
         type: "FeatureCollection",
         features: [{ type: "Feature", properties: { id: "13121", CTYNAME: "Fulton" }, geometry: { type: "Polygon", coordinates: [] } }],

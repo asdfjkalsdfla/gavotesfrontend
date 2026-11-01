@@ -109,7 +109,6 @@ export const createElectionResultGeoLayer = ({
 export const createStandardGeoLayer = ({
   elevationApproach,
   colorApproach,
-  currentZoomLevel,
   dataGeoJSON,
   updateActiveSelection,
   elevationFunction,
@@ -215,7 +214,6 @@ export const shouldUseScatterPlot = (colorApproach) => {
 export const createMapLayers = ({
   colorApproach,
   elevationApproach,
-  currentZoomLevel,
   dataGeoJSON,
   dataPropsOnly,
   updateActiveSelection,
@@ -249,7 +247,6 @@ export const createMapLayers = ({
     const standardLayer = createStandardGeoLayer({
       elevationApproach,
       colorApproach,
-      currentZoomLevel,
       dataGeoJSON,
       updateActiveSelection,
       elevationFunction,
