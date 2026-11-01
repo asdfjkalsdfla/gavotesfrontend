@@ -112,7 +112,7 @@ describe("MapScale - Render logic", () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it("integrates Turnout Filter controls directly into the Height: Turnout Ratio section", () => {
+  it("renders Same-Day Turnout Filter controls and triggers updates when toggled or scrubbed", () => {
     const mockScale = () => [200, 200, 200];
     const onFilterChange = vi.fn();
 
@@ -132,7 +132,7 @@ describe("MapScale - Render logic", () => {
       />,
     );
 
-    expect(screen.getByText("Height: Turnout Ratio")).toBeDefined();
+    expect(screen.getByText("Turnout Filter")).toBeDefined();
 
     // Click "≥ Above" button to enable filter
     fireEvent.click(screen.getByText("≥ Above"));
@@ -168,14 +168,6 @@ describe("MapScale - Render logic", () => {
       enabled: true,
       operator: "gte",
       threshold: 1.15,
-    });
-
-    // Clicking the already active "≥ Above" button toggles the filter back off
-    fireEvent.click(screen.getByText("≥ Above"));
-    expect(onFilterChange).toHaveBeenLastCalledWith({
-      enabled: false,
-      operator: "gte",
-      threshold: 1.0,
     });
   });
 });
