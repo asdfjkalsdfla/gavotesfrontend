@@ -163,11 +163,11 @@ describe("mapUtils - createElevationFunction", () => {
       });
       expect(minElevation).toBeCloseTo(600, 0);
 
-      // Maximum value gets base elevation + heightScale (600 + 34000 = 34600)
+      // Maximum value gets base elevation + heightScale (600 + 24000 = 24600)
       const maxElevation = elevationFunction({
         properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.55 } },
       });
-      expect(maxElevation).toBeCloseTo(34600, 0);
+      expect(maxElevation).toBeCloseTo(24600, 0);
 
       // Intermediate value scales proportionally
       const midElevation = elevationFunction({
@@ -175,6 +175,24 @@ describe("mapUtils - createElevationFunction", () => {
       });
       expect(midElevation).toBeGreaterThan(minElevation);
       expect(midElevation).toBeLessThan(maxElevation);
+    });
+
+    it("scales elevation proportionally when heightScaleMultiplier is provided", () => {
+      const mockLocationResults = new Map([
+        ["13001", { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.75 } }],
+        ["13005", { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.55 } }],
+      ]);
+
+      const { elevationFunction: halfScaleFn } = createElevationFunction(
+        "turnoutAbsSameDay",
+        true,
+        mockLocationResults,
+        0.5,
+      );
+      const maxHalf = halfScaleFn({
+        properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.55 } },
+      });
+      expect(maxHalf).toBeCloseTo(600 + 12000, 0);
     });
 
     it("handles edge case when comparing year to itself (all counties have identical values) without NaN", () => {

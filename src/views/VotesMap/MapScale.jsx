@@ -190,10 +190,36 @@ export default function MapScale({
             borderTop: gradientStyle || isScatterPlot ? "1px solid #e2e8f0" : "none",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", fontWeight: 600, color: "#334155" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "11px",
+              fontWeight: 600,
+              color: "#334155",
+            }}
+          >
             <span>Height: {elevationApproach === "votes" ? "Absentee Votes" : "Turnout Ratio"}</span>
+            <span
+              aria-hidden="true"
+              style={{ display: "inline-flex", alignItems: "flex-end", gap: 2, height: 12 }}
+            >
+              {[4, 7, 10, 12].map((h) => (
+                <span
+                  key={h}
+                  style={{
+                    width: 3,
+                    height: h,
+                    borderRadius: 1,
+                    backgroundColor: "#64748b",
+                    opacity: 0.35 + (h / 12) * 0.55,
+                  }}
+                />
+              ))}
+            </span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#64748b", marginTop: 2 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#64748b", marginTop: 3 }}>
             <span>{formatElevation(elevationMin)} (Min)</span>
             <span>{formatElevation(elevationMax)} (Max)</span>
           </div>

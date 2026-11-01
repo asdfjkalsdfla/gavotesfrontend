@@ -132,11 +132,11 @@ describe("layerUtils - createStandardGeoLayer (3D vs 2D modes)", () => {
 
     expect(layer.props.extruded).toBe(true);
     expect(layer.props.wireframe).toBe(true);
-    expect(layer.props.opacity).toBe(0.78);
+    expect(layer.props.opacity).toBe(1);
     expect(layer.props.material).not.toBeNull();
-    expect(layer.props.material.ambient).toBe(0.48);
-    expect(layer.props.material.diffuse).toBe(0.65);
-    expect(layer.props.getLineColor).toEqual([20, 20, 20, 220]);
+    expect(layer.props.material.ambient).toBe(0.56);
+    expect(layer.props.material.diffuse).toBe(0.62);
+    expect(layer.props.getLineColor).toEqual([20, 25, 35, 220]);
     expect(layer.props.lineWidthMinPixels).toBe(1.5);
   });
 
@@ -195,5 +195,27 @@ describe("layerUtils - createMapLayers", () => {
 
     expect(layers.length).toBe(1);
     expect(layers[0].id).toContain("geojson_turnoutAbsSameDay_electionResultPerRepublicanPer");
+  });
+
+  it("adds a selection highlight layer when activeSelection matches a feature", () => {
+    const layers = createMapLayers({
+      colorApproach: "electionResultPerRepublicanPer",
+      elevationApproach: "turnoutAbsSameDay",
+      currentZoomLevel: 7,
+      dataGeoJSON: {
+        type: "FeatureCollection",
+        features: [{ type: "Feature", properties: { id: "13121", CTYNAME: "Fulton" }, geometry: { type: "Polygon", coordinates: [] } }],
+      },
+      dataPropsOnly: [],
+      updateActiveSelection: () => {},
+      elevationFunction: () => 1000,
+      colorFunction: () => [180, 40, 42],
+      isCountyLevel: true,
+      is3DMode: true,
+      activeSelection: "13121",
+    });
+
+    expect(layers.length).toBe(2);
+    expect(layers[1].id).toContain("selection_highlight_13121");
   });
 });

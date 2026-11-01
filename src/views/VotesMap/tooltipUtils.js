@@ -65,7 +65,9 @@ export const createMapTooltip = ({ object, colorApproach, elevationApproach, upd
   }
 
   const name = lookup.CTYNAME || lookup.county || lookup.NAME || lookup.id;
-  const titleHtml = name ? `<div style="font-weight: bold; margin-bottom: 2px;">${name}</div>` : "";
+  const titleHtml = name
+    ? `<div style="font-weight: 700; font-size: 13px; color: #f8fafc; margin-bottom: 4px; padding-bottom: 3px; border-bottom: 1px solid rgba(148, 163, 184, 0.25);">${name}</div>`
+    : "";
 
   const formatColorValue = (value) => {
     if (colorApproach === "electionResultVoteMargin" || colorApproach === "electionResultVoteShift" || colorApproach === "electionResultVoteShiftNormalized") {
@@ -97,11 +99,27 @@ export const createMapTooltip = ({ object, colorApproach, elevationApproach, upd
     return numberFormat.format(value);
   };
 
-  const colorHtml = hasColorData ? `<div>Color: ${formatColorValue(colorVal)}</div>` : "";
-  const elevationHtml = hasElevationData ? `<div>Height: ${formatElevationValue(elevationVal)}</div>` : "";
+  const colorHtml = hasColorData
+    ? `<div style="font-size: 12px; color: #f8fafc; font-weight: 500; line-height: 1.45;">Color: ${formatColorValue(colorVal)}</div>`
+    : "";
+  const elevationHtml = hasElevationData
+    ? `<div style="font-size: 12px; color: #cbd5e1; font-weight: 500; line-height: 1.45;">Height: ${formatElevationValue(elevationVal)}</div>`
+    : "";
 
   return {
     html: `${titleHtml}${colorHtml}${elevationHtml}`,
+    style: {
+      backgroundColor: "rgba(15, 23, 42, 0.92)",
+      backdropFilter: "blur(8px)",
+      WebkitBackdropFilter: "blur(8px)",
+      color: "#f8fafc",
+      borderRadius: "8px",
+      padding: "8px 12px",
+      boxShadow: "0 8px 20px rgba(15, 23, 42, 0.32)",
+      border: "1px solid rgba(255, 255, 255, 0.14)",
+      fontSize: "12px",
+      pointerEvents: "none",
+    },
   };
 };
 

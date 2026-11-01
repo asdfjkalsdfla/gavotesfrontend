@@ -2,12 +2,13 @@ import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 
 // Constants for layer styling
 const LAYER_STYLES = {
-  HIGHLIGHT_COLOR: [227, 197, 102],
+  HIGHLIGHT_COLOR: [255, 248, 196, 85],
   BORDER_COLOR: [40, 40, 40],
   TRANSPARENT_FILL: [158, 158, 158, 0],
   DEMOCRATIC_COLOR: [17, 62, 103],
   REPUBLICAN_COLOR: [170, 57, 57],
   BLACK_BORDER: [0, 0, 0, 255],
+  SELECTED_BORDER_COLOR: [250, 204, 21, 255],
 };
 
 // Election result color approaches that use scatter plot visualization
@@ -114,40 +115,89 @@ export const createStandardGeoLayer = ({
   elevationFunction,
   colorFunction,
   is3DMode = true,
+  isCountyLevel = false,
 }) => {
   const isExtruded = Boolean(is3DMode && elevationApproach !== "none");
 
   return new GeoJsonLayer({
-    id: `geojson_${elevationApproach}_${colorApproach}_${currentZoomLevel}_${isExtruded ? "3d" : "2d"}`,
+    id: `geojson_${elevationApproach}_${colorApproach}_${isExtruded ? "3d" : "2d"}`,
     pickable: true,
     autoHighlight: true,
     highlightColor: LAYER_STYLES.HIGHLIGHT_COLOR,
     data: dataGeoJSON,
-    opacity: is3DMode ? 0.78 : 0.65,
+    opacity: isExtruded ? 1 : isCountyLevel ? 0.88 : 0.65,
     stroked: true,
     filled: true,
     onClick: (info) => {
-      updateActiveSelection(info.object.properties.id);
+      if (info?.object?.properties?.id) {
+        updateActiveSelection(info.object.properties.id);
+      }
     },
     extruded: isExtruded,
     wireframe: isExtruded,
     material: isExtruded
       ? {
-          ambient: 0.48,
-          diffuse: 0.65,
+          ambient: 0.56,
+          diffuse: 0.62,
           shininess: 24,
-          specularColor: [32, 32, 32],
+          specularColor: [38, 38, 38],
         }
       : null,
     getElevation: isExtruded ? elevationFunction : 0,
     getFillColor: colorFunction,
-    getLineColor: isExtruded ? [20, 20, 20, 220] : [60, 60, 60, 160],
+    getLineColor: isExtruded
+      ? [20, 25, 35, 220]
+      : isCountyLevel
+        ? [255, 255, 255, 210]
+        : [60, 60, 60, 160],
     lineWidthUnits: "pixels",
-    getLineWidth: isExtruded ? 1.5 : 1,
+    getLineWidth: isExtruded ? 2 : 1,
     lineWidthMinPixels: isExtruded ? 1.5 : 1,
+    transitions: {
+      getElevation: { duration: 600, easing: (t) => 1 - Math.pow(1 - t, 3) },
+      getFillColor: { duration: 400 },
+    },
     updateTriggers: {
       getElevation: [isExtruded, elevationFunction, elevationApproach, dataGeoJSON],
       getFillColor: [colorFunction, colorApproach, dataGeoJSON],
+    },
+  });
+};
+
+/**
+ * Creates a highlight outline layer for the currently selected county/precinct
+ */
+export const createSelectionHighlightLayer = ({
+  dataGeoJSON,
+  activeSelection,
+  elevationFunction,
+  elevationApproach,
+  is3DMode = true,
+}) => {
+  if (!activeSelection || !dataGeoJSON?.features) return null;
+  const selectedFeatures = dataGeoJSON.features.filter(
+    (f) => String(f.properties?.id) === String(activeSelection),
+  );
+  if (selectedFeatures.length === 0) return null;
+
+  const isExtruded = Boolean(is3DMode && elevationApproach !== "none");
+
+  return new GeoJsonLayer({
+    id: `selection_highlight_${activeSelection}_${isExtruded ? "3d" : "2d"}`,
+    pickable: false,
+    data: { type: "FeatureCollection", features: selectedFeatures },
+    stroked: true,
+    filled: isExtruded,
+    extruded: isExtruded,
+    wireframe: isExtruded,
+    getElevation: isExtruded && elevationFunction ? (f) => elevationFunction(f) + 80 : 0,
+    getFillColor: [250, 204, 21, 35],
+    getLineColor: LAYER_STYLES.SELECTED_BORDER_COLOR,
+    lineWidthUnits: "pixels",
+    getLineWidth: 3,
+    lineWidthMinPixels: 2.5,
+    updateTriggers: {
+      getElevation: [isExtruded, elevationFunction, activeSelection],
     },
   });
 };
@@ -173,6 +223,7 @@ export const createMapLayers = ({
   colorFunction,
   isCountyLevel,
   is3DMode = true,
+  activeSelection = null,
 }) => {
   const layers = [];
 
@@ -208,6 +259,17 @@ export const createMapLayers = ({
     });
 
     layers.push(standardLayer);
+
+    const selectionLayer = createSelectionHighlightLayer({
+      dataGeoJSON,
+      activeSelection,
+      elevationFunction,
+      elevationApproach,
+      is3DMode,
+    });
+    if (selectionLayer) {
+      layers.push(selectionLayer);
+    }
   }
 
   return layers;

@@ -8,11 +8,11 @@ import { scaleLinear } from "d3-scale";
 const COLOR_SCALE_DEM_V_REP = scaleLinear()
   .domain([0.0, 0.20, 0.30, 0.38, 0.45, 0.49, 0.50, 0.51, 0.55, 0.62, 0.70, 0.80, 1.0])
   .range([
-    [115, 10, 16],   // 0.00: Deep Burgundy
-    [150, 24, 28],   // 0.20 (>80% R): Rich Crimson
-    [185, 48, 50],   // 0.30 (70-80% R): Classic Brick Red
-    [212, 88, 88],   // 0.38 (62-70% R): Warm Medium Red
-    [232, 158, 158], // 0.45 (55-62% R): Soft Dusty Rose
+    [128, 20, 28],   // 0.00: Deep Garnet
+    [170, 36, 38],   // 0.20 (>80% R): Rich Crimson
+    [198, 58, 56],   // 0.30 (70-80% R): Brick Red
+    [224, 110, 106], // 0.38 (62-70% R): Warm Coral Red
+    [238, 168, 164], // 0.45 (55-62% R): Soft Rose
     [242, 206, 206], // 0.49 (51-55% R): Subtle Blush
     [246, 246, 248], // 0.50 (Tie): Clean Crisp Neutral Off-White
     [206, 222, 244], // 0.51 (51-55% D): Subtle Ice
@@ -32,9 +32,16 @@ export const convertD3ColorToArray = (color) =>
     .map((val) => parseInt(val, 10));
 
 // Elevation function factory
-export const createElevationFunction = (elevationApproach, isCountyLevel, locationResults) => {
+export const createElevationFunction = (
+  elevationApproach,
+  isCountyLevel,
+  locationResults,
+  heightScaleMultiplier = 1,
+) => {
   const baseElevation = isCountyLevel ? 600 : 200;
-  const heightScale = isCountyLevel ? 34000 : 8000;
+  const heightScale = (isCountyLevel ? 24000 : 6000) * heightScaleMultiplier;
+  // Gentle power curve (0.82) preserves clear height hierarchy without turning mid-range counties into a wall
+  const shapeHeight = (n) => Math.pow(Math.min(1, Math.max(0, n)), isCountyLevel ? 0.82 : 0.85);
   let elevationMin = 0;
   let elevationMax = 1;
 
@@ -49,7 +56,7 @@ export const createElevationFunction = (elevationApproach, isCountyLevel, locati
       elevationMax = values.length > 0 ? Math.max(...values) : 1;
       const elevationFunction = (f) => {
         const votes = f.properties?.absenteeCurrent?.totalAbsenteeVotes;
-        return votes ? baseElevation + votes * (isCountyLevel ? 0.25 : 1.5) : 0;
+        return votes ? baseElevation + votes * (isCountyLevel ? 0.25 : 1.5) * heightScaleMultiplier : 0;
       };
       return { elevationFunction, elevationMin, elevationMax };
     }
@@ -73,7 +80,7 @@ export const createElevationFunction = (elevationApproach, isCountyLevel, locati
           return baseElevation + heightScale * 0.4;
         }
         const normalized = normalizeZeroOne(rawVal, elevationMin, elevationMax);
-        return normalized !== undefined ? baseElevation + normalized * heightScale : 0;
+        return normalized !== undefined ? baseElevation + shapeHeight(normalized) * heightScale : 0;
       };
       return { elevationFunction, elevationMin, elevationMax };
     }
@@ -96,7 +103,7 @@ export const createElevationFunction = (elevationApproach, isCountyLevel, locati
           return baseElevation + heightScale * 0.4;
         }
         const normalized = normalizeZeroOne(rawVal, elevationMin, elevationMax);
-        return normalized !== undefined ? baseElevation + normalized * heightScale : 0;
+        return normalized !== undefined ? baseElevation + shapeHeight(normalized) * heightScale : 0;
       };
       return { elevationFunction, elevationMin, elevationMax };
     }
