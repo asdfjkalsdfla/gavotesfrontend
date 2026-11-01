@@ -82,20 +82,29 @@ export default function MapScale({
     elevationMin !== undefined &&
     elevationMax !== undefined;
 
-  const showTurnoutFilter = Boolean(turnoutFilter && onTurnoutFilterChange);
+  const isTurnoutElevation =
+    elevationApproach === "turnoutAbsSameDay" || elevationApproach === "turnoutAbs";
 
-  // Compute slider bounds for Same-Day Turnout filter
+  const showTurnoutFilter = Boolean(
+    turnoutFilter &&
+      onTurnoutFilterChange &&
+      ((showElevationScale && isTurnoutElevation) ||
+        colorApproach === "turnoutAbsSameDay" ||
+        turnoutFilter?.enabled),
+  );
+
+  // Compute slider bounds aligned with Height: Turnout Ratio min/max
   const rawMin =
-    turnoutStats?.min !== undefined && turnoutStats?.totalCount > 0
-      ? turnoutStats.min
-      : elevationApproach === "turnoutAbsSameDay" && elevationMin !== undefined
-        ? elevationMin
+    isTurnoutElevation && elevationMin !== undefined
+      ? elevationMin
+      : turnoutStats?.min !== undefined && turnoutStats?.totalCount > 0
+        ? turnoutStats.min
         : 0.5;
   const rawMax =
-    turnoutStats?.max !== undefined && turnoutStats?.totalCount > 0
-      ? turnoutStats.max
-      : elevationApproach === "turnoutAbsSameDay" && elevationMax !== undefined
-        ? elevationMax
+    isTurnoutElevation && elevationMax !== undefined
+      ? elevationMax
+      : turnoutStats?.max !== undefined && turnoutStats?.totalCount > 0
+        ? turnoutStats.max
         : 1.5;
 
   const sliderMin = Math.max(0, Math.floor(rawMin * 100) / 100);
@@ -111,9 +120,125 @@ export default function MapScale({
     return hasParityInRange ? 1.0 : midThreshold;
   };
 
-  const clampedThreshold = turnoutFilter?.threshold !== undefined
-    ? Math.min(sliderMax, Math.max(sliderMin, Number(turnoutFilter.threshold)))
-    : getInitialThreshold();
+  const clampedThreshold =
+    turnoutFilter?.threshold !== undefined
+      ? Math.min(sliderMax, Math.max(sliderMin, Number(turnoutFilter.threshold)))
+      : getInitialThreshold();
+
+  const renderFilterToggleButtons = () => (
+    <div
+      role="group"
+      aria-label="Same-Day Turnout Filter Mode"
+      style={{
+        display: "inline-flex",
+        backgroundColor: "#f1f5f9",
+        borderRadius: "6px",
+        padding: "2px",
+        gap: "2px",
+      }}
+    >
+      {[
+        { key: "off", label: "Off", title: "Show all locations" },
+        { key: "gte", label: "≥ Above", title: "Find locations at or above turnout threshold" },
+        { key: "lte", label: "≤ Below", title: "Find locations at or below turnout threshold" },
+      ].map((btn) => {
+        const isActive =
+          btn.key === "off"
+            ? !turnoutFilter?.enabled
+            : Boolean(turnoutFilter?.enabled && turnoutFilter?.operator === btn.key);
+        return (
+          <button
+            key={btn.key}
+            type="button"
+            title={btn.title}
+            onClick={() => {
+              if (btn.key === "off" || isActive) {
+                onTurnoutFilterChange({ ...turnoutFilter, enabled: false });
+              } else {
+                onTurnoutFilterChange({
+                  enabled: true,
+                  operator: btn.key,
+                  threshold: turnoutFilter?.enabled ? turnoutFilter?.threshold : getInitialThreshold(),
+                });
+              }
+            }}
+            style={{
+              padding: "2px 6px",
+              fontSize: "10px",
+              fontWeight: isActive ? 600 : 500,
+              borderRadius: "4px",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: isActive ? "#1e293b" : "transparent",
+              color: isActive ? "#ffffff" : "#475569",
+              transition: "background-color 0.15s ease, color 0.15s ease",
+            }}
+          >
+            {btn.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  const renderActiveSliderControls = () => (
+    <div style={{ marginTop: 6 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 3,
+          fontSize: "11px",
+        }}
+      >
+        <span style={{ fontWeight: 600, color: "#0f172a" }}>
+          {turnoutFilter?.operator === "lte" ? "≤" : "≥"} {numberFormatRatio.format(clampedThreshold)}×{" "}
+          <span style={{ color: "#64748b", fontWeight: 500 }}>
+            ({numberFormatPercent.format(clampedThreshold)})
+          </span>
+        </span>
+        {turnoutStats?.totalCount > 0 && (
+          <span
+            data-testid="turnout-filter-match-count"
+            style={{
+              fontSize: "10px",
+              fontWeight: 600,
+              padding: "1px 6px",
+              borderRadius: "999px",
+              backgroundColor: turnoutStats.matchCount > 0 ? "#eff6ff" : "#fef2f2",
+              color: turnoutStats.matchCount > 0 ? "#1d4ed8" : "#b91c1c",
+            }}
+          >
+            {turnoutStats.matchCount} / {turnoutStats.totalCount}{" "}
+            {isCountyLevel ? "counties" : "precincts"}
+          </span>
+        )}
+      </div>
+
+      <input
+        type="range"
+        aria-label="Same-Day Turnout Threshold"
+        min={sliderMin}
+        max={sliderMax}
+        step={0.01}
+        value={clampedThreshold}
+        onChange={(e) => {
+          onTurnoutFilterChange({
+            ...turnoutFilter,
+            enabled: true,
+            threshold: parseFloat(e.target.value),
+          });
+        }}
+        style={{
+          width: "100%",
+          cursor: "pointer",
+          accentColor: "#1e293b",
+          margin: "2px 0",
+        }}
+      />
+    </div>
+  );
 
   // Don't render an empty box if nothing applies
   if (!gradientStyle && !isScatterPlot && !showElevationScale && !showTurnoutFilter) {
@@ -218,7 +343,7 @@ export default function MapScale({
         </div>
       )}
 
-      {/* 3D Elevation Height Scale */}
+      {/* 3D Elevation Height Scale (with integrated Turnout Ratio Filter) */}
       {showElevationScale && (
         <div
           style={{
@@ -232,179 +357,49 @@ export default function MapScale({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              gap: 8,
               fontSize: "11px",
               fontWeight: 600,
               color: "#334155",
             }}
           >
-            <span>Height: {elevationApproach === "votes" ? "Absentee Votes" : "Turnout Ratio"}</span>
-            <span
-              aria-hidden="true"
-              style={{ display: "inline-flex", alignItems: "flex-end", gap: 2, height: 12 }}
-            >
-              {[4, 7, 10, 12].map((h) => (
-                <span
-                  key={h}
-                  style={{
-                    width: 3,
-                    height: h,
-                    borderRadius: 1,
-                    backgroundColor: "#64748b",
-                    opacity: 0.35 + (h / 12) * 0.55,
-                  }}
-                />
-              ))}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <span>Height: {elevationApproach === "votes" ? "Absentee Votes" : "Turnout Ratio"}</span>
+              <span
+                aria-hidden="true"
+                style={{ display: "inline-flex", alignItems: "flex-end", gap: 2, height: 12 }}
+              >
+                {[4, 7, 10, 12].map((h) => (
+                  <span
+                    key={h}
+                    style={{
+                      width: 3,
+                      height: h,
+                      borderRadius: 1,
+                      backgroundColor: "#64748b",
+                      opacity: 0.35 + (h / 12) * 0.55,
+                    }}
+                  />
+                ))}
+              </span>
             </span>
+            {showTurnoutFilter && isTurnoutElevation && renderFilterToggleButtons()}
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#64748b", marginTop: 3 }}>
-            <span>{formatElevation(elevationMin)} (Min)</span>
-            <span>{formatElevation(elevationMax)} (Max)</span>
-          </div>
-        </div>
-      )}
 
-      {/* Same-Day Turnout Threshold Filter Control */}
-      {showTurnoutFilter && (
-        <div
-          style={{
-            marginTop: gradientStyle || isScatterPlot || showElevationScale ? 10 : 0,
-            paddingTop: gradientStyle || isScatterPlot || showElevationScale ? 8 : 0,
-            borderTop: gradientStyle || isScatterPlot || showElevationScale ? "1px solid #e2e8f0" : "none",
-          }}
-        >
+          {showTurnoutFilter && isTurnoutElevation && turnoutFilter?.enabled && renderActiveSliderControls()}
+
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              gap: 8,
+              fontSize: "11px",
+              color: "#64748b",
+              marginTop: 4,
             }}
           >
-            <span style={{ fontSize: "11px", fontWeight: 600, color: "#334155" }}>
-              Turnout Filter
-            </span>
-            <div
-              role="group"
-              aria-label="Same-Day Turnout Filter Mode"
-              style={{
-                display: "inline-flex",
-                backgroundColor: "#f1f5f9",
-                borderRadius: "6px",
-                padding: "2px",
-                gap: "2px",
-              }}
-            >
-              {[
-                { key: "off", label: "Off", title: "Show all locations" },
-                { key: "gte", label: "≥ Above", title: "Find locations at or above turnout threshold" },
-                { key: "lte", label: "≤ Below", title: "Find locations at or below turnout threshold" },
-              ].map((btn) => {
-                const isActive =
-                  btn.key === "off"
-                    ? !turnoutFilter.enabled
-                    : turnoutFilter.enabled && turnoutFilter.operator === btn.key;
-                return (
-                  <button
-                    key={btn.key}
-                    type="button"
-                    title={btn.title}
-                    onClick={() => {
-                      if (btn.key === "off") {
-                        onTurnoutFilterChange({ ...turnoutFilter, enabled: false });
-                      } else {
-                        onTurnoutFilterChange({
-                          enabled: true,
-                          operator: btn.key,
-                          threshold: turnoutFilter.enabled ? turnoutFilter.threshold : getInitialThreshold(),
-                        });
-                      }
-                    }}
-                    style={{
-                      padding: "2px 7px",
-                      fontSize: "10px",
-                      fontWeight: isActive ? 600 : 500,
-                      borderRadius: "4px",
-                      border: "none",
-                      cursor: "pointer",
-                      backgroundColor: isActive ? "#1e293b" : "transparent",
-                      color: isActive ? "#ffffff" : "#475569",
-                      transition: "background-color 0.15s ease, color 0.15s ease",
-                    }}
-                  >
-                    {btn.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {turnoutFilter.enabled && (
-            <div style={{ marginTop: 8 }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: 4,
-                  fontSize: "11px",
-                }}
-              >
-                <span style={{ fontWeight: 600, color: "#0f172a" }}>
-                  {turnoutFilter.operator === "lte" ? "≤" : "≥"} {numberFormatRatio.format(clampedThreshold)}×{" "}
-                  <span style={{ color: "#64748b", fontWeight: 500 }}>
-                    ({numberFormatPercent.format(clampedThreshold)})
-                  </span>
-                </span>
-                {turnoutStats?.totalCount > 0 && (
-                  <span
-                    data-testid="turnout-filter-match-count"
-                    style={{
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      padding: "1px 6px",
-                      borderRadius: "999px",
-                      backgroundColor: turnoutStats.matchCount > 0 ? "#eff6ff" : "#fef2f2",
-                      color: turnoutStats.matchCount > 0 ? "#1d4ed8" : "#b91c1c",
-                    }}
-                  >
-                    {turnoutStats.matchCount} / {turnoutStats.totalCount}{" "}
-                    {isCountyLevel ? "counties" : "precincts"}
-                  </span>
-                )}
-              </div>
-
-              <input
-                type="range"
-                aria-label="Same-Day Turnout Threshold"
-                min={sliderMin}
-                max={sliderMax}
-                step={0.01}
-                value={clampedThreshold}
-                onChange={(e) => {
-                  onTurnoutFilterChange({
-                    ...turnoutFilter,
-                    enabled: true,
-                    threshold: parseFloat(e.target.value),
-                  });
-                }}
-                style={{
-                  width: "100%",
-                  cursor: "pointer",
-                  accentColor: "#1e293b",
-                  margin: "2px 0",
-                }}
-              />
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: 2,
-                  fontSize: "10px",
-                  color: "#64748b",
-                }}
-              >
+            {showTurnoutFilter && isTurnoutElevation && turnoutFilter?.enabled ? (
+              <>
                 <button
                   type="button"
                   title="Set threshold to minimum"
@@ -421,10 +416,10 @@ export default function MapScale({
                     padding: 0,
                     color: "#64748b",
                     cursor: "pointer",
-                    fontSize: "10px",
+                    fontSize: "11px",
                   }}
                 >
-                  {numberFormatRatio.format(sliderMin)}×
+                  {formatElevation(elevationMin)} (Min)
                 </button>
                 <button
                   type="button"
@@ -468,14 +463,45 @@ export default function MapScale({
                     padding: 0,
                     color: "#64748b",
                     cursor: "pointer",
-                    fontSize: "10px",
+                    fontSize: "11px",
                   }}
                 >
-                  {numberFormatRatio.format(sliderMax)}×
+                  {formatElevation(elevationMax)} (Max)
                 </button>
-              </div>
-            </div>
-          )}
+              </>
+            ) : (
+              <>
+                <span>{formatElevation(elevationMin)} (Min)</span>
+                <span>{formatElevation(elevationMax)} (Max)</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Fallback Turnout Filter when in 2D Flat mode (no 3D Elevation Scale visible) */}
+      {!showElevationScale && showTurnoutFilter && (
+        <div
+          style={{
+            marginTop: gradientStyle || isScatterPlot ? 10 : 0,
+            paddingTop: gradientStyle || isScatterPlot ? 8 : 0,
+            borderTop: gradientStyle || isScatterPlot ? "1px solid #e2e8f0" : "none",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#334155" }}>
+              Turnout Ratio
+            </span>
+            {renderFilterToggleButtons()}
+          </div>
+          {turnoutFilter?.enabled && renderActiveSliderControls()}
         </div>
       )}
     </div>
