@@ -5,6 +5,9 @@ import {
   processGeoJSONData,
   extractSimpleData,
   convertD3ColorToArray,
+  getTurnoutSameDayValue,
+  createTurnoutFilterPredicate,
+  getTurnoutSameDayStats,
 } from "./mapUtils.js";
 
 describe("mapUtils - createColorFunction", () => {
@@ -305,5 +308,65 @@ describe("mapUtils - convertD3ColorToArray", () => {
   it("converts D3 rgb string to number array", () => {
     expect(convertD3ColorToArray("rgb(120, 45, 200)")).toEqual([120, 45, 200]);
     expect(convertD3ColorToArray("rgb(0, 0, 0)")).toEqual([0, 0, 0]);
+  });
+});
+
+describe("mapUtils - Same-Day Turnout threshold filter utilities", () => {
+  const sampleResults = new Map([
+    ["13001", { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.78 } }],
+    ["13003", { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.0 } }],
+    ["13005", { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.32 } }],
+    ["13007", { absenteeBallotComparison: {} }],
+  ]);
+
+  it("extracts turnoutAbsenteeBallotsSameDay from both GeoJSON features and raw row objects", () => {
+    expect(
+      getTurnoutSameDayValue({
+        properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.15 } },
+      }),
+    ).toBe(1.15);
+    expect(
+      getTurnoutSameDayValue({
+        absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.92 },
+      }),
+    ).toBe(0.92);
+    expect(getTurnoutSameDayValue({})).toBeUndefined();
+    expect(getTurnoutSameDayValue(null)).toBeUndefined();
+  });
+
+  it("creates gte and lte filter predicates and returns null when disabled", () => {
+    expect(createTurnoutFilterPredicate(null)).toBeNull();
+    expect(createTurnoutFilterPredicate({ enabled: false, operator: "gte", threshold: 1.0 })).toBeNull();
+
+    const gteOne = createTurnoutFilterPredicate({ enabled: true, operator: "gte", threshold: 1.0 });
+    expect(gteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.0 } } })).toBe(true);
+    expect(gteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.25 } } })).toBe(true);
+    expect(gteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.99 } } })).toBe(false);
+    expect(gteOne({ properties: {} })).toBe(false);
+
+    const lteOne = createTurnoutFilterPredicate({ enabled: true, operator: "lte", threshold: 1.0 });
+    expect(lteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.85 } } })).toBe(true);
+    expect(lteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.0 } } })).toBe(true);
+    expect(lteOne({ properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.05 } } })).toBe(false);
+  });
+
+  it("computes min, max, matchCount, and totalCount accurately", () => {
+    const statsAll = getTurnoutSameDayStats(sampleResults, { enabled: false, operator: "gte", threshold: 1.0 }, true);
+    expect(statsAll.min).toBeCloseTo(0.78, 2);
+    expect(statsAll.max).toBeCloseTo(1.32, 2);
+    expect(statsAll.totalCount).toBe(3);
+    expect(statsAll.matchCount).toBe(3);
+
+    const statsAboveOne = getTurnoutSameDayStats(sampleResults, { enabled: true, operator: "gte", threshold: 1.0 }, true);
+    expect(statsAboveOne.matchCount).toBe(2);
+    expect(statsAboveOne.totalCount).toBe(3);
+
+    const statsBelowNinety = getTurnoutSameDayStats(
+      sampleResults,
+      { enabled: true, operator: "lte", threshold: 0.9 },
+      true,
+    );
+    expect(statsBelowNinety.matchCount).toBe(1);
+    expect(statsBelowNinety.totalCount).toBe(3);
   });
 });

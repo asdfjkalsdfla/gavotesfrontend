@@ -265,3 +265,54 @@ export const processGeoJSONData = (dataGeoJSONBase, locationResults) => {
 export const extractSimpleData = (dataGeoJSONBase) => {
   return dataGeoJSONBase?.features?.map((feature) => feature.properties) || [];
 };
+
+// Extract Same-Day Absentee Turnout ratio from either a GeoJSON feature or a properties/row object
+export const getTurnoutSameDayValue = (item) => {
+  const props = item?.properties ?? item;
+  const val = props?.absenteeBallotComparison?.turnoutAbsenteeBallotsSameDay;
+  return typeof val === "number" && Number.isFinite(val) ? val : undefined;
+};
+
+// Build a filter predicate for turnoutAbsSameDay threshold filtering
+export const createTurnoutFilterPredicate = (turnoutFilter) => {
+  if (!turnoutFilter || !turnoutFilter.enabled) return null;
+  const threshold = Number(turnoutFilter.threshold);
+  if (!Number.isFinite(threshold)) return null;
+  const operator = turnoutFilter.operator === "lte" ? "lte" : "gte";
+
+  return (item) => {
+    const val = getTurnoutSameDayValue(item);
+    if (val === undefined) return false;
+    return operator === "lte" ? val <= threshold : val >= threshold;
+  };
+};
+
+// Compute min, max, matchCount, and totalCount for turnoutAbsSameDay across locationResults
+export const getTurnoutSameDayStats = (locationResults, turnoutFilter = null, isCountyLevel = true) => {
+  if (!locationResults || typeof locationResults.values !== "function") {
+    return { min: 0, max: 1, matchCount: 0, totalCount: 0 };
+  }
+
+  const values = [...locationResults.values()]
+    .map((datapoint) => getTurnoutSameDayValue(datapoint))
+    .filter((v) => v !== undefined);
+
+  if (values.length === 0) {
+    return { min: 0, max: 1, matchCount: 0, totalCount: 0 };
+  }
+
+  const [min, max] = quantile(values, isCountyLevel ? [0.0, 1.0] : [0.02, 0.98]);
+  const predicate = createTurnoutFilterPredicate(turnoutFilter);
+  const matchCount = predicate
+    ? values.filter((val) =>
+        turnoutFilter.operator === "lte" ? val <= turnoutFilter.threshold : val >= turnoutFilter.threshold,
+      ).length
+    : values.length;
+
+  return {
+    min,
+    max,
+    matchCount,
+    totalCount: values.length,
+  };
+};

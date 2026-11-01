@@ -213,4 +213,33 @@ describe("layerUtils - createMapLayers", () => {
     expect(layers.length).toBe(2);
     expect(layers[1].id).toContain("selection_highlight_13121");
   });
+
+  it("dims and flattens features that do not match the active turnoutFilter", () => {
+    const layers = createMapLayers({
+      colorApproach: "electionResultPerRepublicanPer",
+      elevationApproach: "turnoutAbsSameDay",
+      dataGeoJSON: { type: "FeatureCollection", features: [] },
+      dataPropsOnly: [],
+      updateActiveSelection: () => {},
+      elevationFunction: () => 5000,
+      colorFunction: () => [180, 40, 42],
+      isCountyLevel: true,
+      is3DMode: true,
+      turnoutFilter: { enabled: true, operator: "gte", threshold: 1.0 },
+    });
+
+    const standardLayer = layers[0];
+    const matchingFeature = {
+      properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 1.15 } },
+    };
+    const nonMatchingFeature = {
+      properties: { absenteeBallotComparison: { turnoutAbsenteeBallotsSameDay: 0.82 } },
+    };
+
+    expect(standardLayer.props.getElevation(matchingFeature)).toBe(5000);
+    expect(standardLayer.props.getElevation(nonMatchingFeature)).toBe(0);
+
+    expect(standardLayer.props.getFillColor(matchingFeature)).toEqual([180, 40, 42]);
+    expect(standardLayer.props.getFillColor(nonMatchingFeature)).toEqual([210, 216, 224, 55]);
+  });
 });

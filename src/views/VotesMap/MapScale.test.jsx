@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React from "react";
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MapScale, { toCssColor } from "./MapScale.jsx";
 
 describe("MapScale - toCssColor utility", () => {
@@ -110,5 +110,72 @@ describe("MapScale - Render logic", () => {
     );
 
     expect(container.firstChild).toBeNull();
+  });
+
+  it("integrates Turnout Filter controls directly into the Height: Turnout Ratio section", () => {
+    const mockScale = () => [200, 200, 200];
+    const onFilterChange = vi.fn();
+
+    const { rerender } = render(
+      <MapScale
+        scaleToColorFunction={mockScale}
+        scaleMin={0}
+        scaleMax={1}
+        colorApproach="electionResultPerRepublicanPer"
+        elevationMin={0.73}
+        elevationMax={1.57}
+        elevationApproach="turnoutAbsSameDay"
+        turnoutFilter={{ enabled: false, operator: "gte", threshold: 1.0 }}
+        onTurnoutFilterChange={onFilterChange}
+        turnoutStats={{ min: 0.73, max: 1.57, matchCount: 159, totalCount: 159 }}
+        isCountyLevel={true}
+      />,
+    );
+
+    expect(screen.getByText("Height: Turnout Ratio")).toBeDefined();
+
+    // Click "≥ Above" button to enable filter
+    fireEvent.click(screen.getByText("≥ Above"));
+    expect(onFilterChange).toHaveBeenCalledWith({
+      enabled: true,
+      operator: "gte",
+      threshold: 1.0,
+    });
+
+    // Re-render with filter enabled
+    rerender(
+      <MapScale
+        scaleToColorFunction={mockScale}
+        scaleMin={0}
+        scaleMax={1}
+        colorApproach="electionResultPerRepublicanPer"
+        elevationMin={0.73}
+        elevationMax={1.57}
+        elevationApproach="turnoutAbsSameDay"
+        turnoutFilter={{ enabled: true, operator: "gte", threshold: 1.0 }}
+        onTurnoutFilterChange={onFilterChange}
+        turnoutStats={{ min: 0.73, max: 1.57, matchCount: 42, totalCount: 159 }}
+        isCountyLevel={true}
+      />,
+    );
+
+    expect(screen.getByTestId("turnout-filter-match-count").textContent).toContain("42 / 159 counties");
+
+    // Scrub slider
+    const slider = screen.getByLabelText("Same-Day Turnout Threshold");
+    fireEvent.change(slider, { target: { value: "1.15" } });
+    expect(onFilterChange).toHaveBeenLastCalledWith({
+      enabled: true,
+      operator: "gte",
+      threshold: 1.15,
+    });
+
+    // Clicking the already active "≥ Above" button toggles the filter back off
+    fireEvent.click(screen.getByText("≥ Above"));
+    expect(onFilterChange).toHaveBeenLastCalledWith({
+      enabled: false,
+      operator: "gte",
+      threshold: 1.0,
+    });
   });
 });

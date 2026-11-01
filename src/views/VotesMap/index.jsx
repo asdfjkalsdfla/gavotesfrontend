@@ -14,7 +14,13 @@ import { useGeoJSON } from "../../hooks/useGeoJSON.js";
 import MapScale from "./MapScale.jsx";
 import { useMapPreference } from "./PreferenceContext.tsx";
 import boundingBoxesForCounties from "../../VotesMapCountiesBB.json";
-import { createElevationFunction, createColorFunction, processGeoJSONData, extractSimpleData } from "./mapUtils.js";
+import {
+  createElevationFunction,
+  createColorFunction,
+  processGeoJSONData,
+  extractSimpleData,
+  getTurnoutSameDayStats,
+} from "./mapUtils.js";
 import { createMapLayers, shouldUseScatterPlot } from "./layerUtils.js";
 import { createMapTooltip } from "./tooltipUtils.js";
 
@@ -77,7 +83,20 @@ export default function VotesMap({
 }) {
   const mapRef = useRef();
   const { locationResults } = useElectionData();
-  const { elevationApproach, colorApproach, updateColorApproach } = useMapPreference();
+  const {
+    elevationApproach,
+    colorApproach,
+    updateColorApproach,
+    turnoutFilter: contextTurnoutFilter,
+    updateTurnoutFilter: contextUpdateTurnoutFilter,
+  } = useMapPreference();
+  const [localTurnoutFilter, setLocalTurnoutFilter] = useState({
+    enabled: false,
+    operator: "gte",
+    threshold: 1.0,
+  });
+  const turnoutFilter = contextTurnoutFilter ?? localTurnoutFilter;
+  const updateTurnoutFilter = contextUpdateTurnoutFilter ?? setLocalTurnoutFilter;
   const [userPrefersFlat, setUserPrefersFlat] = useState(false);
   const [heightScaleMultiplier, setHeightScaleMultiplier] = useState(1);
   const is3DMode = elevationApproach !== "none" && !userPrefersFlat;
@@ -278,6 +297,14 @@ export default function VotesMap({
   );
 
   // ************************************************
+  // Calculate Same-Day Turnout Filter Stats
+  // ************************************************
+  const turnoutStats = useMemo(
+    () => getTurnoutSameDayStats(locationResults, turnoutFilter, isCountyLevel),
+    [locationResults, turnoutFilter, isCountyLevel],
+  );
+
+  // ************************************************
   // Layers on the Map
   // ************************************************
   const layers = useMemo(() => {
@@ -293,6 +320,7 @@ export default function VotesMap({
       isCountyLevel,
       is3DMode,
       activeSelection,
+      turnoutFilter,
     });
   }, [
     colorApproach,
@@ -306,6 +334,7 @@ export default function VotesMap({
     isCountyLevel,
     is3DMode,
     activeSelection,
+    turnoutFilter,
   ]);
 
   const effects = useMemo(() => {
@@ -553,7 +582,7 @@ export default function VotesMap({
           getTooltip={getTooltip}
         />
       </Map>
-      {(scaleToColorFunction || isScatterPlot || (is3DMode && !isScatterPlot && elevationApproach !== "none")) && (
+      {(scaleToColorFunction || isScatterPlot || (is3DMode && !isScatterPlot && elevationApproach !== "none") || turnoutFilter?.enabled) && (
         <MapScale
           scaleToColorFunction={scaleToColorFunction}
           scaleMin={scaleMin}
@@ -562,6 +591,10 @@ export default function VotesMap({
           elevationMin={elevationMin}
           elevationMax={elevationMax}
           elevationApproach={is3DMode && !isScatterPlot ? elevationApproach : "none"}
+          turnoutFilter={turnoutFilter}
+          onTurnoutFilterChange={updateTurnoutFilter}
+          turnoutStats={turnoutStats}
+          isCountyLevel={isCountyLevel}
         />
       )}
     </div>

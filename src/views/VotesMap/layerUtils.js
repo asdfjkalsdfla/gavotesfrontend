@@ -1,10 +1,12 @@
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
+import { createTurnoutFilterPredicate } from "./mapUtils.js";
 
 // Constants for layer styling
 const LAYER_STYLES = {
   HIGHLIGHT_COLOR: [255, 248, 196, 85],
   BORDER_COLOR: [40, 40, 40],
   TRANSPARENT_FILL: [158, 158, 158, 0],
+  FILTERED_OUT_FILL: [210, 216, 224, 55],
   DEMOCRATIC_COLOR: [17, 62, 103],
   REPUBLICAN_COLOR: [170, 57, 57],
   BLACK_BORDER: [0, 0, 0, 255],
@@ -24,7 +26,14 @@ const ATTRIBUTE_MAPPING = {
 /**
  * Creates a scatter plot layer for election result visualizations
  */
-export const createScatterPlotLayer = ({ colorApproach, dataPropsOnly, isCountyLevel, circleOpacity = 128 }) => {
+export const createScatterPlotLayer = ({
+  colorApproach,
+  dataPropsOnly,
+  isCountyLevel,
+  circleOpacity = 128,
+  filterPredicate = null,
+  filterKey = "off",
+}) => {
   const attributeForComparison = ATTRIBUTE_MAPPING[colorApproach];
   const isVoteMargin = colorApproach === "electionResultVoteMargin";
 
@@ -56,19 +65,20 @@ export const createScatterPlotLayer = ({ colorApproach, dataPropsOnly, isCountyL
     lineWidthMinPixels: isCountyLevel ? 2 : 1,
     getPosition: (f) => f.centroid,
     getRadius: (f) => {
+      if (filterPredicate && !filterPredicate(f)) return 0;
       const value = getValue(f);
       const baseRadius = Math.sqrt(Math.abs(value));
       const levelMultiplier = isCountyLevel ? 4 : 1.5;
       const approachMultiplier = isVoteMargin ? 1 : 2;
       return baseRadius * levelMultiplier * approachMultiplier;
     },
-    getFillColor: (f) => getColor(getValue(f)),
-    getLineColor: (f) => getLineColor(getValue(f)),
+    getFillColor: (f) => (filterPredicate && !filterPredicate(f) ? [0, 0, 0, 0] : getColor(getValue(f))),
+    getLineColor: (f) => (filterPredicate && !filterPredicate(f) ? [0, 0, 0, 0] : getLineColor(getValue(f))),
     lineWidthPixels: isCountyLevel ? 5 : 1,
     updateTriggers: {
-      getRadius: [colorApproach, dataPropsOnly, isCountyLevel],
-      getFillColor: [colorApproach, dataPropsOnly],
-      getLineColor: [colorApproach, dataPropsOnly],
+      getRadius: [colorApproach, dataPropsOnly, isCountyLevel, filterKey],
+      getFillColor: [colorApproach, dataPropsOnly, filterKey],
+      getLineColor: [colorApproach, dataPropsOnly, filterKey],
     },
   });
 };
@@ -115,8 +125,21 @@ export const createStandardGeoLayer = ({
   colorFunction,
   is3DMode = true,
   isCountyLevel = false,
+  filterPredicate = null,
+  filterKey = "off",
 }) => {
   const isExtruded = Boolean(is3DMode && elevationApproach !== "none");
+
+  const resolvedElevation = isExtruded
+    ? filterPredicate && elevationFunction
+      ? (f) => (filterPredicate(f) ? elevationFunction(f) : 0)
+      : elevationFunction
+    : 0;
+
+  const resolvedFillColor =
+    filterPredicate && colorFunction
+      ? (f) => (filterPredicate(f) ? colorFunction(f) : LAYER_STYLES.FILTERED_OUT_FILL)
+      : colorFunction;
 
   return new GeoJsonLayer({
     id: `geojson_${elevationApproach}_${colorApproach}_${isExtruded ? "3d" : "2d"}`,
@@ -142,8 +165,8 @@ export const createStandardGeoLayer = ({
           specularColor: [38, 38, 38],
         }
       : null,
-    getElevation: isExtruded ? elevationFunction : 0,
-    getFillColor: colorFunction,
+    getElevation: resolvedElevation,
+    getFillColor: resolvedFillColor,
     getLineColor: isExtruded
       ? [20, 25, 35, 220]
       : isCountyLevel
@@ -157,8 +180,8 @@ export const createStandardGeoLayer = ({
       getFillColor: { duration: 400 },
     },
     updateTriggers: {
-      getElevation: [isExtruded, elevationFunction, elevationApproach, dataGeoJSON],
-      getFillColor: [colorFunction, colorApproach, dataGeoJSON],
+      getElevation: [isExtruded, elevationFunction, elevationApproach, dataGeoJSON, filterKey],
+      getFillColor: [colorFunction, colorApproach, dataGeoJSON, filterKey],
     },
   });
 };
@@ -222,8 +245,11 @@ export const createMapLayers = ({
   isCountyLevel,
   is3DMode = true,
   activeSelection = null,
+  turnoutFilter = null,
 }) => {
   const layers = [];
+  const filterPredicate = createTurnoutFilterPredicate(turnoutFilter);
+  const filterKey = turnoutFilter?.enabled ? `${turnoutFilter.operator}_${turnoutFilter.threshold}` : "off";
 
   if (shouldUseScatterPlot(colorApproach)) {
     // Create scatter plot visualization for election results
@@ -231,6 +257,8 @@ export const createMapLayers = ({
       colorApproach,
       dataPropsOnly,
       isCountyLevel,
+      filterPredicate,
+      filterKey,
     });
 
     const geoLayer = createElectionResultGeoLayer({
@@ -253,6 +281,8 @@ export const createMapLayers = ({
       colorFunction,
       isCountyLevel,
       is3DMode,
+      filterPredicate,
+      filterKey,
     });
 
     layers.push(standardLayer);
