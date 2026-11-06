@@ -27,7 +27,7 @@ export function MapsPreferenceContextProvider({ children }: IProps): React.React
 
   // elevation approach
   const elevationApproachParam = search?.elevationApproach;
-  const elevationApproachInitial = elevationApproachParam || "turnoutAbsSameDay";
+  const elevationApproachInitial = elevationApproachParam || "none";
 
   // color approach
   const colorApproachParam = search?.colorApproach;

@@ -27,9 +27,9 @@ export function ElectionSelectionContextProvider({ children }: IProps) {
   // ************************************************
   // races
   const resultsElectionRaceCurrentIDParam: string | undefined = search?.resultsElectionRaceCurrentID;
-  const resultsElectionRaceCurrentIDInitial: string = resultsElectionRaceCurrentIDParam || "2024_general||President";
+  const resultsElectionRaceCurrentIDInitial: string = resultsElectionRaceCurrentIDParam || "2026_general||US Senate";
   const resultsElectionRacePerviousIDParam: string | undefined = search?.resultsElectionRacePerviousID;
-  const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2022_runoff||US Senate";
+  const resultsElectionRacePerviousIDInitial: string = resultsElectionRacePerviousIDParam || "2024_general||President";
 
   const currentElection = elections.find((e) => e.isCurrentElection);
   const [absenteeElectionCurrentID, updateAbsenteeElectionCurrentID] = useState<string>(currentElection?.name || "2026_general");
