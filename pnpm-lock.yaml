@@ -191,11 +191,11 @@ importers:
         specifier: ^4.3.5
         version: 4.3.5(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0))
       '@tanstack/charts':
-        specifier: ^1.1.0
-        version: 1.1.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: ^1.5.0
+        version: 1.5.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@tanstack/react-charts':
-        specifier: ^1.1.0
-        version: 1.1.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: ^1.5.0
+        version: 1.5.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@tanstack/react-query':
         specifier: ^5.107.1
         version: 5.107.1(@types/react@19.3.0)(react@19.3.1)
@@ -1659,8 +1659,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@tanstack/charts@1.1.0':
-    resolution: {integrity: sha512-0mb05yZMrBUzjHBohcKtK1XcTKJH9b8LS2uT0iYjDiLU+QR2jo0hrUJramAgg/AfBLMu2DY5fOgKe5bsqd6z4Q==}
+  '@tanstack/charts@1.5.0':
+    resolution: {integrity: sha512-V6zu8kuTE4lYjZ7MCdSzfI5cwdtj+FKQ4Pr5NwdK+OZ5D4fjegSE7CdVOmk960U8zmgYFabow4hi1wwfqJzUBQ==}
     peerDependencies:
       '@angular/core': '>=19'
       '@angular/platform-browser': '>=19'
@@ -1670,9 +1670,9 @@ packages:
       preact: '>=10'
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
-      react-native: ^0.86.0
+      react-native: ^0.86.0 || ^0.88.0
       react-native-svg: '>=15.15.4 <16'
-      solid-js: '>=1.8'
+      solid-js: ^1.8
       svelte: ^5.20.0
       vue: '>=3.5'
     peerDependenciesMeta:
@@ -1710,8 +1710,8 @@ packages:
   '@tanstack/query-core@5.107.1':
     resolution: {integrity: sha512-PSyAik11oQBEVOiVy5hjZWHmoUqOXqK1WYy4v55mcxozEfKaQgpUMsgnXhWjuESzSht8JfzqMS1m6M/9CpNgvg==}
 
-  '@tanstack/react-charts@1.1.0':
-    resolution: {integrity: sha512-YmbN588Oloq7UzNuPDAroCL658bzYp6Rrbxhs8ACGzIFoeOPWqFB7Fqfl+oifA5k2NxkM8chG12Cqy+BVHOu7g==}
+  '@tanstack/react-charts@1.5.0':
+    resolution: {integrity: sha512-Pn8sI0hH1MUNJEzN+Pp7HX2NOYPkAFn0aQ8gfZgsYxU7ItzxpeVeIbhTgHiYerpGl6tVaU66Eqe3EcmiE0U47A==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -4579,7 +4579,7 @@ snapshots:
       tailwindcss: 4.3.5
       vite: 8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)
 
-  '@tanstack/charts@1.1.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@tanstack/charts@1.5.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@types/d3-force': 3.0.10
       '@types/d3-geo': 3.1.1
@@ -4609,9 +4609,9 @@ snapshots:
 
   '@tanstack/query-core@5.107.1': {}
 
-  '@tanstack/react-charts@1.1.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@tanstack/react-charts@1.5.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@tanstack/charts': 1.1.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/charts': 1.5.0(preact@10.29.8)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
     transitivePeerDependencies:
